@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+  db:
+    restart: always
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf 
+    ports:
+    - target: 3306
+      published: 3306
+      protocol: tcp
+      mode: host
+
+  freepbx:
+    build: .
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+      mode: host
+    depends_on:
+      - db
+    # environment:
+    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  mysql_data:
