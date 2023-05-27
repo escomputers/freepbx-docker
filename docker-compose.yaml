@@ -13,20 +13,16 @@ services:
     - target: 3306
       published: 3306
       protocol: tcp
-      mode: host
 
   freepbx:
     build: .
+    #command: /bin/bash -c /usr/src/freepbx/start_asterisk start
     ports:
     - target: 80
       published: 80
       protocol: tcp
-      mode: host
     depends_on:
       - db
-    # environment:
-    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
 volumes:
   mysql_data:

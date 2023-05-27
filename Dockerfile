@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim
+#FROM debian:bullseye-slim
+FROM httpd:2.4-bullseye
 
 # Set default Shell
 SHELL ["/bin/bash", "-c"]
@@ -7,15 +8,14 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install curl make lsb-release ca-certificates gnupg2 git wget -y
 
 # Install the SURY Repository Signing Key
-RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+#RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
 # Install the SURY Repository for PHP
-RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+#RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
 # Install Required Dependencies
 RUN apt-get update && apt-get -y install \
-build-essential linux-headers-$(uname -r) apache2 \
-  mariadb-client bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
-  php7.4-mysql php7.4-gd php7.4-mbstring php7.4-intl php7.4-xml php-pear \
+build-essential linux-headers-$(uname -r) \
+  mariadb-client bison flex \
   sox libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev \
   pkg-config automake libtool \
   autoconf git uuid uuid-dev libasound2-dev libogg-dev \
@@ -50,23 +50,25 @@ RUN chown -R asterisk. /var/{lib,log,spool}/asterisk
 RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 
 # Apache config
-RUN sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
-RUN cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
-RUN sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-RUN a2enmod rewrite
-RUN service apache2 restart
+# RUN sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
+# RUN cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
+# RUN sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+# RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# RUN a2enmod rewrite
+#RUN service apache2 restart
 
 # Download and install FreePBX
 RUN cd /usr/src
 RUN wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-16.0-latest.tgz
 RUN tar vxfz freepbx-16.0-latest.tgz && rm -f freepbx-16.0-latest.tgz
 RUN touch /etc/asterisk/{modules,cdr}.conf
-RUN cd freepbx && ./start_asterisk start && ./install -n --dbhost=db
+RUN cd freepbx && ./start_asterisk start 
+#&& ./install -n
+#CMD /usr/sbin/apache2 -k start
 
-# Install all Freepbx modules
-RUN fwconsole ma disablerepo commercial
-RUN fwconsole ma installall
-RUN fwconsole ma delete firewall
-RUN fwconsole reload
-RUN fwconsole restart
+# # Install all Freepbx modules
+# RUN fwconsole ma disablerepo commercial
+# RUN fwconsole ma installall
+# RUN fwconsole ma delete firewall
+# RUN fwconsole reload
+# RUN fwconsole restart
