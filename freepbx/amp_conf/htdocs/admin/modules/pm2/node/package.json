@@ -1,0 +1,11 @@
+{
+  "name": "pm2",
+  "version": "0.0.2",
+  "description": "PBX Process Management",
+  "author": "",
+  "license": "AGPL3",
+  "private": true,
+  "dependencies": {
+    "pm2": "4.5.0"
+  }
+}

@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-15 18:30-0700\n"
+"PO-Revision-Date: 2018-05-29 10:53+0000\n"
+"Last-Translator: Stell0 <stefano.fancello@nethesis.it>\n"
+"Language-Team: Italian <http://*/projects/freepbx/infoservices/it/>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.19.1\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+#: infoservices.i18n.php:6
+msgid "Applications"
+msgstr "Applicazioni"
+
+#: functions.inc.php:71 infoservices.i18n.php:16 install.php:7
+msgid "Call Trace"
+msgstr "Ultima Chiamata"
+
+#: infoservices.i18n.php:12
+msgid "Dialplan and Operational"
+msgstr "Dialplan e operativo"
+
+#: install.php:6
+msgid "Directory"
+msgstr "Elenco Telefonico (Directory)"
+
+#: functions.inc.php:105 infoservices.i18n.php:18 install.php:8
+msgid "Echo Test"
+msgstr "Test Eco"
+
+#: infoservices.i18n.php:4 install.php:5
+msgid "Info Services"
+msgstr "Servizi Aggiuntivi"
+
+#: infoservices.i18n.php:8
+msgid ""
+"Provides a number of applications accessible by feature codes: company "
+"directory, call trace (last call information), echo test, speaking clock, "
+"and speak current extension number."
+msgstr ""
+"Fornisce un numero di applicazioni accessibili tramite i codici funzione: "
+"directory dell'azienda, traccia di chiamata (ultime informazioni sulla "
+"chiamata), test eco, orologio parlante e parla il numero dell'interno "
+"corrente."
+
+#: functions.inc.php:286
+msgid "Speak Extension"
+msgstr "Parla Extension"
+
+#: infoservices.i18n.php:20 install.php:10
+msgid "Speak Your Exten Number"
+msgstr "Riproduce il Numero d'Interno"
+
+#: functions.inc.php:197 infoservices.i18n.php:22 install.php:9
+msgid "Speaking Clock"
+msgstr "Data e Ora"
+
+#: infoservices.i18n.php:10
+msgid "Speaking Clock Time Format"
+msgstr "formato orario dell'orologio parlante"
+
+#: infoservices.i18n.php:14
+msgid "Time format to use with the Speaking Clock."
+msgstr "Formato orario da utilizzare con l'orologio parlante."
+
+#: install.php:61
+msgid "could not delete"
+msgstr "impossibile cancellare"
+
+#: install.php:56
+msgid "deleting TIMEFORMAT from globals.."
+msgstr "eliminazione di TIMEFORMAT da globals .."
+
+#: install.php:59
+msgid "done"
+msgstr "fatto"
+
+#: install.php:55
+msgid "migrated TIMEFORMAT to Advanced Settings"
+msgstr "migrato TIMEFORMAT alle impostazioni avanzate"

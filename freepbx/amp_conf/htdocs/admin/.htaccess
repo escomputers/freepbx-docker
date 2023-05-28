@@ -1,0 +1,47 @@
+#	License for all code of this FreePBX module can be found in the license file inside the module directory
+#	Copyright 2013-2015 Schmooze Com Inc.
+#	Copyright 2016 Sangoma Technologies Corporation
+#
+# This is here to present a warning in the GUI if it's not parsed. If this isn't parsed,
+# you need to manually add these blocks to however you're managing ACLs on your web server
+SetEnv HTACCESS on
+
+# Apache 2.2
+<IfModule !mod_authz_core.c>
+	# Disallow all . files, such as .htaccess or .git
+	<FilesMatch "\..*$">
+		Deny from all
+	</FilesMatch>
+	# Allow index, config, and ajax.php, as well as all our image types.
+	<FilesMatch "(^$|index\.html|index\.php|config\.php|ajax\.php|\.(map|gif|GIF|jpg|jpeg|png|css|js|swf|txt|ico|ttf|svg|eot|woff|woff2|wav|mp3|aac|ogg|webm|gz)$)">
+		Allow from all
+	</FilesMatch>
+</IfModule>
+
+# Apache 2.4
+<IfModule mod_authz_core.c>
+	# Disallow all . files, such as .htaccess or .git
+	<FilesMatch "\..*$">
+		Require all denied
+	</FilesMatch>
+	# Allow index, config, and ajax.php, as well as all our image types.
+	<FilesMatch "(^$|index\.html|index\.php|config\.php|ajax\.php|\.(map|gif|GIF|jpg|jpeg|png|css|js|swf|txt|ico|ttf|svg|eot|woff|woff2|wav|mp3|aac|ogg|webm|gz)$)">
+		Require all granted
+	</FilesMatch>
+</IfModule>
+
+<IfModule php7_module>
+	php_value max_input_vars 5000
+</IfModule>
+
+RewriteEngine on
+#RewriteCond %{ENV:REDIRECT_STATUS} 200
+#RewriteRule ^ - [L]
+#RewriteRule ^config.php - [L,QSA]
+#RewriteRule ^ajax.php - [L,QSA]
+RewriteRule \.git/ - [F]
+RewriteRule libraries - [F]
+RewriteRule helpers - [F]
+RewriteRule i18n - [F]
+RewriteRule node - [F]
+RewriteRule views/.+php$ - [F]

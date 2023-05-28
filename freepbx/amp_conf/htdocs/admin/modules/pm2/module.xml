@@ -1,0 +1,34 @@
+<module>
+	<rawname>pm2</rawname>
+	<repo>standard</repo>
+	<name>Process Management</name>
+	<version>16.0.8</version>
+	<publisher>Sangoma Technologies Corporation</publisher>
+	<license>AGPLv3+</license>
+	<licenselink>http://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
+	<category>Admin</category>
+	<description>This module manages background processes for your PBX</description>
+	<changelog>
+		*16.0.8* Packaging of ver 16.0.8
+		*16.0.7* Bugfix/FREEI-4544 
+		*16.0.6* Packaging of ver 16.0.6
+		*16.0.5* FREEI-3746 handle error condition if process is stopped 
+		*16.0.4* Packaging of ver 16.0.4
+		*16.0.3* FREEI-3308 Fix pm2 summary info 
+		*16.0.2* FREEI-2942 pm2 apps and their status along with utest
+		*16.0.1* 16.0
+	</changelog>
+	<hooks>
+		<framework class="Chown" namespace="FreePBX\Console\Command">
+			<method callingMethod="fwcChownFiles" class="Pm2" namespace="FreePBX\modules">chownFreepbx</method>
+		</framework>
+	</hooks>
+	<console>
+		<command>
+			<name>pm2</name>
+		</command>
+	</console>
+	<supported>
+		<version>16.0</version>
+	</supported>
+</module>

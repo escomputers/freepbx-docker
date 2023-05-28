@@ -1,0 +1,228 @@
+#!/bin/sh
+
+ASTETCDIR="__ASTERISK_ETC_DIR__"
+ASTSBINDIR="__ASTERISK_SBIN_DIR__"
+ASTVARRUNDIR="__ASTERISK_VARRUN_DIR__"
+ASTVARLOGDIR="__ASTERISK_LOG_DIR__"
+
+CLIARGS="$*"			# Grab any args passed to safe_asterisk
+TTY=9				# TTY (if you want one) for Asterisk to run on
+CONSOLE=yes			# Whether or not you want a console
+#NOTIFY=root@localhost		# Who to notify about crashes
+#EXEC=/path/to/somescript	# Run this command if Asterisk crashes
+#LOGFILE="${ASTVARLOGDIR}/safe_asterisk.log"	# Where to place the normal logfile (disabled if blank)
+#SYSLOG=local0			# Which syslog facility to use (disabled if blank)
+MACHINE=`hostname`		# To specify which machine has crashed when getting the mail
+DUMPDROP="${DUMPDROP:-/tmp}"
+RUNDIR="${RUNDIR:-/tmp}"
+SLEEPSECS=4
+ASTPIDFILE="${ASTVARRUNDIR}/asterisk.pid"
+
+# comment this line out to have this script _not_ kill all mpg123 processes when
+# asterisk exits
+KILLALLMPG123=1
+
+# run asterisk with this priority
+PRIORITY=0
+
+# set system filemax on supported OSes if this variable is set
+# SYSMAXFILES=262144
+
+# Asterisk allows full permissions by default, so set a umask, if you want
+# restricted permissions.
+#UMASK=022
+
+# set max files open with ulimit. On linux systems, this will be automatically
+# set to the system's maximum files open devided by two, if not set here.
+# MAXFILES=32768
+
+message() {
+	if test -n "$TTY" && test "$TTY" != "no"; then
+		echo "$1" >/dev/${TTY}
+	fi
+	if test -n "$SYSLOG"; then
+		logger -p "${SYSLOG}.warn" -t safe_asterisk[$$] "$1"
+	fi
+	if test -n "$LOGFILE"; then
+		echo "safe_asterisk[$$]: $1" >>"$LOGFILE"
+	fi
+}
+
+# Check if Asterisk is already running.  If it is, then bug out, because
+# starting safe_asterisk when Asterisk is running is very bad.
+VERSION=`"${ASTSBINDIR}/asterisk" -nrx 'core show version' 2>/dev/null`
+if test "`echo $VERSION | cut -c 1-8`" = "Asterisk"; then
+	message "Asterisk is already running.  $0 will exit now."
+	exit 1
+fi
+
+# since we're going to change priority and open files limits, we need to be
+# root. if running asterisk as other users, pass that to asterisk on the command
+# line.
+# if we're not root, fall back to standard everything.
+if test `id -u` != 0; then
+	echo "Oops. I'm not root. Falling back to standard prio and file max." >&2
+	echo "This is NOT suitable for large systems." >&2
+	PRIORITY=0
+	message "safe_asterisk was started by `id -n` (uid `id -u`)."
+else
+	if `uname -s | grep Linux >/dev/null 2>&1`; then
+		# maximum number of open files is set to the system maximum
+		# divided by two if MAXFILES is not set.
+		if test -z "$MAXFILES"; then
+			# just check if file-max is readable
+			if test -r /proc/sys/fs/file-max; then
+				MAXFILES=$((`cat /proc/sys/fs/file-max` / 2))
+				# don't exceed upper limit of 2^20 for open
+				# files on systems where file-max is > 2^21
+				if test $MAXFILES -gt 1048576; then
+					MAXFILES=1048576
+				fi
+			fi
+		fi
+		SYSCTL_MAXFILES="fs.file-max"
+	elif `uname -s | grep Darwin /dev/null 2>&1`; then
+		SYSCTL_MAXFILES="kern.maxfiles"
+	fi
+
+
+	if test -n "$SYSMAXFILES"; then
+		if test -n "$SYSCTL_MAXFILES"; then
+			sysctl -w $SYSCTL_MAXFILES=$SYSMAXFILES
+		fi
+	fi
+
+	# set the process's filemax to whatever set above
+	ulimit -n $MAXFILES
+
+	if test ! -d "${ASTVARRUNDIR}"; then
+		mkdir -p "${ASTVARRUNDIR}"
+		chmod 770 "${ASTVARRUNDIR}"
+	fi
+
+fi
+
+if test -n "$UMASK"; then
+	umask $UMASK
+fi
+
+#
+# Let Asterisk dump core
+#
+ulimit -c unlimited
+
+#
+# Don't fork when running "safely"
+#
+ASTARGS=""
+if test -n "$TTY" && test "$TTY" != "no"; then
+	if test -c /dev/tty${TTY}; then
+		TTY=tty${TTY}
+	elif test -c /dev/vc/${TTY}; then
+		TTY=vc/${TTY}
+	elif test "$TTY" = "9"; then  # ignore default if it was untouched
+		# If there is no /dev/tty9 and not /dev/vc/9 we don't
+		# necessarily want to die at this point. Pretend that
+		# TTY wasn't set.
+		TTY=
+	else
+		message "Cannot find specified TTY (${TTY})"
+		exit 1
+	fi
+	if test -n "$TTY"; then
+		ASTARGS="${ASTARGS} -vvvg"
+		if test "$CONSOLE" != "no"; then
+			ASTARGS="${ASTARGS} -c"
+		fi
+	fi
+fi
+
+if test ! -d "${RUNDIR}"; then
+	message "${RUNDIR} does not exist, creating"
+	if ! mkdir -p "${RUNDIR}"; then
+		message "Unable to create ${RUNDIR}"
+		exit 1
+	fi
+fi
+
+if test ! -w "${DUMPDROP}"; then
+	message "Cannot write to ${DUMPDROP}"
+	exit 1
+fi
+
+#
+# Don't die if stdout/stderr can't be written to
+#
+trap '' PIPE
+
+#
+# Run scripts to set any environment variables or do any other system-specific setup needed
+#
+
+if test -d "${ASTETCDIR}/startup.d"; then
+	for script in "${ASTETCDIR}/startup.d/"*.sh; do
+		if test -r "${script}"; then
+			. "${script}"
+		fi
+	done
+fi
+
+run_asterisk()
+{
+	while :; do
+		if test -n "$TTY" && test "$TTY" != "no"; then
+			cd "${RUNDIR}"
+			stty sane </dev/${TTY}
+			nice -n $PRIORITY "${ASTSBINDIR}/asterisk" -f ${CLIARGS} ${ASTARGS} >/dev/${TTY} 2>&1 </dev/${TTY}
+		else
+			cd "${RUNDIR}"
+			nice -n $PRIORITY "${ASTSBINDIR}/asterisk" -f ${CLIARGS} ${ASTARGS} >/dev/null 2>&1 </dev/null
+		fi
+		EXITSTATUS=$?
+		message "Asterisk ended with exit status $EXITSTATUS"
+		if test $EXITSTATUS -eq 0; then
+			# Properly shutdown....
+			message "Asterisk shutdown normally."
+			exit 0
+		elif test $EXITSTATUS -gt 128; then
+			EXITSIGNAL=$((EXITSTATUS - 128))
+			message "Asterisk exited on signal $EXITSIGNAL."
+			if test -n "$NOTIFY"; then
+				echo "Asterisk on $MACHINE exited on signal $EXITSIGNAL.  Might want to take a peek." | \
+				mail -s "Asterisk on $MACHINE died (sig $EXITSIGNAL)" $NOTIFY
+			fi
+			if test -n "$EXEC"; then
+				$EXEC
+			fi
+
+			PID=`cat ${ASTPIDFILE}`
+			DATE=`date "+%Y-%m-%dT%H:%M:%S%z"`
+			if test -f "${RUNDIR}/core.${PID}"; then
+				mv "${RUNDIR}/core.${PID}" "${DUMPDROP}/core.`hostname`-$DATE" &
+			elif test -f "${RUNDIR}/core"; then
+				mv "${RUNDIR}/core" "${DUMPDROP}/core.`hostname`-$DATE" &
+			fi
+		else
+			message "Asterisk died with code $EXITSTATUS."
+
+			PID=`cat ${ASTPIDFILE}`
+			DATE=`date "+%Y-%m-%dT%H:%M:%S%z"`
+			if test -f "${RUNDIR}/core.${PID}"; then
+				mv "${RUNDIR}/core.${PID}" "${DUMPDROP}/core.`hostname`-$DATE" &
+			elif test -f "${RUNDIR}/core"; then
+				mv "${RUNDIR}/core" "${DUMPDROP}/core.`hostname`-$DATE" &
+			fi
+		fi
+		message "Automatically restarting Asterisk."
+		sleep $SLEEPSECS
+		if test "0$KILLALLMPG123" -gt 0; then
+			pkill -9 mpg123
+		fi
+	done
+}
+
+if test -n "$ASTSAFE_FOREGROUND"; then
+	run_asterisk
+else
+	run_asterisk &
+fi

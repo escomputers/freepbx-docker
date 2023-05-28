@@ -1,0 +1,608 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for logfiles
+# Copyright (C) 2008-2017 Sangoma Technologies, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-23 10:20+0000\n"
+"PO-Revision-Date: 2017-07-08 19:30+0200\n"
+"Last-Translator: PETER <ftek@ymail.com>\n"
+"Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
+"logfiles/vi/>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: Logfiles.class.php:365
+msgid "?"
+msgstr ""
+
+#: views/view.settings.logfiles.php:68
+msgid "Actions"
+msgstr ""
+
+#: views/view.log.header.php:68
+msgid "Activate full screen mode. Press ESC to exit full screen mode."
+msgstr ""
+
+#: views/view.settings.logfiles.php:79
+msgid "Activate remote log"
+msgstr ""
+
+#: views/view.settings.general.php:30
+msgid "Append Hostname"
+msgstr "Kèm thêm Hostname"
+
+#: views/view.settings.general.php:31
+msgid "Appends the hostname to the name of the log files"
+msgstr "Kèm thêm hostname vào tên của các tệp log"
+
+#: views/view.log.header.php:83
+msgid "Apply Filter"
+msgstr ""
+
+#: views/view.log.header.php:101
+msgid "Apply Highlight"
+msgstr ""
+
+#: Logfiles.class.php:376 Logfiles.class.php:383
+#, php-format
+msgid "Are you confirming that you want to remove this file (%s)?"
+msgstr ""
+
+#: views/page.logs.php:2
+msgid "Asterisk Log Files"
+msgstr "Các tệp log của Asterisk"
+
+#: logfiles.i18n.php:12
+msgid "Asterisk Logfile Settings"
+msgstr "Cài đặt logfile Asterisk"
+
+#: logfiles.i18n.php:4 logfiles.i18n.php:10
+msgid "Asterisk Logfiles"
+msgstr "Các tệp Log của Asterisk"
+
+#: views/view.log.header.php:114
+msgid "Auto-Scroll"
+msgstr ""
+
+#: views/view.log.header.php:176
+msgid "Buffer Size"
+msgstr ""
+
+#: Logfiles.class.php:382
+msgid "Cancel"
+msgstr ""
+
+#: views/view.log.header.php:86
+msgid "Clean Filter"
+msgstr ""
+
+#: views/view.log.header.php:104
+msgid "Clean Highlight"
+msgstr ""
+
+#: Logfiles.class.php:406
+msgid "Command not found!"
+msgstr ""
+
+#: Logfiles.class.php:373
+msgid "Copy to clipboard successful."
+msgstr ""
+
+#: Logfiles.class.php:384
+msgid "Create"
+msgstr ""
+
+#: views/view.settings.logfiles.php:31
+msgid "Critical errors and issues"
+msgstr "Các vấn đề và lỗi nghiêm trọng"
+
+#: views/view.settings.general.php:6
+msgid ""
+"Customize the display of debug message time stamps. See strftime(3) Linux "
+"manual for format specifiers. Note that there is also a fractional second "
+"parameter which may be used in this field.  Use %1q for tenths, %2q for "
+"hundredths, etc."
+msgstr ""
+"Tùy chỉnh hiển thị của các time stamp thông báo gỡ lỗi . Xem sổ tay hướng "
+"dẫn strftime (3) Linux để biết thêm về các định dạng. Lưu ý rằng có một tham "
+"số nhị phân có thể được sử dụng trong trường này. Sử dụng% 1q cho một phần "
+"mười,% 2q cho một phần trăm, v.v ..."
+
+#: views/view.settings.logfiles.php:24
+msgid "DTMF"
+msgstr "DTMF"
+
+#: views/view.settings.general.php:5
+msgid "Date Format"
+msgstr "Định dạng ngày tháng"
+
+#: views/view.settings.logfiles.php:16
+msgid "Debug"
+msgstr "Gỡ"
+
+#: views/view.log.header.php:21
+msgid "Delete File"
+msgstr ""
+
+#: Logfiles.class.php:366 Logfiles.class.php:385 views/view.log.header.php:45
+#: views/view.log.header.php:51
+msgid "Disabled"
+msgstr ""
+
+#: Logfiles.class.php:386
+msgid "Enabled"
+msgstr ""
+
+#: views/view.settings.logfiles.php:30
+msgid "Error"
+msgstr "Lỗi"
+
+#: views/view.log.header.php:24
+msgid "Export File"
+msgstr ""
+
+#: Logfiles.class.php:353
+msgid "Failure Removal Process!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:36
+msgid "Fax"
+msgstr "Fax"
+
+#: views/view.settings.logfiles.php:4
+msgid "File Name"
+msgstr "Tên tệp"
+
+#: Logfiles.class.php:228
+msgid "File clean successfully."
+msgstr ""
+
+#: Logfiles.class.php:401
+msgid "File not found!"
+msgstr ""
+
+#: Logfiles.class.php:224
+msgid "File removed successfully."
+msgstr ""
+
+#: views/view.log.header.php:9
+msgid "Files"
+msgstr ""
+
+#: views/view.log.header.php:80
+msgid "Filter"
+msgstr "Bộ lọc"
+
+#: views/page.settings.php:10
+msgid "General Settings"
+msgstr "Cài đặt chung"
+
+#: views/view.log.header.php:97
+msgid "Highlight"
+msgstr ""
+
+#: views/view.settings.logfiles.php:11
+msgid ""
+"If the file status is disabled it will be skipped during the asterisk "
+"configuration files creation process."
+msgstr ""
+
+#: Logfiles.class.php:837
+msgid "Invalid pattern to filter!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:25
+msgid ""
+"Keypresses as understood by asterisk. Usefull for debuging IVR and VM issues."
+msgstr ""
+"Asterisk sẽ hiểu các nút nhấn. Giups ích cho việc gỡ các vấn đề về IVR và VM."
+
+#: views/view.settings.general.php:9
+msgid ""
+"Leave blank for default: ISO 8601 date format yyyy-mm-dd HH:MM:SS (%F %T)"
+msgstr ""
+"Theo mặc định để trống: ISO 8601 định dạng ngày tháng yyyy-mm-dd HH:MM:SS "
+"(%F %T)"
+
+#: views/view.log.header.php:34
+msgid "Lines"
+msgstr "Các đường dây"
+
+#: views/view.settings.general.php:132
+msgid "Loading..."
+msgstr "Đang tải..."
+
+#: views/page.settings.php:2
+msgid "Log File Settings"
+msgstr "Cài đặt tệp log"
+
+#: views/page.settings.php:13
+msgid "Log Files"
+msgstr "Các tệp Log"
+
+#: views/view.settings.general.php:40
+msgid "Log Queues"
+msgstr "Các hàng log"
+
+#: views/view.settings.general.php:15
+msgid "Log Rotation"
+msgstr "Xoay vòng Log"
+
+#: Logfiles.class.php:375
+msgid "Log loading completed successfully."
+msgstr ""
+
+#: views/view.settings.general.php:41
+msgid "Log queue events to a file"
+msgstr "Các sự kiện hàng Log đến một tệp"
+
+#: views/view.settings.logfiles.php:43
+msgid ""
+"Messages of specific actions, such as a phone registration or call completion"
+msgstr ""
+"Tin nhắn thống báo của các thao tác nhất định, ví dụ đăng ký cuộc gọi hay "
+"hoàn thành cuộc gọi"
+
+#: views/view.settings.logfiles.php:17
+msgid ""
+"Messages used for debuging. Do not report these as error's unless you have a "
+"specific issue that you are attempting to debug. Also note that Debug "
+"messages are also very verbose and can and do fill up logfiles (and disk "
+"storage) quickly."
+msgstr ""
+"Thông điệp sử dụng cho việc gỡ lỗi. Đừng nên báo cáo các đây là lỗi trừ khi "
+"bạn có một lỗi cụ thể và đang cố gỡ chúng. Cũng lưu ý rằng các thông điệp gỡ "
+"lỗi cũng rất rườm rà và có thể và làm đầy các tệp log (và bộ nhớ đĩa) rất "
+"nhanh."
+
+#: Logfiles.class.php:242 Logfiles.class.php:261 Logfiles.class.php:306
+msgid "Missing data!"
+msgstr ""
+
+#: Logfiles.class.php:180 Logfiles.class.php:217
+msgid "Missing file name!"
+msgstr ""
+
+#: Logfiles.class.php:289 Logfiles.class.php:302 Logfiles.class.php:332
+msgid "Missing name!"
+msgstr ""
+
+#: Logfiles.class.php:388
+msgid "Missing the name of the file!"
+msgstr ""
+
+#: views/view.log.header.php:128
+msgid "More Options"
+msgstr ""
+
+#: Logfiles.class.php:390
+msgid "Name is not defined!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:5
+msgid ""
+"Name of file, relative to Asterisk logpath. Use absolute path for a "
+"different location"
+msgstr ""
+"Tên tệp, liên quan đến đường dẫn Log Asterisk. Sử dụng đường dẫn cho một vị "
+"trí khác"
+
+#: views/view.settings.logfiles.php:87
+msgid "New Log"
+msgstr ""
+
+#: Logfiles.class.php:367 Logfiles.class.php:391
+#: views/view.settings.general.php:34 views/view.settings.general.php:44
+msgid "No"
+msgstr "Không"
+
+#: Logfiles.class.php:368 views/view.settings.general.php:21
+msgid "None"
+msgstr ""
+
+#: views/view.settings.general.php:16
+msgid ""
+"None: Do not perform any log rotation at all.  You should make very sure to "
+"set up some external log rotate mechanism as the asterisk logs can get very "
+"large, very quickly."
+msgstr ""
+
+#: views/view.settings.logfiles.php:42
+msgid "Notice"
+msgstr "Lưu ý"
+
+#: Logfiles.class.php:392
+msgid "Off"
+msgstr "Tắt"
+
+#: Logfiles.class.php:393
+msgid "On"
+msgstr "Bật"
+
+#: Logfiles.class.php:314 Logfiles.class.php:344
+msgid "Operation not allowed!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:56
+msgid "Possible issues with dialplan syntaxt or call flow, but not critical."
+msgstr ""
+"Các vấn đề có thể xảy ra với kế hoạch quay số syntaxt  hoặc dòng cuộc gọi, "
+"nhưng không quan trọng."
+
+#: views/view.log.header.php:42
+msgid "Refresh Interval"
+msgstr ""
+
+#: views/view.settings.general.php:110 views/view.settings.general.php:137
+msgid "Reload"
+msgstr ""
+
+#: views/view.log.header.php:18
+msgid "Reload File"
+msgstr ""
+
+#: views/view.log.header.php:12
+msgid "Reload List"
+msgstr ""
+
+#: Logfiles.class.php:394
+msgid "Remove"
+msgstr ""
+
+#: Logfiles.class.php:348
+msgid "Remove Successful"
+msgstr ""
+
+#: logfiles.i18n.php:6
+msgid "Reports"
+msgstr "Báo cáo"
+
+#: views/view.settings.general.php:23
+msgid "Rotate"
+msgstr "Xoay vòng"
+
+#: views/view.settings.general.php:18
+msgid ""
+"Rotate: Rotate all the old files, such that the oldest has the highest "
+"sequence number (expected behavior for Unix administrators)."
+msgstr ""
+"Xuay vòng: xuay vòng tất cả các tệp cũ, ví dụ như các tệp cũ nhất có số thứ "
+"tự cao nhất ( hành vi mong muốn cho các quản trị viên Unix)."
+
+#: Logfiles.class.php:395 views/view.settings.general.php:134
+msgid "Save"
+msgstr ""
+
+#: Logfiles.class.php:323
+msgid "Save Failed!"
+msgstr ""
+
+#: Logfiles.class.php:318
+msgid "Save Successful"
+msgstr ""
+
+#: Logfiles.class.php:369
+msgid "Searching..."
+msgstr ""
+
+#: Logfiles.class.php:370 views/view.log.header.php:58
+msgid "Seconds"
+msgstr ""
+
+#: views/view.settings.logfiles.php:62
+msgid "Security"
+msgstr "Bảo mật"
+
+#: views/view.settings.general.php:22
+msgid "Sequential"
+msgstr "Theo thứ tự"
+
+#: views/view.settings.general.php:17
+msgid ""
+"Sequential: Rename archived logs in order, such that the newest has the "
+"highest sequence number"
+msgstr ""
+"Theo thứ tự: Đổi tên các log được lưu giữ theo thứ tự, sao cho bản ghi mới "
+"nhất có số thứ tự cao nhất"
+
+#: Logfiles.class.php:246 Logfiles.class.php:265
+msgid "Setting not allowed!"
+msgstr ""
+
+#: views/view.settings.general.php:31
+msgid ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection.  It is strongly recommended that this setting be set to 'no'."
+msgstr ""
+
+#: Logfiles.class.php:1040
+msgid ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection. It is strongly recommended that this setting be set to: no."
+msgstr ""
+
+#: views/view.log.header.php:150
+msgid "Show Line Spacing"
+msgstr ""
+
+#: views/view.log.header.php:163
+msgid "Show Only Row's Highlight"
+msgstr ""
+
+#: views/view.log.header.php:137
+msgid "Show Row Numbers"
+msgstr ""
+
+#: views/view.settings.logfiles.php:10
+msgid "Status"
+msgstr ""
+
+#: views/view.settings.logfiles.php:49
+msgid ""
+"Step-by-step messages of every step of a call flow. Always enable and review "
+"if calls dont flow as expected"
+msgstr ""
+
+#: Logfiles.class.php:271
+msgid "Successful Update"
+msgstr ""
+
+#: logfiles.i18n.php:8
+msgid ""
+"The Asterisk Logfiles Module is an easy way to view portions of the Asterisk "
+"Log."
+msgstr ""
+
+#: Logfiles.class.php:749 Logfiles.class.php:804
+msgid "The file was not found!"
+msgstr ""
+
+#: Logfiles.class.php:338
+msgid "The filename not exist!"
+msgstr ""
+
+#: Logfiles.class.php:757 Logfiles.class.php:812
+msgid "The log file does not exist!"
+msgstr ""
+
+#: Logfiles.class.php:374
+msgid "The log file has fewer lines, the reload was successful."
+msgstr ""
+
+#: Logfiles.class.php:387
+msgid "The name of the file is already in use!"
+msgstr ""
+
+#: Logfiles.class.php:827
+msgid "The specified lines value is not a numeric value!"
+msgstr ""
+
+#: Logfiles.class.php:762 Logfiles.class.php:817
+msgid "The specified name is not from a file!"
+msgstr ""
+
+#: Logfiles.class.php:822
+msgid "There is no permission to read this log file!"
+msgstr ""
+
+#: Logfiles.class.php:767
+msgid "There is no permission to write this log file!"
+msgstr ""
+
+#: views/view.settings.general.php:24
+msgid "Timestamp"
+msgstr "Dấu thời gian (Timestamp)"
+
+#: views/view.settings.general.php:19
+msgid ""
+"Timestamp: Rename the logfiles using a timestamp instead of a sequence "
+"number when \"logger rotate\" is executed."
+msgstr ""
+"Timestamp: Đổi tên các tệp log sử dụng timestamp thay thế cho số thứ tự khi "
+"thực hiện \"logger rotate\"."
+
+#: views/view.settings.logfiles.php:80
+msgid ""
+"To activate the remote log, you must enable the file \"syslog.local0\" and "
+"add the following line in syslog."
+msgstr ""
+
+#: views/view.settings.logfiles.php:37
+msgid "Transmition and receiving of faxes"
+msgstr "Việc truyền và nhận fax"
+
+#: Logfiles.class.php:389
+msgid "Unknow error!"
+msgstr ""
+
+#: Logfiles.class.php:276
+msgid "Update process failed!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:48
+msgid "Verbose"
+msgstr "Rườm rà"
+
+#: views/view.settings.logfiles.php:55
+msgid "Warning"
+msgstr "Cảnh báo"
+
+#: Logfiles.class.php:371 Logfiles.class.php:396
+#: views/view.settings.general.php:33 views/view.settings.general.php:43
+msgid "Yes"
+msgstr "Có"
+
+#: Logfiles.class.php:1040
+msgid "appendhostname is set to: Yes."
+msgstr ""
+
+#~ msgid "Add Log"
+#~ msgstr "Thêm Log"
+
+#~ msgid ""
+#~ "Apply PCRE regex filter to the log output. <br/>This filters through the "
+#~ "lines specified."
+#~ msgstr ""
+#~ "Áp dụng bộ lọc regex PCRE vào đầu ra bản ghi. <br/> Bộ lọc này thông qua "
+#~ "các đường dây xác định."
+
+#~ msgid "Delete"
+#~ msgstr "Xóa"
+
+#~ msgid "Error parsing log file or file not found!"
+#~ msgstr "Lỗi phân tích tệp log hoặc không tìm thấy tệp!"
+
+#~ msgid "Field"
+#~ msgstr "Trường"
+
+#~ msgid "File"
+#~ msgstr "Tệp"
+
+#~ msgid "Information"
+#~ msgstr "Thông tin"
+
+#~ msgid "Invalid pattern"
+#~ msgstr "Mẫu ( pattern) không hợp lệ"
+
+#~ msgid "Log file settings"
+#~ msgstr "Cài đặt tệp Log"
+
+#~ msgid "Logfile Help"
+#~ msgstr "Trợ giúp logfile"
+
+#~ msgid "No lines returned"
+#~ msgstr "Không có đường dây nào trở lại"
+
+#~ msgid "Reset"
+#~ msgstr "Cài đặt lại"
+
+#~ msgid "Show"
+#~ msgstr "Hiển thị"
+
+#~ msgid "Submit"
+#~ msgstr "Gửi đi"
+
+#~ msgid "View Logs"
+#~ msgstr "Xem Log"
+
+#~ msgid "failed"
+#~ msgstr "Không thành công"
+
+#~ msgid "logger.conf symlinked to incorrect file:"
+#~ msgstr "Logger.conf được liên kết đến tệp không đúng:"
+
+#~ msgid "ok"
+#~ msgstr "ok"
+
+#~ msgid "removing.."
+#~ msgstr "Đang xóa..."

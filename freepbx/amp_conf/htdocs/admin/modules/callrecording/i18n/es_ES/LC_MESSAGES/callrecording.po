@@ -1,0 +1,242 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for callrecording
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 06:15+0000\n"
+"PO-Revision-Date: 2016-12-11 05:38+0200\n"
+"Last-Translator: Ernesto <ecasas@sangoma.com>\n"
+"Language-Team: Spanish <http://weblate.freepbx.org/projects/freepbx/"
+"callrecording/es_ES/>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: assets/js/callrecording.js:21
+#, perl-format
+msgid "%s already used, please use a different description."
+msgstr ""
+
+#: page.callrecording.php:14
+msgid ": Add"
+msgstr ": Agregar"
+
+#: page.callrecording.php:12
+msgid ": Edit"
+msgstr ": Editar"
+
+#: views/grid.php:23
+msgid "Actions"
+msgstr "Acciones"
+
+#: views/bootnav.php:7 views/grid.php:17
+msgid "Add Call Recording"
+msgstr "Agregar Grabación de Llamadas"
+
+#: callrecording.i18n.php:8
+msgid ""
+"Asterisk 13.2 and higher supports the ability to play a regular 'beep' when "
+"a call is being recorded. If you set this to a positive number value, when a "
+"call is being actively recorded, both parties will hear a 'beep' every "
+"period that you select. If you are not running Asterisk 13.2 or higher, this "
+"setting will have no effect. To disable simply clear the value of this box "
+"or set the value to 0 and save. This is typically set arround 15seconds"
+msgstr ""
+
+#: callrecording.i18n.php:4
+msgid "Beep every n seconds"
+msgstr "Pitar \"beep\" cada n segundos"
+
+#: callrecording.i18n.php:10
+msgid "Call Record Option"
+msgstr ""
+
+#: callrecording.i18n.php:6 functions.inc.php:34 functions.inc.php:525
+#: page.callrecording.php:7
+msgid "Call Recording"
+msgstr "Grabación de Llamada"
+
+#: views/form.php:101
+msgid "Call Recording Mode"
+msgstr "Modo Grabación de Llamadas"
+
+#: Callrecording.class.php:212 functions.inc.php:56 functions.inc.php:691
+#, php-format
+msgid "Call Recording: %s"
+msgstr "Grabación de Llamadas: %s"
+
+#: Callrecording.class.php:147
+msgid "Delete"
+msgstr "Borrar"
+
+#: views/form.php:72 views/grid.php:22
+msgid "Description"
+msgstr "Descripción"
+
+#: assets/js/callrecording.js:3
+msgid "Description name already exists "
+msgstr ""
+
+#: views/form.php:125
+msgid "Destination"
+msgstr "Destino"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Don't Care"
+msgstr "No Importa"
+
+#: callrecording.i18n.php:12
+msgid "Don’t begin recording unless a call is bridged to another channel"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Force"
+msgstr "Forzar"
+
+#: assets/js/callrecording.js:2
+msgid "Invalid description specified"
+msgstr "Descripción especificada Invalida"
+
+#: views/bootnav.php:6
+msgid "List Call Recordings"
+msgstr "Lista de Grabaciones de Llamadas"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Never"
+msgstr "Nunca"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "No"
+msgstr "No"
+
+#: views/form.php:91
+msgid "Note that the meaning of these options has changed."
+msgstr "Note que el significado de estas opciones ha cambiado."
+
+#: views/form.php:113
+msgid "Please read the wiki for futher information on these changes."
+msgstr "Por favor lea la wiki para mas información acerca de estos cambios."
+
+#: Callrecording.class.php:152
+msgid "Reset"
+msgstr "Reinicio"
+
+#: views/bootnav.php:19
+msgid "Rule"
+msgstr "Regla"
+
+#: Callrecording.class.php:157
+msgid "Submit"
+msgstr "Enviar"
+
+#: views/form.php:84
+msgid ""
+"The descriptive name of this call recording instance. For example \"French "
+"Main IVR\""
+msgstr ""
+"El nombre descriptivo de esta instancia de grabación de llamadas. Por "
+"ejemplo, \"IVR principal en Español\""
+
+#: functions.inc.php:504
+msgid ""
+"This sets the call recording behavior for calls coming into this DID. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Ajusta el comportamiento de grabación de llamadas para las llamadas que "
+"llegan a este DID. Por favor, lea el wiki para obtener información sobre lo "
+"que significan estos ajustes."
+
+#: functions.inc.php:512
+msgid ""
+"This sets the call recording behavior for calls going out this route. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Esto establece el comportamiento de grabación para las llamadas que salen de "
+"esta ruta. Por favor lea la wiki para obtener información sobre lo que "
+"significan estos ajustes."
+
+#: bin/one_touch_record.php:276
+msgid "Unknown"
+msgstr ""
+
+#: views/form.php:137
+msgid "Where should the call be sent."
+msgstr "Donde la llamada deberia ser enviada."
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Yes"
+msgstr "Si"
+
+#~ msgid "Applications"
+#~ msgstr "Aplicaciones"
+
+#~ msgid "Provides much of the call recording functionality."
+#~ msgstr "Proporciona mucha de la funcionalidad de grabación de llamadas."
+
+#~ msgid ""
+#~ "Asterisk 13.2 and higher supports the ability to play a regular 'beep' "
+#~ "when a call is being recorded. If you set this to a positive number "
+#~ "value, when a call is being actively recorded, both parties will hear a "
+#~ "'beep' every period that you select. If you are not running Asterisk 13.2 "
+#~ "or higher, this setting will have no effect. To disable simply clear the "
+#~ "value of this box and save. This is typically set arround 15seconds"
+#~ msgstr ""
+#~ "Asterisk 13.2 y superior es compatible con la capacidad de reproducir un "
+#~ "pitido regular cuando se está grabando una llamada. Si se establece este "
+#~ "valor a un número positivo, cuando una llamada está siendo grabada "
+#~ "activamente, ambas partes oirán un pitido cada período que se seleccione. "
+#~ "Si no está ejecutando el asterisco 13.2 o superior, este ajuste no tendrá "
+#~ "ningún efecto. Para desactivar simplemente borrar el valor de esta caja "
+#~ "de texto y guardar. Esto se establece normalmente cerca de 15 segundos"
+
+#~ msgid "Add Call Recording Instance"
+#~ msgstr "Agregar Instancia de Grabación de Llamadas"
+
+#~ msgid ""
+#~ "Asterisk 13 and higher supports the ability to play a regular 'beep' when "
+#~ "a call is being recorded. If you set this to a non-zero value, when a "
+#~ "call is being actively recorded, both parties will hear a 'beep' every "
+#~ "period that you select. If you are not running Asterisk 13 or higher, "
+#~ "this setting will have no effect. "
+#~ msgstr ""
+#~ "Asterisk 13 y superior admite la posibilidad de usar el pitido \"beep\"  "
+#~ "regular cuando se está grabando una llamada. Si se establece a un valor "
+#~ "distinto de cero, cuando una llamada está siendo grabada activamente, "
+#~ "ambas partes oirán un pitido cada cierto tiempo que usted seleccione. Si "
+#~ "no está ejecutando Asterisk menor a 13, este ajuste no tendrá ningún "
+#~ "efecto. "
+
+#~ msgid ""
+#~ "Call Recordings provide the ability to force a call to be recorded or not "
+#~ "recorded based on a call flow and override all other recording settings. "
+#~ "If a call is to be recorded, it can start immediately which will "
+#~ "incorporate any announcements, hold music, etc. prior to being answered, "
+#~ "or it can have recording start at the time that call is answered."
+#~ msgstr ""
+#~ "Grabaciones de llamadas proporciona la capacidad de forzar una llamada a "
+#~ "ser grabado o no grabado con base en un flujo de la misma y anular todos "
+#~ "los demás ajustes de grabación. Si una llamada se ha de grabar, se puede "
+#~ "empezar de inmediato lo cual incorporará cualquier anuncio,  música, "
+#~ "etc., antes de ser contestadas, o puede tener inicio de la grabación en "
+#~ "el momento en que llamada es contestada."
+
+#~ msgid "Edit Call Recording Instance"
+#~ msgstr "Editar Instancia de Grabación de Llamada"
+
+#~ msgid "Edit: "
+#~ msgstr "Editar:"
+
+#~ msgid "Please read the Wiki on what these options mean."
+#~ msgstr "Por favor lea la wiki acerca del significado de estas opciones."
+
+#~ msgid "Submit Changes"
+#~ msgstr "Enviar cambios"

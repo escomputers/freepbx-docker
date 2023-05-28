@@ -1,0 +1,90 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for infoservices
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-02 23:20-0400\n"
+"PO-Revision-Date: 2016-10-06 14:30+0200\n"
+"Last-Translator: Maxim <maxim@ua.fm>\n"
+"Language-Team: Ukrainian <http://weblate.freepbx.org/projects/freepbx/"
+"infoservices/uk_UA/>\n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: infoservices.i18n.php:6
+msgid "Applications"
+msgstr ""
+
+#: functions.inc.php:71 infoservices.i18n.php:16 install.php:7
+msgid "Call Trace"
+msgstr "Трасування дзвінку"
+
+#: infoservices.i18n.php:12
+msgid "Dialplan and Operational"
+msgstr ""
+
+#: install.php:6
+msgid "Directory"
+msgstr "Каталог"
+
+#: functions.inc.php:105 infoservices.i18n.php:18 install.php:8
+msgid "Echo Test"
+msgstr "Перевірка луни"
+
+#: infoservices.i18n.php:4 install.php:5
+msgid "Info Services"
+msgstr "Інформаційні послуги"
+
+#: infoservices.i18n.php:8
+msgid ""
+"Provides a number of applications accessible by feature codes: company "
+"directory, call trace (last call information), echo test, speaking clock, "
+"and speak current extension number."
+msgstr ""
+
+#: functions.inc.php:286
+msgid "Speak Extension"
+msgstr ""
+
+#: infoservices.i18n.php:20 install.php:10
+msgid "Speak Your Exten Number"
+msgstr "Говорить ваш додатковий номер"
+
+#: functions.inc.php:197 infoservices.i18n.php:22 install.php:9
+msgid "Speaking Clock"
+msgstr "Телефонна служба точного часу"
+
+#: infoservices.i18n.php:10
+msgid "Speaking Clock Time Format"
+msgstr ""
+
+#: infoservices.i18n.php:14
+msgid "Time format to use with the Speaking Clock."
+msgstr ""
+
+#: install.php:61
+msgid "could not delete"
+msgstr "Не вдалося видалити"
+
+#: install.php:56
+msgid "deleting TIMEFORMAT from globals.."
+msgstr "Глобальне видалення TIMEFORMAT.."
+
+#: install.php:59
+msgid "done"
+msgstr "зроблено"
+
+#: install.php:55
+msgid "migrated TIMEFORMAT to Advanced Settings"
+msgstr "TIMEFORMAT перенесено до розширених налаштувань"

@@ -1,0 +1,29 @@
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td,
+.bootstrap-table .table > thead > tr > th,
+.bootstrap-table .table,
+.fixed-table-container {
+  border-color: @border-color;
+  outline: 0;
+}
+
+.bootstrap-table .table {
+	border-bottom: none;
+}
+
+.fixed-table-container tbody tr:last-child{
+	td:first-child {
+		border-bottom-left-radius: 4px;
+	}
+	td:last-child {
+		border-bottom-right-radius: 4px;
+	}
+}
+
+.table {
+	border-collapse: collapse;
+}

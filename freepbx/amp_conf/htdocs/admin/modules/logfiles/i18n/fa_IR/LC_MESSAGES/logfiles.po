@@ -1,0 +1,610 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for logfiles
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-23 10:20+0000\n"
+"PO-Revision-Date: 2019-08-13 12:03+0000\n"
+"Last-Translator: Media Mousavi <mousavi.media@gmail.com>\n"
+"Language-Team: Persian <http://*/projects/freepbx/logfiles/fa/>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.0.1\n"
+
+#: Logfiles.class.php:365
+msgid "?"
+msgstr ""
+
+#: views/view.settings.logfiles.php:68
+msgid "Actions"
+msgstr ""
+
+#: views/view.log.header.php:68
+msgid "Activate full screen mode. Press ESC to exit full screen mode."
+msgstr ""
+
+#: views/view.settings.logfiles.php:79
+msgid "Activate remote log"
+msgstr ""
+
+#: views/view.settings.general.php:30
+msgid "Append Hostname"
+msgstr "اضافه کردن نام میزبان"
+
+#: views/view.settings.general.php:31
+msgid "Appends the hostname to the name of the log files"
+msgstr "اضافه کردن نام میزبان به لاگ فایل ها"
+
+#: views/view.log.header.php:83
+msgid "Apply Filter"
+msgstr ""
+
+#: views/view.log.header.php:101
+msgid "Apply Highlight"
+msgstr ""
+
+#: Logfiles.class.php:376 Logfiles.class.php:383
+#, php-format
+msgid "Are you confirming that you want to remove this file (%s)?"
+msgstr ""
+
+#: views/page.logs.php:2
+msgid "Asterisk Log Files"
+msgstr "لاگ فایل های استریسک"
+
+#: logfiles.i18n.php:12
+msgid "Asterisk Logfile Settings"
+msgstr "تنظیمات لاگ استریسک"
+
+#: logfiles.i18n.php:4 logfiles.i18n.php:10
+msgid "Asterisk Logfiles"
+msgstr "لاگ فایل های استریسک"
+
+#: views/view.log.header.php:114
+msgid "Auto-Scroll"
+msgstr ""
+
+#: views/view.log.header.php:176
+msgid "Buffer Size"
+msgstr ""
+
+#: Logfiles.class.php:382
+msgid "Cancel"
+msgstr ""
+
+#: views/view.log.header.php:86
+msgid "Clean Filter"
+msgstr ""
+
+#: views/view.log.header.php:104
+msgid "Clean Highlight"
+msgstr ""
+
+#: Logfiles.class.php:406
+msgid "Command not found!"
+msgstr ""
+
+#: Logfiles.class.php:373
+msgid "Copy to clipboard successful."
+msgstr ""
+
+#: Logfiles.class.php:384
+msgid "Create"
+msgstr ""
+
+#: views/view.settings.logfiles.php:31
+msgid "Critical errors and issues"
+msgstr "خطاها و موارد مهم"
+
+#: views/view.settings.general.php:6
+msgid ""
+"Customize the display of debug message time stamps. See strftime(3) Linux "
+"manual for format specifiers. Note that there is also a fractional second "
+"parameter which may be used in this field.  Use %1q for tenths, %2q for "
+"hundredths, etc."
+msgstr ""
+"شخصی سازی نمایش برچسب زمانی پیام عیب یابی. See strftime(3) Linux manual for "
+"format specifiers. Note that there is also a fractional second parameter "
+"which may be used in this field.  Use %1q for tenths, %2q for hundredths, "
+"etc."
+
+#: views/view.settings.logfiles.php:24
+msgid "DTMF"
+msgstr "DTMF"
+
+#: views/view.settings.general.php:5
+msgid "Date Format"
+msgstr "فرمت تاریخ"
+
+#: views/view.settings.logfiles.php:16
+msgid "Debug"
+msgstr "اشکال زدایی"
+
+#: views/view.log.header.php:21
+msgid "Delete File"
+msgstr ""
+
+#: Logfiles.class.php:366 Logfiles.class.php:385 views/view.log.header.php:45
+#: views/view.log.header.php:51
+msgid "Disabled"
+msgstr ""
+
+#: Logfiles.class.php:386
+msgid "Enabled"
+msgstr ""
+
+#: views/view.settings.logfiles.php:30
+msgid "Error"
+msgstr "خطا"
+
+#: views/view.log.header.php:24
+msgid "Export File"
+msgstr ""
+
+#: Logfiles.class.php:353
+msgid "Failure Removal Process!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:36
+msgid "Fax"
+msgstr "دورنگار"
+
+#: views/view.settings.logfiles.php:4
+msgid "File Name"
+msgstr "نام"
+
+#: Logfiles.class.php:228
+msgid "File clean successfully."
+msgstr ""
+
+#: Logfiles.class.php:401
+msgid "File not found!"
+msgstr ""
+
+#: Logfiles.class.php:224
+msgid "File removed successfully."
+msgstr ""
+
+#: views/view.log.header.php:9
+msgid "Files"
+msgstr ""
+
+#: views/view.log.header.php:80
+msgid "Filter"
+msgstr "فیلتر"
+
+#: views/page.settings.php:10
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: views/view.log.header.php:97
+msgid "Highlight"
+msgstr ""
+
+#: views/view.settings.logfiles.php:11
+msgid ""
+"If the file status is disabled it will be skipped during the asterisk "
+"configuration files creation process."
+msgstr ""
+
+#: Logfiles.class.php:837
+msgid "Invalid pattern to filter!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:25
+msgid ""
+"Keypresses as understood by asterisk. Usefull for debuging IVR and VM issues."
+msgstr "مفید برای عیب یابی منو صوتی."
+
+#: views/view.settings.general.php:9
+msgid ""
+"Leave blank for default: ISO 8601 date format yyyy-mm-dd HH:MM:SS (%F %T)"
+msgstr ""
+"برای پیشفرض خالی بگذارید ：ISO 8601 date format yyyy-mm-dd HH:MM:SS (%F %T)"
+
+#: views/view.log.header.php:34
+msgid "Lines"
+msgstr "خطوط"
+
+#: views/view.settings.general.php:132
+msgid "Loading..."
+msgstr "درحال لود شدن..."
+
+#: views/page.settings.php:2
+msgid "Log File Settings"
+msgstr "تنظیمات لاگ فایل"
+
+#: views/page.settings.php:13
+msgid "Log Files"
+msgstr "لاگ فایل"
+
+#: views/view.settings.general.php:40
+msgid "Log Queues"
+msgstr "صف لاگ"
+
+#: views/view.settings.general.php:15
+msgid "Log Rotation"
+msgstr "ورود به سیستم چرخشی"
+
+#: Logfiles.class.php:375
+msgid "Log loading completed successfully."
+msgstr ""
+
+#: views/view.settings.general.php:41
+msgid "Log queue events to a file"
+msgstr "لاگ صف رویدادهای فایل"
+
+#: views/view.settings.logfiles.php:43
+msgid ""
+"Messages of specific actions, such as a phone registration or call completion"
+msgstr "پیام عملکردهای مشخص, مانندثبت تلفن"
+
+#: views/view.settings.logfiles.php:17
+msgid ""
+"Messages used for debuging. Do not report these as error's unless you have a "
+"specific issue that you are attempting to debug. Also note that Debug "
+"messages are also very verbose and can and do fill up logfiles (and disk "
+"storage) quickly."
+msgstr "پیامهای استفاده شده برای عیب یابی."
+
+#: Logfiles.class.php:242 Logfiles.class.php:261 Logfiles.class.php:306
+msgid "Missing data!"
+msgstr ""
+
+#: Logfiles.class.php:180 Logfiles.class.php:217
+msgid "Missing file name!"
+msgstr ""
+
+#: Logfiles.class.php:289 Logfiles.class.php:302 Logfiles.class.php:332
+msgid "Missing name!"
+msgstr ""
+
+#: Logfiles.class.php:388
+msgid "Missing the name of the file!"
+msgstr ""
+
+#: views/view.log.header.php:128
+msgid "More Options"
+msgstr ""
+
+#: Logfiles.class.php:390
+msgid "Name is not defined!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:5
+msgid ""
+"Name of file, relative to Asterisk logpath. Use absolute path for a "
+"different location"
+msgstr ""
+"نام فیلتر, مرتبط با الگو لاگ استریسک. استفاده از الگو مشخص برای مکان های "
+"متفاوت"
+
+#: views/view.settings.logfiles.php:87
+msgid "New Log"
+msgstr ""
+
+#: Logfiles.class.php:367 Logfiles.class.php:391
+#: views/view.settings.general.php:34 views/view.settings.general.php:44
+msgid "No"
+msgstr "خیر"
+
+#: Logfiles.class.php:368 views/view.settings.general.php:21
+msgid "None"
+msgstr ""
+
+#: views/view.settings.general.php:16
+msgid ""
+"None: Do not perform any log rotation at all.  You should make very sure to "
+"set up some external log rotate mechanism as the asterisk logs can get very "
+"large, very quickly."
+msgstr ""
+
+#: views/view.settings.logfiles.php:42
+msgid "Notice"
+msgstr "توجه"
+
+#: Logfiles.class.php:392
+msgid "Off"
+msgstr "خاموش"
+
+#: Logfiles.class.php:393
+msgid "On"
+msgstr "روشن"
+
+#: Logfiles.class.php:314 Logfiles.class.php:344
+msgid "Operation not allowed!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:56
+msgid "Possible issues with dialplan syntaxt or call flow, but not critical."
+msgstr "مشکلات احتمالی syntaxt dialplan یا جریان پاسخ، اما مهم نیست."
+
+#: views/view.log.header.php:42
+msgid "Refresh Interval"
+msgstr ""
+
+#: views/view.settings.general.php:110 views/view.settings.general.php:137
+msgid "Reload"
+msgstr ""
+
+#: views/view.log.header.php:18
+msgid "Reload File"
+msgstr ""
+
+#: views/view.log.header.php:12
+msgid "Reload List"
+msgstr ""
+
+#: Logfiles.class.php:394
+msgid "Remove"
+msgstr ""
+
+#: Logfiles.class.php:348
+msgid "Remove Successful"
+msgstr ""
+
+#: logfiles.i18n.php:6
+msgid "Reports"
+msgstr "گزارش ها"
+
+#: views/view.settings.general.php:23
+msgid "Rotate"
+msgstr "چرخشی"
+
+#: views/view.settings.general.php:18
+msgid ""
+"Rotate: Rotate all the old files, such that the oldest has the highest "
+"sequence number (expected behavior for Unix administrators)."
+msgstr ""
+"چرخش: چرخش تمام فایل های قدیمی، به طوری که از قدیمی ترین دارای بیشترین تعداد "
+"دنباله (رفتار مورد انتظار برای مدیران یونیکس)."
+
+#: Logfiles.class.php:395 views/view.settings.general.php:134
+msgid "Save"
+msgstr ""
+
+#: Logfiles.class.php:323
+msgid "Save Failed!"
+msgstr ""
+
+#: Logfiles.class.php:318
+msgid "Save Successful"
+msgstr ""
+
+#: Logfiles.class.php:369
+msgid "Searching..."
+msgstr ""
+
+#: Logfiles.class.php:370 views/view.log.header.php:58
+msgid "Seconds"
+msgstr ""
+
+#: views/view.settings.logfiles.php:62
+msgid "Security"
+msgstr "امنیت"
+
+#: views/view.settings.general.php:22
+msgid "Sequential"
+msgstr "پی در پی"
+
+#: views/view.settings.general.php:17
+msgid ""
+"Sequential: Rename archived logs in order, such that the newest has the "
+"highest sequence number"
+msgstr ""
+"ترتیبی: تغییر نام آرشیو لاگ، به طوری که، جدید ترین دارای بیشترین تعداد دنباله"
+
+#: Logfiles.class.php:246 Logfiles.class.php:265
+msgid "Setting not allowed!"
+msgstr ""
+
+#: views/view.settings.general.php:31
+msgid ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection.  It is strongly recommended that this setting be set to 'no'."
+msgstr ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection. It is strongly recommended that this setting be set to 'no'."
+
+#: Logfiles.class.php:1040
+msgid ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection. It is strongly recommended that this setting be set to: no."
+msgstr ""
+"Setting this to yes will interfere with log rotation and Intrusion "
+"Detection. It is strongly recommended that this setting be set to : no."
+
+#: views/view.log.header.php:150
+msgid "Show Line Spacing"
+msgstr ""
+
+#: views/view.log.header.php:163
+msgid "Show Only Row's Highlight"
+msgstr ""
+
+#: views/view.log.header.php:137
+msgid "Show Row Numbers"
+msgstr ""
+
+#: views/view.settings.logfiles.php:10
+msgid "Status"
+msgstr ""
+
+#: views/view.settings.logfiles.php:49
+msgid ""
+"Step-by-step messages of every step of a call flow. Always enable and review "
+"if calls dont flow as expected"
+msgstr ""
+
+#: Logfiles.class.php:271
+msgid "Successful Update"
+msgstr ""
+
+#: logfiles.i18n.php:8
+msgid ""
+"The Asterisk Logfiles Module is an easy way to view portions of the Asterisk "
+"Log."
+msgstr ""
+
+#: Logfiles.class.php:749 Logfiles.class.php:804
+msgid "The file was not found!"
+msgstr ""
+
+#: Logfiles.class.php:338
+msgid "The filename not exist!"
+msgstr ""
+
+#: Logfiles.class.php:757 Logfiles.class.php:812
+msgid "The log file does not exist!"
+msgstr ""
+
+#: Logfiles.class.php:374
+msgid "The log file has fewer lines, the reload was successful."
+msgstr ""
+
+#: Logfiles.class.php:387
+msgid "The name of the file is already in use!"
+msgstr ""
+
+#: Logfiles.class.php:827
+msgid "The specified lines value is not a numeric value!"
+msgstr ""
+
+#: Logfiles.class.php:762 Logfiles.class.php:817
+msgid "The specified name is not from a file!"
+msgstr ""
+
+#: Logfiles.class.php:822
+msgid "There is no permission to read this log file!"
+msgstr ""
+
+#: Logfiles.class.php:767
+msgid "There is no permission to write this log file!"
+msgstr ""
+
+#: views/view.settings.general.php:24
+msgid "Timestamp"
+msgstr "برچسب زمان"
+
+#: views/view.settings.general.php:19
+msgid ""
+"Timestamp: Rename the logfiles using a timestamp instead of a sequence "
+"number when \"logger rotate\" is executed."
+msgstr ""
+"Timestamp: Rename the logfiles using a timestamp instead of a sequence  "
+"number when \"logger rotate\" is  executed ."
+
+#: views/view.settings.logfiles.php:80
+msgid ""
+"To activate the remote log, you must enable the file \"syslog.local0\" and "
+"add the following line in syslog."
+msgstr ""
+
+#: views/view.settings.logfiles.php:37
+msgid "Transmition and receiving of faxes"
+msgstr "انتقال و دریافت فکس"
+
+#: Logfiles.class.php:389
+msgid "Unknow error!"
+msgstr ""
+
+#: Logfiles.class.php:276
+msgid "Update process failed!"
+msgstr ""
+
+#: views/view.settings.logfiles.php:48
+msgid "Verbose"
+msgstr "بلند"
+
+#: views/view.settings.logfiles.php:55
+msgid "Warning"
+msgstr "هشدار"
+
+#: Logfiles.class.php:371 Logfiles.class.php:396
+#: views/view.settings.general.php:33 views/view.settings.general.php:43
+msgid "Yes"
+msgstr "بله"
+
+#: Logfiles.class.php:1040
+msgid "appendhostname is set to: Yes."
+msgstr "appendhostname is set to : Yes."
+
+#~ msgid "Add Log"
+#~ msgstr "افزودن لاگ"
+
+#~ msgid ""
+#~ "Apply PCRE regex filter to the log output. <br/>This filters through the "
+#~ "lines specified."
+#~ msgstr "اعمال فیلتر PCRE در لاگ. <br/>این فیلترها از طریق خطوط مشخص میشوند."
+
+#~ msgid "Delete"
+#~ msgstr "حذف"
+
+#~ msgid "Error parsing log file or file not found!"
+#~ msgstr "خطای لاگ فایل یا عدم وجود فایل!"
+
+#~ msgid "Field"
+#~ msgstr "فیلد"
+
+#~ msgid "File"
+#~ msgstr "فایل"
+
+#~ msgid "Information"
+#~ msgstr "اطلاعات"
+
+#~ msgid "Invalid pattern"
+#~ msgstr "الگوی نامعتبر"
+
+#~ msgid "Log file settings"
+#~ msgstr "تنظیمات لاگ فایل"
+
+#~ msgid "Logfile Help"
+#~ msgstr "راهنما لاگ فایل"
+
+#~ msgid "No lines returned"
+#~ msgstr "بدون خط برگشت"
+
+#~ msgid "Reset"
+#~ msgstr "بازنشانی"
+
+#~ msgid "Show"
+#~ msgstr "نمایش"
+
+#~ msgid "Submit"
+#~ msgstr "ثبت"
+
+#~ msgid "View Logs"
+#~ msgstr "مشاهده لاگ ها"
+
+#~ msgid "failed"
+#~ msgstr "ناموفق"
+
+#~ msgid "logger.conf symlinked to incorrect file:"
+#~ msgstr "logger.conf symlinked to incorrect file :"
+
+#~ msgid "ok"
+#~ msgstr "تایید"
+
+#~ msgid "removing.."
+#~ msgstr "درحال حذف.."
+
+#~ msgid "Settings"
+#~ msgstr "تنظیمات"
+
+#~ msgid "Choose a log file"
+#~ msgstr "یک لاگ فایل انتخاب کنید"
+
+#~ msgid "How many lines to display."
+#~ msgstr "تعداد خط نمایشی."
+
+#~ msgid "Log File"
+#~ msgstr "لاگ فایل"

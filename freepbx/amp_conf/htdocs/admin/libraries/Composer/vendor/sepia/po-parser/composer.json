@@ -1,0 +1,38 @@
+{
+  "name": "sepia/po-parser",
+  "description": "Gettext *.PO file parser for PHP.",
+  "type": "library",
+  "keywords": [
+    "i18n",
+    "i10n",
+    "po",
+    "gettext"
+  ],
+  "homepage": "https://github.com/raulferras/PHP-po-parser",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Raúl Ferràs",
+      "email": "raul.ferras@gmail.com",
+      "role": "developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/raulferras/PHP-po-parser/issues"
+  },
+  "require": {
+    "php": ">=5.3",
+    "symfony/polyfill-mbstring": "^1"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^2.0",
+    "fzaninotto/faker": "^1.7",
+    "phpunit/phpunit": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sepia\\PoParser\\": "src/",
+      "Sepia\\Test\\": "tests/"
+    }
+  }
+}

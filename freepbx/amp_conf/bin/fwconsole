@@ -1,0 +1,163 @@
+#!/usr/bin/env php
+<?php
+$options = getopt("", array("fix_zend"));
+/* Optional. It’s better to do it in the php.ini file */
+date_default_timezone_set('America/Los_Angeles');
+
+//Bootstrap to give access to FreePBX internals
+$bootstrap_settings['freepbx_auth'] = false;
+$bootstrap_settings['fix_zend'] = isset($options['fix_zend']);
+//Wrapped in a global try catch incase of zend errors
+try {
+	include_once '/etc/freepbx.conf';
+} catch(\Exception $e) {
+	if(!isset($options['fix_zend']) && function_exists('SPLAutoloadBroken') && SPLAutoloadBroken()) {
+		modgettext::push_textdomain("amp");
+		echo _("Autoloader is damaged")."\n";
+		$name = isset($argv[0]) ? basename($argv[0]) : "fwconsole";
+		echo sprintf(_("Please run: %s --fix_zend"),$name)."\n";
+		exit(5);
+	} else {
+		 throw $e;
+	}
+}
+
+if(!isset($options['fix_zend']) && function_exists('SPLAutoloadBroken') && SPLAutoloadBroken()) {
+	echo _("Autoloader is damaged")."\n";
+	echo sprintf(_("Please run: %s --fix_zend"),basename($argv[0]))."\n";
+	die();
+}
+if(isset($options['fix_zend'])) {
+	if(SPLAutoloadBroken()) {
+		die(_("Autoloader was damaged before we even started!")."\n");
+	}
+	//autoload our fix it classes now before autoloading breaks
+	$mf = module_functions::create();
+	error_reporting(0);
+	$disable = null;
+	if(!empty($zended) && is_array($zended)) {
+		foreach($zended as $key => $file) {
+			if(file_exists($file)) {
+				bootstrap_include_hooks('pre_module_load', $key);
+				require_once($file);
+				bootstrap_include_hooks('post_module_load', $key);
+				if(SPLAutoloadBroken()) {
+					$disable = $key;
+					break;
+				}
+			}
+		}
+	}
+	if(!empty($disable)) {
+		echo sprintf(_("Disabling malfunctioning module: %s"),$disable)."\n";
+		$mf->disable($disable, true);
+		exec(__FILE__." --fix_zend",$o);
+		foreach($o as $line) {
+			echo $line."\n";
+		}
+	}
+	if(!SPLAutoloadBroken()) {
+		die(_("There's nothing left to fix")."\n");
+		exit(0);
+	}
+}
+
+$webrootpath = (isset($amp_conf['AMPWEBROOT']) && !empty($amp_conf['AMPWEBROOT'])) ?  $amp_conf['AMPWEBROOT'] : '/var/www/html';
+include $webrootpath .'/admin/libraries/FWApplication.class.php';
+include $webrootpath .'/admin/libraries/FWHelper.class.php';
+include $webrootpath .'/admin/libraries/FWList.class.php';
+
+use Symfony\Component\Console\Application;
+use FreePBX\Console\Command;
+use FreePBX\Console\Application as App;
+
+$list = FreePBX::Modulelist()->get();
+$amodules = FreePBX::Modules()->getActiveModules();
+$brand = \FreePBX::Config()->get('DASHBOARD_FREEPBX_BRAND');
+$fbc = new App\FWApplication('FW Console - '.$brand.' Utility', getVersion());
+
+//prop the defaults incase there are any sort of system issues
+$apps = [
+	'moduleadmin' => function () { return new \FreePBX\Console\Command\Moduleadmin; },
+	'ma' => function () { return new \FreePBX\Console\Command\Moduleadmin; },
+	'chown' => function () { return new \FreePBX\Console\Command\Chown; }
+];
+
+/*
+* Framework is not like the others so we load up framework classes first.
+*/
+if(!empty($list['framework']['console'])) {
+	$commands = !isset($list['framework']['console']['command']['name']) ? $list['framework']['console']['command'] : [$list['framework']['console']['command']];
+	foreach($commands as $command) {
+		$class = 'FreePBX\\Console\\Command\\' . (isset($command['class']) ? $command['class'] : ucfirst(strtolower($command['name'])));
+		$apps[strtolower($command['name'])] = function () use($class) { return new $class; };
+		if(!empty($command['alias'])) {
+			$command['alias'] = is_array($command['alias']) ? $command['alias'] : [$command['alias']];
+			foreach($command['alias'] as $alias) {
+				$apps[strtolower($alias)] = function () use($class) { return new $class; };
+			}
+		}
+	}
+}
+
+/*
+* Dynamic Class Loader. This looks to enabled modules for a Console folder
+* Then loads any file.class.php files found in that subdir.
+* This doesn't really handle bad includes. If your include in bad
+* It will likely break everything!
+*/
+foreach($amodules as $module){
+	$rawname = $module['rawname'];
+	if($rawname === 'framework') {
+		continue;
+	}
+
+	$mpath = $webrootpath . '/admin/modules/' . $rawname . '/Console/';
+	if(!empty($list[$rawname]['console'])) {
+		$commands = !isset($list[$rawname]['console']['command']['name']) ? $list[$rawname]['console']['command'] : [$list[$rawname]['console']['command']];
+		foreach($commands as $command) {
+			$class = (isset($command['class']) ? $command['class'] : ucfirst(strtolower($command['name'])));
+
+			$ifile = $mpath . '/' . $class.'.class.php';
+			if(!file_exists($ifile)) {
+				continue;
+			}
+			include $ifile;
+
+			$namespace = 'FreePBX\\Console\\Command\\' . $class;
+			$apps[strtolower($command['name'])] = function () use($namespace) { return new $namespace; };
+			if(!empty($command['alias'])) {
+				$command['alias'] = is_array($command['alias']) ? $command['alias'] : [$command['alias']];
+				foreach($command['alias'] as $alias) {
+					$apps[strtolower($alias)] = function () use($namespace) { return new $namespace; };
+				}
+			}
+		}
+	} elseif (file_exists($mpath)){
+		\FreePBX::Logger()->log(LOG_WARNING, 'Deprecated way to add Console commands for module '.$rawname.', adding console commands this way can have negative performance impacts. Please use module.xml. See: https://wiki.freepbx.org/display/FOP/Adding+fwconsole+commands');
+		$cfiles = scandir($mpath);
+		foreach($cfiles as $class){
+			//ignore anything in this dir that is NOT class.php
+			if( substr($class , -9) !== 'class.php'){
+				continue;
+			}
+			$ifile = $mpath . '/' . $class;
+			if(!file_exists($ifile)) {
+				continue;
+			}
+			include $ifile;
+			$classname = substr($class ,0,-10);
+			$class = 'FreePBX\\Console\\Command\\' . $classname;
+			if(!class_exists($class)) {
+				continue;
+			}
+			modgettext::push_textdomain($module['rawname']);
+			$fbc->add(new $class);
+			modgettext::pop_textdomain();
+		}
+	}
+}
+
+$commandLoader = new Symfony\Component\Console\CommandLoader\FactoryCommandLoader($apps);
+$fbc->setCommandLoader($commandLoader);
+$fbc->run();

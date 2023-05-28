@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SSE example</title>
+</head>
+<body>
+<h1>SSE example</h1>
+<div id="news-list"></div>
+<script type="application/javascript">
+    const newsList = document.getElementById('news-list');
+    if (typeof (EventSource) !== 'undefined') {
+        const source = new EventSource('/push.php');
+        // const source = new EventSource('http://127.0.0.1:5200/');
+        source.onopen = function (event) {
+            console.log('onopen', event);
+        };
+        source.onerror = function (event) {
+            console.log('onerror', event);
+        };
+        // source.onmessage = function(event) {
+        // 	newsList.innerHTML += event.data + '<br />';
+        // };
+        source.addEventListener('news', function (event) {
+            newsList.innerHTML += event.data + '<br />';
+            // source.close(); // disconnect stream
+        });
+    } else {
+        newsList.innerHTML = 'Sorry, your browser does not support server-sent events...';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <ceo@postmet.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-25 14:06+0530\n"
+"PO-Revision-Date: 2016-04-15 12:26+0000\n"
+"Last-Translator: Weblate Admin <admin@postmet.com>\n"
+"Language-Team: Russian <https://weblate.postmet.com/projects/freepbx13/music/"
+"ru_RU/>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: Music.class.php:501
+msgid "A PHP extension stopped the file upload"
+msgstr "PHP-расширение остановило загрузку файла"
+
+#: views/advanced_form.php:174 views/basic_form.php:67
+msgid "Action"
+msgstr "Действие"
+
+#: views/grid.php:21
+msgid "Actions"
+msgstr "Действия"
+
+#: views/bootnav.php:3 views/grid.php:5
+msgid "Add Category"
+msgstr "Добавить категорию"
+
+#: views/addcatform.php:27
+msgid ""
+"Allows you to Set up Different Categories for music on hold.  This is useful "
+"if you would like to specify different Hold Music or Commercials. The "
+"category name will be converted to ASCII if any UTF8 characters are found"
+msgstr ""
+"Позволяет Вам установить различные категории для мелодии на удержании. Это "
+"удобно если Вы желаетЕ указать различные мелодии на удержании. Имя категории "
+"будет сконвертировано в ASCII если обнаружены любые символы в кодировке UTF8"
+
+#: assets/js/music.js:60
+msgid "An Error occurred trying to submit this document"
+msgstr "Возникла ошибка при попытке подтвердить сохранение документа"
+
+#: views/advanced_form.php:37
+msgid "Application"
+msgstr "Приложение"
+
+#: assets/js/music.js:143
+msgid "At least one codec must be checked"
+msgstr "По меньшей мере один кодек должен быть выбран"
+
+#: views/advanced_form.php:118 views/basic_form.php:39
+msgid "Browse"
+msgstr "Просмотр"
+
+#: music.i18n.php:12
+msgid "Cache MoH Classes"
+msgstr ""
+
+#: Music.class.php:505
+msgid "Can Not Find Uploaded Files"
+msgstr "Загруженные файлы не обнаружены"
+
+#: assets/js/music.js:9
+msgid ""
+"Categories: \"none\" and \"default\" are reserved names. Please enter a "
+"different name"
+msgstr ""
+"Категории: \"none\" и  \"default\"  являются зарезервированными именами. "
+"Пожалуйста введите другое название"
+
+#: views/bootnav.php:9 views/grid.php:19
+msgid "Category"
+msgstr "Категория"
+
+#: Music.class.php:167
+msgid "Category Already Exists"
+msgstr "Категория уже существует"
+
+#: views/addcatform.php:15
+msgid "Category Name (ASCII Only)"
+msgstr "Имя категории (только ASCII )"
+
+#: views/advanced_form.php:162
+msgid ""
+"Check all file formats you would like the music in this category to be "
+"encoded into. This applied to uploaded music and any music currently on the "
+"system. It will not overwrite any formats that have been previously "
+"processed."
+msgstr ""
+"Проверьте все форматы, в которые вы бы хотели перекодировать музыку из этой "
+"категории. Это применимо к загруженной музыке и любой музыке,используемой в "
+"системе на данный момент. Форматы, обработанные ранее, перезаписаны не будут."
+
+#: views/advanced_form.php:146
+msgid "Convert Upload/Files To"
+msgstr "Конвертировать Загруженные файлы в"
+
+#: views/addcatform.php:44 views/advanced_form.php:16
+msgid "Custom Application"
+msgstr "Специализированное  приложение"
+
+#: Music.class.php:655
+msgid "Delete"
+msgstr "Удалить"
+
+#: views/advanced_form.php:126 views/basic_form.php:47
+msgid "Drop Multiple Files or Archives Here"
+msgstr "Разбить на несколько файлов или архивировать"
+
+#: views/advanced_form.php:88 views/basic_form.php:9
+msgid "Enable Random Play"
+msgstr "Случайная выборка при воспроизведении"
+
+#: views/advanced_form.php:103 views/basic_form.php:24
+msgid ""
+"Enable random playback of music for this category. If disabled music will "
+"play in alphabetical order"
+msgstr ""
+"Включить случайное воспроизведение мелодии для этой категории . Если "
+"отключено, то мелодии будут воспроизводиться в алфавитном порядке"
+
+#: Music.class.php:498
+msgid "Failed to write file to disk"
+msgstr "Ошибка записи файла на диск"
+
+#: views/advanced_form.php:171 views/basic_form.php:64
+msgid "File"
+msgstr "Файл"
+
+#: Music.class.php:521
+msgid "File does not exist"
+msgstr "Файл не существует"
+
+#: assets/js/music.js:176
+#, perl-format
+msgid "File size is too large. Max size is %s bytes"
+msgstr ""
+
+#: Music.class.php:453
+msgid "File upload failed"
+msgstr ""
+
+#: views/addcatform.php:43 views/advanced_form.php:15
+msgid "Files"
+msgstr "Файлы"
+
+#: views/advanced_form.php:172 views/basic_form.php:65
+msgid "Formats"
+msgstr "Форматы"
+
+#: assets/js/music.js:41
+msgid ""
+"If you are doing media conversions this can take a very long time, is that "
+"ok?"
+msgstr "Медиа-конвертация может занять длительное время. Продолжить?"
+
+#: Music.class.php:564
+msgid "Invalid Request"
+msgstr "Неверный запрос"
+
+#: Music.class.php:398
+msgid "Invalid category"
+msgstr "Неверная категория"
+
+#: views/bootnav.php:2
+msgid "List MoH Categories"
+msgstr "Список категорий мелодий на удержании"
+
+#: Music.class.php:495
+msgid "Missing a temporary folder"
+msgstr "Неверная временная папка"
+
+#: music.i18n.php:4 music.i18n.php:10
+msgid "Music on Hold"
+msgstr "Музыка в ожидании"
+
+#: views/advanced_form.php:95 views/basic_form.php:16
+msgid "No"
+msgstr "Нет"
+
+#: Music.class.php:492
+msgid "No file was uploaded"
+msgstr "Файл не загружен"
+
+#: Music.class.php:58
+msgid "On Hold Music"
+msgstr "Музыка в ожидании"
+
+#: views/advanced_form.php:62
+msgid "Optional Format"
+msgstr "Опциональный формат"
+
+#: views/advanced_form.php:74
+msgid ""
+"Optional value for \"format=\" line used to provide the format to Asterisk. "
+"This should be a format understood by Asterisk such as ulaw, and is specific "
+"to the streaming application you are using. See information on musiconhold."
+"conf configuration for different audio and Internet streaming source options."
+msgstr ""
+"Опциональное значение линии \"format=\" используется для указания формата "
+"потоковой линии в Астериск. Это должен быть формат понятный для Астериск, "
+"как ulaw, и он специфичен для потокового приложения, которое используется. "
+"Посмотрите дополнительную информацию в конфигурации musiconhold.conf для "
+"выбора других опций для аудио- и потокового вещания из интернет."
+
+#: views/advanced_form.php:173 views/basic_form.php:66
+msgid "Play"
+msgstr "Воспроизвести"
+
+#: assets/js/music.js:5
+msgid "Please enter a valid Category Name"
+msgstr "Введите правильное название для категории"
+
+#: assets/js/music.js:16
+msgid "Please enter a valid application command and arguments"
+msgstr "Пожалуйста введите корректную команду приложения  и аргументы"
+
+#: Music.class.php:660
+msgid "Reset"
+msgstr "Сброс"
+
+#: music.i18n.php:6
+msgid "Settings"
+msgstr "Настройки"
+
+#: Music.class.php:665
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: music.i18n.php:14
+msgid "System Setup"
+msgstr "Системные установки"
+
+#: Music.class.php:486
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+"Размер загруженного файла превышает  значение MAX_FILE_SIZE , указанное в "
+"HTML-форме"
+
+#: Music.class.php:483
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+"Размер загруженного  файл превышает  значение upload_max_filesize directive, "
+"указанное в php.ini"
+
+#: Music.class.php:489
+msgid "The uploaded file was only partially uploaded"
+msgstr "Файл был загружен частично"
+
+#: views/advanced_form.php:49
+msgid ""
+"This is the \"application=\" line used to provide the streaming details to "
+"Asterisk. See information on musiconhold.conf configuration for different "
+"audio and Internet streaming source options."
+msgstr ""
+"Эта линия \"приложение=\" используется для указания деталей потокового аудио "
+"Астериск. Посмотрите дополнительную информацию в конфигурации musiconhold."
+"conf для выбора других опций для аудио- и потокового вещания из интернет."
+
+#: views/addcatform.php:38 views/advanced_form.php:10 views/grid.php:20
+msgid "Type"
+msgstr "Тип"
+
+#: views/addcatform.php:53 views/advanced_form.php:25
+msgid ""
+"Type of Music on Hold. If set to \"Files\" then this category will play the "
+"files listed below. If set to \"Custom Application\" then this category will "
+"stream music from the set application"
+msgstr ""
+"Тип мелодии на удержании. Если установлено в  \"Files\" , то будет "
+"воспроизведены файлы из списка ниже. Если установлено в  \"Custom Application"
+"\" , то будет воспроизводиться мелодия из набора приложений"
+
+#: Music.class.php:404
+#, php-format
+msgid "Unable to delete %s"
+msgstr "Невозможно удалить %s"
+
+#: Music.class.php:478
+msgid "Unsupported file format"
+msgstr "Неподдерживаемый  формат файла"
+
+#: assets/js/music.js:171
+msgid "Unsupported file type"
+msgstr "Неподдерживаемый  тип файла"
+
+#: views/advanced_form.php:113 views/basic_form.php:34
+msgid "Upload Recording"
+msgstr "Загрузить запись"
+
+#: views/advanced_form.php:133 views/basic_form.php:54
+#, php-format
+msgid ""
+"Upload files from your local system. Supported upload formats are: %s. This "
+"includes archives (that include multiple files) and multiple files"
+msgstr ""
+"Загрузка файла с вашей локальной рабочей станции. Поддерживаемые форматы: "
+"%s. Включает архивные файлы(в том числе многотомные) и списки файлов"
+
+#: music.i18n.php:8
+msgid ""
+"Uploading and management of sound files (wav, mp3) to be used for on-hold "
+"music."
+msgstr ""
+"Загрузка и управление звуковыми файлами (wav, mp3) для использования как "
+"музыка в ожидании."
+
+#: music.i18n.php:16
+msgid ""
+"When enabled Asterisk will use 1 instance of moh class for all channels who "
+"are using it, decreasing consumable cpu cycles and memory in the process"
+msgstr ""
+
+#: views/advanced_form.php:93 views/basic_form.php:14
+msgid "Yes"
+msgstr "Да"
+
+#: assets/js/music.js:125
+#, perl-format
+msgid ""
+"You are missing support for playback in this browser. To fully support HTML5 "
+"browser playback you will need to install programs that can not be "
+"distributed with the PBX. If you'd like to install the binaries needed for "
+"these conversions click <a href='%s'>here</a>"
+msgstr ""
+"Этот браузер не поддерживает воспроизведение. Для полной поддержки "
+"воспроизведение HTML5 необходимо устанвоить программы,которые не "
+"распространяюься вместе с FreePBX. Если Вы желаете установить бинарные файлы "
+"для перекодирования, то нажмите <a href='%s'>здесь</a>"
+
+#~ msgid "Are you sure you want to delete this item?"
+#~ msgstr "Вы уверены, что хотите удалить данный элемент?"
+
+#~ msgid "Add Streaming Category"
+#~ msgstr "Добавить категорию потока"
+
+#~ msgid ""
+#~ "Allows you to Set up Different Categories for music on hold.  This is "
+#~ "useful if you would like to specify different Hold Music or Commercials "
+#~ "for various ACD Queues."
+#~ msgstr ""
+#~ "Разрешает создание других категорий музыки в ожидании. Можно использовать "
+#~ "для использования различной Музыки в ожидании при перенаправлении звонка "
+#~ "и Очереди."
+
+#~ msgid "Cannot write to file"
+#~ msgstr "Невозможно записать в файл"
+
+#~ msgid ""
+#~ "Categories: \\\"none\\\" and \\\"default\\\" are reserved names. Please "
+#~ "enter a different name"
+#~ msgstr ""
+#~ "Категории: \\\"none\\\" и \\\"default\\\" это зарезервированные имена. "
+#~ "Выберите другое название"
+
+#~ msgid ""
+#~ "The volume adjustment is a linear value. Since loudness is logarithmic, "
+#~ "the linear level will be less of an adjustment. You should test out the "
+#~ "installed music to assure it is at the correct volume. This feature will "
+#~ "convert MP3 files to WAV files. If you do not have mpg123 installed, you "
+#~ "can set the parameter: <strong>Convert Music Files to WAV</strong> to "
+#~ "false in Advanced Settings"
+#~ msgstr ""
+#~ "Настройка громкости это линейная величина. В то время как громкость "
+#~ "логарифмическая, линейный уровень будет ниже чем настроенный. Вы должные "
+#~ "протестировать установленную музыку, что бы убедиться в том, что "
+#~ "громкость установленная правильно. Этот функция конвертирует mp3 файлы в "
+#~ "wav файлы. Если у вас не установлен mpg123, вы можете установить "
+#~ "параметр: <strong>Конвертировать музыкальные файлы в WAV</strong> в "
+#~ "значение false в дополнительных настройках"
+
+#~ msgid "Volume 10%"
+#~ msgstr "Громкость 10%"
+
+#~ msgid "Volume 100%"
+#~ msgstr "Громкость 100%"
+
+#~ msgid "Volume 125%"
+#~ msgstr "Громкость 125%"
+
+#~ msgid "Volume 150%"
+#~ msgstr "Громкость 150%"
+
+#~ msgid "Volume 25%"
+#~ msgstr "Громкость 25%"
+
+#~ msgid "Volume 50%"
+#~ msgstr "Громкость 50%"
+
+#~ msgid "Volume 75%"
+#~ msgstr "Громкость 75%"
+
+#~ msgid "Volume Adjustment"
+#~ msgstr "Настройка громкости"
+
+#~ msgid "No file provided"
+#~ msgstr "Не указан файл"
+
+#~ msgid "Please wait until the page loads. Your file is being processed."
+#~ msgstr "Дождитесь, пока страница загрузится. Ваш файл обрабатывается."
+
+#~ msgid "Upload"
+#~ msgstr "Загрузить"
+
+#~ msgid "Add Music Category"
+#~ msgstr "Добавить категорию музыки"
+
+#~ msgid "Application:"
+#~ msgstr "Приложение:"
+
+#~ msgid "Category Name:"
+#~ msgstr "Название категории:"
+
+#~ msgid "Category:"
+#~ msgstr "Категория:"
+
+#~ msgid "Check"
+#~ msgstr "Проверить"
+
+#~ msgid "Completed processing"
+#~ msgstr "Действие завершено"
+
+#~ msgid "Convert Music Files to WAV"
+#~ msgstr "Конвертировать  музыкальные файлы в WAV"
+
+#~ msgid "Delete Music Category %s"
+#~ msgstr "Удалить категорию музыки %s"
+
+#~ msgid "Delete Streaming Category"
+#~ msgstr "Удалить категорию потокового вещания"
+
+#~ msgid "Deleted"
+#~ msgstr "Удалено"
+
+#~ msgid "Disable Random Play"
+#~ msgstr "Отменить случайное воспроизведение"
+
+#~ msgid "Do not encode wav to mp3"
+#~ msgstr "Не конвертировать в mp3"
+
+#~ msgid "Edit Streaming Category"
+#~ msgstr "Редактировать категорию потокового вещания"
+
+#~ msgid "Error Deleting %s"
+#~ msgstr "Ошибка при удалении %s"
+
+#~ msgid "Error Processing"
+#~ msgstr "Ошибка при совершении действия"
+
+#~ msgid "Optional Format:"
+#~ msgstr "Дополнительный формат:"
+
+#~ msgid "Please enter a streaming application command and arguments"
+#~ msgstr "Введите команду вызова потокового вещания и аргументы"
+
+#~ msgid "Please select a file to upload"
+#~ msgstr "Укажите файл для загрузки"
+
+#~ msgid "Submit Changes"
+#~ msgstr "Применить изменения"
+
+#~ msgid "This is not a fatal error, your Music on Hold may still work."
+#~ msgstr "Это не критическая ошибка, Музыка в ожидании может работать."
+
+#~ msgid "Upload a .wav or .mp3 file:"
+#~ msgstr "Загрузить файл .wav или .mp3:"
+
+#~ msgid ""
+#~ "When set to false, the MP3 files can be loaded and WAV files converted to "
+#~ "MP3 in the MoH module. The default behavior of true assumes you have "
+#~ "mpg123 loaded as well as sox and will convert MP3 files to WAV. This is "
+#~ "highly recommended as MP3 files heavily tax the system and can cause "
+#~ "instability on a busy phone system"
+#~ msgstr ""
+#~ "Когда установлена в false, файлы mp3 могут быть загружены и WAV файлы "
+#~ "конвертированы в mp3 в модуле Музыка в ожидании. Режим по умолчанию "
+#~ "предполагает, что у вас загружен mpg123, так же как и sox, и он будет "
+#~ "конвертировать mp3 в wav. Это крайне рекомендуется, т.к. mp3 файлы сильно "
+#~ "нагружают систему и могут привести к ее не стабильной работе"
+
+#~ msgid ""
+#~ "You must have at least one file for On Hold Music.  Please upload one "
+#~ "before deleting this one."
+#~ msgstr ""
+#~ "Должен быть по крайней мере один файл для Музыки в ожидании. Загрузите "
+#~ "какой-либо файл перед удалением текущего."
+
+#~ msgid "default"
+#~ msgstr "по умолчанию"
+
+#~ msgid "in"
+#~ msgstr "в"
+
+#~ msgid ""
+#~ "sox failed to convert file and original could not be copied as a fall back"
+#~ msgstr ""
+#~ "sox не удалось конвертировать файл и оригинал не может быть скопирован "
+#~ "как резервная копия"
+
+#~ msgid ""
+#~ "The volume adjustment is a linear value. Since loudness is logarithmic, "
+#~ "the linear level will be less of an adjustment. You should test out the "
+#~ "installed music to assure it is at the correct volume. This feature will "
+#~ "convert MP3 files to WAV files. If you do not have mpg123 installed, you "
+#~ "can set the parameter: <strong>AMPMPG123=false</strong> in your amportal."
+#~ "conf file"
+#~ msgstr ""
+#~ "Настрока громкости это линейное значение. Так как громкость логарифмична, "
+#~ "линейный уровень будет прибавляется меньше, чем настраиваимый. Вы должны "
+#~ "протестировать инсталлированные музыкальные файлы чтобы убедиться что "
+#~ "громкость приемлема. Эта опция сконвертирует MP3 файлы в WAV файлы. Если "
+#~ "не установлена программа mpg123, то нужно установить параметр: "
+#~ "<strong>AMPMPG123=false</strong> в файле amportal.conf"

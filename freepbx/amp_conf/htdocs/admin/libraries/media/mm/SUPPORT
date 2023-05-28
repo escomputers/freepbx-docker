@@ -1,0 +1,75 @@
+
+SUPPORT 
+OPEN SOURCE 
+SOFTWARE
+
+First of all thank you for considering to support this project!
+
+Every developer knows how viable Open Source Software has become. Open Source
+Software is used in many open and closed (commercial) projects. 
+
+"Giving back" to projects you rely on is important. It is a core principle of
+Open Source, it makes it tick. It also shows that you value what the developer
+does. It's a fundamental morale booster.
+
+It's not everybody's cup of tea to give back by contributing code. This is why
+I have outlined a couple of ways to support the project in different ways
+below. It really doesn't matter if you are a company or an individual. But I'd
+like to emphasize that I really would like to see support from anybody that
+profits from this project.
+
+If you enjoy working with this library and this open source project is of great
+use to you or your company, please consider supporting it through donations, by
+buying commercial support or by sponsoring a feature.
+
+Sponsor a Feature
+-----------------
+Sponsoring a feature is new way to support the project. All features will be
+open sourced and immediately made available under the same permissive license
+for everybody.  
+
+In order to sponsor a project write a mail to nperson@gmx.de with the subject
+`Sponsor a feature`, stating which payment method you prefer and which feature
+you'd like to sponsor. I'll then respond with further details.
+
+* Face Detection (PHP), € 400
+Face detection in pure PHP, will be added to `Media\Info\Image`. In turn
+`Media\Process\Image` methods which currently take a gravity will be modified
+to allow receiving coordinates from the face detection.
+
+* GMagick Adapter, € 300
+The brand-new GMagick adapter will allow you swap out the Imagick adapter while
+and for those who prefer more performant image processing.
+				
+* Faststart for MPEG4 videos, € 50
+Videos that have been faststarted will immediately start playing and not wait
+until the file is downloaded. This feature adds support for giving MPEG4 videos
+this post-processing treatment improving the overall experience on HTML5 video.
+// ...
+Media\Process::factory("file.mp4")->faststart();
+// ...
+					
+* Crush Images, € 100 
+This feature will provide means to crush most images by using either pngcrush
+or jpegtran.
+// ...
+Media\Process::factory("file.png")->crush();
+// ...
+
+* Document to Text Conversion, € 200
+Allows any document (PDF) to converted to plain text by leveraging tools to
+extract text.
+// ...
+Media\Process::factory("file.pdf")->convert("text/plain");
+// ...
+
+Commercial Support
+------------------
+Another way to support this project is by buying commercial support. 
+Please contact me for more details via nperson@gmx.de.
+
+Donate
+------
+Flattr is good way to donate money and show support for this project:
+http://flattr.com/thing/733794/MM-The-PHP-media-library
+

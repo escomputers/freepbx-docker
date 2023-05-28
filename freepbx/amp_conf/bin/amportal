@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#	License for all code of this FreePBX module can be found in the license file inside the module directory
+#	Copyright 2018 Sangoma Technologies Inc
+#
+
+# get settings from db/config file
+if [ -e "/etc/freepbx.conf" ]; then        # Check if file exists.
+	php -v > /dev/null 2>&1
+	if [ $? -eq 0 ]; then
+  		`php -r '
+		$bootstrap_settings["freepbx_auth"] = false;
+		$bootstrap_settings["skip_astman"] = true;
+		$restrict_mods = true;
+		include "/etc/freepbx.conf";
+		foreach($amp_conf as $key => $val) {
+			$val = str_replace(array("\r", "\n", "\r\n"), ",", $val);
+			if (is_bool($val)) {
+				echo "export " . trim($key) . "=" . ($val?"TRUE":"FALSE") ."\n";
+			} else {
+				echo "export " . trim($key) . "=" . escapeshellcmd(trim($val)) ."\n";
+			}
+		}
+		'`
+	else
+		echo
+		echo "FreePBX settings could not be fetched and no backup config file found!"
+		echo "Have you installed FreePBX?"
+		exit
+	fi
+else
+	echo
+	echo "FreePBX config file not found!"
+	echo "Have you installed FreePBX?"
+	exit
+fi
+
+for dir in ${AMPBIN} ${ASTVARLIBDIR}/bin /var/lib/asterisk/bin /usr/local/freepbx/bin
+do
+	# exec the first one we find
+	if [ -x "$dir"/freepbx_engine ]; then
+		exec "$dir"/freepbx_engine $@
+	fi
+done
+
+# if we got here, we could not find a freepbx_engine to run
+echo "FATAL: can not find freepbx_engine!"
+exit 1

@@ -1,0 +1,228 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for callrecording
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 06:15+0000\n"
+"PO-Revision-Date: 2018-07-04 11:13+0000\n"
+"Last-Translator: Chavdar Shtiliyanov <chavdar_75@yahoo.com>\n"
+"Language-Team: Bulgarian <http://*/projects/freepbx/callrecording/bg/>\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.19.1\n"
+
+#: assets/js/callrecording.js:21
+#, perl-format
+msgid "%s already used, please use a different description."
+msgstr ""
+
+#: page.callrecording.php:14
+msgid ": Add"
+msgstr ": Добавяне"
+
+#: page.callrecording.php:12
+msgid ": Edit"
+msgstr ": Редактиране"
+
+#: views/grid.php:23
+msgid "Actions"
+msgstr "Действия"
+
+#: views/bootnav.php:7 views/grid.php:17
+msgid "Add Call Recording"
+msgstr "Добави Запис на Разговор"
+
+#: callrecording.i18n.php:8
+msgid ""
+"Asterisk 13.2 and higher supports the ability to play a regular 'beep' when "
+"a call is being recorded. If you set this to a positive number value, when a "
+"call is being actively recorded, both parties will hear a 'beep' every "
+"period that you select. If you are not running Asterisk 13.2 or higher, this "
+"setting will have no effect. To disable simply clear the value of this box "
+"or set the value to 0 and save. This is typically set arround 15seconds"
+msgstr ""
+"Астериск 13.2 и по-висока версия поддържа способността да възпроизвежда "
+"редовно \"бипкане\", когато се записва разговор. Ако зададете това с "
+"положителна цифрова стойност, когато се записва обаждане и двете страни ще "
+"чуят \"бипкане\" за всеки период, който сте избрали. Ако не използвате "
+"Астериск 13.2 или по-нова версия, тази настройка няма да има ефект. За да "
+"деактивирате просто изчистете въвеждането от това поле или задайте "
+"стойността на 0 и запазете. Стандартно се задава за около 15 секунди"
+
+#: callrecording.i18n.php:4
+msgid "Beep every n seconds"
+msgstr "Звуков сигнал на всеки n секунди"
+
+#: callrecording.i18n.php:10
+msgid "Call Record Option"
+msgstr ""
+
+#: callrecording.i18n.php:6 functions.inc.php:34 functions.inc.php:525
+#: page.callrecording.php:7
+msgid "Call Recording"
+msgstr "Запис на Разговор"
+
+#: views/form.php:101
+msgid "Call Recording Mode"
+msgstr "Режим на Запис на Разговор"
+
+#: Callrecording.class.php:212 functions.inc.php:56 functions.inc.php:691
+#, php-format
+msgid "Call Recording: %s"
+msgstr "Запис на Разговор: %s"
+
+#: Callrecording.class.php:147
+msgid "Delete"
+msgstr "Изтрий"
+
+#: views/form.php:72 views/grid.php:22
+msgid "Description"
+msgstr "Описание"
+
+#: assets/js/callrecording.js:3
+msgid "Description name already exists "
+msgstr ""
+
+#: views/form.php:125
+msgid "Destination"
+msgstr "Направление"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Don't Care"
+msgstr "Без Значение"
+
+#: callrecording.i18n.php:12
+msgid "Don’t begin recording unless a call is bridged to another channel"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Force"
+msgstr "Винаги"
+
+#: assets/js/callrecording.js:2
+msgid "Invalid description specified"
+msgstr "Въведено е неправилно описание"
+
+#: views/bootnav.php:6
+msgid "List Call Recordings"
+msgstr "Списък със Записи на Разговори"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Never"
+msgstr "Никога"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "No"
+msgstr "Не"
+
+#: views/form.php:91
+msgid "Note that the meaning of these options has changed."
+msgstr "Имайте предвид, че значението на тези параметри е променено."
+
+#: views/form.php:113
+msgid "Please read the wiki for futher information on these changes."
+msgstr "Моля, прочетете Wiki за повече информация относно тези промени."
+
+#: Callrecording.class.php:152
+msgid "Reset"
+msgstr "Изчисти"
+
+#: views/bootnav.php:19
+msgid "Rule"
+msgstr "Правило"
+
+#: Callrecording.class.php:157
+msgid "Submit"
+msgstr "Приеми"
+
+#: views/form.php:84
+msgid ""
+"The descriptive name of this call recording instance. For example \"French "
+"Main IVR\""
+msgstr "Описващо име на тази инстанция"
+
+#: functions.inc.php:504
+msgid ""
+"This sets the call recording behavior for calls coming into this DID. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Установява запис на разговор за обаждания идващи през този DID. Моля, "
+"прочетете Wiki за повече информация относно тези настройки."
+
+#: functions.inc.php:512
+msgid ""
+"This sets the call recording behavior for calls going out this route. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Установява запис на разговор за обаждания излизащи през този маршрут. Моля, "
+"прочетете Wiki за повече информация относно тези настройки."
+
+#: bin/one_touch_record.php:276
+msgid "Unknown"
+msgstr ""
+
+#: views/form.php:137
+msgid "Where should the call be sent."
+msgstr "Накъде да се насочват обажданията."
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Yes"
+msgstr "Да"
+
+#~ msgid "Applications"
+#~ msgstr "Приложения"
+
+#~ msgid "Provides much of the call recording functionality."
+#~ msgstr "Предоставя голяма част от функционалността на запис на разговор."
+
+#~ msgid "Add Call Recording Instance"
+#~ msgstr "Добавяне на Запис на Разговор"
+
+#~ msgid ""
+#~ "Asterisk 13 and higher supports the ability to play a regular 'beep' when "
+#~ "a call is being recorded. If you set this to a non-zero value, when a "
+#~ "call is being actively recorded, both parties will hear a 'beep' every "
+#~ "period that you select. If you are not running Asterisk 13 or higher, "
+#~ "this setting will have no effect. "
+#~ msgstr ""
+#~ "Астериск 13 и по-висока версия дава възможност за възпроизвеждане на "
+#~ "\"звуков сигнал\" през определен период докато разговора се записва. Ако "
+#~ "зададете стойност различна от нула, когато разговора се записва двете "
+#~ "страни ще чуват \"звуков сигнал\" на всеки зададен период. Ако не "
+#~ "използвате Астериск 13 или по-висока версия, тази настройка няма да има "
+#~ "ефект. "
+
+#~ msgid ""
+#~ "Call Recordings provide the ability to force a call to be recorded or not "
+#~ "recorded based on a call flow and override all other recording settings. "
+#~ "If a call is to be recorded, it can start immediately which will "
+#~ "incorporate any announcements, hold music, etc. prior to being answered, "
+#~ "or it can have recording start at the time that call is answered."
+#~ msgstr ""
+#~ "Запис на Разговор предоставя възможността да се зададе дали разговор да "
+#~ "бъде записан или да не бъде записан на базата на потока от обаждания и "
+#~ "отменя всички други настройки за запис. Ако обаждането трябва да се "
+#~ "записва, може да започне веднага като ще включва всички съобщения, музика "
+#~ "на задържане и т.н. преди бъде отговорено, или може да започне запис в "
+#~ "момента в който обаждането бъде отговорено."
+
+#~ msgid "Edit Call Recording Instance"
+#~ msgstr "Редактиране на Запис на Разговор"
+
+#~ msgid "Edit: "
+#~ msgstr "Редактиране: "
+
+#~ msgid "Please read the Wiki on what these options mean."
+#~ msgstr "Моля, прочетете Wiki за информация относно тези настройки."
+
+#~ msgid "Submit Changes"
+#~ msgstr "Приеми Промените"

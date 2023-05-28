@@ -1,0 +1,204 @@
+/*! Blue Monday Skin for jPlayer 2.9.2 ~ (c) 2009-2014 Happyworm Ltd ~ MIT License */
+
+/*
+* Skin for jPlayer Plugin (jQuery JavaScript Library)
+* http://www.jplayer.org
+*
+* Skin Name: Blue Monday
+*
+* Copyright (c) 2010 - 2014 Happyworm Ltd
+* Licensed under the MIT license.
+*  - http://www.opensource.org/licenses/mit-license.php
+*
+* Author: Silvia Benvenuti
+* Skin Version: 5.1 (jPlayer 2.8.0)
+* Date: 13th November 2014
+*/
+.jp-audio-freepbx *:focus,
+.jp-audio-stream-freepbx *:focus,
+.jp-video-freepbx *:focus {
+outline: none;
+}
+.jp-audio-freepbx button::-moz-focus-inner,
+.jp-audio-stream-freepbx button::-moz-focus-inner,
+.jp-video-freepbx button::-moz-focus-inner {
+	border: 0;
+}
+.jp-audio-freepbx,
+.jp-audio-stream-freepbx,
+.jp-video-freepbx {
+	font-size: 16px;
+	line-height: 1.6;
+	color: #000;
+	border: 1px solid #CCCCCC;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	background-color: white;
+	border-radius: 5px;
+}
+.jp-audio-freepbx {
+	white-space: nowrap;
+	.jp-play,
+	.jp-repeat,
+	.jp-mute,
+	.jp-unmute,
+	.jp-restart {
+		color: @button-active-background-color;
+		padding: 2px;
+	}
+	.jp-play:hover,
+	.jp-repeat:hover,
+	.jp-mute:hover,
+	.jp-unmute:hover,
+	.jp-restart:hover {
+		color: darken(@button-active-background-color,20%);
+	}
+	.jp-unmute {
+		display: none;
+	}
+	.jp-details {
+		color: black;
+		text-align: center;
+	}
+	.jp-interface {
+		height: 34px;
+		width: 100%;
+		display: table;
+		> div {
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+			position: relative;
+		}
+		.jp-controls {
+			font-size: 140%;
+			cursor: pointer;
+			padding-right: 8px;
+		}
+		.jp-volume-controls {
+			font-size: 140%;
+			cursor: pointer;
+			width: 30px;
+			padding-left: 15px;
+		}
+		.jp-progress {
+			cursor: pointer;
+			width: 82%;
+			.jp-current-time {
+				cursor: default;
+				position: absolute;
+				top: 6px;
+				left: 5px;
+				/*mix-blend-mode: difference;*/
+			}
+			.jp-duration {
+				cursor: pointer;
+				position: absolute;
+				top: 6px;
+				right: 4px;
+				/*mix-blend-mode: difference;*/
+			}
+			.jp-seek-bar {
+				margin-bottom: 0px;
+				.jp-ball {
+					position: absolute;
+					z-index: 999;
+					border-radius: 30px;
+					top: 12px;
+					left: 0;
+					width: 1.45em;
+					height: 1.45em;
+					margin: -0.405em 0px 0px -0.466em;
+					border: 1px solid #B3B3B3;
+					background-color: #fff;
+					padding: 0px;
+					/* z-index: 1; */
+					-webkit-transition: -webkit-transform 0.15s ease-in-out;
+					transition: transform 0.15s ease-in-out;
+				}
+				.progress {
+					height: 22px;
+				}
+				.progress-bar-striped {
+					display: none;
+				}
+				.jp-play-bar {
+					transition: none;
+					-webkit-transition: none;
+					-o-transition: none;
+					background-color: @button-background-color;
+					-webkit-box-shadow: inset 0 -1px 0 rgba(170,210,239,0.15);
+					box-shadow: inset 0 -1px 0 rgba(170,210,239,0.15);
+				}
+			}
+		}
+	}
+	.jp-time-holder {
+		top: 50px;
+	}
+}
+
+.jp-audio-freepbx.jp-state-looped {
+	.jp-interface {
+		.jp-repeat {
+			box-shadow: inset 0 1px 1px rgb(187, 187, 187);
+			background-color: #F1F1F1;
+		}
+	}
+}
+
+.jp-audio-freepbx.jp-state-playing {
+	.jp-play.fa-play:before {
+		content: "\f04c";
+	}
+}
+
+.jp-audio-freepbx.jp-state-loading {
+	.jp-play.fa-play:before {
+		content: "\f110";
+	}
+	.jp-play.fa-play {
+		-webkit-animation: fa-spin 2s infinite linear;
+		animation: fa-spin 2s infinite linear;
+	}
+}
+
+.jp-audio-freepbx.jp-state-no-volume {
+	.jp-volume-controls {
+		display: none;
+	}
+}
+
+.jp-audio-freepbx.jp-state-seeking {
+	.jp-interface {
+		.jp-progress {
+			.jp-seek-bar {
+				.progress-bar-striped {
+					display: block;
+					background-color: #DBF1FF;
+					background-image: -webkit-linear-gradient(45deg, rgba(0, 112, 163, 0) 25%, transparent 25%, transparent 50%, rgba(0, 112, 163, 0.3) 50%, rgba(0, 112, 163, 0.3) 75%, transparent 75%, transparent);
+					background-image: -o-linear-gradient(45deg, rgba(0, 112, 163, 0) 25%, transparent 25%, transparent 50%, rgba(0, 112, 163, 0.3) 50%, rgba(0, 112, 163, 0.3) 75%, transparent 75%, transparent);
+					background-image: linear-gradient(45deg, rgba(0, 112, 163, 0) 25%, transparent 25%, transparent 50%, rgba(0, 112, 163, 0.3) 50%, rgba(0, 112, 163, 0.3) 75%, transparent 75%, transparent);
+				}
+			}
+		}
+	}
+}
+.jp-no-solution {
+	padding: 5px;
+	font-size: .8em;
+	background-color: #FF0000;
+	border: 2px solid #CCCCCC;
+	color: white;
+	display: none;
+	white-space: normal;
+	font-weight: bold;
+	a {
+		color: #000;
+	}
+	span {
+		font-size: 1em;
+		display: block;
+		text-align: center;
+		font-weight: bold;
+	}
+}

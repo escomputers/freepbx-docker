@@ -1,0 +1,292 @@
+.freepbx-navbar {
+	@media (min-width : (@menu-breakpoint + 1)) {
+    /* Make Navigation Toggle on Desktop Hover */
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+		.dropdown-menu {
+			max-height: 594px;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+	}
+	.navbar {
+		margin-bottom: 10px;
+		border: 1px solid @border-color;
+		background-color: @background-color;
+		min-height: @navbar-height;
+		.stuck-right {
+			position: absolute;
+			right: 0;
+			top: 3px;
+			.btn {
+				margin-right: 2px;
+                                background: @menu-button-background-color;
+			}
+                        #search-btn:hover, .admin-btn > .btn:hover {
+                                background: @button-hover-background-color;
+                        } 
+			#search-btn:active:hover, .admin-btn > .btn:active:hover {
+                                background-color: @menu-button-active-hover-bg-color;
+                                color: @menu-button-active-hover-color;
+                        }
+			li {
+				display: inline;
+				list-style: none;
+				.nav-button {
+					padding: 5px 7px;
+					height: 27px;
+					outline: 0;
+					min-height: 27px;
+					.fa-language {
+						font-size: 20px;
+						margin-top: -3px;
+					}
+					.fa-cog {
+						margin-top: -2.59px;
+						font-size: 21px;
+					}
+				}
+				> a.reload-btn {
+					background: red;
+			    color: white;
+			    padding-top: 3px;
+			    border: none;
+				}
+				.dropdown-menu {
+					right: 5px;
+					left: inherit;
+					text-align: right;
+					top: 23px;
+					border-top-left-radius: 0px;
+					border-top-right-radius: 0px;
+				}
+			}
+			li.dropdown.open > button {
+				background-color: darken(@button-background-color,50%);
+				border-color: darken(@border-color,20%);
+			}
+		}
+		@media (min-width: (@menu-breakpoint + 1)) {
+			.navbar-right .dropdown-menu {
+				right: 0;
+				left: auto;
+			}
+			.navbar-right .dropdown-menu-left {
+				right: auto;
+				left: 0;
+			}
+			.navbar {
+				border-radius: 4px;
+			}
+			.navbar-header {
+				float: left;
+			}
+			.navbar-text {
+				float: left;
+				margin-right: 15px;
+				margin-left: 15px;
+			}
+			.navbar-left {
+				float: left !important;
+			}
+			.navbar-right {
+				float: right !important;
+				margin-right: -15px;
+			}
+			.navbar-right ~ .navbar-right {
+				margin-right: 0;
+			}
+		}
+		@media (max-width: @menu-breakpoint) {
+			.navbar-nav .open .dropdown-menu > li > a {
+				color: #777;
+			}
+			.navbar-nav .open .dropdown-menu > li > a:hover,
+			.navbar-nav .open .dropdown-menu > li > a:focus {
+				color: #333;
+				background-color: transparent;
+			}
+			.navbar-nav .open .dropdown-menu > .active > a,
+			.navbar-nav .open .dropdown-menu > .active > a:hover,
+			.navbar-nav .open .dropdown-menu > .active > a:focus {
+				color: #555;
+				background-color: #e7e7e7;
+			}
+			.navbar-nav .open .dropdown-menu > .disabled > a,
+			.navbar-nav .open .dropdown-menu > .disabled > a:hover,
+			.navbar-nav .open .dropdown-menu > .disabled > a:focus {
+				color: #ccc;
+				background-color: transparent;
+			}
+			.navbar-form .form-group {
+				margin-bottom: 5px;
+			}
+			.navbar-form .form-group:last-child {
+				margin-bottom: 0;
+			}
+			.navbar-nav .open .dropdown-menu {
+		    position: static;
+		    float: none;
+		    width: auto;
+		    margin-top: 0;
+		    background-color: transparent;
+		    border: 0;
+		    -webkit-box-shadow: none;
+		    box-shadow: none;
+			}
+	    .navbar-header {
+          //float: left;
+					margin-right: -15px;
+					margin-left: -15px;
+	    }
+	    .navbar-toggle {
+	        display: block;
+					padding: 5px 7px;
+					margin-top: 3px;
+	    }
+	    .navbar-collapse {
+	        border-top: 1px solid transparent;
+	        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+	    }
+	    .navbar-collapse.collapse {
+	        display: none!important;
+	    }
+	    .navbar-nav {
+			margin: 5.5px -36px;
+			margin-top: -2px;
+			width: 97%;
+			padding-left: 45px;
+	    }
+	    .navbar-nav>li {
+	        float: none;
+	    }
+	    .navbar-nav>li>a {
+	        padding-top: 10px;
+	        padding-bottom: 10px;
+	    }
+	    /* since 3.1.0 */
+	    .navbar-collapse.collapse.in {
+	        display: block!important;
+	    }
+	    .collapsing {
+	        overflow: hidden!important;
+	    }
+		}
+		.navbar-collapse {
+			overflow-x: hidden;
+		}
+		.navbar-header .navbar-toggle.collapsed {
+			background-color: @background-color;
+			.icon-bar {
+				background-color: @text-color;
+			}
+		}
+		.navbar-header .navbar-toggle {
+			border: 1px solid @border-color;
+			color: #FFFFFF;
+			background-color: @background-color;
+			.icon-bar {
+				background-color: #FFFFFF;
+			}
+		}
+		.navbar-header .navbar-toggle:hover {
+			background-color: #EBF7FF;
+			.icon-bar {
+				background-color: @background-color;
+			}
+		}
+		.navbar-header .navbar-toggle:active {
+			color: #FFFFFF;
+			background-color: darken(@background-color,50%);
+			border-color: darken(@border-color,20%);
+			.icon-bar {
+				background-color: #FFFFFF;
+			}
+		}
+		.navbar-nav {
+			> li {
+				margin-left: 5px;
+				top: 3px;
+				.disabled {
+					font-style: italic;
+					background-color: rgba(128, 128, 128, 0.1);
+					cursor: default;
+				}
+				> a {
+					line-height: inherit;
+					height: (@navbar-height - 7);
+					border: 1px solid @border-color;
+					font-weight: bold;
+					color: @button-text-color;
+					border-radius: 4px;
+					padding-top: 3px;
+					background-color: @menu-button-background-color;
+					.button-border(@button-gradient, @button-border-color);
+					.button-border-gradient(@button-gradient, @button-border-gradient-top, @button-border-gradient-bottom);
+					.button-background(@button-gradient, @menu-button-background-color, @button-image);
+					.button-background-gradient(@button-gradient, @button-background-gradient-top, @button-background-gradient-bottom);
+				}
+				> a:hover {
+					color: @button-hover-text-color;
+					.button-border(@button-gradient, @button-hover-border-color);
+					.button-border-gradient(@button-gradient, @button-hover-border-gradient-top, @button-hover-border-gradient-bottom);
+					.button-background(@button-gradient, @button-hover-background-color, @button-hover-image);
+					.button-background-gradient(@button-gradient, @button-hover-background-gradient-top, @button-hover-background-gradient-bottom);
+				}
+				> a:active {
+					color: @button-active-text-color;
+					.button-border(@button-gradient, @button-active-border-color);
+					.button-border-gradient(@button-gradient, @button-active-border-gradient-top, @button-active-border-gradient-bottom);
+					.button-background(@button-gradient, @button-active-background-color, @button-active-image);
+					.button-background-gradient(@button-gradient, @button-active-background-gradient-top, @button-active-background-gradient-bottom);
+				}
+			}
+			> li.open {
+				> a {
+					color: @button-active-text-color;
+					.button-border(@button-gradient, @button-active-border-color);
+					.button-border-gradient(@button-gradient, @button-active-border-gradient-top, @button-active-border-gradient-bottom);
+					.button-background(@button-gradient, @button-active-background-color, @button-active-image);
+					.button-background-gradient(@button-gradient, @button-active-background-gradient-top, @button-active-background-gradient-bottom);
+				}
+			}
+		}
+		@media (max-width: @menu-breakpoint) {
+			.navbar-nav > li > a {
+				border: none;
+				background: none;
+			}
+		}
+		.navbar-toggle {
+			float: left;
+		}
+		.navbar-brand {
+			padding: 0px;
+			padding-left: 4px;
+			padding-top: 4px;
+			position: relative;
+			height: @navbar-height;
+			img {
+				height: 22px;
+				margin-top: 2px;
+			}
+		}
+		@media (max-width: @menu-breakpoint) {
+			.navbar-brand {
+				//left: -15px
+			}
+		}
+		@media (min-width: @menu-breakpoint) {
+			.navbar-brand {
+				//margin-left: 0px;
+			}
+		}
+	}
+}
+
+
+.freepbx-navbar .dropdown-menu > li > a.active {
+  background-color: @background-color;
+  font-weight: bold;
+}

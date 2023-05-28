@@ -1,0 +1,120 @@
+#recscreen {
+	position: absolute;
+	z-index: 1000;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(128, 128, 128, 0.38);
+	height: 100%;
+	width: 100%;
+	.holder {
+		position: fixed;
+    width: 50%;
+    margin: auto;
+    margin-left: 25%;
+    top: 30%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #989898;
+		.progress {
+
+		}
+	}
+}
+.floating-nav-bar-contents {
+	.bootstrap-table {
+		table tr {
+			cursor: pointer;
+		}
+	}
+}
+#dropzone {
+	height: 100px;
+	border: 3px dotted #CCC;
+	background-color: #F5F5F5;
+	border-radius: 10px;
+	margin-top: 5px;
+	.message {
+		margin-top: 31px;
+		height: 100%;
+		text-align: center;
+		font-weight: bold;
+		font-size: 150%;
+	}
+}
+#upload-progress {
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+#dropzone.activate {
+	border-color: black;
+	.message {
+		opacity: .5;
+	}
+}
+
+#file-alert {
+	margin-bottom: 0px;
+}
+
+#files {
+	margin-top: 0;
+	margin-bottom: 0px;
+	padding: 0pc;
+	list-style: none;
+	.file {
+		border: 1px solid #ccc;
+		background-color: whitesmoke;
+		margin-bottom: 1px;
+		padding: 3px;
+		border-radius: 5px;
+		cursor: move;
+		.play.active:before {
+			content: "\f04c";
+		}
+		.play.load:before {
+			content: "\f110";
+		}
+		.fa {
+			cursor: pointer;
+			font-size: 150%;
+		}
+		.fa.deleting {
+			opacity: .5;
+			cursor: not-allowed;
+		}
+	}
+	.file.missing {
+		font-style: italic;
+		background-color: #f2dede;
+		cursor: pointer;
+		.fa.play {
+			display: none;
+		}
+	}
+	.file.replace {
+		background-color: #dff0d8;
+	}
+}
+
+#record {
+	color: red;
+}
+
+.jp-controls.recording {
+	#record {
+		-webkit-animation-name: fade;
+		-webkit-animation-duration: 2s;
+		-webkit-animation-iteration-count: infinite;
+		width: 22px; /* weird browser issues */
+	}
+	.fa.jp-play:before {
+		content: "\f04d";
+	}
+}
+
+@-webkit-keyframes fade {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}

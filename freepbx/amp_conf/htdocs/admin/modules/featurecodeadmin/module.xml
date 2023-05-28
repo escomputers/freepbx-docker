@@ -1,0 +1,50 @@
+<module>
+	<rawname>featurecodeadmin</rawname>
+	<repo>standard</repo>
+	<name>Feature Code Admin</name>
+	<version>16.0.11</version>
+	<publisher>Sangoma Technologies Corporation</publisher>
+	<license>GPLv3+</license>
+	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
+	<candisable>no</candisable>
+	<canuninstall>no</canuninstall>
+	<category>Admin</category>
+  	<description>The Feature Codes Module is used to enable and disable certain features available in your PBX and Asterisk, and to set the codes that local users will dial on their phones to use that particular feature.</description>
+  	<more-info>https://wiki.freepbx.org/display/FPG/Feature+Codes+Module</more-info>
+	<menuitems>
+		<featurecodeadmin>Feature Codes</featurecodeadmin>
+	</menuitems>
+	<changelog>
+		*16.0.11* FREEPBX-23698 
+		*16.0.10* FREEPBX-23698 
+		*16.0.9* Packaging of ver 16.0.9
+		*16.0.8* FREEPBX-23866 
+		*16.0.7* FREEPBX-23849 
+		*16.0.6* FREEPBX-23765 
+		*16.0.5* FREEPBX-23547 PrintExtension no translated description 
+		*16.0.4* Reverting Bootstrap and dependent libs fixes 
+		*16.0.3* FREEI-4793 
+		*16.0.2* FREEI-4087 not listing action tab for vqplus module 
+		*16.0.1* 16.0 release
+	</changelog>
+	<hooks>
+		<featurecodeadmin class="Printextensions" namespace="FreePBX\modules">
+			<method callingMethod="getSections" class="Featurecodeadmin" namespace="FreePBX\modules">printExtensions</method>
+		</featurecodeadmin>
+		<framework class="Destinations" namespace="FreePBX">
+			<method callingMethod="getModuleDestinations" class="Featurecodeadmin" namespace="FreePBX\modules">destinations</method>
+      		<method callingMethod="getModuleCheckDestinations" class="Featurecodeadmin" namespace="FreePBX\modules">destinations_check</method>
+      		<method callingMethod="getModuleDestinationInfo" class="Featurecodeadmin" namespace="FreePBX\modules">destinations_getdestinfo</method>
+			<method callingMethod="identifyDestinations" class="Featurecodeadmin" namespace="FreePBX\modules">destinations_identif</method>
+		</framework>
+	</hooks>
+	<depends>
+		<version>16.0</version>
+		<module>core ge 16.0.68.3</module>
+	</depends>
+	<supported>
+		<version>16.0</version>
+	</supported>
+	<md5sum>8d3a776210d49d0fd03b66cd51e5b23d</md5sum>
+	<location>release/2.11/featurecodeadmin-2.11.0.0.tgz</location>
+</module>

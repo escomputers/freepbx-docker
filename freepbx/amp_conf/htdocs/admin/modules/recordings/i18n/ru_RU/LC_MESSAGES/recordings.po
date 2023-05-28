@@ -1,0 +1,942 @@
+# Russian freePBX ver. translation
+# Copyright (c) 2006-2008 PostMet Corporation
+# This file is distributed under the same license as the freePBX package.
+# Alexander Kozyrev <ceo@postmet.com>, Alexander Anikin <may@postmet.com>, 2006-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-04 10:00+0000\n"
+"PO-Revision-Date: 2015-12-08 23:09+0200\n"
+"Last-Translator: Andrew <andrew.nagy@the159.com>\n"
+"Language-Team: Russian <http://weblate.freepbx.org/projects/freepbx/"
+"recordings/ru_RU/>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: Recordings.class.php:402
+msgid "A PHP extension stopped the file upload"
+msgstr "PHP-расширение остановило загрузку файла"
+
+#: assets/js/recordings.js:6
+msgid ""
+"A recording with this name already exists for this language. Do you want to "
+"overwrite it?"
+msgstr ""
+
+#: views/grid.php:30
+msgid "Actions"
+msgstr "Действия"
+
+#: views/form.php:4
+msgid "Add New System Recording"
+msgstr "Добавить новую системную запись"
+
+#: views/bnav.php:5 views/grid.php:9
+msgid "Add Recording"
+msgstr "Добавить запись"
+
+#: views/form.php:230
+msgid "Add System Recording"
+msgstr "Добавить системную запись"
+
+#: Api/Gql/Recordings.php:20
+msgid "Add a new recording to the Sytem Recordings"
+msgstr ""
+
+#: views/form.php:245
+msgid ""
+"Add any previously created system recording or a recording that was added "
+"previously"
+msgstr "Добавить любую , ранее созданную системную запись"
+
+#: recordings.i18n.php:6
+msgid "Admin"
+msgstr "Администратор"
+
+#: Api/Gql/Recordings.php:42
+msgid "An id used to identify your recording"
+msgstr ""
+
+#: assets/js/recordings.js:270
+msgid ""
+"Are you sure you do not want to convert these files? They may not work "
+"correctly in Asterisk without being converted"
+msgstr ""
+"Вы уверены ,что хоти сконвертировать эти файлы? Без конвертации файлы могут "
+"работать некорректно в Asterisk-е"
+
+#: assets/js/recordings.js:497
+msgid "Are you sure you wish to discard this recordings?"
+msgstr "Вы уверены ,что хотите отменить эти записи?"
+
+#: Restore.php:58
+msgid "Asterisk Sounds folder NOT found on Legacy backup !"
+msgstr ""
+
+#: views/form.php:96
+msgid "Browse"
+msgstr "Просмотр"
+
+#: views/form.php:200
+msgid "Call"
+msgstr "Вызов"
+
+#: assets/js/recordings.js:542
+msgid "Call!"
+msgstr "Вызов!"
+
+#: Recordings.class.php:406
+msgid "Can Not Find Uploaded Files"
+msgstr "Невозможно найти загруженные файлы"
+
+#: Recordings.class.php:775
+msgid "Can not find suitable file in this language"
+msgstr ""
+
+#: views/form.php:169 views/form.php:208
+msgid "Cancel"
+msgstr "Отмена"
+
+#: install.php:7
+msgid "Check Recording"
+msgstr "Проверить запись"
+
+#: views/form.php:350
+msgid ""
+"Check all file formats you would like this system recording to be encoded "
+"into"
+msgstr ""
+"Проверьте все форматы кодирования , в которых вы желаете  сохранить "
+"системные записи"
+
+#: views/form.php:302
+msgid ""
+"Check this box to create an options feature code that will allow this "
+"recording to be changed directly."
+msgstr ""
+"Отметить здесь чтобы использовать сервисный код, который позволит напрямую "
+"изменять эту запись."
+
+#: views/form.php:258
+msgid "Combine Files"
+msgstr "Совместить файлы"
+
+#: views/form.php:334
+msgid "Convert To"
+msgstr "Конвертировать в"
+
+#: Api/Gql/Recordings.php:57
+msgid "Convert existing file into different formats"
+msgstr ""
+
+#: assets/js/recordings.js:108
+#, perl-format
+msgid "Copying %s to %s"
+msgstr ""
+
+#: recordings.i18n.php:8
+msgid ""
+"Creates and manages system recordings, used by many other modules (eg, IVR)."
+msgstr ""
+"Создаёт и управляет системными записями, используемыми в других модулях, "
+"(например Интерактивные меню, и др.)."
+
+#: Recordings.class.php:88
+msgid "Delete"
+msgstr "Удалить"
+
+#: assets/js/recordings.js:318
+msgid "Delete Recording"
+msgstr "Удалить запись"
+
+#: Api/Gql/Recordings.php:38
+msgid "Delete a recording from the Sytem Recordings"
+msgstr ""
+
+#: views/form.php:45
+msgid "Describe this recording"
+msgstr "Описать данную запись"
+
+#: views/bnav.php:21 views/form.php:37 views/grid.php:28
+msgid "Description"
+msgstr "Описание"
+
+#: Api/Gql/Recordings.php:152 Api/Gql/Recordings.php:247
+#: Api/Gql/Recordings.php:263
+msgid "Description of the Recording"
+msgstr ""
+
+#: views/bnav.php:20 views/grid.php:27
+msgid "Display Name"
+msgstr ""
+
+#: views/form.php:103
+msgid "Drop Multiple Files or Archives Here"
+msgstr "Разбить на несколько файлов или архивировать"
+
+#: views/form.php:4
+msgid "Edit Recording"
+msgstr "Редактировать запись"
+
+#: views/form.php:198
+msgid "Enter Extension"
+msgstr "Введите внутренний номер"
+
+#: Api/Gql/Recordings.php:74
+msgid "Failed to convert the file"
+msgstr ""
+
+#: Recordings.class.php:399
+msgid "Failed to write file to disk"
+msgstr "Ошибка записи файла на диск"
+
+#: views/form.php:314
+msgid "Feature Code Password"
+msgstr "Пароль на сервисный код"
+
+#: Api/Gql/Recordings.php:156 Api/Gql/Recordings.php:251
+msgid "Feature code"
+msgstr ""
+
+#: Api/Gql/Recordings.php:160 Api/Gql/Recordings.php:255
+msgid "Feature code password"
+msgstr ""
+
+#: Api/Gql/Recordings.php:72
+msgid "File Converted succefully"
+msgstr ""
+
+#: views/form.php:57
+#, php-format
+msgid "File List for %s"
+msgstr "Список файлов для %s"
+
+#: Restore.php:21
+#, php-format
+msgid "File Restored %s"
+msgstr ""
+
+#: Recordings.class.php:243 Recordings.class.php:348
+msgid "File does not exist"
+msgstr "Файл не существует"
+
+#: Api/Gql/Recordings.php:271
+msgid "File format to convert"
+msgstr ""
+
+#: Api/Gql/Recordings.php:108 Api/Gql/Recordings.php:267
+msgid "File name"
+msgstr ""
+
+#: assets/js/recordings.js:574
+#, perl-format
+msgid "File size is too large. Max size is %s bytes"
+msgstr ""
+
+#: Api/Gql/Recordings.php:67
+#, php-format
+msgid "File with the name '%s' not found in the system"
+msgstr ""
+
+#: views/form.php:152
+msgid "Hit the red record button to start recording from your browser"
+msgstr "Нажмите на красную кнопку  для начала  записи из вашего браузера"
+
+#: Api/Gql/Recordings.php:144 Api/Gql/Recordings.php:239
+msgid "Id of the Recording"
+msgstr ""
+
+#: views/form.php:273
+msgid ""
+"Instead of chaining files together (of which some applications do not "
+"support playback) combine the files above into a single file. After this is "
+"done you will not be able to resort or remove the files from the list above "
+"but you will be able to add files to the end of or the beginning of this "
+"file. This will not destroy any previously existing files listed above."
+msgstr ""
+"Вместо создания цепочки файлов ( некоторые приложения могут не поддерживать "
+"их  проигрывание)  объедините файлы в один . После этого вы не сможете "
+"пересортировать или убрать файлы из списка , но вы сможете добавить файлы в "
+"конец или начало этого файла. Это не удалит существующие файлы ."
+
+#: Api/Gql/Recordings.php:164
+msgid "Language of recording"
+msgstr ""
+
+#: Api/Gql/Recordings.php:259 Api/Gql/Recordings.php:279
+msgid "Language of recording file"
+msgstr ""
+
+#: views/form.php:286
+msgid "Link to Feature Code"
+msgstr "Линк на Сервисный код"
+
+#: views/bnav.php:6
+msgid "List Recordings"
+msgstr "Список записей"
+
+#: Api/Gql/Recordings.php:275
+msgid "List of allowed formats to which playback files to be converted"
+msgstr ""
+
+#: Api/Gql/Recordings.php:168
+msgid "List of existing playback files in the system"
+msgstr ""
+
+#: Api/Gql/Recordings.php:121 Api/Gql/Recordings.php:219
+msgid "List of system recording files"
+msgstr ""
+
+#: Api/Gql/Recordings.php:97 Api/Gql/Recordings.php:207
+msgid "List of system recordings"
+msgstr ""
+
+#: Api/Gql/Recordings.php:199
+msgid "Message for the request"
+msgstr ""
+
+#: Recordings.class.php:396
+msgid "Missing a temporary folder"
+msgstr "Неверная временная папка"
+
+#: views/form.php:17
+msgid "Name"
+msgstr "Имя"
+
+#: Api/Gql/Recordings.php:148 Api/Gql/Recordings.php:243
+msgid "Name of the Recording"
+msgstr ""
+
+#: views/form.php:206
+msgid "Name this file"
+msgstr "Имя этого файла"
+
+#: views/form.php:266 views/form.php:294
+msgid "No"
+msgstr "Нет"
+
+#: assets/js/recordings.js:619
+msgid "No Recordings Found"
+msgstr ""
+
+#: Recordings.class.php:393
+msgid "No file was uploaded"
+msgstr "Файлы не загружены"
+
+#: views/form.php:66
+#, php-format
+msgid "No files for %s"
+msgstr "Нет файлов для %s"
+
+#: assets/js/recordings.js:41
+msgid "No files have been added to this recording"
+msgstr "Ни одного файла не было добавлено для этой записи"
+
+#: assets/js/recordings.js:30
+msgid ""
+"No languages are defined! You must define at least one in the Sound "
+"Languages module!"
+msgstr ""
+
+#: views/form.php:296
+msgid "Not supported on compounded or Non-Existent recordings"
+msgstr "Не поддерживается на скомбинированных или несуществующих записях"
+
+#: assets/js/recordings.js:913
+msgid "Not supported on compounded recordings"
+msgstr "Не поддерживается на комбинированных записях"
+
+#: views/form.php:296
+#, php-format
+msgid "Optional Feature Code %s"
+msgstr "Сервисный код %s(опционально)"
+
+#: views/form.php:322
+msgid ""
+"Optional password to protect access to this feature code which allows a user "
+"to re-record it."
+msgstr ""
+"Опционально - пароль для защиты доступа к сервисному коду, который позволяет "
+"перезаписать запись."
+
+#: functions.inc.php:253
+#, php-format
+msgid "Play Recording: %s"
+msgstr ""
+
+#: Api/Gql/Recordings.php:362
+msgid "Playback file name/s provided doesn't exists"
+msgstr ""
+
+#: assets/js/recordings.js:853
+msgid "Please add at least one Sound Package in the Sound Languages Module"
+msgstr ""
+
+#: assets/js/recordings.js:488 assets/js/recordings.js:511
+msgid "Please enter a valid name and save"
+msgstr "Пожалуйста введите корректное имя и сохраните"
+
+#: Api/Gql/Recordings.php:319
+msgid "Please provide a name for system recoding"
+msgstr ""
+
+#: Api/Gql/Recordings.php:51
+msgid "Please provide a valid id to delete the system recording"
+msgstr ""
+
+#: Api/Gql/Recordings.php:334
+msgid "Please provide atleast one existing playback file name"
+msgstr ""
+
+#: assets/js/recordings.js:106
+#, perl-format
+msgid "Processing %s for %s in format %s"
+msgstr ""
+
+#: views/form.php:122
+msgid "Record In Browser"
+msgstr "Запись в браузере"
+
+#: views/form.php:191
+msgid "Record Over Extension"
+msgstr "Запись с телефона на внутреннем номере"
+
+#: Api/Gql/Recordings.php:379
+msgid "Recording added succefully"
+msgstr ""
+
+#: Api/Gql/Recordings.php:49
+msgid "Recording deleted succefully"
+msgstr ""
+
+#: Api/Gql/Recordings.php:372
+msgid "Recording updated succefully"
+msgstr ""
+
+#: install.php:5 recordings.i18n.php:4
+msgid "Recordings"
+msgstr "Записи"
+
+#: Recordings.class.php:93
+msgid "Reset"
+msgstr "Сброс"
+
+#: Restore.php:56
+msgid ""
+"Restoring sound files from Legacy Backup path : /var/lib/asterisk/sounds"
+msgstr ""
+
+#: Restore.php:23
+#, php-format
+msgid "Same file exists  %s"
+msgstr ""
+
+#: views/form.php:170 views/form.php:209
+msgid "Save"
+msgstr "Сохранить"
+
+#: install.php:6 assets/js/recordings.js:318
+msgid "Save Recording"
+msgstr "Сохранить запись"
+
+#: assets/js/recordings.js:619
+msgid "Select a system recording"
+msgstr ""
+
+#: views/form.php:5
+#, php-format
+msgid ""
+"Some languages are not installed on this system [%s], saving this recording "
+"without them installed could have unknown results. Please install them "
+"through the %s module"
+msgstr ""
+
+#: Api/Gql/Recordings.php:381
+msgid "Sorry unable to add the recording"
+msgstr ""
+
+#: Api/Gql/Recordings.php:123
+msgid "Sorry unable to find the system recording files"
+msgstr ""
+
+#: Api/Gql/Recordings.php:99
+msgid "Sorry unable to find the system recordings"
+msgstr ""
+
+#: views/form.php:79
+msgid ""
+"Sortable File List/Play order. The playback will be done starting from the "
+"top to the bottom. You can click the play icon to preview the files. If a "
+"file is red it is missing for said selected language. Files can be replaced "
+"by clicking them once (which will turn them green) placing them into replace "
+"mode. Anything you upload will then replace this file on save"
+msgstr ""
+"Сортируемый список проигрывания . Проигрывание может быть выполнено начиная "
+"с начала списка и до конца. Вы можете нажать по иконке Play для "
+"предварительного просмотра списка файлов. Если файл помечен красным если он "
+"является некорректным для выбранного языка. Файлы могут быть замещены  "
+"переводом их в режим замещения . Всё , что вы загрузите , заместит данный "
+"файл  при сохранении"
+
+#: views/form.php:5 views/grid.php:2
+msgid "Sound Languages"
+msgstr ""
+
+#: Api/Gql/Recordings.php:203
+msgid "Status for the request"
+msgstr ""
+
+#: Recordings.class.php:83
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: views/bnav.php:22 views/grid.php:29
+msgid "Supported Languages"
+msgstr "Поддерживаемые языки"
+
+#: Recordings.class.php:315 recordings.i18n.php:10
+msgid "System Recordings"
+msgstr "Записи в системе"
+
+#: assets/js/recordings.js:25
+msgid "The Name '"
+msgstr ""
+
+#: Api/Gql/Recordings.php:329
+#, php-format
+msgid "The Name '%s' already exists, please provide a different name."
+msgstr ""
+
+#: Api/Gql/Recordings.php:374
+msgid "The id provided is invalid"
+msgstr ""
+
+#: views/form.php:25
+msgid ""
+"The name of the system recording on the file system. If it conflicts with "
+"another file then this will overwrite it."
+msgstr ""
+"Имя системной записи в файловой системе. Если оно конфликтует с другим "
+"файлом , то новый файл перезапишет старый."
+
+#: views/form.php:218
+msgid ""
+"The system will call the extension you specify to the left. Upon hangup you "
+"will be able to name the file and it will be placed in the list above"
+msgstr ""
+"Система  совершит вызов на внутренний номер ,  указанный  справа . После "
+"завершения вызова вы сможете присвоить имя файлу и он появится в списке"
+
+#: Recordings.class.php:387
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+"Размер загруженного файла превышает  значение MAX_FILE_SIZE , указанное в "
+"HTML-форме"
+
+#: Recordings.class.php:384
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+"Размер загруженного  файл превышает  значение upload_max_filesize "
+"directive   , указанное в php.ini"
+
+#: Recordings.class.php:390
+msgid "The uploaded file was only partially uploaded"
+msgstr "Файл загружен неполностью"
+
+#: Recordings.class.php:148
+#, php-format
+msgid "There was an error reading system recordings (%s)"
+msgstr ""
+
+#: assets/js/recordings.js:635
+msgid "This system recording doesnt exist in this language. Continue?"
+msgstr ""
+
+#: views/form.php:179
+msgid ""
+"This will initate a WebRTC request so that you will be able to record from "
+"you computer in your browser"
+msgstr ""
+"Будет создан  WebRT-запрос , так что вы сможете сделать запись в вашем "
+"браузере на локальной машине"
+
+#: views/form.php:156
+#, php-format
+msgid ""
+"To play the media you will need to either update your browser to a recent "
+"version or update your %s"
+msgstr ""
+"Для проигрывания медиаданных вам необходимо обновить ваш браузер  или "
+"обновить ваш %s"
+
+#: Recordings.class.php:294
+msgid "Unknown Error"
+msgstr "Неизвестная ошибка"
+
+#: Recordings.class.php:379
+msgid "Unsupported file format"
+msgstr "Не поддерживаемый  формат файла"
+
+#: assets/js/recordings.js:569
+msgid "Unsupported file type"
+msgstr "Не поддерживаемый  тип файла"
+
+#: views/form.php:155
+msgid "Update Required"
+msgstr "Требуется обновление"
+
+#: Api/Gql/Recordings.php:29
+msgid "Update a recording in the Sytem Recordings"
+msgstr ""
+
+#: views/form.php:91
+msgid "Upload Recording"
+msgstr "Загрузить запись"
+
+#: views/form.php:110
+#, php-format
+msgid ""
+"Upload files from your local system. Supported upload formats are: %s. This "
+"includes archives (that include multiple files) and multiple files"
+msgstr ""
+"Загрузка файла с вашей локальной рабочей станции . Поддерживаемые форматы "
+"загрузи: %s  . Включает архивные файлы(в том числе многотомные) и составные "
+"файлы"
+
+#: views/form.php:264 views/form.php:292
+msgid "Yes"
+msgstr "Да"
+
+#: assets/js/recordings.js:695
+msgid ""
+"You are entering replace mode on a system file. The next file you add will "
+"replace this system file when you save this recording. Are you sure you want "
+"to do that?"
+msgstr ""
+
+#: assets/js/recordings.js:697
+msgid ""
+"You are entering replace mode. The next file you add will replace this one "
+"when you save this recording. Are you sure you want to do that?"
+msgstr ""
+
+#: views/form.php:73
+msgid ""
+"You can click any file above to replace it with a recording option below. "
+"Clicking a file will turn it green putting it into replace mode"
+msgstr ""
+
+#: views/form.php:72
+msgid ""
+"You have a missing file for this language. Click any red recording above to "
+"replace it with a recording/upload below. It will then turn green. Once you "
+"have finished uploading/recording the recording will turn grey"
+msgstr ""
+"Некорректный файл для данного языка.  Нажмите на любой \"красной\" записи "
+"для замещения её   записанной/загруженной записью . Она станет \"зелёной"
+"\" .  После того ,как запись/загрузка завершится , запись станет \"серой\""
+
+#: views/grid.php:2
+#, php-format
+msgid ""
+"You have no sound packages installed in the %s module. Please install at "
+"least one language to use System Recordings"
+msgstr ""
+
+#: assets/js/recordings.js:22
+msgid "You must set a valid name for this recording"
+msgstr "Вы должны указать корректное имя для данной записи"
+
+#: Api/Gql/Recordings.php:19
+msgid "addRecording"
+msgstr ""
+
+#: Api/Gql/Recordings.php:406
+msgid "all inputs are provided"
+msgstr ""
+
+#: Api/Gql/Recordings.php:56
+msgid "convertfile"
+msgstr ""
+
+#: Api/Gql/Recordings.php:37
+msgid "deleteRecording"
+msgstr ""
+
+#: Api/Gql/Recordings.php:400
+msgid "please provide 'codec' input field"
+msgstr ""
+
+#: Api/Gql/Recordings.php:392
+msgid "please provide 'file' input field"
+msgstr ""
+
+#: Api/Gql/Recordings.php:404
+msgid "please provide 'lang' input field"
+msgstr ""
+
+#: Api/Gql/Recordings.php:396
+msgid "please provide 'name' input field"
+msgstr ""
+
+#: Api/Gql/Recordings.php:283
+msgid "temporary"
+msgstr ""
+
+#: Api/Gql/Recordings.php:28
+msgid "updateRecording"
+msgstr ""
+
+#~ msgid "An Error occurred trying to submit this document"
+#~ msgstr "Возникла ошибка при попытке подтвердить сохранение документа"
+
+#~ msgid ""
+#~ "If you are doing media conversions this can take a very long time, is "
+#~ "that ok?"
+#~ msgstr "Медиа-конвертация может занять длительное время . Продолжить?"
+
+#~ msgid "OK"
+#~ msgstr "ОК"
+
+#~ msgid "already exists"
+#~ msgstr "уже существует"
+
+#~ msgid "checking for fcode field.."
+#~ msgstr "проверяется поле fcode.."
+
+#~ msgid "checking for fcode_pass field.."
+#~ msgstr "проверяется поле fcode_pass.."
+
+#~ msgid "Missing Sound file auto-created from migration of %s module"
+#~ msgstr "Не найден звуковой файл созданный при переносе модуля %s"
+
+#~ msgid "No long description available"
+#~ msgstr "Нет длинного описания"
+
+#~ msgid "Non-Existent Recording in module %s"
+#~ msgstr "Не существующая запись в модуле %s"
+
+#~ msgid ""
+#~ "The %s referenced a recording file listed below that does not exists. An "
+#~ "entry has been generated, named %s, with the referenced file(s) but you "
+#~ "should confirm that it really works and the real files exist. The file(s) "
+#~ "referenced: %s "
+#~ msgstr ""
+#~ "%s ссылается на файл записи, указанный ниже, который не существует. "
+#~ "Создана метка, с названием %s, которая ссылается на файл, но который "
+#~ "нужно подтвердить, что он существует, и это работает. Файл(ы), на которые "
+#~ "ссылается: %s "
+
+#~ msgid ""
+#~ "A system recording with this name already exists for this language. Do "
+#~ "you want to overwrite it?"
+#~ msgstr ""
+#~ "Системная запись с таким именем уже существует для данного языка. Хотите "
+#~ "перезаписать?"
+
+#~ msgid "ID"
+#~ msgstr "Идентификационный номер"
+
+#~ msgid "Displayname"
+#~ msgstr "Отображаемое имя"
+
+#~ msgid " dial"
+#~ msgstr " наберите"
+
+#~ msgid "** MISSING FEATURE CODE **"
+#~ msgstr "*** ОТСУТСТВУЕТ СЕРВИСНЫЙ КОД ***"
+
+#~ msgid "After recording or uploading,"
+#~ msgstr "После записи или загрузки,"
+
+#~ msgid ""
+#~ "Alternatively, upload a recording in any supported asterisk format. Note "
+#~ "that if you're using .wav, (eg, recorded with Microsoft Recorder) the "
+#~ "file <b>must</b> be PCM Encoded, 16 Bits, at 8000Hz"
+#~ msgstr ""
+#~ "Альтернативно, загрузить запись в в любом формате, поддерживаемом "
+#~ "Asterisk. Замечание: если используется формат .wav, (например, запись "
+#~ "Microsoft Recorder) файл  <b>должен</b> быть кодирован как PCM, 16 Бит, и "
+#~ "8000Hz"
+
+#~ msgid "Built-in Recordings"
+#~ msgstr "Встроенные записи"
+
+#~ msgid "Change Name"
+#~ msgstr "Изменить название"
+
+#~ msgid "Click \"SAVE\" when you are satisfied with your recording"
+#~ msgstr "Кликнуть на \"Сохранить\" если запись устраивает"
+
+#~ msgid "Click here to play this recording"
+#~ msgstr "Кликнуть здесь чтобы воспроизвести эту запись"
+
+#~ msgid "Descriptive Name"
+#~ msgstr "Описание"
+
+#~ msgid "Direct Access Feature Code Not Available"
+#~ msgstr "Сервисный код прямого доступа не доступен"
+
+#~ msgid ""
+#~ "Direct Access Feature Codes for recordings are not available for built in "
+#~ "system recordings or compound recordings made of multiple individual ones."
+#~ msgstr ""
+#~ "Сервисный код прямого доступа для записи не работает для записей, "
+#~ "встроенных в систему, или записей, использующихся в других индивидуальных "
+#~ "сценариях."
+
+#~ msgid "Failed to create"
+#~ msgstr "Невозможно создать"
+
+#~ msgid "Files"
+#~ msgstr "Файлы"
+
+#~ msgid "Go"
+#~ msgstr "Дальше"
+
+#~ msgid ""
+#~ "If you wish to make and verify recordings from your phone, please enter "
+#~ "your extension number here:"
+#~ msgstr ""
+#~ "Если хотите создать и проверить запись со своего телефона введите свой "
+#~ "внутренний номер здесь:"
+
+#~ msgid "If you wish to re-record your message, dial"
+#~ msgstr "Если необходимо перезаписать ваше сообщение наберите"
+
+#~ msgid "Make sure Asterisk is not running as root "
+#~ msgstr "Убедитесь, что Астериск не запущен от root "
+
+#~ msgid "Make sure you have entered a proper name"
+#~ msgstr "Убедитесь, что указано правильное имя"
+
+#~ msgid "Move Down"
+#~ msgstr "Сместить вниз"
+
+#~ msgid "Move Up"
+#~ msgstr "Сместить вверх"
+
+#~ msgid "Name this Recording"
+#~ msgstr "Название для этой записи"
+
+#~ msgid "No compatible wav, mp3 or gsm format found to play:<br /><br />%s"
+#~ msgstr ""
+#~ "Не найдено совместимых форматов wav, mp3 или gsm для воспроизведения:<br /"
+#~ "><br />%s"
+
+#~ msgid "Note, does not delete file from computer"
+#~ msgstr "Замечание: не удаляет файл физически из компьютера"
+
+#~ msgid "Please enter a valid Name for this System Recording"
+#~ msgstr "Введите разрешённое название для этой системной записи"
+
+#~ msgid "Please wait until the page reloads."
+#~ msgstr "Подождите, страница сейчас обновится."
+
+#~ msgid "Remove Recording"
+#~ msgstr "Удалить запись"
+
+#~ msgid "Saved"
+#~ msgstr "Сохранено"
+
+#~ msgid "Select System Recording:"
+#~ msgstr "Выбрать системную запись:"
+
+#~ msgid "Start speaking at the tone. Press # when finished."
+#~ msgstr "Начинайте говорить после звукового сигнала. По окончании нажмите #."
+
+#~ msgid "Step 1: Record or upload"
+#~ msgstr "1 Шаг: Запись или загрузка"
+
+#~ msgid "Step 2: Name"
+#~ msgstr "2 Шаг: Название"
+
+#~ msgid "Step 2: Verify"
+#~ msgstr "2 Шаг: Проверка"
+
+#~ msgid "Step 3: Name"
+#~ msgstr "3 Шаг: Название"
+
+#~ msgid "Successfully uploaded"
+#~ msgstr "Успешно загружен"
+
+#~ msgid "System Recording"
+#~ msgstr "Запись сообщений"
+
+#~ msgid "This changes the short name, visible on the right, of this recording"
+#~ msgstr "Здесь можно изменить название записи в окне справа"
+
+#~ msgid ""
+#~ "This is displayed, as a hint, when selecting this recording in Queues, "
+#~ "Digital Receptionist, etc"
+#~ msgstr ""
+#~ "Это отображается как подсказка, когда выбираем запись в Очердях, "
+#~ "Автосекретарь, и так далее"
+
+#~ msgid ""
+#~ "This recording is being used in the following instances. You can not "
+#~ "remove this recording while being used. To re-record, you can enable and "
+#~ "use the feature code below if allowed."
+#~ msgstr ""
+#~ "Эта запись используется в следующих модулях. Вы не можете удалить эту "
+#~ "запись пока она используется. После перезаписи можно задействовать "
+#~ "сервисный код, указанный ниже, и использовать, если необходимо."
+
+#~ msgid "Unable to locate"
+#~ msgstr "Невозможно отобразить"
+
+#~ msgid "Updated"
+#~ msgstr "Обновлено"
+
+#~ msgid "Upload"
+#~ msgstr "Загрузить"
+
+#~ msgid "Usage List"
+#~ msgstr "Список использованиных"
+
+#~ msgid "Using your phone,"
+#~ msgstr "Используя ваш телефон,"
+
+#~ msgid "[ERROR] REMOVING TEMPORARY RECORDING:"
+#~ msgstr "[ОШИБКА] УДАЛЕНИЕ ВРЕМЕННОЙ ЗАПИСИ:"
+
+#~ msgid "[ERROR] SAVING RECORDING:"
+#~ msgstr "[ОШИБКА] СОХРАНИЕНИЯ ЗАПИСИ:"
+
+#~ msgid "[ERROR] The Recorded File Does Not exists:"
+#~ msgstr "[ОШИБКА] Записаный файл не существует:"
+
+#~ msgid "and speak the message you wish to record. Press # when finished."
+#~ msgstr ""
+#~ "и произнесите фразу, которую хотите записать. По окончании нажмите #."
+
+#~ msgid "dial"
+#~ msgstr "наберите"
+
+#~ msgid "to listen to your recording."
+#~ msgstr "для прослушивания созданной записи."
+
+#~ msgid "with a a valid suffix"
+#~ msgstr "с разрешенным суффиксом"
+
+#~ msgid ""
+#~ "Crypt key used by this recordings module when accessing the recording "
+#~ "files. Change from the default of "
+#~ msgstr ""
+#~ "Криптоключ используемый в этом модуле для доступа к записанным файлам. "
+#~ "Изменить с дефолтного на "
+
+#~ msgid "Recordings Crypt Key"
+#~ msgstr "Криптоключ для записей"
+
+#~ msgid "System Setup"
+#~ msgstr "Системные настройки"

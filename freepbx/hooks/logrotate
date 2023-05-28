@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cat <<- EOF > /etc/logrotate.d/freepbx-fwJOB
+/var/log/asterisk/fwjobs.log {
+	size 100M
+	missingok
+	rotate 5
+	dateext
+	notifempty
+	sharedscripts
+	create 0664 asterisk asterisk
+	su asterisk asterisk
+}
+EOF

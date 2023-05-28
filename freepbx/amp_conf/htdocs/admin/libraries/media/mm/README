@@ -1,0 +1,249 @@
+
+xx xx  xx xx
+x x x  x x x
+x   x  x   x
+-- The PHP media library.
+
+Synopsis
+--------
+Making media processing portable isn't easy. Retrieving meta data from
+media through one of the thousand extensions is by times overwhelming.
+Dealing with MIME-types is most often limited to magic lookup.
+
+This library is concerned with three aspects of media and organized
+accordingly:
+
+- Processing of media
+- Retrieving media metadata
+- Determining a file's MIME-type
+
+The set of \mm\Media\* classes provide abstractions from underlying
+extensions or libraries and most common methods for operations like
+resizing and conversion (even between i.e. PDFs, movies and images).
+
+The \mm\Mime\Type class helps with determining the MIME-type or correct
+extension of a file or stream. It comes with adapters for the fileinfo
+extension, glob and magic databases from the freedesktop project, as well
+as modmime style databases.
+
+The files required to make MIME detection work autonomously (i.e. without
+the fileinfo extension installed) are shipped with the library. You'll
+find those files in the data directory. Please note that the MIME magic
+implementation in pure PHP will always be a lot slower than the PHP
+extensions in C and currently has to be considered experimental.
+
+Features
+--------
+The most significant features of this library are:
+
+- Full suit of unit and integration tests
+- Battle tested and used in production since over 6 years
+- PSR-0 and PSR-4 compatiblity
+- Fast Freedesktop glob file parser implemented in pure PHP
+- FFmpeg and SoX adapters for video and audio conversion
+
+Copyright & License
+-------------------
+MM, the PHP media library is Copyright (c) 2007-2014 David Persson if
+not otherwise stated. The code is distributed under the terms of the MIT
+License. For the full license text see the LICENSE file.
+
+Sponsors
+--------
+Features for this open source project can be sponsored. Have a look
+at the SUPPORT file for more information.
+
+The retrieval of unique colors in an image and the letterbox trimming
+features have been sponsored by Atelier Disko (http://atelierdisko.de).
+
+Versions & Requirements
+-----------------------
+Version 2.0.0, PHP >=5.5.0 (in progress)
+Version 1.2.0, PHP >=5.5.0
+Version 1.1.0, PHP >=5.3.0
+Version 1.0.0, PHP >=5.2.1
+
+The library is known to run fine under linux and darwin. Depending on
+the adapters you are using you may need (this is a selection):
+
+- ext/fileinfo
+- ext/gd
+- ghostscript
+- ImageMagick
+- ext/imagick >= 3.0.0
+- FFmpeg >= 0.10.0, < 0.11.0
+- SoX
+
+Installation
+------------
+The preferred installation method is via composer. You can add the library
+as a dependency via:
+
+$ composer require davidpersson/mm
+
+Quickstart: MIME-type Detection
+-------------------------------
+Before we can use any of the classes we must configure them. The following
+is just a minimal example. Have a look at the included `bootstrap.php` for
+more information what's possible.
+
+More documentation for MIME-type detection is available in the `docs`
+subdirectory.
+
+<?php
+use mm\Mime\Type;
+
+Type::config('glob', [
+	'adapter' => 'Freedesktop',
+	'file' => __DIR__ . '/data/glob.db'
+]);
+Type::config('magic', [
+	'adapter' => 'Fileinfo'
+]);
+?>
+
+Guess the MIME type of the file.
+
+<?php
+Type::guessType('example.png'); // returns 'image/png'
+Type::guessType('/path/to/example.png'); // returns 'image/png'
+Type::guessType(fopen('/path/to/example.png', 'r')); // returns 'image/png'
+?>
+
+Guess the extension (suffix) for an existing file or a MIME type.
+
+<?php
+Type::guessExtension('application/pdf'); // returns 'pdf'
+Type::guessExtension('/path/to/example.png'); // returns 'png'
+Type::guessExtension(fopen('/path/to/example.png', 'r')); // returns 'png'
+?>
+
+Determine the common lowercase media name, with and without hints from a
+magic lookup.
+
+<?php
+Type::guessName('example.png'); // returns 'image'
+Type::guessName('example.webm'); // returns 'video'
+Type::guessName('application/pdf'); // returns 'document'
+Type::guessName('/path/to/example.png'); // returns 'image'
+Type::guessName(fopen('/path/to/example.png', 'r')); // returns 'image'
+?>
+
+Quickstart: Media Processing
+----------------------------
+First we configure the class.
+
+<?php
+use mm\Media\Process;
+
+Process::config([
+	'image' => 'Imagick',
+	'video' => 'Ffmpeg'
+]);
+?>
+
+A common task is to convert an image into another format, apply some
+compression while ensuring it has the sRGB profile embbeded. We'll utilize
+the factory method here which handles MIME-type detection of the source
+file for us and returns an appropriate \mm\Media\Process\* class for us.
+
+<?php
+use mm\Media\Process;
+
+$media = Process::factory(['source' => '/path/to/cat.png']);
+// $media is now an instance of `\mm\Media\Process\Image`.
+
+// Fit image into a square of 500 by 500px. More resizing methods like crop
+// and zoom are available, too.
+$media->fit(500, 500);
+
+// We use the official ICC sRGB profile that comes with this library.
+$media->colorProfile(__DIR__ . '/data/sRGB_IEC61966-2-1_black_scaled.icc');
+
+// Reduce color depth.
+$media->colorDepth(8);
+
+// All but the `convert` method operate on the loaded source. `convert`
+// instead returns a new `Image` object which must be used from now on.
+$media = $media->convert('image/jpeg');
+
+// Now we store the converted image.
+$media->store('/path/to/cat_square.jpg');
+?>
+
+Using the `Ffmpeg` adapter we can transcode videos programmatically. Using
+the `passthru` method we can access the adapter more or less directly.
+
+<?php
+use mm\Media\Process;
+
+$media = Process::factory(['source' => '/path/to/dog.mp4']);
+// $media is now an instance of `\mm\Media\Process\Video`.
+
+// Resizing is the same as with operating on images. Here
+// we resize to 720p HD.
+$media->fit(1280, 720);
+
+// We want to transcode to WEBM here.
+$media = $media->convert('video/webm');
+
+// We can tune the output accessing certain parameters of FFmpeg direcly.
+$media->passthru('codec:a', 'libvorbis');
+$media->passthru('codec:v', 'libvpx');
+$media->passthru('b:a', '192k'); // audio bitrate
+$media->passthru('b:v', '1024k); // video bitrate
+$media->passthru('quality', 'good);
+
+// Finally start transcoding and store file.
+$media->store('/path/to/dog_720p.webm');
+?>
+
+Quickstart: Media Information
+-----------------------------
+First we configure the class.
+
+<?php
+use mm\Media\Info;
+
+Info::config([
+	'image' => ['ImageBasic', 'Imagick']
+]);
+?>
+
+Getting information from an image. Information is assembled by all
+configured adapters for the type.
+
+<?php
+$media = Info::factory(['source' => '/path/to/cat.png']);
+// $media is now an instance of `\mm\Media\Info\Image`.
+
+// The following showcases some basic methods.
+$width      = $media->width();
+$megapixel  = $media->megapixel();
+$knownRatio = $media->knownRatio(); // may return 'Φ:1' (Goldener Schnitt).
+
+// Get all available information as an array from the media. This is also
+// a good method to give you an overview which data is possibly available
+// using certain adapter combinations.
+$meta = $media->all();
+?>
+
+Running the Tests
+-----------------
+This library is continously integrated. Please check the following URL
+for information on the status of the latest builds:
+
+http://travis-ci.org/#!/davidpersson/mm
+
+Tests for this library are PHPUnit based. To run the tests you'll need
+to have PHPUnit installed[1]. Following command will run all the tests.
+
+$ phpunit
+
+[1] http://www.phpunit.de/manual/current/en/installation.html
+
+Documentation
+-------------
+Documentation is available in the `docs` directory.
+
+

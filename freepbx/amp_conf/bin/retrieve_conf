@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#	License for all code of this FreePBX module can be found in the license file inside the module directory
+#	Copyright 2018 Sangoma Technologies, Inc
+#
+echo -e "\e[31m!******! 'retrieve_conf' IS DEPRECIATED. PLEASE USE 'fwconsole' !******!\033[0m"
+echo -e "\e[31mFORWARDING ALL COMMANDS TO 'fwconsole', OUTPUT WILL BE MODIFIED\033[0m"
+echo -e "\e[1;31mCONTINUING TO RELY ON retrieve_conf WILL HAVE UNDESIRED CONSEQUENCES\033[0m"
+
+fwconsole reload --dont-reload-asterisk $@
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+	echo -e "\e[31;5;148m!******! 'retrieve_conf' IS DEPRECIATED. PLEASE USE 'fwconsole reload --help' !******!\033[39m"
+else
+	echo -e "\e[31;5;148m!******! 'retrieve_conf' IS DEPRECIATED. PLEASE USE 'fwconsole reload --dont-reload-asterisk $@' !******!\033[39m"
+fi
+echo -e "\e[1;31mCONTINUING TO RELY ON retrieve_conf WILL HAVE UNDESIRED CONSEQUENCES\033[0m"

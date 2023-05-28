@@ -1,0 +1,64 @@
+<module>
+	<rawname>cdr</rawname>
+	<repo>standard</repo>
+	<description>Call Data Record report tools for viewing reports of your calls</description>
+	<name>CDR Reports</name>
+	<version>16.0.30</version>
+	<publisher>Sangoma Technologies Corporation</publisher>
+	<license>GPLv3+</license>
+	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
+	<category>Reports</category>
+	<menuitems>
+		<cdr>CDR Reports</cdr>
+	</menuitems>
+	<changelog>
+		*16.0.30* FREEPBX-23843 CDR Reporting does not display caller id correctly 
+		*16.0.29* SCD-332 modified cdr fetch query to include entries when FMFM is enabled 
+		*16.0.28* FREEPBX-23657 cdr module compressed backup and restore 
+		*16.0.27* FREEPBX-23544 cdr serach multiple destination and outboud CID number 
+		*16.0.26* FREEI-4975 CDR search with date range 
+		*16.0.25* FREEI-4680 CDR report CSV file download issue fixed 
+		*16.0.24* FREEI-4641 Hebrew issue with cnam cols 
+		*16.0.23* FREEI-4641 Hebrew text not showing and entry line's data is mismatched in CDR 
+		*16.0.22* FREEI-4641 Fixe Hebrew language with the CID Name when a CSV file is generated through the CDR module 
+		*16.0.21* FREEPBX-23292 Graphql CDR API does not return the Disposition field 
+		*16.0.20* FREEPBX-23292-graphql-cdr-api-does-not-return-the-disposition-field 
+		*16.0.19* Packaging of ver 16.0.19
+		*16.0.18* SCD-135 call logs not shown if 'Use DPMA' option under endpoint global settings is set to 'No' 
+		*16.0.17* FREEI-4147 Backup status 'Failure' without reason 
+		*16.0.16* Packaging of ver 16.0.16
+		*16.0.15* FREEPBX-23141 
+		*16.0.14* FREEI-3939 and FREEI-4209 
+		*16.0.13* FREEI-3939 and FREEI-4209 
+		*16.0.12* FREEI-3939 Added new input variables to query the CDR data by datetime range with unit test cases 
+		*16.0.11* FREEI-3939 Refactored gql api to fetch all cdr's and added unit test cases 
+		*16.0.10* FREEPBX-22979 
+		*16.0.9* FREEI-3509 D-phone API for call_log takes time to show the entry 
+		*16.0.8* FREEI-3446 getWidgetListByModule 
+		*16.0.7* Fixing FREEPBX-8633 Added ", recordingfile, linkedid, peeraccount, 
+		*16.0.6* Packaging of ver 16.0.6
+		*16.0.5* FREEI-2660 UCC timestamp mismatch on main CDR module 
+		*16.0.4* FREEI-2099 extensions name shown incorrectly. 
+		*16.0.3* FREEPBX-21776: User Edit &amp;gt; UCP &amp;gt; Call History &amp;gt; CDR Access &amp;gt; not displayed correctly 
+		*16.0.2* database port missing 
+		*16.0.1alpha* 16.0.1 alpha release
+	</changelog>
+	<hooks>
+		<ucp class="Ucp">
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="constructModuleConfigPages">ucpConfigPage</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="addUser">ucpAddUser</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="updateUser">ucpUpdateUser</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="delUser">ucpDelUser</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="addGroup">ucpAddGroup</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="updateGroup">ucpUpdateGroup</method>
+			<method namespace="FreePBX\modules" class="Cdr" callingMethod="delGroup">ucpDelGroup</method>
+		</ucp>
+	</hooks>
+	<depends>
+		<module>framework ge 13.0.1beta3.56</module>
+		<module>core ge 12.0.8</module>
+	</depends>
+	<supported>
+		<version>16.0</version>
+	</supported>
+</module>

@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 
 services:
   db:
@@ -6,6 +6,7 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      #MYSQL_DATABASE: asterisk
     volumes:
       - mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf 
@@ -16,10 +17,12 @@ services:
 
   freepbx:
     build: .
-    #command: /bin/bash -c /usr/src/freepbx/start_asterisk start
+    #command: /usr/src/freepbx/start_asterisk start && /usr/src/freepbx/install -n --dbhost=db
+    volumes:
+      - .:/usr/src
     ports:
     - target: 80
-      published: 80
+      published: 8080
       protocol: tcp
     depends_on:
       - db

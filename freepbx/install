@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+namespace FreePBX\Install;
+
+if (version_compare(PHP_VERSION, '7.4', '<')) {
+	echo "FreePBX Requires PHP Version 7.4 or Higher, you have: ".PHP_VERSION."\n";
+	return false;
+}
+
+set_time_limit(0);
+
+require_once(__DIR__.'/amp_conf/htdocs/admin/libraries/Composer/vendor/autoload.php');
+require_once(__DIR__.'/installlib/installhelpcommand.class.php');
+require_once(__DIR__.'/installlib/installapplication.class.php');
+require_once(__DIR__.'/installlib/installcommand.class.php');
+
+use Symfony\Component\Console\Application;
+
+$xml = simplexml_load_file(__DIR__."/module.xml");
+
+$app = new FreePBXInstallApplication("FreePBX Installation Utility", (string)$xml->version);
+$app->run();

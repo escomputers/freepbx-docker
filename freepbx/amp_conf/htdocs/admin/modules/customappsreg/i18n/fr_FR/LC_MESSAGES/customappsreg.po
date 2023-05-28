@@ -1,0 +1,342 @@
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright (C) 2009 Séverine GUTIERREZ, severine@medialsace.fr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-09 02:01+0000\n"
+"PO-Revision-Date: 2017-03-17 00:21+0200\n"
+"Last-Translator: Nicolas <freepbx@riendeau.org>\n"
+"Language-Team: French <http://weblate.freepbx.org/projects/freepbx/"
+"customappsreg/fr_FR/>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: views/customdests/form.php:99
+msgid "(pick destination)"
+msgstr "(sélectionnez une destination)"
+
+#: views/customdests/grid.php:11 views/customextens/grid.php:9
+msgid "Actions"
+msgstr "Actions"
+
+#: views/customdests/form.php:32
+msgid "Add Custom Destination"
+msgstr "Ajouter une destination personnalisée"
+
+#: views/customextens/form.php:14
+msgid "Add Custom Extension"
+msgstr "Ajouter un poste personnalisé"
+
+#: views/customdests/grid.php:5 views/customdests/rnav.php:3
+msgid "Add Destination"
+msgstr "Ajouter une destination"
+
+#: views/customextens/grid.php:2 views/customextens/rnav.php:3
+msgid "Add Extension"
+msgstr "Ajouter un poste"
+
+#: views/customextens/form.php:71
+msgid ""
+"Brief description that will be published in the Extension Registry about "
+"this extension"
+msgstr ""
+"Brève description qui sera publiée dans le registre de poste sur de ce poste "
+"téléphonique"
+
+#: views/customdests/form.php:109
+msgid ""
+"Choose un-identified destinations on your system to add to the Custom "
+"Destination Registry. This will insert the chosen entry into the Custom "
+"Destination box above."
+msgstr ""
+"Choisissez des destinations non identifiées sur votre système pour les "
+"ajouter au registre de destinations personnalisées. Cela aura pour effet "
+"d'insérer l'entrée sélectionnée dans la boite 'Destinations personnalisées' "
+"ci-dessus."
+
+#: views/customextens/form.php:18
+msgid "Conflicting Extensions"
+msgstr "Postes Conflictuels"
+
+#: functions.inc.php:53 functions.inc.php:60
+#, php-format
+msgid "Custom Destination: %s"
+msgstr "Destination personnalisée : %s"
+
+#: functions.inc.php:18 functions.inc.php:20 page.customdests.php:18
+msgid "Custom Destinations"
+msgstr "Destinations personnalisées"
+
+#: page.customdests.php:4
+msgid ""
+"Custom Destinations allows you to register your custom destinations that "
+"point to custom dialplans and will also 'publish' these destinations as "
+"available destinations to other modules. This is an advanced feature and "
+"should only be used by knowledgeable users. If you are getting warnings or "
+"errors in the notification panel about CUSTOM destinations that are correct, "
+"you should include them here. The 'Unknown Destinations' chooser will allow "
+"you to choose and insert any such destinations that the registry is not "
+"aware of into the Custom Destination field."
+msgstr ""
+"Les destinations personnalisées vous permettent d'enregistrer vos "
+"destinations pointant sur des plans de numérotation personnalisés et "
+"'publieront' également ces destinations en tant que destinations disponibles "
+"pour d'autres modules. Il s'agit d'une fonctionnalité avancée qui devrait "
+"seulement être utlisée par les utlisateurs experimentés. Si vous recevez des "
+"avertissements ou des erreurs dans le panneau de notifications à propos de "
+"destinations PERSONNALISÉES correctes, vous devriez les inclure ici. Le "
+"sélecteur de 'Destinations inconnues' vous permet de choisir et d'insérer "
+"des destinations dont le registre ne connait pas l'existence dans le champ "
+"'Destination personnalisée'."
+
+#: views/customextens/form.php:35
+msgid "Custom Extension"
+msgstr "Poste personnalisé"
+
+#: functions.inc.php:87
+msgid "Custom Extension: "
+msgstr "Poste personnalisée : "
+
+#: page.customextens.php:18
+msgid "Custom Extensions"
+msgstr "Poste personnalisés"
+
+#: page.customextens.php:4
+msgid ""
+"Custom Extensions provides you with a facility to register any custom "
+"extensions or feature codes that you have created in a custom file and "
+"FreePBX doesn't otherwise know about them. This allows the Extension "
+"Registry to be aware of your own extensions so that it can detect conflicts "
+"or report back information about your custom extensions to other modules "
+"that may make use of the information. You should not put extensions that you "
+"create in the Misc Apps Module as those are not custom."
+msgstr ""
+"Les postes personnalisées vous permettent d'enregistrer facilement toutes "
+"sortes de poste personnalisés ou de fonctions que vous avez créé dans un "
+"fichier personnalisé et que FreePBX ne pourrait pas prendre en compte "
+"autrement. Cela permet au registre de poste de connaître vos propres poste "
+"afin qu'il puisse détecter des conflits ou reporter aux autres modules des "
+"informations à propos de vos poste personnalisés que ces modules pourraient "
+"utiliser. Vous ne devriez pas mettre de poste que vous avez créé dans le "
+"Module Misc Apps car ils ne sont pas personnalisés."
+
+#: functions.inc.php:133
+msgid "DUPLICATE Extension: This extension already in use"
+msgstr "Poste DUPLIQUÉ : Cet poste est déjà utilisé"
+
+#: Customappsreg.class.php:293
+msgid "Delete"
+msgstr "Supprimer"
+
+#: views/customdests/form.php:124 views/customextens/form.php:59
+#: views/customextens/grid.php:8 views/customextens/rnav.php:9
+msgid "Description"
+msgstr "Description"
+
+#: views/customdests/form.php:199
+msgid "Destination"
+msgstr "Destination"
+
+#: views/customdests/form.php:94
+msgid "Destination Quick Pick"
+msgstr "Sélection rapide de destination"
+
+#: views/customdests/grid.php:10 views/customdests/rnav.php:8
+msgid "Destinations"
+msgstr "Destinations"
+
+#: views/customdests/form.php:187
+msgid ""
+"Does this destination end with 'Return'? If so, you can then select a "
+"subsequent destination after this call flow is complete."
+msgstr ""
+"Est-ce que cette destination se termine avec un 'Return'? Si c'est le cas, "
+"vous pouvez choisir qu'elle sera la destination suivante après que l'appel "
+"soit complété."
+
+#: views/customdests/form.php:30 views/customextens/form.php:11
+msgid "Edit: "
+msgstr "Editer : "
+
+#: views/customextens/grid.php:7 views/customextens/rnav.php:8
+msgid "Extension"
+msgstr "Poste"
+
+#: views/customdests/form.php:243
+msgid ""
+"Invalid Destination, must not be blank, must be formatted as: context,exten,"
+"pri"
+msgstr ""
+"Destination invalide. Elle ne doit pas être vide et doit être formatté comme "
+"suit : contexte,poste,priorité"
+
+#: functions.inc.php:118 views/customextens/form.php:106
+msgid "Invalid Extension, must not be blank"
+msgstr "Poste invalide, ne doit pas être vide"
+
+#: functions.inc.php:122 views/customdests/form.php:244
+#: views/customextens/form.php:107
+msgid "Invalid description specified, must not be blank"
+msgstr "Description spécifiée invalide, elle ne doit pas être vide"
+
+#: views/customextens/rnav.php:2
+msgid "List Custom Extensions"
+msgstr "Liste des postes personnalisés"
+
+#: views/customdests/rnav.php:2
+msgid "List Destinations"
+msgstr "Liste des destinations"
+
+#: views/customdests/form.php:160
+msgid ""
+"More detailed notes about this destination to help document it. This field "
+"is not used elsewhere."
+msgstr ""
+"Notes plus détaillées à propos de cette destination pour aider à la "
+"documenter. Ce champ n'est pas utilisé ailleurs."
+
+#: views/customextens/form.php:95
+msgid ""
+"More detailed notes about this extension to help document it. This field is "
+"not used elsewhere."
+msgstr ""
+"Notes plus détaillées à propos de ce poste pour aider à le documenter. Ce "
+"champ ne sera pas utilisé ailleurs."
+
+#: views/customdests/form.php:179
+msgid "No"
+msgstr "Non"
+
+#: views/customdests/form.php:148 views/customextens/form.php:83
+msgid "Notes"
+msgstr "Notes"
+
+#: Customappsreg.class.php:298
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: views/customdests/form.php:172
+msgid "Return"
+msgstr "Entrer"
+
+#: views/customdests/form.php:211
+msgid "Set the Destination after return"
+msgstr "Définis la destination après le retour"
+
+#: Customappsreg.class.php:303
+msgid "Submit"
+msgstr "Soumettre"
+
+#: views/customdests/form.php:66
+msgid "Target"
+msgstr "Destination"
+
+#: views/customextens/form.php:122
+msgid "The entered extension conflicts with another extension on the system"
+msgstr ""
+"Le numéro de poste fourni est en conflit avec un autre poste sur le système"
+
+#: views/customdests/form.php:78
+msgid ""
+"This is the Custom Destination to be published. It should be formatted "
+"exactly as you would put it in a goto statement, with context, exten, "
+"priority all included. An example might look like:<br />mycustom-app,s,1"
+msgstr ""
+"Il s'agit de la destination personnalisée à publier. Elle devrait être "
+"formatée de la même façon que si vous deviez la placer dans une déclaration "
+"goto, avec contexte, poste et priorité inclus. Voici un exemple de ce à quoi "
+"cela doit ressembler : <br />mycustom-app,s,1"
+
+#: views/customextens/form.php:47
+msgid ""
+"This is the Extension or Feature Code you are using in your dialplan that "
+"you want the FreePBX Extension Registry to be aware of."
+msgstr ""
+"Il s'agit du poste ou code de fonction que vous utilisez dans votre plan de "
+"numérotation et dont vous voulez informer le registre de poste."
+
+#: views/customdests/form.php:11
+msgid ""
+"WARNING: This destination is being used by other module objects. Changing "
+"this destination may cause unexpected issue."
+msgstr ""
+"ATTENTION : Cette destination est utilisée ailleurs. Si vous changez cette "
+"destination, cela pourrait avoir des résultats inattendus."
+
+#: views/customdests/form.php:177
+msgid "Yes"
+msgstr "Oui"
+
+#~ msgid "Admin"
+#~ msgstr "Admin"
+
+#~ msgid "Custom Applications"
+#~ msgstr "Applications Personnalisées"
+
+#~ msgid ""
+#~ "Registry to add custom extensions and destinations that may be created "
+#~ "and used so that the Extensions and Destinations Registry can include "
+#~ "these."
+#~ msgstr ""
+#~ "Registre pour ajouter des extensions et destinations qui peuvent etre "
+#~ "crées et utilisées afin que ce Registre des Extensions et des "
+#~ "Destinations peuvent inclure celles ci."
+
+#~ msgid ""
+#~ "READONLY WARNING: Because this destination is being used by other module "
+#~ "objects it can not be edited. You must remove those dependencies in order "
+#~ "to edit this destination, or create a new destination to use"
+#~ msgstr ""
+#~ "Cette destination est actuellement utilisée par des objets d'autres "
+#~ "modules et ne peut pas être éditée. Vous devez supprimer ces dépendances "
+#~ "pour pouvoir éditer cette destination, ou créer une nouvelle destination "
+#~ "à utiliser"
+
+#~ msgid ""
+#~ "Brief Description that will be published to modules when showing "
+#~ "destinations. Example: My Weather App"
+#~ msgstr ""
+#~ "Brève description qui sera publiée aux modules lors de l'affichage  des "
+#~ "destinations. Exemple : My Weather App"
+
+#~ msgid "Custom Destination"
+#~ msgstr "Destination Personnalisée"
+
+#~ msgid "Submit Changes"
+#~ msgstr "Appliquer les Modifications"
+
+#~ msgid "DUPLICATE Destination: This destination is already in use"
+#~ msgstr "Destination DUPLIQUEE: Cette destination est déjà utilisée"
+
+#~ msgid ""
+#~ "DUPLICATE Destination: This destination is in use or potentially used by "
+#~ "another module"
+#~ msgstr ""
+#~ "Destination DUPLIQUEE: Cette destination est utilisée ou potentiellement "
+#~ "utilisée par un autre module"
+
+#~ msgid "Edit Custom Destination"
+#~ msgstr "Editer la Destination Personnalisée"
+
+#~ msgid "Edit Custom Extension"
+#~ msgstr "Editer une Extension Personnalisée"

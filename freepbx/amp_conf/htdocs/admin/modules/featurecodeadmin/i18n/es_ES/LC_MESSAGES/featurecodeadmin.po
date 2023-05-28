@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX - featurecodeadmin module spanish translation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-02 06:48+0000\n"
+"PO-Revision-Date: 2022-10-09 13:21+0200\n"
+"Last-Translator: Javier Pastor <jpastor@cerebelum.net>\n"
+"Language-Team: Spanish <http://weblate.freepbx.org/projects/freepbx/"
+"featurecodeadmin/es_ES/>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: Featurecodeadmin.class.php:161
+msgid "(none)"
+msgstr ""
+
+#: views/view.main.list.php:106
+msgid "Actions"
+msgstr "Acciones"
+
+#: featurecodeadmin.i18n.php:6
+msgid "Admin"
+msgstr "Admin"
+
+#: Featurecodeadmin.class.php:341 views/view.main.list.php:103
+#: views/view.main.list.php:149
+msgid "Code"
+msgstr "Código"
+
+#: views/view.main.toolbar.php:9
+msgid "Collapse All"
+msgstr "Contraer Todo"
+
+#: Featurecodeadmin.class.php:110
+#, php-format
+msgid "Command [%s] not valid!"
+msgstr "¡Comando [%s] no válido!"
+
+#: views/view.main.list.php:135
+msgid "Custom feature codes"
+msgstr "Códigos de características personalizados"
+
+#: views/view.main.list.php:51
+msgid "Customize"
+msgstr "Personalizar"
+
+#: Featurecodeadmin.class.php:340 views/view.main.list.php:100
+#: views/view.main.list.php:146
+msgid "Description"
+msgstr "Descripción"
+
+#: views/view.main.list.php:53
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: views/view.main.toolbar.php:10
+msgid "Expand All"
+msgstr "Expandir Todo"
+
+#: featurecodeadmin.i18n.php:4 views/view.main.toolbar.php:5
+msgid "Feature Code Admin"
+msgstr "Códigos de características"
+
+#: views/view.main.list.php:84
+msgid "Feature Code Conflicts with other Extensions"
+msgstr ""
+"Los códigos de características están en conflicto con otras extensiones"
+
+#: Featurecodeadmin.class.php:339 featurecodeadmin.i18n.php:10
+msgid "Feature Codes"
+msgstr "Códigos de características"
+
+#: Featurecodeadmin.class.php:476
+#, php-format
+msgid "Featurecode: %s (%s:%s)"
+msgstr "Código de la característica: %s (%s:%s)"
+
+#: Featurecodeadmin.class.php:66
+#, php-format
+msgid "Page Not Found (%s)!!!!"
+msgstr "¡¡¡¡Página no encontrada (%s)!!!!"
+
+#: assets/js/featurecodeadmin.js:36
+msgid "Please enter a Feature Code or uncheck Customize"
+msgstr "Por favor entre el Código de Función o de-seleccione Personalizar"
+
+#: Featurecodeadmin.class.php:79
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: Featurecodeadmin.class.php:84
+msgid "Submit"
+msgstr "Enviar"
+
+#: featurecodeadmin.i18n.php:8
+msgid ""
+"The Feature Codes Module is used to enable and disable certain features "
+"available in your PBX and Asterisk, and to set the codes that local users "
+"will dial on their phones to use that particular feature."
+msgstr ""
+
+#: views/view.main.list.php:83
+msgid ""
+"You have feature code conflicts with extension numbers in other modules. "
+"This will result in unexpected and broken behavior."
+msgstr ""
+"Tiene conflictos en los códigos de características con los números de "
+"extensiones en otros módulos. Esto hará que se produzcan resultados "
+"inesperados y un comportamiento erróneo."
+
+#~ msgid "none"
+#~ msgstr "ninguno"
+
+#~ msgid "featuredescription"
+#~ msgstr "Descripción de la característica"
+
+#~ msgid "moduledescription"
+#~ msgstr "Descripción del módulo"

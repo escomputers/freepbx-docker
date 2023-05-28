@@ -1,0 +1,492 @@
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright (C) 2009 Séverine GUTIERREZ, severine@medialsace.fr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-25 14:06+0530\n"
+"PO-Revision-Date: 2017-12-11 23:20+0200\n"
+"Last-Translator: JCattan <jeremie@famillecattan.com>\n"
+"Language-Team: French <http://weblate.freepbx.org/projects/freepbx/music/"
+"fr_FR/>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: Music.class.php:501
+msgid "A PHP extension stopped the file upload"
+msgstr "Une extension PHP a arrêté le téléchargement du fichier"
+
+#: views/advanced_form.php:174 views/basic_form.php:67
+msgid "Action"
+msgstr "Action"
+
+#: views/grid.php:21
+msgid "Actions"
+msgstr "Actions"
+
+#: views/bootnav.php:3 views/grid.php:5
+msgid "Add Category"
+msgstr "Ajouter une catégorie"
+
+#: views/addcatform.php:27
+msgid ""
+"Allows you to Set up Different Categories for music on hold.  This is useful "
+"if you would like to specify different Hold Music or Commercials. The "
+"category name will be converted to ASCII if any UTF8 characters are found"
+msgstr ""
+"Vous permet de configurer différentes catégories pour la musique en attente. "
+"Ceci est utile si vous souhaitez spécifier différentes musiques d'attente ou "
+"publicités. Le nom de la catégorie sera converti en ASCII si des caractères "
+"UTF8 sont trouvés"
+
+#: assets/js/music.js:60
+msgid "An Error occurred trying to submit this document"
+msgstr "Une erreur est survenue lors de la tentative d'envoi du document"
+
+#: views/advanced_form.php:37
+msgid "Application"
+msgstr "Application"
+
+#: assets/js/music.js:143
+msgid "At least one codec must be checked"
+msgstr "Au moins un codec doit être sélectionné"
+
+#: views/advanced_form.php:118 views/basic_form.php:39
+msgid "Browse"
+msgstr "Parcourir"
+
+#: music.i18n.php:12
+msgid "Cache MoH Classes"
+msgstr "Cache MoH Classes"
+
+#: Music.class.php:505
+msgid "Can Not Find Uploaded Files"
+msgstr "Impossible de trouver les fichiers téléchargés"
+
+#: assets/js/music.js:9
+msgid ""
+"Categories: \"none\" and \"default\" are reserved names. Please enter a "
+"different name"
+msgstr ""
+"Les catégories \"none\" et \"default\" sont des noms réservés. S'il vous "
+"plaît, veuillez saisir un nom différent"
+
+#: views/bootnav.php:9 views/grid.php:19
+msgid "Category"
+msgstr "Catégorie"
+
+#: Music.class.php:167
+msgid "Category Already Exists"
+msgstr "La catégorie existe déjà"
+
+#: views/addcatform.php:15
+msgid "Category Name (ASCII Only)"
+msgstr "Nom de la catégorie (ASCII seulement)"
+
+#: views/advanced_form.php:162
+msgid ""
+"Check all file formats you would like the music in this category to be "
+"encoded into. This applied to uploaded music and any music currently on the "
+"system. It will not overwrite any formats that have been previously "
+"processed."
+msgstr ""
+"Vérifiez tous les formats de fichiers dans lesquels vous souhaitez encoder "
+"la musique de cette catégorie. Cela s'applique à la musique téléchargée et à "
+"toute musique actuellement sur le système. Il n'écrase aucun des formats "
+"précédemment traités."
+
+#: views/advanced_form.php:146
+msgid "Convert Upload/Files To"
+msgstr "Convertir/Envoyer les fichier vers"
+
+#: views/addcatform.php:44 views/advanced_form.php:16
+msgid "Custom Application"
+msgstr "Application personnalisée"
+
+#: Music.class.php:655
+msgid "Delete"
+msgstr "Supprimer"
+
+#: views/advanced_form.php:126 views/basic_form.php:47
+msgid "Drop Multiple Files or Archives Here"
+msgstr "Déposer plusieurs fichiers ou archives ici"
+
+#: views/advanced_form.php:88 views/basic_form.php:9
+msgid "Enable Random Play"
+msgstr "Activer la lecture aléatoire"
+
+#: views/advanced_form.php:103 views/basic_form.php:24
+msgid ""
+"Enable random playback of music for this category. If disabled music will "
+"play in alphabetical order"
+msgstr ""
+"Permet la lecture aléatoire des morceaux de cette catégorie. Si désactivée, "
+"la lecture se fera en ordre alphabétique"
+
+#: Music.class.php:498
+msgid "Failed to write file to disk"
+msgstr "Impossible d'écrire sur le disque"
+
+#: views/advanced_form.php:171 views/basic_form.php:64
+msgid "File"
+msgstr "Fichier"
+
+#: Music.class.php:521
+msgid "File does not exist"
+msgstr "Le fichier n'existe pas"
+
+#: assets/js/music.js:176
+#, perl-format
+msgid "File size is too large. Max size is %s bytes"
+msgstr ""
+"La taille du fichier est trop grande. La taille maximale est de %s bytes"
+
+#: Music.class.php:453
+msgid "File upload failed"
+msgstr "Échec Envoi Fichier"
+
+#: views/addcatform.php:43 views/advanced_form.php:15
+msgid "Files"
+msgstr "Fichiers"
+
+#: views/advanced_form.php:172 views/basic_form.php:65
+msgid "Formats"
+msgstr "Formats"
+
+#: assets/js/music.js:41
+msgid ""
+"If you are doing media conversions this can take a very long time, is that "
+"ok?"
+msgstr ""
+"Si vous effectuez des conversions de médias, cela peut prendre beaucoup de "
+"temps, compris?"
+
+#: Music.class.php:564
+msgid "Invalid Request"
+msgstr "Requête invalide"
+
+#: Music.class.php:398
+msgid "Invalid category"
+msgstr "Catégorie invalide"
+
+#: views/bootnav.php:2
+msgid "List MoH Categories"
+msgstr "Liste des catégories de musique en attente"
+
+#: Music.class.php:495
+msgid "Missing a temporary folder"
+msgstr "Un répertoire temporaire est absent"
+
+#: music.i18n.php:4 music.i18n.php:10
+msgid "Music on Hold"
+msgstr "Musique en attente"
+
+#: views/advanced_form.php:95 views/basic_form.php:16
+msgid "No"
+msgstr "Non"
+
+#: Music.class.php:492
+msgid "No file was uploaded"
+msgstr "Pas de fichier envoyé"
+
+#: Music.class.php:58
+msgid "On Hold Music"
+msgstr "Musique en attente"
+
+#: views/advanced_form.php:62
+msgid "Optional Format"
+msgstr "Format optionnel"
+
+#: views/advanced_form.php:74
+msgid ""
+"Optional value for \"format=\" line used to provide the format to Asterisk. "
+"This should be a format understood by Asterisk such as ulaw, and is specific "
+"to the streaming application you are using. See information on musiconhold."
+"conf configuration for different audio and Internet streaming source options."
+msgstr ""
+"Valeur Optionnelle pour la ligne \"format=\" utilisée pour fournir le format "
+"à Asterisk. Le format doit être compréhensible pour Asterisk, comme ulaw, et "
+"est spécifique à l'application de streaming que vous utilisez. Voir les "
+"informations dans la configuration musiconhold.conf pour différentes options "
+"de source de streaming audio et Internet."
+
+#: views/advanced_form.php:173 views/basic_form.php:66
+msgid "Play"
+msgstr "Écouter"
+
+#: assets/js/music.js:5
+msgid "Please enter a valid Category Name"
+msgstr "Veuillez entrer un nom de catégorie valide"
+
+#: assets/js/music.js:16
+msgid "Please enter a valid application command and arguments"
+msgstr "Veuillez entrer une commande et des arguments d'application valides"
+
+#: Music.class.php:660
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: music.i18n.php:6
+msgid "Settings"
+msgstr "Paramètres"
+
+#: Music.class.php:665
+msgid "Submit"
+msgstr "Soumettre"
+
+#: music.i18n.php:14
+msgid "System Setup"
+msgstr "Paramètres Système"
+
+#: Music.class.php:486
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+"Le fichier téléchargé dépasse la directive MAX_FILE_SIZE spécifiée dans le "
+"formulaire HTML"
+
+#: Music.class.php:483
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+"Le fichier téléchargé dépasse la directive upload_max_filesize dans php.ini"
+
+#: Music.class.php:489
+msgid "The uploaded file was only partially uploaded"
+msgstr "Le fichier téléchargé n'a été que partiellement téléchargé"
+
+#: views/advanced_form.php:49
+msgid ""
+"This is the \"application=\" line used to provide the streaming details to "
+"Asterisk. See information on musiconhold.conf configuration for different "
+"audio and Internet streaming source options."
+msgstr ""
+"Il s'agit de la ligne \"application=\" utilisée pour fournir les détails de "
+"streaming à Asterisk. Voir les informations dans la configuration "
+"musiconhold.conf pour différentes options de source de streaming audio et "
+"Internet."
+
+#: views/addcatform.php:38 views/advanced_form.php:10 views/grid.php:20
+msgid "Type"
+msgstr "Type"
+
+#: views/addcatform.php:53 views/advanced_form.php:25
+msgid ""
+"Type of Music on Hold. If set to \"Files\" then this category will play the "
+"files listed below. If set to \"Custom Application\" then this category will "
+"stream music from the set application"
+msgstr ""
+"Type de musique d'attente. S'il est réglé sur \"Fichiers\", cette catégorie "
+"jouera les fichiers listés ci-dessous. Si cette option est définie sur "
+"\"Application personnalisée\", cette catégorie diffusera de la musique à "
+"partir de l'application définie"
+
+#: Music.class.php:404
+#, php-format
+msgid "Unable to delete %s"
+msgstr "Incapable de supprimer %s"
+
+#: Music.class.php:478
+msgid "Unsupported file format"
+msgstr "Format de fichier non supporté"
+
+#: assets/js/music.js:171
+msgid "Unsupported file type"
+msgstr "Type de fichier non supporté"
+
+#: views/advanced_form.php:113 views/basic_form.php:34
+msgid "Upload Recording"
+msgstr "Envoyer Enregistrement"
+
+#: views/advanced_form.php:133 views/basic_form.php:54
+#, php-format
+msgid ""
+"Upload files from your local system. Supported upload formats are: %s. This "
+"includes archives (that include multiple files) and multiple files"
+msgstr ""
+"Télécharger des fichiers depuis votre système local. Les formats de "
+"téléchargement pris en charge sont les suivants: %s. Cela inclut les "
+"archives (qui incluent plusieurs fichiers) et plusieurs fichiers"
+
+#: music.i18n.php:8
+msgid ""
+"Uploading and management of sound files (wav, mp3) to be used for on-hold "
+"music."
+msgstr ""
+"Téléchargement et gestion de fichiers audio (wav, mp3) à utiliser pour la "
+"musique d'attente."
+
+#: music.i18n.php:16
+msgid ""
+"When enabled Asterisk will use 1 instance of moh class for all channels who "
+"are using it, decreasing consumable cpu cycles and memory in the process"
+msgstr ""
+"Lorsqu'elle est activée, Asterisk utilise 1 instance de moh class pour tous "
+"les canaux qui l'utilisent, ce qui réduit les cycles de cpu consommables et "
+"la mémoire dans le processus"
+
+#: views/advanced_form.php:93 views/basic_form.php:14
+msgid "Yes"
+msgstr "Oui"
+
+#: assets/js/music.js:125
+#, perl-format
+msgid ""
+"You are missing support for playback in this browser. To fully support HTML5 "
+"browser playback you will need to install programs that can not be "
+"distributed with the PBX. If you'd like to install the binaries needed for "
+"these conversions click <a href='%s'>here</a>"
+msgstr ""
+"Vous manquez de support pour la lecture dans ce navigateur. Pour prendre en "
+"charge la lecture HTML5, vous devez installer des programmes qui ne peuvent "
+"pas être distribués avec le PBX. Si vous souhaitez installer les binaires "
+"requis pour ces conversions, cliquez <a href='%s'> ici </a>"
+
+#~ msgid "Are you sure you want to delete this item?"
+#~ msgstr "Êtes-vous sûr de vouloir supprimer cet item ?"
+
+#~ msgid "Add Streaming Category"
+#~ msgstr "Ajouter une Catégorie de Sreaming"
+
+#~ msgid ""
+#~ "Allows you to Set up Different Categories for music on hold.  This is "
+#~ "useful if you would like to specify different Hold Music or Commercials "
+#~ "for various ACD Queues."
+#~ msgstr ""
+#~ "Vous permet de définir différentes Catégories pour la musique d'attente. "
+#~ "C'est utile si vous voulez spécifier différentes musiques d'attentes ou "
+#~ "publicités pour diverses Files d'Attente."
+
+#~ msgid "Cannot write to file"
+#~ msgstr "Impossible d'écrire dans le fichier"
+
+#~ msgid ""
+#~ "Categories: \\\"none\\\" and \\\"default\\\" are reserved names. Please "
+#~ "enter a different name"
+#~ msgstr ""
+#~ "Catégories : \\\"none\\\" et \\\"default\\\" sont des noms réservés. "
+#~ "Veuillez entrer un nom différent."
+
+#~ msgid "Volume Adjustment"
+#~ msgstr "Réglage du Volume"
+
+#~ msgid "No file provided"
+#~ msgstr "Pas de fichier fourni"
+
+#~ msgid "Please wait until the page loads. Your file is being processed."
+#~ msgstr ""
+#~ "Veuillez patienter pendant le chargement de la page. Votre fichier est en "
+#~ "cours de traitement."
+
+#~ msgid "Upload"
+#~ msgstr "Uploader"
+
+#~ msgid "Add Music Category"
+#~ msgstr "Ajouer une Catégorie de Musique"
+
+#~ msgid "Application:"
+#~ msgstr "Application :"
+
+#~ msgid "Category Name:"
+#~ msgstr "Nom de la Catégorie :"
+
+#~ msgid "Category:"
+#~ msgstr "Catégorie :"
+
+#~ msgid "Check"
+#~ msgstr "Contôler"
+
+#~ msgid "Completed processing"
+#~ msgstr "Traitement Terminé"
+
+#~ msgid "Delete Music Category %s"
+#~ msgstr "Supprimer la Catégorie de Musique %s"
+
+#~ msgid "Delete Streaming Category"
+#~ msgstr "Supprimer la Catégorie de Streaming"
+
+#~ msgid "Deleted"
+#~ msgstr "Supprimé"
+
+#~ msgid "Disable Random Play"
+#~ msgstr "Désactiver Lecture Aléatoire"
+
+#~ msgid "Do not encode wav to mp3"
+#~ msgstr "Ne pas encoder wav en mp3"
+
+#~ msgid "Edit Streaming Category"
+#~ msgstr "Editer la Catégorie Streaming"
+
+#~ msgid "Error Deleting %s"
+#~ msgstr "Erreur lors de la Suppression de %s"
+
+#~ msgid "Error Processing"
+#~ msgstr "Erreur pendant le Traitement"
+
+#~ msgid "Optional Format:"
+#~ msgstr "Format Optionnel :"
+
+#~ msgid "Please enter a streaming application command and arguments"
+#~ msgstr ""
+#~ "Veuillez entrer une commande d'application de streaming et des arguments"
+
+#~ msgid "Please select a file to upload"
+#~ msgstr "Veuillez sélectionner un fichier à uploader"
+
+#~ msgid "Submit Changes"
+#~ msgstr "Appliquer les Modifications"
+
+#~ msgid "This is not a fatal error, your Music on Hold may still work."
+#~ msgstr ""
+#~ "Ce n'est pas une erreur fatale, votre Musique d'Attente fonctionnera peut-"
+#~ "être encore."
+
+#~ msgid "Upload a .wav or .mp3 file:"
+#~ msgstr "Uploader un fichier .wav ou .mp3 :"
+
+#~ msgid ""
+#~ "You must have at least one file for On Hold Music.  Please upload one "
+#~ "before deleting this one."
+#~ msgstr ""
+#~ "Vous devez avoir au moins un fichier pour la Musique d'Attente. Veuillez "
+#~ "uploader un autre fichier avant de supprimer celui-ci."
+
+#~ msgid "default"
+#~ msgstr "par défaut"
+
+#~ msgid "in"
+#~ msgstr "dans"
+
+#~ msgid ""
+#~ "The volume adjustment is a linear value. Since loudness is logarithmic, "
+#~ "the linear level will be less of an adjustment. You should test out the "
+#~ "installed music to assure it is at the correct volume. This feature will "
+#~ "convert MP3 files to WAV files. If you do not have mpg123 installed, you "
+#~ "can set the parameter: <strong>AMPMPG123=false</strong> in your amportal."
+#~ "conf file"
+#~ msgstr ""
+#~ "Le réglage du volume est une valeur linéaire. Comme le volume est "
+#~ "algorithmique, le niveau linéaire sera moindre que l'ajustement réel. "
+#~ "Vous devriez tester la musique installée pour vous assurer que le volume "
+#~ "est correct. Cette fonctionnalité convertira les fichiers MP3 en fichiers "
+#~ "WAV. Si vous n'avez pas installé mpg123, vous pouvez fixer le paramètre : "
+#~ "<strong>AMPMPG123=false</strong> dans votre fichier amportal.conf"

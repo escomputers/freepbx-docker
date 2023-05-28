@@ -1,0 +1,193 @@
+/**
+ * Section Toggles
+ */
+.guielToggleBut {
+	cursor: pointer;
+}
+
+/**
+ * FreePBX Container views
+ */
+.fpbx-container {
+	/**
+	 * Force a border on display
+	 */
+	.display.full-border {
+		border: 1px solid @border-color;
+		border-radius: 10px;
+	}
+	/**
+	 * Force no border on display
+	 */
+	.display .section.no-border,
+	.display.no-border {
+		border: none;
+	}
+	/**
+	 * Display defaults
+	 */
+	.display {
+		border-bottom: 1px solid @border-color;
+		border-left: 1px solid @border-color;
+		border-right: 1px solid @border-color;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		padding: 5px;
+		margin-right: -1px;
+		.row {
+			margin-bottom: 1px;
+			/**
+			 * Help icon (?)
+			 */
+			i.fpbx-help-icon {
+				color: @text-color;
+				cursor: pointer;
+				height: 10px;
+				width: 10px;
+				font-size: small;
+				display: inline-block;
+				text-align: center;
+				margin: 2px;
+				padding-right: 1.5px;
+				padding-top: 1px;
+				padding-left: 1px;
+				font-weight: normal;
+			}
+			/**
+			 * Element help container defaults
+			 */
+			.fpbx-help-block {
+				padding: 5px;
+				border-radius: 5px;
+				display:none;
+				color: grey;
+				margin-top: 6px;
+				margin-bottom: 3px;
+				@media (max-width: 991px) {
+					margin-top: -10px;
+					margin-bottom: 0px;
+				}
+			}
+			/**
+			 * Element help container when active
+			 */
+			.fpbx-help-block.active {
+				display:block;
+				opacity: 1;
+				animation: fpbxhelpblockani .5s;
+				-webkit-animation: fpbxhelpblockani .5s;
+			}
+		}
+		/**
+		 * Section titles
+		 */
+		.section-title {
+			cursor: pointer;
+			padding-bottom: 5px;
+			h3 {
+				margin-bottom: 0px;
+			}
+		}
+		/**
+		 * Section setup
+		 */
+		.section {
+			border: 1px solid @border-color;
+			padding: 5px;
+			border-radius: 5px;
+		}
+		/**
+		 * Element setup
+		 */
+		.element-container {
+			padding: 3px;
+                        #backup_modules {
+                                  background: @form-button-background-color;
+                                  color: @form-button-text-color;
+                        }
+                        #backup_modules:hover {
+                                background: @btn-group-bg-color;
+                                color: @button-hover-text-color;
+                        }
+                        #backup_modules:active:hover {
+                                background-color: @menu-button-active-hover-bg-color;
+                                color: @panel-color;
+                        }
+			.input-group-btn > .btn {
+				height: 34px;
+			}
+			.form-group {
+				/**
+				 * Input error
+				 */
+				.input-warn {
+					position: absolute;
+					right: 20px;
+					top: 8px;
+					font-size: 135%;
+					color: #A02121;
+					z-index: 1;
+				}
+				.input-warn[data-type=input] {
+					background-color: rgb(238, 217, 217);
+				}
+				.input-warn[data-type=select] {
+					right: 33px;
+				}
+				/**
+				 * Readjust formatting when changing to a mobile view
+				 */
+				div[class*="col-"] {
+					@media (min-width: 992px) {
+						top: 2px;
+					}
+				}
+				div[class*="col-"].control-label {
+					@media (min-width: 992px) {
+						top: 9px;
+						left: 6px;
+					}
+				}
+			}
+			/**
+			 * Element Labels
+			 */
+			.control-label {
+				font-weight: bold;
+			}
+		}
+		/**
+		 * Alternating row colors
+		 */
+		.element-container:nth-child(even) {
+			background-color: @table-striped-even-background-color;
+			color: @table-striped-even-text-color;
+			border-radius: 3px;
+		}
+		/**
+		* Alternating row colors
+		*/
+		.element-container:nth-child(odd) {
+			background-color: @table-striped-odd-background-color;
+			color: @table-striped-odd-text-color;
+			border-radius: 3px;
+		}
+		/**
+		 * Color help (?) icon when container is in an error state
+		 */
+		.element-container.has-error {
+			.fpbx-help-icon {
+				color: #A02121;
+			}
+		}
+	}
+}
+/* Attempt to fade in/out help boxes */
+@keyframes fpbxhelpblockani {
+	0%   {opacity: 0}
+	100% {opacity: 1}
+}
+@-webkit-keyframes fpbxhelpblockani {
+	0%   {opacity: 0}
+	100% {opacity: 1}
+}

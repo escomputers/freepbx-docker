@@ -1,0 +1,94 @@
+#!/usr/bin/php
+<?php
+function parse_amportal_conf($filename) {
+	$file = file($filename);
+	foreach ($file as $line) {
+		if (preg_match("/^\s*([a-zA-Z0-9]+)\s*=\s*(.*)\s*([;#].*)?/",$line,$matches)) { 
+			$conf[ $matches[1] ] = $matches[2];
+		}
+	}
+	return $conf;
+}
+
+require('DB.php');
+
+$amp_conf = parse_amportal_conf("/etc/amportal.conf");
+
+$db_user = $amp_conf["AMPDBUSER"];
+$db_pass = $amp_conf["AMPDBPASS"];
+$db_host = 'localhost';
+$db_name = 'asterisk';
+$db_engine = 'mysql';
+
+$datasource = $db_engine.'://'.$db_user.':'.$db_pass.'@'.$db_host.'/'.$db_name;
+
+$db = DB::connect($datasource); // attempt connection
+
+if(DB::isError($db)) {
+	die( "Cannot connect to database\n" );
+}
+
+$res = $db->getAll("SELECT extension, priority, application, args FROM extensions WHERE context = 'ext-group' ORDER BY extension, priority");
+
+foreach ($res as $row) {
+	switch ($row[1]) { // priority
+		case 1: // group
+			if (preg_match("/^GROUP=(.*)$/", $row[3], $matches)) {
+				$groups[$row[0]]["group"] = preg_replace("/[^0-9#*]/","-",$matches[1]);
+			} else {
+				die("Extension ".$row[0]." priority ".$row[1]." expected: \"GROUP=...\", got \"".$row[3]."\"\n");
+			}
+		break;
+		case 2: // ringtimer
+			if (preg_match("/^RINGTIMER=(.*)$/", $row[3], $matches)) {
+				$groups[$row[0]]["time"] = $matches[1];
+			} else {
+				die("Extension ".$row[0]." priority ".$row[1]." expected: \"RINGTIMER=...\", got \"".$row[3]."\"\n");
+			}
+		break;
+		case 3: // pre
+			if (preg_match("/^PRE=(.*)$/", $row[3], $matches)) {
+				$groups[$row[0]]["prefix"] = $matches[1];
+			} else {
+				die("Extension ".$row[0]." priority ".$row[1]." expected: \"PRE=...\", got \"".$row[3]."\"\n");
+			}
+		case 4: // macro(rg-group)
+			// do nothing with this
+		break;
+		case 5: // fail action
+			$groups[$row[0]]["action"] = array($row[2],$row[3]);
+		break;
+		default:
+			die("Got unexpected priority ".$row[1]." for extension ".$row[0]."\n");
+		break;
+	}
+}
+
+$db->query("DELETE FROM extensions WHERE context = 'ext-group'");
+
+foreach ($groups as $ext => $value) {
+var_dump($value);
+	$sql = "INSERT INTO extensions (context, extension, priority, application, args, descr) VALUES (".
+		"'ext-group', ".
+		"'".$ext."', ".
+		"'1', ".
+		"'Macro', ".
+		"'rg-group,".$value["time"].",".$value["prefix"].",".$value["group"]."', ".
+		"'Call ring group') ";
+	echo $sql."\n";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO extensions (context, extension, priority, application, args, descr) VALUES (".
+		"'ext-group', ".
+		"'".$ext."', ".
+		"'2', ".
+		"'".$value["action"][0]."', ".
+		"'".$value["action"][1]."', ".
+		"'timeout/failover action')";
+	echo $sql."\n";
+	$db->query($sql);
+	
+}
+
+?>
+

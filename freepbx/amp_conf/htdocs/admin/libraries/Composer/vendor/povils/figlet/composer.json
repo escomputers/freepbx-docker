@@ -1,0 +1,35 @@
+{
+  "name": "povils/figlet",
+  "type": "library",
+  "description": "Figlet text generator - PHP",
+  "keywords": ["github", "figlet", "ascii", "text", "php"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Povilas Susinskas",
+      "email": "povilassusinskas@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "symfony/console": "~3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Povils\\Figlet\\": "src/Figlet"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Povils\\Figlet\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}

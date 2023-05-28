@@ -1,0 +1,269 @@
+/*
+	SmartWizard 2.0 plugin
+	jQuery Wizard control Plugin
+	by Dipu
+
+	http://www.techlaboratory.net
+	http://tech-laboratory.blogspot.com
+*/
+.swMain {
+	position:relative;
+	background: #FFF;
+	display:block;
+	margin:0;
+	padding:0;
+	border: 0 solid #CCC;
+	overflow:visible;
+	float:left;
+	width:100%;
+	.stepContainer {
+		display:block;
+		position: relative;
+		margin: 0;
+		padding:0;
+		border: 0 solid #CCC;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		clear:both;
+		height:100%;
+		div.content {
+			display:block;
+			position: absolute;
+			float:left;
+			margin: 0;
+			padding:5px;
+			/*border: 1px solid #CCC;*/
+			font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+			color:#5A5655;
+			/*background-color:#F8F8F8;*/
+			height:300px;
+			text-align:left;
+			overflow:visible;
+			z-index:88;
+			-webkit-border-radius: 5px;
+			-moz-border-radius  : 5px;
+			width:100%;
+			clear:both;
+		}
+		.StepTitle {
+			display:block;
+			position: relative;
+			margin:0;
+			border: 1px solid @border-color;
+			padding:5px;
+			font-size: 16px;
+			font-weight: bold;
+			color: @text-color;
+			background-color: @background-color;
+			clear:both;
+			text-align:left;
+			z-index:88;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			border-bottom: none;
+			width: 574px;
+		}
+		.display {
+			width: 574px;
+		}
+	}
+	div.actionBar {
+		display:block;
+		position: relative;
+		clear:both;
+		margin:             3px 0 0 0;
+		border:             1px solid #CCC;
+		padding:            0;
+		color:              #5A5655;
+		background-color:   #F8F8F8;
+		height:40px;
+		text-align:left;
+		overflow:auto;
+		z-index:88;
+
+		-webkit-border-radius: 5px;
+		-moz-border-radius  : 5px;
+		left:0;
+	}
+	ul.anchor {
+		position: relative;
+		display:block;
+		float:left;
+		list-style: none;
+		padding: 0;
+		margin: 10px 0;
+		clear: both;
+		border: 0 solid #CCCCCC;
+		background: transparent; /*#EEEEEE */
+		li{
+			position: relative;
+			display:block;
+			margin: 0;
+			padding: 0 3px;
+			border: 0 solid #E0E0E0;
+			float: left;
+			a {
+				display:block;
+				position:relative;
+				float:left;
+				margin: 5px 0 0 0;
+				padding:3px;
+				height:60px;
+				width:230px;
+				text-decoration: none;
+				outline-style:none;
+				-moz-border-radius  : 5px;
+				-webkit-border-radius: 5px;
+				z-index:99;
+				.stepNumber{
+					position:relative;
+					float:left;
+					width:30px;
+					text-align: left;
+					padding: 0 -5px 5px;
+					font: bold 45px Verdana, Arial, Helvetica, sans-serif;
+				}
+				.stepDesc{
+					position:relative;
+					display:block;
+					float:left;
+					text-align: left;
+					padding:5px;
+					font: bold 20px Verdana, Arial, Helvetica, sans-serif;
+				}
+				.stepDesc small{
+					font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+					float:right;
+				}
+			}
+			a.selected{
+				.button-layout(@button-background-color, @form-button-text-color);
+				cursor:default;
+				-moz-box-shadow: 5px 5px 8px #888;
+				-webkit-box-shadow: 5px 5px 8px #888;
+				box-shadow: 5px 5px 8px #888;
+			}
+			a.selected:hover {
+				.button-hover();
+			}
+			a.done {
+				.button-disabled();
+				cursor: pointer;
+			}
+			a.done:hover {
+				.button-hover();
+			}
+			a.done:active {
+				.button-active();
+			}
+			a.disabled {
+				.button-disabled();
+			}
+			a.disabled:hover {
+
+			}
+			a.error {
+				color:#6c6c6c !important;
+				background: #f08f75 !important;
+				border: 1px solid #fb3500 !important;
+			}
+			a.error:hover {
+				color:#000 !important;
+			}
+		}
+	}
+	.buttonFinish, .buttonPrevious, .buttonNext {
+		.button-layout(@button-background-color, @form-button-text-color);
+		border-radius: @button-radius;
+		line-height: initial;
+		display:block;
+		float:right;
+		margin:5px 3px 0 3px;
+		padding:3px;
+		width:100px;
+		text-align: center;
+		min-height: 28px;
+		text-decoration: none;
+	}
+	.buttonFinish:hover, .buttonPrevious:hover, .buttonNext:hover {
+		.button-hover();
+		text-decoration: none;
+	}
+	.buttonFinish:active, .buttonPrevious:active, .buttonNext:active {
+		.button-active();
+		text-decoration: none;
+	}
+	.buttonDisabled {
+		.button-disabled();
+		text-decoration: none;
+	}
+
+	.loader {
+		position:relative;
+		display:none;
+		float:left;
+		margin: 2px 0 0 2px;
+		padding:8px 10px 8px 40px;
+		border: 1px solid #FFD700;
+		font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+		color:#5A5655;
+		background: #FFF url(../images/loader.gif) no-repeat 5px;
+		-moz-border-radius  : 5px;
+		-webkit-border-radius: 5px;
+		z-index:998;
+	}
+	.msgBox {
+		position:relative;
+		display:none;
+		float:left;
+		margin: 4px 0 0 5px;
+		padding:5px;
+		border: 1px solid #FFD700;
+		background-color: #FFFFDD;
+		font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+		color:#5A5655;
+		-moz-border-radius  : 5px;
+		-webkit-border-radius: 5px;
+		z-index:999;
+		min-width:200px;
+		.content {
+			font: normal 12px Verdana,Arial,Helvetica,sans-serif;
+			padding: 0;
+			float:left;
+		}
+		.close {
+			border: 1px solid #CCC;
+			border-radius: 3px;
+			color: #CCC;
+			display: block;
+			float: right;
+			margin: 0 0 0 5px;
+			outline-style: none;
+			padding: 0 2px 0 2px;
+			position: relative;
+			text-align: center;
+			text-decoration: none;
+		}
+		.close:hover{
+			color: #EA8511;
+			border: 1px solid #EA8511;
+		}
+	}
+}
+
+/**
+ * Special Casing when inside a bootstrap modal
+ */
+.modal-body.swMain {
+	float: none;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	.actionBar {
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border: none;
+		border-top: 1px solid #ccc;
+		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 6px;
+	}
+}

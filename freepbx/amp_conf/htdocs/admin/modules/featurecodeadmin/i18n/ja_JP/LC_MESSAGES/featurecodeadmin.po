@@ -1,0 +1,186 @@
+# CREDITS for JAPANESE TRANSLATION
+# ================================
+# Current translation & maintenance: QLOOG, Inc. (Kobe, Japan)
+# Inquiries: info@qloog.com / www.qloog.com
+#
+# This translation is a culmination of the hard work of
+# several outstanding individuals, which started in 2009 with the 
+# first-ever Japanese localization of FreePBX by Kenichi Fukaumi 
+# and Kazuhiro Tokuyama (FreePBX Japanized Project).
+#
+# Beginning in 2013, with the approval of the original authors, 
+# QLOOG undertook a large scale overhaul of the translation to 
+# expand it for compatibility with FreePBX 2.11. Our work is, 
+# of course, released under the same GPLv2 license as FreePBX. 
+# We only ask that you kindly retain these credits in honor of 
+# the time and effort that all of us have contributed. Enjoy!
+#
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# FreePBX language template for featurecodeadmin
+# Copyright (C) 2008, 2009, 2010 Bandwith.com
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.10.0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-02 06:48+0000\n"
+"PO-Revision-Date: 2014-05-28 14:18+0200\n"
+"Last-Translator: Kevin <kevin@qloog.com>\n"
+"Language-Team: Japanese <http://git.freepbx.org/projects/freepbx/"
+"featurecodeadmin/ja/>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 1.9-dev\n"
+
+#: Featurecodeadmin.class.php:161
+msgid "(none)"
+msgstr ""
+
+#: views/view.main.list.php:106
+msgid "Actions"
+msgstr ""
+
+#: featurecodeadmin.i18n.php:6
+msgid "Admin"
+msgstr "アドミン"
+
+#: Featurecodeadmin.class.php:341 views/view.main.list.php:103
+#: views/view.main.list.php:149
+msgid "Code"
+msgstr ""
+
+#: views/view.main.toolbar.php:9
+msgid "Collapse All"
+msgstr ""
+
+#: Featurecodeadmin.class.php:110
+#, php-format
+msgid "Command [%s] not valid!"
+msgstr ""
+
+#: views/view.main.list.php:135
+msgid "Custom feature codes"
+msgstr ""
+
+#: views/view.main.list.php:51
+msgid "Customize"
+msgstr ""
+
+#: Featurecodeadmin.class.php:340 views/view.main.list.php:100
+#: views/view.main.list.php:146
+msgid "Description"
+msgstr ""
+
+#: views/view.main.list.php:53
+msgid "Enabled"
+msgstr "有効"
+
+#: views/view.main.toolbar.php:10
+msgid "Expand All"
+msgstr ""
+
+#: featurecodeadmin.i18n.php:4 views/view.main.toolbar.php:5
+msgid "Feature Code Admin"
+msgstr "機能コード管理"
+
+#: views/view.main.list.php:84
+msgid "Feature Code Conflicts with other Extensions"
+msgstr "他の内線との機能コードの衝突"
+
+#: Featurecodeadmin.class.php:339 featurecodeadmin.i18n.php:10
+msgid "Feature Codes"
+msgstr "機能コード"
+
+#: Featurecodeadmin.class.php:476
+#, php-format
+msgid "Featurecode: %s (%s:%s)"
+msgstr ""
+
+#: Featurecodeadmin.class.php:66
+#, php-format
+msgid "Page Not Found (%s)!!!!"
+msgstr ""
+
+#: assets/js/featurecodeadmin.js:36
+msgid "Please enter a Feature Code or uncheck Customize"
+msgstr ""
+
+#: Featurecodeadmin.class.php:79
+msgid "Reset"
+msgstr ""
+
+#: Featurecodeadmin.class.php:84
+msgid "Submit"
+msgstr ""
+
+#: featurecodeadmin.i18n.php:8
+msgid ""
+"The Feature Codes Module is used to enable and disable certain features "
+"available in your PBX and Asterisk, and to set the codes that local users "
+"will dial on their phones to use that particular feature."
+msgstr ""
+
+#: views/view.main.list.php:83
+msgid ""
+"You have feature code conflicts with extension numbers in other modules. "
+"This will result in unexpected and broken behavior."
+msgstr ""
+"他のモジュールと機能コードが衝突しています。動作が不定となりエラーが発生する"
+"可能性があります。"
+
+#~ msgid "Featurecode: "
+#~ msgstr "機能コード: "
+
+#~ msgid "Are you sure you wish to proceed?"
+#~ msgstr "処理を続行しますか？"
+
+#~ msgid "Default"
+#~ msgstr "デフォルト"
+
+#~ msgid "Disabled"
+#~ msgstr "無効"
+
+#~ msgid "Feature"
+#~ msgstr "機能"
+
+#~ msgid "Feature Codes have been duplicated"
+#~ msgstr "機能コードが重複しています"
+
+#~ msgid ""
+#~ "Please enter a Feature Code or check Use Default for all Enabled Feature "
+#~ "Codes"
+#~ msgstr ""
+#~ "機能コードを入力するか、「デフォルトを使う」をチェックして、すべての機能"
+#~ "コードを有効にしてください。"
+
+#~ msgid "Status"
+#~ msgstr "ステータス"
+
+#~ msgid "Submit Changes"
+#~ msgstr "変更を適用"
+
+#~ msgid "Use"
+#~ msgstr "デフォルトを"
+
+#~ msgid "featuredescription"
+#~ msgstr "キー説明"
+
+#~ msgid "moduledescription"
+#~ msgstr "モジュール説明"

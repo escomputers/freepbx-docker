@@ -1,0 +1,169 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for callrecording
+# Copyright (C) 2008-2016 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 06:15+0000\n"
+"PO-Revision-Date: 2016-05-09 03:26+0200\n"
+"Last-Translator: Avishay <baabad@outlook.com>\n"
+"Language-Team: Hebrew <http://weblate.freepbx.org/projects/freepbx/"
+"callrecording/he_IL/>\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: assets/js/callrecording.js:21
+#, perl-format
+msgid "%s already used, please use a different description."
+msgstr ""
+
+#: page.callrecording.php:14
+msgid ": Add"
+msgstr ""
+
+#: page.callrecording.php:12
+msgid ": Edit"
+msgstr ""
+
+#: views/grid.php:23
+msgid "Actions"
+msgstr "פעולות"
+
+#: views/bootnav.php:7 views/grid.php:17
+msgid "Add Call Recording"
+msgstr "הוסף הקלטה"
+
+#: callrecording.i18n.php:8
+msgid ""
+"Asterisk 13.2 and higher supports the ability to play a regular 'beep' when "
+"a call is being recorded. If you set this to a positive number value, when a "
+"call is being actively recorded, both parties will hear a 'beep' every "
+"period that you select. If you are not running Asterisk 13.2 or higher, this "
+"setting will have no effect. To disable simply clear the value of this box "
+"or set the value to 0 and save. This is typically set arround 15seconds"
+msgstr ""
+
+#: callrecording.i18n.php:4
+msgid "Beep every n seconds"
+msgstr ""
+
+#: callrecording.i18n.php:10
+msgid "Call Record Option"
+msgstr ""
+
+#: callrecording.i18n.php:6 functions.inc.php:34 functions.inc.php:525
+#: page.callrecording.php:7
+msgid "Call Recording"
+msgstr "הקלטות"
+
+#: views/form.php:101
+msgid "Call Recording Mode"
+msgstr ""
+
+#: Callrecording.class.php:212 functions.inc.php:56 functions.inc.php:691
+#, php-format
+msgid "Call Recording: %s"
+msgstr ""
+
+#: Callrecording.class.php:147
+msgid "Delete"
+msgstr "מחיקה"
+
+#: views/form.php:72 views/grid.php:22
+msgid "Description"
+msgstr ""
+
+#: assets/js/callrecording.js:3
+msgid "Description name already exists "
+msgstr ""
+
+#: views/form.php:125
+msgid "Destination"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Don't Care"
+msgstr ""
+
+#: callrecording.i18n.php:12
+msgid "Don’t begin recording unless a call is bridged to another channel"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Force"
+msgstr ""
+
+#: assets/js/callrecording.js:2
+msgid "Invalid description specified"
+msgstr ""
+
+#: views/bootnav.php:6
+msgid "List Call Recordings"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Never"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "No"
+msgstr "לא"
+
+#: views/form.php:91
+msgid "Note that the meaning of these options has changed."
+msgstr ""
+
+#: views/form.php:113
+msgid "Please read the wiki for futher information on these changes."
+msgstr ""
+
+#: Callrecording.class.php:152
+msgid "Reset"
+msgstr ""
+
+#: views/bootnav.php:19
+msgid "Rule"
+msgstr ""
+
+#: Callrecording.class.php:157
+msgid "Submit"
+msgstr ""
+
+#: views/form.php:84
+msgid ""
+"The descriptive name of this call recording instance. For example \"French "
+"Main IVR\""
+msgstr ""
+
+#: functions.inc.php:504
+msgid ""
+"This sets the call recording behavior for calls coming into this DID. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+
+#: functions.inc.php:512
+msgid ""
+"This sets the call recording behavior for calls going out this route. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+
+#: bin/one_touch_record.php:276
+msgid "Unknown"
+msgstr ""
+
+#: views/form.php:137
+msgid "Where should the call be sent."
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Yes"
+msgstr ""

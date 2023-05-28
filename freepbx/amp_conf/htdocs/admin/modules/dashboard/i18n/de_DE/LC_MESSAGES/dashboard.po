@@ -1,0 +1,506 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for dashboard
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-17 05:08+0000\n"
+"PO-Revision-Date: 2018-10-25 09:00+0000\n"
+"Last-Translator: Bastian Mertgen <b.mertgen@bastian-mertgen.de>\n"
+"Language-Team: German <http://*/projects/freepbx/dashboard/de/>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.0.1\n"
+
+#: sections/Blogs.class.php:26 sections/Blogs.class.php:34
+#, php-format
+msgid "%s Feed"
+msgstr "%s Feed (Änderungen)"
+
+#: sections/Statistics.class.php:17
+#, php-format
+msgid "%s Statistics"
+msgstr "%s Statistiken"
+
+#: views/sections/overview.php:66 views/sections/uptime.php:6
+#, php-format
+msgid "%s ago"
+msgstr "%s her"
+
+#: sections/Overview.class.php:241
+#, php-format
+msgid "%s messages are queued on this machine, and have not been delivered"
+msgstr ""
+"%s Nachrichten warten auf dieser Maschine und wurden noch nicht ausgeliefert"
+
+#: classes/TimeUtils.class.php:23
+msgid "0 seconds"
+msgstr "0 Sekunden"
+
+#: views/sections/uptime.php:16
+msgid "1 Minute"
+msgstr "1 Minute"
+
+#: sections/Overview.class.php:239
+msgid "1 message is queued on this machine, and has not been delivered"
+msgstr ""
+"Eine Nachricht wartet auf dieser Maschine und wurde noch nicht ausgeliefert"
+
+#: views/sections/uptime.php:22
+msgid "15 Minutes"
+msgstr "15 Minuten"
+
+#: views/sections/uptime.php:19
+msgid "5 Minutes"
+msgstr "5 Minuten"
+
+#: sections/Overview.class.php:33
+#, php-format
+msgid "<strong>'%s'</strong>"
+msgstr ""
+
+#: sections/Overview.class.php:35
+#, php-format
+msgid ""
+"<strong>'%s'</strong><br><i>(You can change this name in Advanced Settings)</"
+"i>"
+msgstr ""
+"<strong>'%s'</strong><br><i>(Sie können diesen Namen in den erweiterten "
+"Einstellungen ändern)</i>"
+
+#: views/sections/notepad.php:43
+msgid "Add a note"
+msgstr ""
+
+#: Dashboard.class.php:407 Dashboard.class.php:412
+msgid "An error occured"
+msgstr ""
+
+#: sections/Overview.class.php:135
+msgid "Asterisk"
+msgstr "Asterisk-Telefonanlage"
+
+#: Api/Gql/dashboard.php:79
+msgid "Available space details"
+msgstr ""
+
+#: sections/Blogs.class.php:27 sections/Blogs.class.php:35
+msgid "Blogs"
+msgstr "Blogs (Weblog)"
+
+#: sections/Overview.class.php:124
+msgid "Critical Errors found"
+msgstr "Kritische Fehler gefunden"
+
+#: dashboard.i18n.php:6 dashboard.i18n.php:10
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: dashboard.i18n.php:14
+msgid "Dashboard Module"
+msgstr "Dashboard-Modul"
+
+#: views/sections/statistics.php:10 views/sections/statistics.php:21
+#: views/sections/statistics.php:32 views/sections/statistics.php:43
+#: views/sections/statistics.php:54 views/sections/statistics.php:65
+msgid "Day"
+msgstr "Tag"
+
+#: views/sections/notepad.php:21 views/sections/overview.php:54
+msgid "Delete This"
+msgstr "Lösche dieses Objekt"
+
+#: Dashboard.class.php:412
+msgid "Deleted note"
+msgstr ""
+
+#: dashboard.i18n.php:12
+msgid "Disable collection of system statistics"
+msgstr "Deaktiviere die Sammlung von Systemstatistiken"
+
+#: views/sections/statistics.php:50
+msgid "Disk"
+msgstr "Disk-Speicher"
+
+#: dashboard.i18n.php:18
+msgid "Display firewall status"
+msgstr ""
+
+#: dashboard.i18n.php:22
+msgid "Expiry time for system statistics"
+msgstr "Ablaufzeit für Systemstatistiken"
+
+#: views/main.php:6
+msgid "Frobulating"
+msgstr "Frobulation"
+
+#: views/sections/statistics.php:9 views/sections/statistics.php:20
+#: views/sections/statistics.php:31 views/sections/statistics.php:42
+#: views/sections/statistics.php:53 views/sections/statistics.php:64
+msgid "Hour"
+msgstr "Stunde"
+
+#: views/sections/overview.php:53
+msgid "Ignore This"
+msgstr "Ignorieren"
+
+#: classes/Statistics.class.php:13
+msgid "Invalid Selection"
+msgstr "Fehlerhafte Auswahl"
+
+#: classes/Statistics.class.php:25
+msgid "Invalid period"
+msgstr "Falsche Periode"
+
+#: sections/Statistics.class.php:24
+msgid "Live Network Usage"
+msgstr "Aktuelle Netzwerknutzung"
+
+#: views/sections/uptime.php:13
+msgid "Load Averages"
+msgstr "Durchschnittliche Auslastung"
+
+#: views/sections/netmon.php:48
+#, php-format
+msgid "Loading Interface %s..."
+msgstr "Lade Schnittstelle %s..."
+
+#: sections/Overview.class.php:138
+msgid "Mail Queue"
+msgstr "E-Mail-Warteschlange"
+
+#: views/sections/statistics.php:39
+msgid "Memory"
+msgstr "Arbeitsspeicher"
+
+#: Api/Gql/dashboard.php:107 Api/Gql/dashboard.php:139
+msgid "Message for the request"
+msgstr ""
+
+#: Dashboard.class.php:194
+msgid "Missing Class Object!"
+msgstr ""
+
+#: views/sections/statistics.php:12 views/sections/statistics.php:23
+#: views/sections/statistics.php:34 views/sections/statistics.php:45
+#: views/sections/statistics.php:56 views/sections/statistics.php:67
+msgid "Month"
+msgstr "Monat"
+
+#: sections/Overview.class.php:136
+msgid "MySQL"
+msgstr "MySQL-DB"
+
+#: views/sections/statistics.php:61
+msgid "Network"
+msgstr "Netzwerk"
+
+#: sections/Overview.class.php:96
+msgid "No critical issues found"
+msgstr "Keine kritischen Fehler gefunden"
+
+#: views/sections/notepad.php:8
+msgid "No notes found"
+msgstr ""
+
+#: sections/Notepad.class.php:11
+msgid "Notepad"
+msgstr ""
+
+#: sections/Notepad.class.php:12
+msgid "Notes"
+msgstr ""
+
+#: sections/Overview.class.php:16
+msgid "Overview"
+msgstr "Übersicht"
+
+#: sections/Overview.class.php:123 sections/Overview.class.php:127
+msgid "Please check for errors in the notification section"
+msgstr "Bitte prüfe das System auf Fehler in der Benachrichtigungs Sektion"
+
+#: dashboard.i18n.php:8
+msgid ""
+"Provides a system information dashboard, showing information about Calls, "
+"CPU, Memory, Disks, Network, and processes."
+msgstr ""
+"Stellt ein Systeminformations-Dashboard zur Verfügung, das Informationen "
+"über Anrufe, CPU, Speicher, Laufwerke, Netzwerk und Prozesse liefert."
+
+#: Api/Gql/dashboard.php:50
+msgid "Read the System licence information"
+msgstr ""
+
+#: views/sections/overview.php:64
+msgid "Resolve"
+msgstr "Beheben"
+
+#: Api/Gql/dashboard.php:65
+msgid "Returns storage id"
+msgstr ""
+
+#: views/sections/notepad.php:35
+msgid "Save"
+msgstr ""
+
+#: Dashboard.class.php:407
+msgid "Saved note"
+msgstr ""
+
+#: sections/Overview.class.php:105
+msgid "Security Issue"
+msgstr "Sicherheitslücke"
+
+#: dashboard.i18n.php:24
+msgid ""
+"Set the maximum age in seconds before system statistics are refreshed. The "
+"minimum value is 50 seconds."
+msgstr ""
+"Setze das maximale Alter in Sekunden bevor Systemstatistiken erneuert "
+"werden. Der Mindestwert ist 50 Sekunden."
+
+#: dashboard.i18n.php:16
+msgid ""
+"Set this to true to prevent persistent collection of system statistics such "
+"as CPU, memory, and channel usage."
+msgstr ""
+"Aktivieren Sie das um zu verhindern, dass dauernd Systemstatistiken wie CPU, "
+"Speicher und Kanalbenützung gesammelt werden."
+
+#: views/sections/overview.php:75
+msgid "Show All"
+msgstr "Alle anzeigen"
+
+#: views/sections/overview.php:77
+msgid "Show New"
+msgstr "Neue anzeigen"
+
+#: classes/Statistics.class.php:79
+msgid "Since Reload"
+msgstr "Seit dem letzten Reload"
+
+#: Api/Gql/dashboard.php:36
+msgid "Sorry, unable to find any diskspace"
+msgstr ""
+
+#: sections/Statistics.class.php:18 sections/Statistics.class.php:25
+#: sections/Uptime.class.php:16
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: Api/Gql/dashboard.php:111 Api/Gql/dashboard.php:143
+msgid "Status for the request"
+msgstr ""
+
+#: Api/Gql/dashboard.php:34
+msgid "Successfully found disks space details"
+msgstr ""
+
+#: views/sections/overview.php:23
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: views/sections/overview.php:36
+#, php-format
+msgid "SysInfo updated %s seconds ago"
+msgstr "SysInfo aktualisiert vor %s Sekunden"
+
+#: classes/Statistics.class.php:61
+msgid "System"
+msgstr "System"
+
+#: sections/Overview.class.php:94
+msgid "System Alerts"
+msgstr "System Benachrichtigungen"
+
+#: dashboard.i18n.php:4
+msgid "System Dashboard"
+msgstr "System-Dashboard"
+
+#: views/sections/uptime.php:5
+msgid "System Last Rebooted"
+msgstr "Letzter System Neustart"
+
+#: sections/Overview.class.php:15
+msgid "System Overview"
+msgstr "System Übersicht"
+
+#: dashboard.i18n.php:20
+msgid ""
+"The Dashboard will display a warning when the PBX Firewall is disabled. When "
+"this is set to 'no', the Dashboard warning will be permanently suppressed."
+msgstr ""
+
+#: sections/Overview.class.php:106
+msgid "This is a critical issue and should be resolved urgently"
+msgstr "Dies ist ein kritischer Fehler, der dringend behoben werden sollte"
+
+#: sections/Uptime.class.php:15 views/sections/statistics.php:17
+msgid "Uptime"
+msgstr "Betriebszeit"
+
+#: Api/Gql/dashboard.php:19
+msgid "Use to get all the diskspace"
+msgstr ""
+
+#: sections/Overview.class.php:128
+msgid "Warnings Found"
+msgstr "Warnungen gefunden"
+
+#: sections/Overview.class.php:137
+msgid "Web Server"
+msgstr "Web Server"
+
+#: views/sections/statistics.php:11 views/sections/statistics.php:22
+#: views/sections/statistics.php:33 views/sections/statistics.php:44
+#: views/sections/statistics.php:55 views/sections/statistics.php:66
+msgid "Week"
+msgstr "Woche"
+
+#: views/main.php:3 views/sections/overview.php:6
+#, php-format
+msgid "Welcome to %s"
+msgstr "Willkommen zu %s"
+
+#: classes/TimeUtils.class.php:15
+msgid "day"
+msgstr "Tag"
+
+#: classes/TimeUtils.class.php:16
+msgid "days"
+msgstr "Tage"
+
+#: Api/Gql/dashboard.php:93
+msgid "disk total size details"
+msgstr ""
+
+#: Api/Gql/dashboard.php:100
+msgid "disk used percentage"
+msgstr ""
+
+#: classes/TimeUtils.class.php:17
+msgid "hour"
+msgstr "Stunde"
+
+#: classes/TimeUtils.class.php:18
+msgid "hours"
+msgstr "Stunden"
+
+#: classes/TimeUtils.class.php:19
+msgid "minute"
+msgstr "Minute"
+
+#: classes/TimeUtils.class.php:20
+msgid "minutes"
+msgstr "Minuten"
+
+#: classes/TimeUtils.class.php:11
+msgid "month"
+msgstr "Monat"
+
+#: classes/TimeUtils.class.php:12
+msgid "months"
+msgstr "Monate"
+
+#: classes/TimeUtils.class.php:21
+msgid "second"
+msgstr "Sekunde"
+
+#: classes/TimeUtils.class.php:22
+msgid "seconds"
+msgstr "Sekunden"
+
+#: Api/Gql/dashboard.php:72
+msgid "storage path details"
+msgstr ""
+
+#: Api/Gql/dashboard.php:86
+msgid "used space details"
+msgstr ""
+
+#: classes/TimeUtils.class.php:13
+msgid "week"
+msgstr "Woche"
+
+#: classes/TimeUtils.class.php:14
+msgid "weeks"
+msgstr "Wochen"
+
+#: classes/TimeUtils.class.php:9
+msgid "year"
+msgstr "Jahr"
+
+#: classes/TimeUtils.class.php:10
+msgid "years"
+msgstr "Jahre"
+
+#~ msgid "%s Min Avg"
+#~ msgstr "%s Min Durchschnitt"
+
+#~ msgid "Active Calls"
+#~ msgstr "Aktive Gespräche"
+
+#~ msgid "Active Chans"
+#~ msgstr "Aktive Kanäle"
+
+#~ msgid "Asterisk Uptime"
+#~ msgstr "Asterisk Uptime (Betriebszeit)"
+
+#~ msgid "Buffers"
+#~ msgstr "Puffer"
+
+#~ msgid "CPU"
+#~ msgstr "CPU"
+
+#~ msgid "CPU Temp"
+#~ msgstr "CPU Temperatur"
+
+#~ msgid "Cached"
+#~ msgstr "Zwischengespeichert"
+
+#~ msgid "Free Mem"
+#~ msgstr "Freier Arbeitsspeicher"
+
+#~ msgid "Load"
+#~ msgstr "Auslastung"
+
+#~ msgid "Reload"
+#~ msgstr "Neu laden"
+
+#~ msgid "Swap Used"
+#~ msgstr "Swap verwendet"
+
+#~ msgid "System Uptime"
+#~ msgstr "System Uptime (Betriebszeit)"
+
+#~ msgid "Temp"
+#~ msgstr "Temperatur"
+
+#~ msgid "Trunks Offline"
+#~ msgstr "Trunks Offline (nicht erreichbar)"
+
+#~ msgid "Trunks Reged"
+#~ msgstr "Trunks Registriert"
+
+#~ msgid "Used"
+#~ msgstr "Verwendet"
+
+#~ msgid "Users Offline"
+#~ msgstr "Benutzer Offline"
+
+#~ msgid "Users Online"
+#~ msgstr "Benutzer Online"
+
+#~ msgid "Feed"
+#~ msgstr "Feed"
+
+#~ msgid "Trnks Offline"
+#~ msgstr "Trunks Offline"

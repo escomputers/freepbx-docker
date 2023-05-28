@@ -1,0 +1,209 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for callrecording
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 06:15+0000\n"
+"PO-Revision-Date: 2017-03-08 21:01+0200\n"
+"Last-Translator: Kingvoice <suporte@kingvoice.com.br>\n"
+"Language-Team: Portuguese (Brazil) <http://weblate.freepbx.org/projects/"
+"freepbx/callrecording/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: assets/js/callrecording.js:21
+#, perl-format
+msgid "%s already used, please use a different description."
+msgstr ""
+
+#: page.callrecording.php:14
+msgid ": Add"
+msgstr ": Adicionar"
+
+#: page.callrecording.php:12
+msgid ": Edit"
+msgstr ": Editar"
+
+#: views/grid.php:23
+msgid "Actions"
+msgstr "Ações"
+
+#: views/bootnav.php:7 views/grid.php:17
+msgid "Add Call Recording"
+msgstr "Adicionar Gravação de Chamadas"
+
+#: callrecording.i18n.php:8
+msgid ""
+"Asterisk 13.2 and higher supports the ability to play a regular 'beep' when "
+"a call is being recorded. If you set this to a positive number value, when a "
+"call is being actively recorded, both parties will hear a 'beep' every "
+"period that you select. If you are not running Asterisk 13.2 or higher, this "
+"setting will have no effect. To disable simply clear the value of this box "
+"or set the value to 0 and save. This is typically set arround 15seconds"
+msgstr ""
+"Asterisk 13.2 ou superior tem a capacidade de tocar regularmente um 'beep' "
+"quando a chamada está sendo gravada. Se você configurar isto com um número "
+"positivo, quando a chamada começar a ser gravada, ambas as partes irão ouvir "
+"um 'beep' a cada período configurado por você. Se você não está executando "
+"Asterisk 13.2 ou superior, esta configuração não irá surtir efeito. Para "
+"desabilitar, simplesmente limpe o valor desta caixa ou configure como 0 e "
+"salve. Isto é normalmente configurado em 15 segundos"
+
+#: callrecording.i18n.php:4
+msgid "Beep every n seconds"
+msgstr "\"Bip\" a cada \"n\" segundos"
+
+#: callrecording.i18n.php:10
+msgid "Call Record Option"
+msgstr ""
+
+#: callrecording.i18n.php:6 functions.inc.php:34 functions.inc.php:525
+#: page.callrecording.php:7
+msgid "Call Recording"
+msgstr "Gravação de Chamadas"
+
+#: views/form.php:101
+msgid "Call Recording Mode"
+msgstr "Modo de Gravação de Chamadas"
+
+#: Callrecording.class.php:212 functions.inc.php:56 functions.inc.php:691
+#, php-format
+msgid "Call Recording: %s"
+msgstr "Gravação de Chamada: %s"
+
+#: Callrecording.class.php:147
+msgid "Delete"
+msgstr "Apagar"
+
+#: views/form.php:72 views/grid.php:22
+msgid "Description"
+msgstr "Descrição"
+
+#: assets/js/callrecording.js:3
+msgid "Description name already exists "
+msgstr ""
+
+#: views/form.php:125
+msgid "Destination"
+msgstr "Destino"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Don't Care"
+msgstr "Não se Importe"
+
+#: callrecording.i18n.php:12
+msgid "Don’t begin recording unless a call is bridged to another channel"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Force"
+msgstr "Forçar"
+
+#: assets/js/callrecording.js:2
+msgid "Invalid description specified"
+msgstr "Descrição especificada inválida"
+
+#: views/bootnav.php:6
+msgid "List Call Recordings"
+msgstr "Lista de Gravações de Chamadas"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Never"
+msgstr "Nunca"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "No"
+msgstr "Não"
+
+#: views/form.php:91
+msgid "Note that the meaning of these options has changed."
+msgstr "Observe que o significado dessas opções foi alterado."
+
+#: views/form.php:113
+msgid "Please read the wiki for futher information on these changes."
+msgstr "Por favor, leia o wiki para mais informações sobre essas mudanças."
+
+#: Callrecording.class.php:152
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: views/bootnav.php:19
+msgid "Rule"
+msgstr "Regra"
+
+#: Callrecording.class.php:157
+msgid "Submit"
+msgstr "Enviar"
+
+#: views/form.php:84
+msgid ""
+"The descriptive name of this call recording instance. For example \"French "
+"Main IVR\""
+msgstr ""
+"Descrição desta instância de gravação de chamadas. Por exemplo, \"URA "
+"principal em Português-BR\""
+
+#: functions.inc.php:504
+msgid ""
+"This sets the call recording behavior for calls coming into this DID. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Isso define o comportamento de gravação de chamadas para chamadas que entram "
+"neste DID. Leia o wiki para obter informações sobre o que essas "
+"configurações significam."
+
+#: functions.inc.php:512
+msgid ""
+"This sets the call recording behavior for calls going out this route. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+"Isso define o comportamento de gravação de chamadas para chamadas que saem "
+"desta rota. Leia o wiki para obter informações sobre o significado dessas "
+"configurações."
+
+#: bin/one_touch_record.php:276
+msgid "Unknown"
+msgstr ""
+
+#: views/form.php:137
+msgid "Where should the call be sent."
+msgstr "Para onde a chamada deve ser enviada."
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Yes"
+msgstr "Sim"
+
+#~ msgid "Applications"
+#~ msgstr "Aplicações"
+
+#~ msgid "Provides much of the call recording functionality."
+#~ msgstr "Fornece grande parte da funcionalidade de gravação de chamadas."
+
+#~ msgid ""
+#~ "Asterisk 13.2 and higher supports the ability to play a regular 'beep' "
+#~ "when a call is being recorded. If you set this to a positive number "
+#~ "value, when a call is being actively recorded, both parties will hear a "
+#~ "'beep' every period that you select. If you are not running Asterisk 13.2 "
+#~ "or higher, this setting will have no effect. To disable simply clear the "
+#~ "value of this box and save. This is typically set arround 15seconds"
+#~ msgstr ""
+#~ "O Asterisk 13.2 e versões posteriores possuem a capacidade de reproduzir "
+#~ "um \"bip\" quando uma chamada estiver sendo gravada. Se este valor for "
+#~ "definido com um número, quando uma chamada estiver sendo gravada, as duas "
+#~ "partes ouvirão um 'bip' a cada período que você selecionar. Se você não "
+#~ "estiver executando o Asterisk 13.2 ou superior, esta configuração não "
+#~ "terá efeito. Para desativar simplesmente limpe o valor deste campo e "
+#~ "salve. Geralmente define-se este valor para 15 segundos"
+
+#~ msgid "Submit Changes"
+#~ msgstr "Enviar Mudanças"

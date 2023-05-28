@@ -1,0 +1,51 @@
+<module>
+	<rawname>recordings</rawname>
+	<repo>standard</repo>
+	<name>Recordings</name>
+	<version>16.0.13</version>
+	<publisher>Sangoma Technologies Corporation</publisher>
+	<license>GPLv3+</license>
+	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
+	<canuninstall>no</canuninstall>
+	<category>Admin</category>
+	<description>Creates and manages system recordings, used by many other modules (eg, IVR).</description>
+  	<more-info>https://wiki.freepbx.org/display/F2/System+Recordings+Module</more-info>
+	<changelog>
+		*16.0.13* FREEPBX-24005 
+		*16.0.12* FREEI-5218 
+		*16.0.11* FREEI-5256 Recording module restore issue fixing 
+		*16.0.10* Packaging of ver 16.0.10
+		*16.0.9* FREEPBX-23621 new Gql APIs for system recording module 
+		*16.0.8* Reverting Bootstrap and dependent libs fixes 
+		*16.0.7* FREEI-4793 
+		*16.0.6* FREEPBX-23166 Latin Spanish prompts are not accessible in System Recordings 
+		*16.0.5* Packaging of ver 16.0.5
+		*16.0.4* FREEI-3280 
+		*16.0.3* Packaging of ver 16.0.3
+		*16.0.2* Packaging of ver 16.0.2
+		*16.0.1alpha* 16.0.1 alpha release
+	</changelog>
+	<menuitems>
+		<recordings>System Recordings</recordings>
+	</menuitems>
+	<database>
+		<table name="recordings">
+			<field name="id" type="integer" primarykey="true" autoincrement="true"/>
+			<field name="displayname" type="string" length="50" notnull="false"/>
+			<field name="filename" type="blob" notnull="false"/>
+			<field name="description" type="string" length="254" notnull="false"/>
+			<field name="fcode" type="boolean" default="0" notnull="false"/>
+			<field name="fcode_pass" type="string" length="20" notnull="false"/>
+			<field name="fcode_lang" type="string" length="20" notnull="false"/>
+		</table>
+	</database>
+	<depends>
+		<module>framework ge 16.0.10.27</module>
+		<module>soundlang ge 16.0.5</module>
+	</depends>
+	<supported>
+		<version>16.0</version>
+	</supported>
+	<location>release/2.11/recordings-3.3.11.9.tgz</location>
+	<md5sum>9e52d36bf0e8e680c7c112bd3ba4edde</md5sum>
+</module>

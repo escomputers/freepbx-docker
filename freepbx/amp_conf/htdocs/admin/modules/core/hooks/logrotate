@@ -1,0 +1,40 @@
+#!/bin/bash
+
+cat <<- EOF > /etc/logrotate.d/freepbx-core
+/var/log/asterisk/freepbx_dbug {
+	size 500M
+	missingok
+	rotate 7
+	dateext
+	notifempty
+	sharedscripts
+	create 0664 asterisk asterisk
+	su asterisk asterisk
+}
+
+/var/log/asterisk/freepbx_debug
+/var/log/asterisk/freepbx.log
+/var/log/asterisk/freepbx_security.log{
+	size 100M
+	missingok
+	rotate 7
+	dateext
+	notifempty
+	sharedscripts
+	create 0664 asterisk asterisk
+	su asterisk asterisk
+}
+/var/log/asterisk/core-fastagi_*.log {
+	size 50M
+	missingok
+	rotate 5
+	notifempty
+	dateext
+	sharedscripts
+	create 0664 asterisk asterisk
+	su asterisk asterisk
+	postrotate
+		/usr/sbin/fwconsole pm2 --reload-logs -q
+	endscript
+}
+EOF

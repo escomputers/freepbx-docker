@@ -1,0 +1,121 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for featurecodeadmin
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-02 06:48+0000\n"
+"PO-Revision-Date: 2016-06-24 08:14+0200\n"
+"Last-Translator: Media <mousavi.media@gmail.com>\n"
+"Language-Team: Persian (Iran) <http://weblate.freepbx.org/projects/freepbx/"
+"featurecodeadmin/fa_IR/>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: Featurecodeadmin.class.php:161
+msgid "(none)"
+msgstr ""
+
+#: views/view.main.list.php:106
+msgid "Actions"
+msgstr "عملیات"
+
+#: featurecodeadmin.i18n.php:6
+msgid "Admin"
+msgstr "مدیر"
+
+#: Featurecodeadmin.class.php:341 views/view.main.list.php:103
+#: views/view.main.list.php:149
+msgid "Code"
+msgstr "کد"
+
+#: views/view.main.toolbar.php:9
+msgid "Collapse All"
+msgstr ""
+
+#: Featurecodeadmin.class.php:110
+#, php-format
+msgid "Command [%s] not valid!"
+msgstr ""
+
+#: views/view.main.list.php:135
+msgid "Custom feature codes"
+msgstr ""
+
+#: views/view.main.list.php:51
+msgid "Customize"
+msgstr "سفارشی"
+
+#: Featurecodeadmin.class.php:340 views/view.main.list.php:100
+#: views/view.main.list.php:146
+msgid "Description"
+msgstr "شرح"
+
+#: views/view.main.list.php:53
+msgid "Enabled"
+msgstr "فعال"
+
+#: views/view.main.toolbar.php:10
+msgid "Expand All"
+msgstr ""
+
+#: featurecodeadmin.i18n.php:4 views/view.main.toolbar.php:5
+msgid "Feature Code Admin"
+msgstr "کد ویژه محیط مدیریت"
+
+#: views/view.main.list.php:84
+msgid "Feature Code Conflicts with other Extensions"
+msgstr "کد ویژه با سایر برنامه‌ ها تداخل دارد"
+
+#: Featurecodeadmin.class.php:339 featurecodeadmin.i18n.php:10
+msgid "Feature Codes"
+msgstr "کدهای ویژه"
+
+#: Featurecodeadmin.class.php:476
+#, php-format
+msgid "Featurecode: %s (%s:%s)"
+msgstr ""
+
+#: Featurecodeadmin.class.php:66
+#, php-format
+msgid "Page Not Found (%s)!!!!"
+msgstr ""
+
+#: assets/js/featurecodeadmin.js:36
+msgid "Please enter a Feature Code or uncheck Customize"
+msgstr "لطفا یک کد ویژه وارد کنید و یا تیک سفارشی سازی را بردارید"
+
+#: Featurecodeadmin.class.php:79
+msgid "Reset"
+msgstr "تنظیم مجدد"
+
+#: Featurecodeadmin.class.php:84
+msgid "Submit"
+msgstr "ثبت"
+
+#: featurecodeadmin.i18n.php:8
+msgid ""
+"The Feature Codes Module is used to enable and disable certain features "
+"available in your PBX and Asterisk, and to set the codes that local users "
+"will dial on their phones to use that particular feature."
+msgstr ""
+
+#: views/view.main.list.php:83
+msgid ""
+"You have feature code conflicts with extension numbers in other modules. "
+"This will result in unexpected and broken behavior."
+msgstr ""
+"کد ویژه با تعدادی برنامه ماژول های دیگر تداخل دارد. این باعث رفتارهای نادرست "
+"میشود."
+
+#~ msgid "Featurecode: "
+#~ msgstr "کد ویژه： "

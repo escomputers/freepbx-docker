@@ -1,0 +1,142 @@
+@table-striped-even-background-color: #DEEDF7;
+/* HTML tag styles */
+a {
+	cursor : pointer;
+}
+
+img {
+	border-width : 0;
+}
+
+#header_logo {
+	height: 105px;
+	width: 121px;
+	vertical-align: top;
+}
+
+#header_title {
+	color: #000000;
+	font-family: serif;
+	font-size: 32pt;
+	font-variant: small-caps;
+	font-weight: bold;
+	height: 60px;
+}
+
+#header_subtitle {
+	color: #68878a;
+	font-family: Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif;
+	font-size: 12pt;
+	font-weight: bold;
+	height: 60px;
+	padding-left: 10px;
+	vertical-align: top;
+}
+
+#main {
+	margin : 0;
+	padding-top : 115px;
+}
+
+#maincdr {
+	fieldset {
+		border: 2px solid grey;
+		padding: 10px;
+		legend {
+			margin-bottom: 0px;
+			width: inherit;
+			border: none;
+		}
+		input[type="checkbox"],input[type="radio"], input[type="checkbox"] {
+			margin-left: 4px;
+		}
+		table {
+			td {
+				padding: 0px;
+			}
+			th {
+				text-align : center;
+				padding: 5px;
+				font-size: 120%;
+			}
+		}
+	}
+	/* Class styles */
+	.bar_calls {
+		background-color : #aaf5d0;
+		float : none;
+		padding : 0 0 0 2px;
+	}
+
+
+	.bar_duration {
+		background-color : #e5edf9;
+		float : none;
+		padding : 0 0 0 2px;
+	}
+
+	.form legend, .title, .title a {
+		color: #777;
+		font-size: 1em;
+		font-weight: bold;
+	}
+
+
+	.record {
+		background-color : #fff;
+		empty-cells : hide;
+	}
+
+
+	.record:hover {
+		background : @table-striped-even-background-color;
+		color : #000;
+		empty-cells : show;
+	}
+
+
+	.record_col {
+		padding-left : 2px;
+		padding-right : 2px;
+		border-width : 0;
+	}
+
+
+	.center {
+		text-align : center;
+	}
+
+	.right {
+		padding-right : 80px;
+		text-align : right;
+		font-size: 9pt;
+	}
+
+
+	.cdr {
+		margin : 0 5%;
+		border-width : 0;
+		width : 92%;
+		font-size: 8pt;
+		th {
+			text-align : center;
+		}
+		.center_col {
+			width : 78%;
+			padding : 2px;
+		}
+		.end_col {
+			width : 11%;
+			padding : 1px;
+		}
+		.chart_data {
+			width : 3%;
+			padding : 0px;
+			text-align : right;
+		}
+		.img_col {
+			width : 16px;
+			height : 16px;
+		}
+	}
+}

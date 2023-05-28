@@ -1,0 +1,343 @@
+/**
+ * Grey background when checking online for updates
+ */
+.screendoor {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0.10);
+	position: absolute;
+	z-index: 2000;
+	display: none;
+	cursor: progress;
+	left: 0px;
+	top: 0px;
+	.message {
+		background-color: white;
+		margin-top: 40vh;
+		width: 30vw;
+		height: 200px;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding: 20px;
+		text-align: center;
+		.text {
+			margin-bottom: 13px;
+			font-weight: bold;
+			word-wrap: break-word;
+		}
+		i {
+			font-size: 500%;
+			color: @text-color;
+		}
+	}
+}
+
+/**
+ * Security shield in Module Admin
+ */
+#shield_link_div {
+	position: absolute;
+	right: 41px;
+	top: 39px;
+	#shield_link {
+		background-size: 96px 138px;
+		display: block;
+		height: 138px;
+		width: 96px;
+		position: relative;
+	}
+	#shield_link.updates_off {
+		background-image: url(../images/modules/Notify-upgrade-badge-red.png);
+	}
+	#shield_link.updates_partial {
+		background-image: url(../images/modules/Notify-upgrade-badge-yellow.png);
+	}
+	#shield_link.updates_full {
+		background-image: url(../images/modules/Notify-upgrade-badge-green.png);
+	}
+}
+
+/**
+ * Module Container
+ */
+#module-listing-container {
+	margin-top: 38px;
+	position: relative;
+	.alert.moduleadmin {
+		margin-top: 20px;
+	}
+	#modulelist {
+		.fullmodule {
+			height: 22px
+		}
+		ul {
+			padding-left:0;
+			margin-left:0;
+			position:relative;
+			cursor: pointer;
+		}
+		li {
+			list-style-type: none;
+		}
+		#modulelist-header {
+			span {
+				font-size:12px;
+				font-weight:bold;
+			}
+		}
+		table {
+			border: 1px solid @border-color;
+			border-radius: 6px;
+		}
+		.moduleheader {
+			cursor: pointer;
+			height: 22px;
+			i {
+				margin-top: 3px;
+			}
+		}
+		.moduleheader.disabled {
+			background-color: lightgrey;
+			font-style: italic;
+		}
+		.modulevulnerable {
+			background:#f6921d;
+			padding:2px;
+			margin-top: 3px;
+			a:hover {
+				color: black;
+			}
+		}
+		.unsigned {
+			background: #fcf8e3;
+			color: #8a6d3b;
+		}
+		.tampered, .invalid, .revoked {
+			background: #f2dede;
+			color: #a94442;
+		}
+		.modulename {
+			position: absolute;
+			margin-top: 3px;
+			width: 205px;
+			height: 20px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.moduleversion {
+			position:absolute;
+			left: 280px;
+			height: 20px;
+			margin-top: 3px;
+		}
+		.moduletrack {
+			position:absolute;
+			left: 380px;
+			overflow: hidden;
+			height: 20px;
+			margin-top: 3px;
+		}
+		.moduletrack.beta,.moduletrack.alpha,.moduletrack.nightly {
+			color: lightcoral;
+		}
+		.modulepublisher {
+			position:absolute;
+			left: 435px;
+			max-width: 145px;
+			overflow: hidden;
+			white-space: nowrap;
+			height: 20px; /* This is so y's and g's aren't cut off */
+			margin-top: 3px;
+		}
+		.modulestatus {
+			position:absolute;
+			left: 690px;
+			overflow: hidden;
+			height: 20px;
+			padding-top: 3px;
+			span:not(.buy) {
+				margin-top: 3px;
+			}
+			.buy {
+				a.fpbx-buy {
+					min-height: 20px;
+					height: 20px;
+					padding-top: 0px;
+					margin-top: -3px;
+				}
+				i {
+					margin-right: 3px;
+				}
+			}
+		}
+		.modulelicense {
+			position: absolute;
+			left: 590px;
+			margin-top: 3px;
+			a {
+				cursor: help;
+				text-decoration: none;
+			}
+		}
+		.modulevul {
+			position:absolute;
+			left: 975px;
+			overflow: hidden;
+			margin-top: 3px;
+		}
+		.clear {
+			clear:both;
+		}
+		div.moduleinfopane {
+			display:none;
+			background: #fff;
+			border-top: 1px dashed @border-color;
+			padding-bottom: 0px;
+			border-bottom: 1px dashed @border-color;
+			pre {
+				white-space: pre-wrap;
+			}
+		}
+		ul.modulerequirements {
+			padding-left: 30px;
+			li {
+				list-style-type: disc;
+				padding-left: 1em;
+				text-indent: -1.5em;
+			}
+		}
+		ul.tabbernav {
+			width:6em;
+			float:left;
+			margin-left:0em;
+			li {
+				text-align:right;
+				padding:2px 7px 2px 2px;
+				box-shadow: 1px 1px 1px 0px rgba(0,0,0,1);
+				a {
+					text-decoration : none;
+				}
+			}
+			li.tabberactive {
+				a {
+					font-weight:bold;
+				}
+			}
+		}
+		div.tabbertab {
+			margin-left:1.5em;
+			overflow:auto;
+			padding-left: 6px;
+			padding-top: 6px;
+			padding-right: 6px;
+		}
+		h5 {
+			margin-top: 0;
+			margin-bottom: 0.5em;
+		}
+		.modulestatus {
+			.alert {
+				color:#a00;
+				padding: 0px;
+				margin-bottom:0px;
+				border:none;
+			}
+			.notinstalled {
+				color:#2B77FE;
+			}
+		}
+	}
+}
+
+div.modulebuttons {
+	margin:0.5em 0 0.5em 0;
+	text-align:right;
+	width:100%;
+}
+#moduleprogress {
+	font-size: 90%;
+	line-height: 1.3;
+	height: 150px;
+	overflow: hidden;
+	width: 95%;
+	word-wrap: break-word;
+	.error {
+		color:red;
+		font-weight:bold;
+	}
+	.success {
+		color:#007A0A;
+		font-weight:bold;
+	}
+	hr {
+		margin-left:0;
+		width:100%;
+		color:#ccc;
+	}
+}
+#module-process-iframe {
+	width:100%;
+}
+#moduleBoxContents {
+	margin: 0;
+	padding: 1px;
+	border: 0;
+	font-size: 11pt;
+	vertical-align: baseline;
+}
+.moduleinfopane {
+	table {
+		border:none !important;
+	}
+	tr {
+		background-color: #FFF !important;
+	}
+}
+.modulelist {
+	& > tbody {
+		& > tr {
+			& > td {
+				padding: 0px;
+				line-height: 1;
+				border-top: none;
+			}
+		}
+	}
+}
+.modulequickinfo {
+	border-spacing: 10px;
+	border-collapse: separate;
+	tr {
+		td:first-child {
+			width: 15%;
+			text-align: right;
+			font-weight: bold;
+			font-size:95%;
+			vertical-align: text-top;
+		}
+		td:nth-child(2) {
+			font-size:90%;
+			vertical-align: text-top;
+		}
+	}
+}
+.rollbacklist {
+	width:auto !important;
+	font-size:10pt;
+	border:none;
+}
+.tabberlive {
+	.tabbertabhide {
+		display:none;
+	}
+}
+
+/** 'Info' sections can expand and contract naturally, but
+ * larger sections - changelog, debug - are limited to an
+ * abitrary 17em.
+ */
+.limitheight {
+	height:17em;
+	overflow: auto;
+}

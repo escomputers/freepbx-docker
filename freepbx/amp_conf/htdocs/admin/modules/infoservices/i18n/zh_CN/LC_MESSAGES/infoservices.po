@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.5 Chinese Translation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-02 23:20-0400\n"
+"PO-Revision-Date: 2009-01-31 11:58+0800\n"
+"Last-Translator: 周征晟 <zhougongjizhe@163.com>\n"
+"Language-Team: EdwardBadBoy <zhougongjizhe@163.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: infoservices.i18n.php:6
+msgid "Applications"
+msgstr ""
+
+#: functions.inc.php:71 infoservices.i18n.php:16 install.php:7
+msgid "Call Trace"
+msgstr "呼叫追踪"
+
+#: infoservices.i18n.php:12
+msgid "Dialplan and Operational"
+msgstr ""
+
+#: install.php:6
+msgid "Directory"
+msgstr "目录"
+
+#: functions.inc.php:105 infoservices.i18n.php:18 install.php:8
+msgid "Echo Test"
+msgstr "回送测试"
+
+#: infoservices.i18n.php:4 install.php:5
+msgid "Info Services"
+msgstr "信息服务"
+
+#: infoservices.i18n.php:8
+msgid ""
+"Provides a number of applications accessible by feature codes: company "
+"directory, call trace (last call information), echo test, speaking clock, "
+"and speak current extension number."
+msgstr ""
+
+#: functions.inc.php:286
+msgid "Speak Extension"
+msgstr ""
+
+#: infoservices.i18n.php:20 install.php:10
+msgid "Speak Your Exten Number"
+msgstr "播放你的分机号"
+
+#: functions.inc.php:197 infoservices.i18n.php:22 install.php:9
+msgid "Speaking Clock"
+msgstr "语音时钟"
+
+#: infoservices.i18n.php:10
+msgid "Speaking Clock Time Format"
+msgstr ""
+
+#: infoservices.i18n.php:14
+msgid "Time format to use with the Speaking Clock."
+msgstr ""
+
+#: install.php:61
+msgid "could not delete"
+msgstr ""
+
+#: install.php:56
+msgid "deleting TIMEFORMAT from globals.."
+msgstr ""
+
+#: install.php:59
+msgid "done"
+msgstr ""
+
+#: install.php:55
+msgid "migrated TIMEFORMAT to Advanced Settings"
+msgstr ""

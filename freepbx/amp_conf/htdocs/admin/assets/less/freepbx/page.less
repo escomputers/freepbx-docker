@@ -1,0 +1,900 @@
+@font-face {
+	font-family: 'open_sans';
+	src: url('../fonts/opensans-regular-webfont.eot');
+	src: url('../fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+				url('../fonts/opensans-regular-webfont.woff2') format('woff2'),
+				url('../fonts/opensans-regular-webfont.woff') format('woff'),
+				url('../fonts/opensans-regular-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'open_sans';
+	src: url('../fonts/opensans-bold-webfont.eot');
+	src: url('../fonts/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+			url('../fonts/opensans-bold-webfont.woff2') format('woff2'),
+			url('../fonts/opensans-bold-webfont.woff') format('woff'),
+			url('../fonts/opensans-bold-webfont.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+	color: #000;
+}
+
+body {
+	font-family: 'open_sans';
+}
+
+html {
+	input:disabled {
+		color:grey;
+	}
+}
+
+input[type=search].form-control {
+	width: 98.5%;
+	height: 24px;
+}
+
+h4 {
+	font-size: 100%;
+}
+h3 {
+	font-size: 120%;
+}
+h2 {
+	font-size: 140%;
+}
+h1 {
+	font-size: 160%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0px;
+	color: gray;
+	font-weight: bold;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 2px;
+	th {
+		background-color: @table-th-background-color;
+		color: @table-th-text-color;
+	}
+}
+
+//jqueryUI breaking my stylezzzz
+.form-control,
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="number"].form-control,
+input[type="tel"].form-control,
+input[type="search"].form-control,
+input[type="url"].form-control,
+input[type="password"].form-control,
+textarea.form-control{
+	font-size: unset;
+	padding-left: 9px;
+	display: unset;
+	line-height: unset;
+}
+input[type=text]:hover:not([disabled]) {
+	border-color: #666 #CCC #CCC #CCC;
+}
+input[type=email]:invalid {
+	border: 2px solid red;
+}
+
+input:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+	border-color: @border-color;
+	box-shadow: 0 1px 1px rgba(0,0,0,.075) inset, 0 0 8px fadeout(darken(@background-color, 50%),40%);
+	outline: 0 none;
+}
+
+.chosen-container-active .chosen-choices, 
+.form-control:focus {
+	border-color: @border-color;
+	box-shadow: 0 1px 1px rgba(0,0,0,.075) inset, 0 0 8px fadeout(darken(@background-color, 50%),40%);
+        outline: 0 none;
+}	
+
+a {
+	text-decoration:none;
+	color:@text-color;
+}
+a:visited {
+	color:@text-color;
+}
+a:hover {
+	color:@text-color;
+}
+
+hr {
+	background-color: @hr-background-color;
+	border: 1px solid @hr-border-color;
+	height: 3px;
+	border-radius: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+span.twitter-typeahead .tt-dropdown-menu {
+	overflow-x: hidden;
+}
+
+/**
+ * Table Definitions
+ */
+.alt_table tr:nth-child(even),
+.table-striped &>tbody &>tr:nth-child(even) &>td,
+.table-striped &>tbody &>tr:nth-child(even) &>th {
+	background-color: @table-striped-even-background-color;
+	color: @table-striped-even-text-color;
+}
+.table-striped &>tbody &>tr:nth-child(odd) &>td,
+.table-striped &>tbody &>tr:nth-child(odd) &>th {
+	background-color: @table-striped-odd-background-color;
+	color: @table-striped-odd-text-color;
+}
+
+#page {
+	min-height: 100%;
+	position: relative;
+	max-width: 1920px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.has-error {
+	@button-has-error: #a94442;
+	.fa.fa-question-circle {
+		color: @button-has-error;
+	}
+	input {
+		background-color: fade(@button-has-error, 20%);
+	}
+}
+.has-warning {
+	@button-has-warning: #8a6d3b;
+	.fa.fa-question-circle {
+		color: @button-has-warning;
+	}
+	input {
+		background-color: fade(@button-has-warning, 20%);
+	}
+}
+.has-success {
+	@button-has-success: #3c763d;
+	.fa.fa-question-circle {
+		color: @button-has-success;
+	}
+	input {
+		background-color: fade(@button-has-success, 20%);
+	}
+}
+#header {
+	position: fixed;
+	z-index: 1000;
+	min-width: 800px;
+	width: 100%;
+	max-width: 1920px;
+}
+#page_body {
+	padding-top: 40px;
+	padding-bottom:110px;
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+}
+#menuitem_beta {
+	color:#999;
+	text-align: center;
+	font-style:italic;
+}
+#footer {
+	position: relative;
+	bottom: 100px;
+	width:100%;
+	height:100px;
+	background-color: @footer-background-color;
+	clear: both;
+	#footer_content {
+		margin: 0px auto;
+		padding-top: 15px;
+		display: table;
+		text-align:center;
+		clear: both;
+		color: @footer-content-color;
+		font-size:10px;
+		a {
+			color: @footer-content-color;
+		}
+		a:hover {
+			color: @text-color;
+		}
+		h3 {
+			color:#2c78ff;
+			margin:0px;
+			font-size:16px;
+		}
+		#footer_logo {
+			border:0;
+			float:left;
+			padding-right: 3px;
+		}
+	}
+	& > span {
+		float:left;
+	}
+	#action-bar {
+		position: fixed;
+		right: 0px;
+		bottom: 10px;
+		z-index: 300;
+		white-space: nowrap;
+		overflow: hidden;
+		#action-bar-hide {
+			padding: 0px;
+			width: 14px;
+			min-width: inherit;
+			background-color: transparent;
+			border: none;
+			outline: 0;
+                        color: @action-bar-text-color;
+		}
+	}
+	#action-bar.shrink {
+		width: 24px;
+	}
+	#action-bar.locked {
+		position: absolute;
+		bottom: 110px;
+	}
+}
+
+#footer_content_sponsor {
+	margin-left:25px;
+	img {
+		height: 55px;
+	}
+}
+#action-buttons {
+	background-color: @action-bar-background-color;
+	padding: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding-right: 5px;
+	border: 1px solid @border-color;
+	border-right: none;
+	color: @action-bar-text-color;
+}
+a.info:link, a.info:hover {
+	cursor:text;
+	color:black;
+	text-decoration: none;
+}
+
+.help {
+	color: @text-color;
+	cursor: pointer;
+	height: 10px;
+	width: 10px;
+	font-size: small;
+	vertical-align: super;
+	display: inline-block;
+	text-align: center;
+	margin: 2px;
+	padding-right: 1.5px;
+	padding-top: 1px;
+	padding-left: 1px;
+	font-weight: normal;
+}
+.help span, a.info span {
+	display: none;
+	position:absolute;
+	z-index:1;
+	left:60px;
+	width:35em;
+	margin-top:22px;
+	border:1px solid @border-color;
+	background-color:@background-color;
+	color:@text-color;
+	text-align:justify;
+	font-size:15px;
+	font-weight:normal;
+	padding:8px 12px;
+	line-height:15px;
+	border-radius: 5px;
+}
+
+/*Stylize rnav to match bootnav */
+.rnav {
+	float:right;
+	position: relative;
+	margin-top:10px;
+	margin-left: 2%;
+	font-weight: bold;
+	ul {
+		max-height: 450px;
+		overflow-y: auto;
+		border: 1px solid @border-color;
+		border-radius: 4px;
+		list-style-type: none;
+		padding: 0px;
+		font-size: 12px;
+		a {
+			color: #555;
+			position: relative;
+			display: block;
+			padding: 10px 15px;
+			background-color: #fff;
+		}
+		li > a {
+			border-bottom: 1px solid @border-color;
+		}
+		li:first-child > a {
+			border-top-right-radius: 4px;
+			border-top-left-radius: 4px;
+		}
+		li:last-child > a {
+			margin-bottom: 0;
+			border-bottom-right-radius: 4px;
+			border-bottom-left-radius: 4px;
+			border-bottom: none;
+		}
+		li > a:hover {
+			background-color: lighten(@background-color,5%);
+		}
+	}
+}
+
+#reloadbox {
+	overflow: hidden;
+}
+#button_reload {
+	display:none;
+	cursor:pointer;
+}
+
+.duplicate-exten {
+	border: 2px solid red;
+}
+.attention {
+	background:#ff9933;
+	color:white;
+	font-weight:bold;
+	a {
+		color:white;
+		font-weight:bold;
+	}
+	img {
+		vertical-align:top;
+		padding-right:5px;
+	}
+}
+div.attention {
+	border:1px solid black;
+	padding:5px;
+}
+.warning {
+	padding:10px 10px 0 10px;
+	margin:5px 0;
+	background:rgb(255,242,202);
+	border:1px dotted #ccc;
+	p {
+		margin-top: 0;
+		margin-bottom:10px;
+	}
+}
+
+/**
+ * Not sure where this is used
+ */
+#ajax_spinner {
+	display: none;
+	width: 28px;
+	margin: 4px;
+	margin-top: 7px;
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+/**
+ * Signature specific alert box
+ */
+.alert.signature {
+	padding: 0px;
+	width:100%;
+	h1, .h1, h2, .h2, h3, .h3 {
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+	.close {
+		position: inherit;
+	}
+	.panel-group {
+		margin-bottom: 3px;
+		.panel {
+			cursor: pointer;
+			width: 90%;
+			left: 0;
+			right: 0;
+			margin: auto;
+			.panel-heading {
+				padding: 0px;
+				.panel-title {
+					font-size: inherit;
+					font-weight: bold;
+				}
+			}
+			.panel-body {
+				padding: 5px;
+				padding-left: 10px;
+				text-align: left;
+			}
+		}
+	}
+	.alert-link {
+		font-size: 90%;
+	}
+}
+
+/**
+ * File select browser button
+ */
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
+}
+.filename {
+	font-weight: bold;
+}
+
+/**
+ * Nav tab colouring
+ */
+.nav.nav-tabs {
+	padding: 3px 0 0 3px;
+	border-bottom-color: @border-color;
+	> li {
+		> a, > a:visited {
+			font-weight: bold;
+			padding: 5px 18px;
+			background: #ffffff;
+			border: 1px solid @border-color;
+			border-bottom-color: @border-color;
+			border-top-right-radius: .5em;
+			border-top-left-radius: .5em;
+		}
+		> a:hover {
+			background-color: @nav-hover-background-color;
+			color: @nav-hover-text-color;
+			border: 1px solid @border-color;
+		}
+		> a:active, > a:focus {
+			.gradient (@nav-active-background-color, #ffffff);
+			color: @nav-active-text-color;
+			border: 1px solid @border-color;
+		}
+	}
+
+	> li.active > a, > li.active > a:hover, > li.active > a:focus {
+		.gradient (@nav-active-background-color, #ffffff);
+		color: @nav-active-text-color;
+		border: 1px solid @border-color;
+		border-bottom-color: white;
+	}
+}
+/**
+ * Menu navigation and Tab Navigation coloring
+ */
+.nav > li > a:hover,
+.nav > li > a:focus {
+	text-decoration: none;
+	background-color: @nav-li-focus-bg-color;
+	color: rgb(132, 132, 132);
+}
+.panel-info {
+    border-color: @border-color;
+}
+.panel-info >.panel-heading, .alert-info, .panel-default>.panel-heading {	
+    color: @info-text-color;
+    background-color: @info-background-color;
+    border-color: @border-color;
+}
+.panel-warning>.panel-heading {
+    color: #8a6d3b;
+    background-color: #fcf8e3 ;
+    border-color: #faebcc ;
+}
+.panel-danger>.panel-heading {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.panel-success>.panel-heading {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+/**
+ * Password Meter addition to inputs
+ */
+.password-meter-box {
+	.wording {
+		margin-top: 3px;
+		font-size: 85%;
+		color: grey;
+	}
+	.password-meter-progress {
+		height: 9px;
+		margin-bottom: 0px;
+	}
+}
+
+/**
+ * Boostrap Table Tweaks
+ */
+.bootstrap-table {
+	.columns {
+		.btn {
+			margin-right: inherit;
+		}
+	}
+	/**
+	 * If last column in a bootstrap table
+	 * make the icons (i) 150 bigger and separate them by 5px
+	 * for clickability
+	 */
+	td:last-child {
+		i.fa {
+			font-size: 150%;
+			margin-right: 5px;
+                        color: black;
+		}
+		a:last-child > i.fa {
+			margin-right: 0px;
+		}
+	}
+}
+
+/**
+ * Scrolling Nav Tabs
+ */
+.nav-container {
+	.wrapper {
+		position: relative;
+		margin: 0 auto;
+		overflow: hidden;
+		padding: 0px;
+		height: 35px;
+		.list {
+			position:absolute;
+			left: 0px;
+			top:0px;
+			min-width:3000px;
+			margin-left:12px;
+			margin-top:0px;
+			li{
+				display:table-cell;
+				position:relative;
+				text-align:center;
+				cursor:grab;
+				cursor:-webkit-grab;
+				color:#efefef;
+				vertical-align:middle;
+			}
+		}
+	}
+	.scroller {
+		padding: 7px;
+		background-color: #fff;
+		height: 35px;
+		border-bottom: 1px solid @border-color;
+		i {
+			display: none;
+			cursor: pointer;
+		}
+		i.moving {
+			color: gray;
+			cursor: not-allowed;
+		}
+	}
+	.scroller-right{
+		position: absolute;
+		z-index: 200;
+		right: 18px;
+	}
+	.scroller-left {
+		position: absolute;
+		z-index: 200;
+		left: 20px;
+	}
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+#floating-nav-bar {
+	font-size: 14px;
+	transition: right .5s linear;
+	right: -33.9%;
+	width: 33%;
+	position: fixed;
+	margin-top: 8px;
+	background-color: white;
+	top: 117px;
+	z-index: 500;
+	border-bottom-left-radius: 7px;
+	.box-shadow(-3px 3px 10px -2px darken(@background-color, 50%));
+	border: 1px solid @border-color;
+	max-height: 274px;
+	border-right: none;
+	min-height: 104px;
+	.floating-nav-bar-contents {
+		overflow: auto;
+		max-height: 270px;
+		min-height: 102px;
+		.btn-block {
+			width: 98%; //http://issues.freepbx.org/browse/FREEPBX-12478
+		}
+                .bootstrap-table{
+		    .fixed-table-toolbar{
+                       .bs-bars {
+                          #toolbar-all {
+                           .btn {
+                               background: @floating-button-background-color;
+                           }
+                           .btn:hover {
+                               background: @btn-group-bg-color;
+                           }
+                        }
+                     } 			
+		   } 
+		}                
+		tbody tr {
+			cursor: pointer;
+		}
+	}
+	#fixed-list-button{
+		position: absolute;
+                background: @floating-button-background-color;
+		top: -1px;
+		height: 35px;
+		width: 55px;
+		padding-left: 7px;
+		padding-right: 19px;
+		padding-top: 4px;
+		z-index: 500;
+		left: -55px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		.box-shadow(-3px 3px 10px -2px darken(@background-color, 50%));
+		outline: 0;
+		border-right: none;
+		font-size: 20px;
+	}
+        #fixed-list-button:hover {
+                background-color: @btn-group-bg-color;
+        }
+        #fixed-list-button:focus {
+                background-color: @btn-group-bg-color;
+        }
+        #fixed-list-button:active:hover {
+                background-color: @fixed-list-btn-bg-color;
+                border-color: @fixed-list-btn-border-color;
+        }
+	.fixed-table-container {
+		margin-bottom: 10px;
+	}
+	&.locked {
+		position: absolute;
+		bottom: 165px;
+		top: inherit;
+	}
+	&.show {
+		right: 0;
+	}
+}
+
+
+.bootnav {
+	font-weight: bold;
+	.list-group {
+		max-height: 450px;
+		overflow-y: auto;
+		border: 1px solid @border-color;
+		border-radius: 4px;
+		font-size: 12px;
+	}
+	.list-group-item:first-child {
+		border-top: none;
+		border-bottom: 1px solid @border-color;
+	}
+	.list-group-item:last-child {
+		border-top: 1px solid @border-color;
+		border-bottom: none;
+	}
+	.list-group-item:only-child {
+		border-top: none;
+	}
+	.list-group-item {
+		border: none;
+		border-top: 1px solid @border-color;
+		border-bottom: 1px solid @border-color;
+	}
+	a.list-group-item {
+		color: @text-color;
+	}
+	a.list-group-item.active {
+		color: #fff;
+                background-color: @button-active-background-color;
+	}
+	a.list-group-item:hover,
+	a.list-group-item:focus {
+		background-color: @table-row-hover-background-color;
+                color: @table-row-hover-text-color;
+                border-color: @button-border-color;
+	}
+}
+
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+	color: @button-active-text-color;
+	background-color: @button-active-background-color;
+	border-color: @button-active-border-color;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+	color: @button-hover-text-color;
+	background-color: @button-hover-background-color;;
+	border-color: @button-hover-border-color;
+}
+
+.progress-bar {
+	background-color: @panel-background-color;
+	color: @form-button-active-text-color;
+}
+
+/**
+* Click to edit fields so they don't appear disabled
+*/
+.clicktoedit:read-only{
+	background-color: white;
+	cursor: text;
+}
+.clicktoedit:-moz-read-only{
+	background-color: white;
+	cursor: text;
+}
+
+.multiselect-container {
+	max-height: 300px;
+	overflow: auto;
+}
+
+.confidential:not(:focus):not(:hover) {
+	color: transparent;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+	margin-right: 0px;
+}
+
+.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+	margin-right: 0px;
+}
+
+.input-group-btn:not(:first-child):not(:last-child) > .btn {
+	border-radius: 0;
+	height: 100%;
+}
+
+.panel.fpbx-usageinfo {
+	.panel-heading {
+		a {
+			cursor: pointer;
+			color: inherit;
+			text-decoration: inherit;
+		}
+		a:after {
+			font-family:'Glyphicons Halflings';
+			content:"\e114";
+			float: right;
+			color: grey;
+		}
+		a.collapsed:after {
+			content:"\e080";
+		}
+	}
+}
+
+/**
+ * Used to align text fields with input boxes, so you can have something like
+ * <div class=col-sm-5 pd> text </div><div class=col-sm-8><input type=text ..></div>
+ * Without the pd, the 'text' is too high.
+ */
+.pd {
+	padding-top: 0.5em
+}
+
+/**
+ * Panel
+ */
+.panel>.panel-heading.collapsed {
+	border-bottom: 0px;
+	border-bottom-left-radius:  @panel-border-radius;
+	border-bottom-right-radius: @panel-border-radius;
+}
+
+.panel.panel-help {
+	.panel-heading .panel-title .pull-left {
+		margin-right: 5px;
+	}
+	.panel-heading.collapsed {
+		border-bottom: 0px;
+		border-bottom-left-radius:  @panel-border-radius;
+		border-bottom-right-radius: @panel-border-radius;
+	}
+	.panel-heading .chevron:after {
+		content: "\f068";	// fa-minus
+	}
+	.panel-heading.collapsed .chevron:after {
+		content: "\f067";   // fa-plus 
+	}
+}

@@ -1,0 +1,120 @@
+# CREDITS for JAPANESE TRANSLATION
+# ================================
+# Current translation & maintenance: QLOOG, Inc. (Kobe, Japan)
+# Inquiries: info@qloog.com / www.qloog.com
+#
+# This translation is a culmination of the hard work of
+# several outstanding individuals, which started in 2009 with the 
+# first-ever Japanese localization of FreePBX by Kenichi Fukaumi 
+# and Kazuhiro Tokuyama (FreePBX Japanized Project).
+#
+# Beginning in 2013, with the approval of the original authors, 
+# QLOOG undertook a large scale overhaul of the translation to 
+# expand it for compatibility with FreePBX 2.11. Our work is, 
+# of course, released under the same GPLv2 license as FreePBX. 
+# We only ask that you kindly retain these credits in honor of 
+# the time and effort that all of us have contributed. Enjoy!
+#
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# FreePBX language template for infoservices
+# Copyright (C) 2008, 2009, 2010 Bandwith.com
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.10.0.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-02 23:20-0400\n"
+"PO-Revision-Date: 2014-02-20 04:28+0200\n"
+"Last-Translator: Kenichi Fukaumi <k.fukaumi@qloog.com>\n"
+"Language-Team: Japanese <http://example.com/projects/freepbx/infoservices/ja/"
+">\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 1.8\n"
+
+#: infoservices.i18n.php:6
+msgid "Applications"
+msgstr "アプリケーション"
+
+#: functions.inc.php:71 infoservices.i18n.php:16 install.php:7
+msgid "Call Trace"
+msgstr "電話履歴"
+
+#: infoservices.i18n.php:12
+msgid "Dialplan and Operational"
+msgstr "ダイヤルプランと操作"
+
+#: install.php:6
+msgid "Directory"
+msgstr "ディレクトリー"
+
+#: functions.inc.php:105 infoservices.i18n.php:18 install.php:8
+msgid "Echo Test"
+msgstr "エコーテスト"
+
+#: infoservices.i18n.php:4 install.php:5
+msgid "Info Services"
+msgstr "情報サービス"
+
+#: infoservices.i18n.php:8
+msgid ""
+"Provides a number of applications accessible by feature codes: company "
+"directory, call trace (last call information), echo test, speaking clock, "
+"and speak current extension number."
+msgstr ""
+"キーコードによって利用可能ないくつかのアプリケーションを提供します：会社ディ"
+"レクトリ、電話履歴の捜索（最終電話履歴）、エコー検査、音声クロック、音声内線"
+"番号。"
+
+#: functions.inc.php:286
+msgid "Speak Extension"
+msgstr ""
+
+#: infoservices.i18n.php:20 install.php:10
+msgid "Speak Your Exten Number"
+msgstr "音声内線番号"
+
+#: functions.inc.php:197 infoservices.i18n.php:22 install.php:9
+msgid "Speaking Clock"
+msgstr "音声クロック"
+
+#: infoservices.i18n.php:10
+msgid "Speaking Clock Time Format"
+msgstr "音声クロックの時刻形式"
+
+#: infoservices.i18n.php:14
+msgid "Time format to use with the Speaking Clock."
+msgstr "音声クロックで使用する時刻の形式。"
+
+#: install.php:61
+msgid "could not delete"
+msgstr "削除できませんでした"
+
+#: install.php:56
+msgid "deleting TIMEFORMAT from globals.."
+msgstr "globalsからTIMEFORMATを削除中..."
+
+#: install.php:59
+msgid "done"
+msgstr "完了"
+
+#: install.php:55
+msgid "migrated TIMEFORMAT to Advanced Settings"
+msgstr "TIMEFORMATを詳細設定に移行しました"

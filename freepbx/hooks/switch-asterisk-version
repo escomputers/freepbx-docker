@@ -1,0 +1,42 @@
+#!/usr/bin/php
+<?php
+error_reporting(E_ALL);
+require '/usr/lib/sysadmin/includes.php';
+
+$txnId  = "";
+$asteriskSwitchVersion = 7;
+
+if (isset($argv[1])) {
+	// Underp the base64
+	$b = str_replace('_', '/', $argv[1]);
+	$settings = @json_decode(gzuncompress(@base64_decode($b)), true);
+	if (is_array($settings)) {
+		$asteriskSwitchVersion = $settings[1];
+		$txnId = $settings[0];
+	}
+}
+
+$firstCommandOutput = [];
+$firstCommandReturn = 1;
+$cmd = "/usr/local/sbin/asterisk-version-switch " .$asteriskSwitchVersion;
+//Running version switch command
+exec($cmd, $firstCommandOutput, $firstCommandReturn);
+
+if($firstCommandReturn == 0){
+   $message = "Asterisk version upgraded Successfully";
+   $status = "Executed";
+}else {
+   $output = json_encode($firstCommandOutput);
+   $message =  "Failed to execute command [ " . $cmd . " ] , command output = $output";
+   $status = 'Failed';
+}
+
+$db = \Sysadmin\FreePBX::Database();
+$sql = ("UPDATE IGNORE api_asynchronous_transaction_history SET event_status = :event_status , failure_reason =:failure_reason, process_end_time =:end_time WHERE `txn_id` = :txn_id");
+$sth = $db->prepare($sql);
+$sth->execute([
+	":event_status" => $status,
+	":failure_reason" => $message,
+	":end_time" => time(),
+	":txn_id" => $txnId
+]);

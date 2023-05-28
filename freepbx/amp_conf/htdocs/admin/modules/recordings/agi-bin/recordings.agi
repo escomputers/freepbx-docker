@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+$bootstrap_settings['skip_astman'] = true;
+$bootstrap_settings['include_compress'] = false;
+$restrict_mods = array('recordings' => true);
+include '/etc/freepbx.conf';
+
+$media = FreePBX::create()->Media;
+$recordings = FreePBX::create()->Recordings;
+
+$agidir = FreePBX::Config()->get('ASTAGIDIR');
+require_once $agidir."/phpagi.php";
+$agi = new AGI();
+$recfile = agi_get_var('RECFILE');
+$format = agi_get_var('CHANNEL(audioreadformat)');
+$lang = agi_get_var('CHANNEL(language)');
+
+$file = preg_replace('/^'.$lang.'\//','',$recfile);
+
+$status = $recordings->fileStatus($file);
+$path = $recordings->getPath();
+if(!empty($status[$lang])) {
+	$agi->verbose("Incoming recording format is ".$format);
+	$filename = $path."/".$recfile;
+	$media->load($filename.".".$format);
+
+	//no need to convert the file as it comes from Asterisk so it's probably 'good'
+	unset($status[$lang][$format]);
+
+	$formats = array_keys($status[$lang]);
+	foreach($formats as $fmat) {
+		if($format === $fmat) {
+			continue; //no need to convert the file as it comes from Asterisk so it's probably 'good'
+		}
+		$media->convert($filename.".".$fmat);
+		$agi->verbose("Converting ".$filename.".".$format." To: ".$filename.".".$fmat);
+	}
+}
+exit();
+
+function agi_get_var($value) {
+	global $agi;
+	$r = $agi->get_variable($value);
+
+	if ($r['result'] == 1) {
+		$result = $r['data'];
+		return $result;
+	}
+	return '';
+}

@@ -1,0 +1,201 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for callrecording
+# Copyright (C) 2008-2015 Sangoma, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.5 Chinese Translation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 06:15+0000\n"
+"PO-Revision-Date: 2018-03-14 14:52+0200\n"
+"Last-Translator: james <zhulizhong@gmail.com>\n"
+"Language-Team: Simplified Chinese <http://weblate.freepbx.org/projects/"
+"freepbx/framework/zh_CN/>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: assets/js/callrecording.js:21
+#, perl-format
+msgid "%s already used, please use a different description."
+msgstr ""
+
+#: page.callrecording.php:14
+msgid ": Add"
+msgstr ""
+
+#: page.callrecording.php:12
+msgid ": Edit"
+msgstr ""
+
+#: views/grid.php:23
+msgid "Actions"
+msgstr "操作"
+
+#: views/bootnav.php:7 views/grid.php:17
+msgid "Add Call Recording"
+msgstr "添加呼叫录音"
+
+#: callrecording.i18n.php:8
+msgid ""
+"Asterisk 13.2 and higher supports the ability to play a regular 'beep' when "
+"a call is being recorded. If you set this to a positive number value, when a "
+"call is being actively recorded, both parties will hear a 'beep' every "
+"period that you select. If you are not running Asterisk 13.2 or higher, this "
+"setting will have no effect. To disable simply clear the value of this box "
+"or set the value to 0 and save. This is typically set arround 15seconds"
+msgstr ""
+
+#: callrecording.i18n.php:4
+msgid "Beep every n seconds"
+msgstr ""
+
+#: callrecording.i18n.php:10
+msgid "Call Record Option"
+msgstr ""
+
+#: callrecording.i18n.php:6 functions.inc.php:34 functions.inc.php:525
+#: page.callrecording.php:7
+msgid "Call Recording"
+msgstr "呼叫录音"
+
+#: views/form.php:101
+msgid "Call Recording Mode"
+msgstr "录音模式"
+
+#: Callrecording.class.php:212 functions.inc.php:56 functions.inc.php:691
+#, php-format
+msgid "Call Recording: %s"
+msgstr "呼叫录音: %s"
+
+#: Callrecording.class.php:147
+msgid "Delete"
+msgstr "删除"
+
+#: views/form.php:72 views/grid.php:22
+msgid "Description"
+msgstr "描述"
+
+#: assets/js/callrecording.js:3
+msgid "Description name already exists "
+msgstr ""
+
+#: views/form.php:125
+msgid "Destination"
+msgstr "目的地"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Don't Care"
+msgstr "不关心"
+
+#: callrecording.i18n.php:12
+msgid "Don’t begin recording unless a call is bridged to another channel"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Force"
+msgstr "强制"
+
+#: assets/js/callrecording.js:2
+msgid "Invalid description specified"
+msgstr "指定了无效的描述"
+
+#: views/bootnav.php:6
+msgid "List Call Recordings"
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Never"
+msgstr "从不录音"
+
+#: functions.inc.php:536 views/form.php:40
+msgid "No"
+msgstr "否"
+
+#: views/form.php:91
+msgid "Note that the meaning of these options has changed."
+msgstr "注意，这些选项含义已经修改。"
+
+#: views/form.php:113
+msgid "Please read the wiki for futher information on these changes."
+msgstr "请阅读官方wiki获得完整信息"
+
+#: Callrecording.class.php:152
+msgid "Reset"
+msgstr "重置"
+
+#: views/bootnav.php:19
+msgid "Rule"
+msgstr ""
+
+#: Callrecording.class.php:157
+msgid "Submit"
+msgstr "提交"
+
+#: views/form.php:84
+msgid ""
+"The descriptive name of this call recording instance. For example \"French "
+"Main IVR\""
+msgstr "描述呼叫录音，例如 '法语，主菜单'."
+
+#: functions.inc.php:504
+msgid ""
+"This sets the call recording behavior for calls coming into this DID. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+
+#: functions.inc.php:512
+msgid ""
+"This sets the call recording behavior for calls going out this route. Please "
+"read the wiki for information on what these settings mean."
+msgstr ""
+
+#: bin/one_touch_record.php:276
+msgid "Unknown"
+msgstr ""
+
+#: views/form.php:137
+msgid "Where should the call be sent."
+msgstr ""
+
+#: functions.inc.php:536 views/form.php:40
+msgid "Yes"
+msgstr "是"
+
+#~ msgid "Applications"
+#~ msgstr "应用配置"
+
+#~ msgid "Provides much of the call recording functionality."
+#~ msgstr "提供丰富的录音功能"
+
+#~ msgid "Add Call Recording Instance"
+#~ msgstr "添加呼叫录音对象"
+
+#~ msgid ""
+#~ "Call Recordings provide the ability to force a call to be recorded or not "
+#~ "recorded based on a call flow and override all other recording settings. "
+#~ "If a call is to be recorded, it can start immediately which will "
+#~ "incorporate any announcements, hold music, etc. prior to being answered, "
+#~ "or it can have recording start at the time that call is answered."
+#~ msgstr ""
+#~ "对呼入DID进行录音控制或覆盖。允许对下游通话进行录音设置。将通话呼入以后，"
+#~ "系统将对通话进行录音；否则将忽略所有设置。录音将对振铃，音乐等待，语音播报"
+#~ "等等录音。 如果设置为从不录音，将不允许录音，无论下游设备如何设置。"
+
+#~ msgid "Edit Call Recording Instance"
+#~ msgstr "编辑呼叫录音对象"
+
+#~ msgid "Edit: "
+#~ msgstr "编辑: "
+
+#~ msgid "Please read the Wiki on what these options mean."
+#~ msgstr "请阅读wiki了解选项含义。"
+
+#~ msgid "Submit Changes"
+#~ msgstr "提交修改"

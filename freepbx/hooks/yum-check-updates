@@ -1,0 +1,84 @@
+#!/bin/bash -x
+
+OUTDIR=/dev/shm/yumwrapper
+# Note that this is also referenced in Builtin/SystemUpdates
+LOCKFILE=${OUTDIR}/yum.lock
+
+if [ -e $LOCKFILE ] ; then
+	echo "Lockfile $LOCKFILE present, not attempting to start"
+	exit
+fi
+
+# Have we been told NOT to clean up?
+if [ "$1" == "--noclean" ]; then
+	NOCLEAN="true"
+else
+	NOCLEAN="false"
+fi
+
+mkdir -p $OUTDIR
+config="logfile $OUTDIR/yum-check-updates.log
+logfile flush 1
+log on
+logtstamp on
+logtstamp after 1
+width 1024
+logtstamp string \"[ timestamp: %Y-%m-%d %0c:%s ]\012\"
+"
+
+# The script automatically cleans up BEFORE itself,
+# as there's no need for any of it to hang around.
+script='#!/bin/bash
+
+# This ensures that the captured exit code is correct
+set -o pipefail
+
+# Function to wait for a lock to be available
+# Waits for $1 seconds, default is 30.
+lockfile='${LOCKFILE}'
+logfile='${OUTDIR}'/yum-check-updates.log
+currentfile='${OUTDIR}'/yum-check-updates-current.log
+noclean='${NOCLEAN}'
+
+function lock() {
+	local defaultwait=30
+	local waittime=${1:-$defaultwait}
+	eval "exec 10>$lockfile"
+	while [[ $waittime > 0 ]]; do
+		# Try to get a lock on our lockfile
+		flock -w 1 10 && return 0
+		waittime=$(( $waittime - 1 ))
+		sleep 1
+	done
+	return 1
+}
+TMPDIR=$(dirname $0)
+cd /tmp
+rm -rf $TMPDIR
+lock 300  # Wait for up to 5 mins.
+# Remove anything in the current output logfile
+echo TITLE $(date +%s) yum-check-updates > $logfile
+echo START $(date +%s) yum-clean-metadata
+if [ "$noclean" != "true" ]; then
+	TMPOUT=$(/usr/bin/stdbuf -i0 -o0 -e0 /usr/bin/yum clean metadata 2>&1 | tee $currentfile)
+	EXITVAL=$?
+	echo STOP $(date +%s) yum-clean-metadata $EXITVAL $(echo "$TMPOUT"|base64 -w0)
+else
+	echo STOP $(date +%s) yum-clean-metadata 0 $(echo "yum-clean-skipped"|base64 -w0)
+fi
+
+echo START $(date +%s) yum-check-updates
+TMPOUT=$(/usr/bin/stdbuf -i0 -o0 -e0 /usr/bin/yum -q check-updates 2>&1 | tee $currentfile)
+EXITVAL=$?
+echo STOP $(date +%s) yum-check-updates $EXITVAL $(echo "$TMPOUT"|base64 -w0)
+echo FINISH $(date +%s)
+rm -f $lockfile
+'
+
+# Create our tmpdir, and put our config and script in there.
+T=$(mktemp -d)
+
+echo "$config" > $T/command.conf
+echo "$script" > $T/script.sh
+chmod 755 $T/script.sh
+screen -c $T/command.conf -dmSL 'freepbx' $T/script.sh

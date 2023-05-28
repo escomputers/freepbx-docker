@@ -1,0 +1,62 @@
+<module>
+  <rawname>sipsettings</rawname>
+  <repo>standard</repo>
+  <candisable>no</candisable>
+  <canuninstall>no</canuninstall>
+  <name>Asterisk SIP Settings</name>
+  <version>16.0.26</version>
+  <publisher>Sangoma Technologies Corporation</publisher>
+  <license>AGPLv3+</license>
+  <licenselink>https://www.gnu.org/licenses/agpl-3.0.txt</licenselink>
+  <category>Settings</category>
+  <menuitems>
+    <sipsettings>Asterisk SIP Settings</sipsettings>
+  </menuitems>
+  <database>
+    <table name="sipsettings">
+      <field name="keyword" type="string" length="50" default="" primarykey="true"/>
+      <field name="data" type="string" length="255" default=""/>
+      <field name="seq" type="boolean" default="0" primarykey="true"/>
+      <field name="type" type="boolean" default="0" primarykey="true"/>
+    </table>
+  </database>
+  <description>
+      Use to configure Various Asterisk SIP and PJSIP Settings
+  </description>
+  <more-info>https://wiki.freepbx.org/display/F2/Asterisk+SIP+Settings</more-info>
+  <changelog>
+		*16.0.26* Packaging of ver 16.0.26
+		*16.0.25* FREEPBX-23656 
+		*16.0.24* FREEPBX-23631 
+		*16.0.23* FREEPBX-21423 SIP and PJSIP ports odd after Legacy restore from 2.10 
+		*16.0.22* Reverting Bootstrap and dependent libs fixes 
+		*16.0.21* Packaging of ver 16.0.21
+		*16.0.20* FREEI-4793 
+		*16.0.19* FREEI-4436 - Restore - Ability to select modules to ignore 
+		*16.0.18* SCD-223 created gql api to modify ws settings 
+		*16.0.17* Packaging of ver 16.0.17
+		*16.0.16* FREEPBX-22914 
+		*16.0.15* FREEPBX-22741 removed sip/pjsip port notification in the dashboard 
+		*16.0.14* FREEI-3303 allowing taskprocessor for asterisk version greater than 13.35.0 or 16.2.0 and higher 
+		*16.0.13* FREEPBX-20610 PJSIP should use cert+chain file not pem file with key 
+		*16.0.12* FREEI-3260 new GQL api's for Asterisk SIP NAT settings 
+		*16.0.11* FREEPBX-22361 Asterisk 18 integration 
+		*16.0.10* FREEI-3073 Error - Pjsip Keep alive Interval button not working (Sipsetting) 
+		*16.0.9* FREEI-2827 Add pjsip logger toggle to Asterisk Logfile settings 
+		*16.0.8* Packaging of ver 16.0.8
+		*16.0.7* FREEI-2761  white space issue 
+		*16.0.6* FREEI-2761 White spaces provokes transports going off 
+		*16.0.5* FREEPBX-21970 taskprocessor_overload_trigger in pjsip.conf 
+		*16.0.4* Packaging of ver 16.0.4
+		*16.0.3* FREEI-1541 Revert back commit 9723a2142f6 it is not required here we are handling this in sipstation 
+		*16.0.2* FREEI-1541 Equals in turnpassword breaks SIPStation config page 
+   *16.0.1alpha* 16.0.1 alpha release
+	</changelog>
+  <depends>
+    <module>core ge 16.0.61</module>
+    <module>backup ge 16.0.51</module>
+  </depends>
+  <supported>
+    <version>16.0</version>
+  </supported>
+</module>

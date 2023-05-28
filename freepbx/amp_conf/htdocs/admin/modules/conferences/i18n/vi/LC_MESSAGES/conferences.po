@@ -1,0 +1,539 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for conferences
+# Copyright (C) 2008-2017 Sangoma Technologies, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-30 06:07+0000\n"
+"PO-Revision-Date: 2017-07-10 20:00+0200\n"
+"Last-Translator: PETER <ftek@ymail.com>\n"
+"Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
+"conferences/vi/>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: views/grid.php:34
+msgid "Actions"
+msgstr "Các thao tác"
+
+#: page.conferences.php:19 views/grid.php:27 views/rnav.php:20
+msgid "Add"
+msgstr "Thêm"
+
+#: Conferences.class.php:96 views/form.php:211
+msgid "Admin PIN"
+msgstr "Quản trị viên PIN"
+
+#: views/form.php:488
+msgid "Allow Menu"
+msgstr "Cho phép Menu"
+
+#: conferences.i18n.php:8
+msgid ""
+"Allow creation of conference rooms where multiple people can talk together"
+msgstr ""
+"Cho phép tạo các phòng hội nghị nơi nhiều người có thể nói chuyện với nhau"
+
+#: views/form.php:448
+msgid ""
+"Announce user join/leave. If enabled this will require the user to record "
+"their name before joining the conference"
+msgstr ""
+"Thông báo người dùng tham gia/ rời khỏi. Nêu bật tính năng này, nó sẽ yêu "
+"cầu người dùng ghi tên của họ trước khi tham gia hội nghị"
+
+#: views/form.php:421
+msgid "Announce user(s) count on joining conference"
+msgstr "Thông báo người dùng đang tham gia hội nghị"
+
+#: conferences.i18n.php:6
+msgid "Applications"
+msgstr "Các ứng dụng"
+
+#: Conferences.class.php:93
+msgid "Conf Number"
+msgstr ""
+
+#: Conferences.class.php:203 Conferences.class.php:459 views/grid.php:32
+#: views/rnav.php:25
+msgid "Conference"
+msgstr "Hội nghị"
+
+#: views/form.php:163
+msgid "Conference Name"
+msgstr "Tên hội nghị"
+
+#: views/form.php:139
+msgid "Conference Number"
+msgstr "Số hội nghị"
+
+#: Conferences.class.php:121
+msgid "Conference Number is missing."
+msgstr ""
+
+#: functions.inc.php:181
+#, php-format
+msgid "Conference Room %s : %s"
+msgstr "Phòng hội nghị %s : %s"
+
+#: conferences.i18n.php:18
+msgid "Conference Status"
+msgstr "Trạng thái hội nghị"
+
+#: Conferences.class.php:93
+msgid "Conference number used."
+msgstr ""
+
+#: functions.inc.php:434
+msgid "Conference: "
+msgstr "Hội nghị: "
+
+#: functions.inc.php:200
+#, php-format
+msgid "Conference: %s"
+msgstr "Hội nghị: %s"
+
+#: Conferences.class.php:110 Conferences.class.php:457 conferences.i18n.php:4
+#: conferences.i18n.php:10 conferences.i18n.php:14 page.conferences.php:10
+msgid "Conferences"
+msgstr "Các hội nghị"
+
+#: views/form.php:121
+msgid "Conflicting Extensions"
+msgstr "Các máy nhánh đang xung đột"
+
+#: Conferences.class.php:441
+msgid "Delete"
+msgstr "Xóa"
+
+#: views/grid.php:33 views/rnav.php:26
+msgid "Description"
+msgstr "Mô tả"
+
+#: Conferences.class.php:97
+msgid "Desctiption"
+msgstr ""
+
+#: Conferences.class.php:97
+msgid "Desctiption of the conference."
+msgstr ""
+
+#: page.conferences.php:17
+msgid "Edit"
+msgstr "Hiệu chỉnh"
+
+#: views/form.php:475
+msgid "Enable Music On Hold when the conference has a single caller"
+msgstr "Bật Nhạc chờ khi hội nghị đang có người gọi cấp cao hơn"
+
+#: views/form.php:223
+msgid ""
+"Enter a PIN number for the admin user.<br><br>This setting is optional "
+"unless the 'leader wait' option is in use, then this PIN will identify the "
+"leader.<br>This pin should be different than the user pin."
+msgstr ""
+"Nhập một số PIN cho người admin. <br><br>. Cài đặt này mang tính lựa chọn "
+"trừ khi \" lựa chọn 'leader wait' ( Đợi người chủ trì) đang được chọn, sau "
+"đó PIN này sẽ xác định người chủ trì. <br> Pin này cần phải khác hơn so với "
+"pin người dùng."
+
+#: Conferences.class.php:460
+msgid "Extension"
+msgstr "Máy nhánh"
+
+#: conferences.i18n.php:12
+msgid "Force Allow Conference Recording"
+msgstr "Bắt buộc cho phép ghi âm hội nghị"
+
+#: views/form.php:175
+msgid "Give this conference a brief name to help you identify it."
+msgstr "Gửi tới hội nghị một tên ngắn gọn để giúp bạn xác nhận nó."
+
+#: Conferences.class.php:111
+msgid "Import/Export Conferences"
+msgstr ""
+
+#: views/form.php:241
+msgid "Inherit"
+msgstr "Kế thừa"
+
+#: views/form.php:54
+msgid "Join Message"
+msgstr "Tham gia Message"
+
+#: Conferences.class.php:98
+msgid "Join message id."
+msgstr ""
+
+#: Conferences.class.php:101 views/form.php:235
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+#: Conferences.class.php:101
+msgid "Language."
+msgstr ""
+
+#: views/form.php:298
+msgid "Leader Leave"
+msgstr "Người chủ trì rời khỏi"
+
+#: views/form.php:271
+msgid "Leader Wait"
+msgstr "Đợi người chủ trì"
+
+#: views/rnav.php:19
+msgid "List Conferences"
+msgstr "Danh sách các hội nghị"
+
+#: views/form.php:554
+msgid "Maximum Number of users allowed to join this conference."
+msgstr "Số người dùng tối đa được cho phép tham gia vào hội nghị này."
+
+#: views/form.php:542
+msgid "Maximum Participants"
+msgstr "Người tham gia tối đa"
+
+#: views/form.php:593
+msgid "Member Timeout"
+msgstr "Thời gian chờ thành viên"
+
+#: views/form.php:68
+msgid ""
+"Message to be played to the caller before joining the conference.<br><br>To "
+"add additional recordings please use the \"System Recordings\" MENU above"
+msgstr ""
+"Tin nhắn sẽ được hiện thị tới người gọi trước khi tha gia vào hội nghị."
+"<br><br> để thêm các ghi âm bổ sung vui lòng sử dụng MENU \"System Recordings"
+"\"  ( ghi âm hệ thống) ởtrên"
+
+#: Conferences.class.php:99
+msgid "Music"
+msgstr ""
+
+#: views/form.php:111
+msgid ""
+"Music (or Commercial) played to the caller while they wait in line for the "
+"conference to start. Choose \"inherit\" if you want the MoH class to be what "
+"is currently selected, such as by the inbound route.<br><br>  This music is "
+"defined in the \"Music on Hold\" above."
+msgstr ""
+"Nhạc ( hoặc thương mại) sẽ phát tới người gọi trong khi họ đang chờ hội nghị "
+"bắt đầu. Chọn \"inherit\" ( kế thừa) nếu bạn muốn cấp MoH là những gì được "
+"chọn, ví dụ bởi các tuyến cuộc gọi vào. <br><br>  Nhạc này được định nghĩa "
+"trong \"Nhạc chờ\" ở trên."
+
+#: views/form.php:460
+msgid "Music on Hold"
+msgstr "Nhạc chờ"
+
+#: views/form.php:97
+msgid "Music on Hold Class"
+msgstr "Lớp nhạc chờ"
+
+#: Conferences.class.php:99
+msgid "Music."
+msgstr ""
+
+#: views/form.php:581
+msgid ""
+"Mute everyone when they initially join the conference. Please note that if "
+"you do not have 'Leader Wait' set to yes you must have 'Allow Menu' set to "
+"Yes to unmute yourself"
+msgstr ""
+"Tắt tiếng mọi người khi họ bắt đầu tham gia hội nghị. Lưu ý rằng nếu bạn "
+"không có 'Leader Wait' được cài đặt là Yes, thì bạn phải có 'Allow Menu' cài "
+"đặt là Yes để tự bật tiếng"
+
+#: views/form.php:566
+msgid "Mute on Join"
+msgstr "Tắt tiếng khi tham gia"
+
+#: views/form.php:278 views/form.php:305 views/form.php:332 views/form.php:359
+#: views/form.php:386 views/form.php:413 views/form.php:440 views/form.php:467
+#: views/form.php:495 views/form.php:522 views/form.php:573
+msgid "No"
+msgstr "Không"
+
+#: views/form.php:546
+msgid "No Limit"
+msgstr "Không giới hạn"
+
+#: views/form.php:40
+msgid "None"
+msgstr "Không có"
+
+#: Conferences.class.php:124
+msgid "Option of the Conference is missing."
+msgstr ""
+
+#: Conferences.class.php:94
+msgid "Option of the Conference."
+msgstr ""
+
+#: Conferences.class.php:94
+msgid "Options"
+msgstr ""
+
+#: Conferences.class.php:96
+msgid "PIN code for admin."
+msgstr ""
+
+#: Conferences.class.php:95
+msgid "PIN code for user."
+msgstr ""
+
+#: assets/js/conferences.js:20
+msgid "Please enter a valid Conference Name"
+msgstr "Vui lòng nhập tên hội nghị hợp lệ"
+
+#: assets/js/conferences.js:19
+msgid "Please enter a valid Conference Number"
+msgstr "Vui lòng nhập một số hội nghị hợp lệ"
+
+#: views/form.php:554
+msgid ""
+"Please note depending on hardware and settings a higher limit may cause call "
+"quality issues."
+msgstr ""
+"Vui lòng lưu ý rằng tùy vào phần cứng và các cài đặt, một giới hạn cao hơn "
+"có thể gây các vấn đề về chất lượng cuộc gọi."
+
+#: views/form.php:503
+msgid "Present Menu (user or admin) when '*' is received ('send' to menu)"
+msgstr ""
+"Hiển thị Menu( người dùng hay quản trị viên) khi '*'  được nhận ('gửi' tới "
+"menu)"
+
+#: views/form.php:379
+msgid "Quiet Mode"
+msgstr "Chế độ im lặng"
+
+#: views/form.php:394
+msgid "Quiet mode (do not play enter/leave sounds)"
+msgstr "Chế độ im lặng ( không phát âm thanh vô/ rời khỏi)"
+
+#: views/form.php:515
+msgid "Record Conference"
+msgstr "Ghi âm hội nghị"
+
+#: views/form.php:530
+msgid "Record the conference call"
+msgstr "Ghi âm cuộc gọi hội nghị"
+
+#: views/form.php:530
+#, php-format
+msgid ""
+"Record the conference call. Note: This is broken when using %s or lower, and "
+"is therefore disabled. Enable \"Force allow conference recording\" under "
+"Advanced settings to override this. The Recording will not be available in "
+"either the CDR nor in Call Recordings and has to be downloaded by logging "
+"into the backend."
+msgstr ""
+
+#: Conferences.class.php:436
+msgid "Reset"
+msgstr "Cài đặt lại"
+
+#: views/form.php:367
+msgid ""
+"Sets talker detection. Asterisk will send events on the manager interface "
+"identifying the channel that is talking. The talker will also be identified "
+"on the output of the conference list CLI command. Note: If Conferences Pro "
+"is installed and licensed this will always be enabled"
+msgstr ""
+"Cài đặt phát hiện người nói. Asterisk sẽ gửi các sự kiện trên giao diện "
+"trình quản lý để xác định kênh đang trò chuyện. Người nói sẽ được xác định "
+"trên đầu ra của lệnh CLI danh sách hội nghị. Lưu ý: Nếu các hội nghị Pro "
+"được cài đặt và cấp phép thì điều này sẽ luôn được bật"
+
+#: Conferences.class.php:431
+msgid "Submit"
+msgstr "Gửi đi"
+
+#: views/form.php:352
+msgid "Talker Detection"
+msgstr "Phát hiện người nói"
+
+#: views/form.php:325
+msgid "Talker Optimization"
+msgstr "Tối ưu hóa người nói"
+
+#: views/form.php:258
+msgid ""
+"The language for the conference. If set to inherit or blank the language "
+"will be inherited from the first person who joins the conference esentially "
+"making the language of this conference dynamic. After the first person has "
+"joined the language can not be changed until all users have left the "
+"conference. If you set a value here the langauge will be forced irregardless "
+"of what language users have set"
+msgstr ""
+"Ngôn ngữ cho hội nghị. Nếu cài đặt là kế thừa hoặc để trống thì ngôn ngữ sẽ "
+"được kế thừa từ người đầu tiên tham gia hội nghị và sẽ khiến ngôn ngữ của "
+"hội nghị sôi nổi. Sau khi người đầu tiên vừa tham gia, ngôn ngữ sẽ không thể "
+"thay đổi cho đến khi tất cả người dùng rời khỏi hội nghị. Nếu bạn cài đặt "
+"một giá trị ở đây thì ngôn ngữ sẽ buộc phải là ngôn ngữ của người dùng đã "
+"cài đặt"
+
+#: assets/js/conferences.js:23
+msgid "The user and admin can not have the same pin code."
+msgstr "Người dùng và quản trị không thể có cùng một mã pin."
+
+#: views/form.php:605
+msgid ""
+"This specifies the number of seconds that the participant may stay in the "
+"conference before being automatically ejected. 0 = disabled, default is "
+"21600 (6 hours)"
+msgstr ""
+"Điều này sẽ xác định số giây mà người tham gia ở trong hội nghị trước khi bị "
+"tự động đẩy ra. 0=vô hiệu, mặc định là 21600 giây ( 6 tiếng)"
+
+#: Conferences.class.php:102
+msgid "Timeout"
+msgstr ""
+
+#: Conferences.class.php:102
+msgid "Timeout of the conference."
+msgstr ""
+
+#: views/form.php:340
+msgid ""
+"Turns on talker optimization. With talker optimization, Asterisk treats "
+"talkers who are not speaking as being muted, meaning that no encoding is "
+"done on transmission and that received audio that is not registered as "
+"talking is omitted, causing no buildup in background noise."
+msgstr ""
+"Bật tính năng tối ưu hóa người nói. Với tính năng tối ưu hóa người nói, "
+"Asterisk sẽ xem những người không nói chuyện như là bị tắt tiếng, nghĩa là "
+"việc mã hóa sẽ không được thực hiện khi truyền và các âm thanh nhận được mà "
+"đã không được đăng ký khi cuộc nói chuyện sẽ bị bỏ qua, tránh gây ra các "
+"tiếng ồn xung quanh."
+
+#: conferences.i18n.php:16
+msgid ""
+"Until Asterisk 14+ a random timestamp would be added to the end of the "
+"conference call recording which could not be determined in post call "
+"handling. Thus enabling conference call recording is disabled if using "
+"Asterisk 13 or lower. Enable this option to allow Conference Call recording "
+"to be enabled in Astrisk 13 or lower"
+msgstr ""
+"Cho đến khi Asterisk 14+ một mốc thời gian ngẫu nhiên sẽ được thêm vào cuối "
+"ghi âm cuộc gọi cuộc gọi hội nghị mà không thể xác định trong việc xử lý sau "
+"cuộc gọi. Do đó cho phép ghi âm cuộc gọi hội nghị sẽ bị vô hiệu nếu sử dụng "
+"Asterisk 13 hoặc thấp hơn. Bật tùy chọn này để cho phép Ghi âm cuộc gọi hội "
+"nghị được bật trong Astrisk 13 hoặc thấp hơn"
+
+#: views/form.php:151
+msgid "Use this number to dial into the conference."
+msgstr "Sử dụng số này để gọi vào hội nghị."
+
+#: views/form.php:406
+msgid "User Count"
+msgstr "Đếm người dùng"
+
+#: Conferences.class.php:95 views/form.php:187
+msgid "User PIN"
+msgstr "PIN người dùng"
+
+#: views/form.php:433
+msgid "User join/leave"
+msgstr "Người dùng tham gia/ rời khỏi"
+
+#: Conferences.class.php:100
+msgid "Users"
+msgstr ""
+
+#: Conferences.class.php:100
+msgid "Users."
+msgstr ""
+
+#: views/form.php:286
+msgid ""
+"Wait until the conference leader (admin user) arrives before starting the "
+"conference"
+msgstr ""
+"Đợi đến khi người chủ trì hội nghị ( quản trị người dùng) đến trước khi bắt "
+"đầu hội nghị"
+
+#: Conferences.class.php:36
+msgid "Warning! Extension"
+msgstr "Cảnh báo! Máy nhánh"
+
+#: views/form.php:313
+msgid ""
+"When the conference leader (admin user) leaves all users will be kicked from "
+"the conference"
+msgstr ""
+"Khi người chủ trì hội nghị ( quản trị người dùng) rời khỏi thì tất cả người "
+"dùng sẽ bị đẩy ra khỏi hội nghị"
+
+#: views/form.php:276 views/form.php:303 views/form.php:330 views/form.php:357
+#: views/form.php:384 views/form.php:411 views/form.php:438 views/form.php:465
+#: views/form.php:493 views/form.php:520 views/form.php:571
+msgid "Yes"
+msgstr "Có"
+
+#: views/form.php:199
+msgid ""
+"You can require callers to enter a password before they can enter this "
+"conference.<br><br>This setting is optional.<br><br>If either PIN is "
+"entered, the user will be prompted to enter a PIN.<br> This pin should be "
+"different than the Admin pin"
+msgstr ""
+"Bạn có thể yêu cầu những người gọi nhập mật khẩu trước khi họ tham gia hội "
+"nghị. .<br><br>Cài đặt này là lựa chọn. .<br><br>Nếu một trong hai Pin được "
+"nhập thì người dùng sẽ được nhắc nhở nhập mã một mã PIN. <br> Pin này sẽ "
+"khác Pin của quản trị viên"
+
+#: assets/js/conferences.js:22
+msgid ""
+"You must set Allow Menu to Yes when not using a Leader or Admin in your "
+"conference, otherwise you will be unable to unmute yourself"
+msgstr ""
+"Bạn phải cài đặt Allow Menu về Yes khi không sử dụng một người chủ trì hay "
+"quản trị viên trong hội nghị, nếu không bạn sẽ không thể tự tắt tiếng"
+
+#: assets/js/conferences.js:21
+msgid ""
+"You must set an admin PIN for the Conference Leader when selecting the "
+"leader wait option"
+msgstr ""
+"Bạn phải cài đặt một PIN quản trị cho người chủ trì hội nghị khi chọn vào "
+"lựa chọn 'đợi người chủ trì'"
+
+#: views/form.php:85
+msgid "default"
+msgstr "Mặc định"
+
+#: Conferences.class.php:127
+msgid "description is blank."
+msgstr ""
+
+#: views/form.php:84
+msgid "inherit"
+msgstr "Kế thừa"
+
+#: Conferences.class.php:36
+msgid "is not allowed for your account."
+msgstr "Tài khoản của bạn không được phép."
+
+#: Conferences.class.php:98
+msgid "join message id"
+msgstr ""
+
+#~ msgid ""
+#~ "Record the conference call. Note: This is broken when using %s or lower, "
+#~ "and is therefore disabled. Enable \"Force allow conference recording\" to "
+#~ "override this"
+#~ msgstr ""
+#~ "Ghi âm cuộc gọi hội nghị. Lưu ý: Ghi âm này sẽ bị phá vỡ khi sử dụng %s "
+#~ "hoặc thấp hơn, và do đó sẽ bị vô hiệu. Bật \" \"Force allow conference "
+#~ "recording\" ( Buộc phải cho phép ghi ấm hội nghị) để ghi đè"

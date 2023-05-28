@@ -1,0 +1,33 @@
+{
+  "name": "hhxsv5/php-sse",
+  "type": "library",
+  "license": "MIT",
+  "description": "A simple and efficient library implemented HTML5's server-sent events by PHP, is used to real-time push events from server to client, and easier than Websocket, instead of AJAX request.",
+  "keywords": [
+    "sse",
+    "server-sent events",
+    "eventsource",
+    "events",
+    "sever-events",
+    "event-stream"
+  ],
+  "homepage": "https://github.com/hhxsv5/php-sse",
+  "authors": [
+    {
+      "name": "Xie Biao",
+      "email": "hhxsv5@sina.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0",
+    "swoole/ide-helper": "@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hhxsv5\\SSE\\": "src"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+#!/usr/bin/php
+<?php
+
+include_once '/etc/freepbx.conf';
+error_reporting(E_ALL);
+
+$systemUpdate = new \FreePBX\Builtin\SystemUpdates();
+$systemUpdate->startYumUpdate();
+$res ='';
+$endafter = time()+ (30 * 60);
+
+while(true){
+   $res = $systemUpdate->getYumUpdateStatus();
+   if(isset($res['retryafter']) && $res['retryafter'] == 1000){
+      sleep(1);
+   }else{
+      break;
+   }
+   //for 30min maximum
+   if (time() > $endafter) {
+      break;
+   }
+}
+
+$status = 'failed';
+$message = "";
+if(isset($res['status']) && $res['status'] == 'complete'){
+   $status = "Executed";
+}elseif(isset($res['status']) && $res['status'] == 'inprogress'){
+   $status = "Processing";
+   $message = "inprogress after 30 seconds";
+}elseif(isset($res['status']) && $res['status'] == 'yumerror'){
+   $message = $res['currentlog'];
+}
+
+/* this code is part of the GraphQL API, an update of long running tasks */
+if(isset($argv[1]) && !empty($argv[1])){
+	$txn_id = $argv[1]; 
+	$db = \FreePBX::Database();
+	$sql = ("UPDATE IGNORE api_asynchronous_transaction_history SET event_status = :event_status , failure_reason =:failure_reason, process_end_time =:end_time WHERE `txn_id` = :txn_id");
+	$sth = $db->prepare($sql);
+	$sth->execute([
+		":event_status" => $status,
+		":failure_reason" => $message,
+		":end_time" => time(),
+		":txn_id" => $txn_id
+	]);
+}

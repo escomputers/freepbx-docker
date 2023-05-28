@@ -1,0 +1,728 @@
+# CREDITS for JAPANESE TRANSLATION
+# ================================
+# Current translation & maintenance: QLOOG, Inc. (Kobe, Japan)
+# Inquiries: info@qloog.com / www.qloog.com
+#
+# This translation is a culmination of the hard work of
+# several outstanding individuals, which started in 2009 with the 
+# first-ever Japanese localization of FreePBX by Kenichi Fukaumi 
+# and Kazuhiro Tokuyama (FreePBX Japanized Project).
+#
+# Beginning in 2013, with the approval of the original authors, 
+# QLOOG undertook a large scale overhaul of the translation to 
+# expand it for compatibility with FreePBX 2.11. Our work is, 
+# of course, released under the same GPLv2 license as FreePBX. 
+# We only ask that you kindly retain these credits in honor of 
+# the time and effort that all of us have contributed. Enjoy!
+#
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# FreePBX language template for conferences
+# Copyright (C) 2008, 2009, 2010 Bandwith.com
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.10.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-30 06:07+0000\n"
+"PO-Revision-Date: 2015-02-21 11:10+0200\n"
+"Last-Translator: Kevin <kevin@qloog.com>\n"
+"Language-Team: Japanese <http://weblate.freepbx.org/projects/freepbx/"
+"conferences/ja_JP/>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: views/grid.php:34
+msgid "Actions"
+msgstr ""
+
+#: page.conferences.php:19 views/grid.php:27 views/rnav.php:20
+msgid "Add"
+msgstr ""
+
+#: Conferences.class.php:96 views/form.php:211
+msgid "Admin PIN"
+msgstr ""
+
+#: views/form.php:488
+msgid "Allow Menu"
+msgstr ""
+
+#: conferences.i18n.php:8
+msgid ""
+"Allow creation of conference rooms where multiple people can talk together"
+msgstr ""
+
+#: views/form.php:448
+msgid ""
+"Announce user join/leave. If enabled this will require the user to record "
+"their name before joining the conference"
+msgstr ""
+
+#: views/form.php:421
+msgid "Announce user(s) count on joining conference"
+msgstr "カンファレンスに参加しているユーザーの数をアナウンスします"
+
+#: conferences.i18n.php:6
+msgid "Applications"
+msgstr "アプリケーション"
+
+#: Conferences.class.php:93
+msgid "Conf Number"
+msgstr ""
+
+#: Conferences.class.php:203 Conferences.class.php:459 views/grid.php:32
+#: views/rnav.php:25
+msgid "Conference"
+msgstr "音声会議"
+
+#: views/form.php:163
+msgid "Conference Name"
+msgstr ""
+
+#: views/form.php:139
+msgid "Conference Number"
+msgstr ""
+
+#: Conferences.class.php:121
+msgid "Conference Number is missing."
+msgstr ""
+
+#: functions.inc.php:181
+#, php-format
+msgid "Conference Room %s : %s"
+msgstr "音声会議室 %s ： %s"
+
+#: conferences.i18n.php:18
+msgid "Conference Status"
+msgstr ""
+
+#: Conferences.class.php:93
+msgid "Conference number used."
+msgstr ""
+
+#: functions.inc.php:434
+msgid "Conference: "
+msgstr "音声会議： "
+
+#: functions.inc.php:200
+#, php-format
+msgid "Conference: %s"
+msgstr "音声会議： %s"
+
+#: Conferences.class.php:110 Conferences.class.php:457 conferences.i18n.php:4
+#: conferences.i18n.php:10 conferences.i18n.php:14 page.conferences.php:10
+msgid "Conferences"
+msgstr "音声会議"
+
+#: views/form.php:121
+msgid "Conflicting Extensions"
+msgstr "内線の競合"
+
+#: Conferences.class.php:441
+msgid "Delete"
+msgstr ""
+
+#: views/grid.php:33 views/rnav.php:26
+msgid "Description"
+msgstr ""
+
+#: Conferences.class.php:97
+msgid "Desctiption"
+msgstr ""
+
+#: Conferences.class.php:97
+msgid "Desctiption of the conference."
+msgstr ""
+
+#: page.conferences.php:17
+msgid "Edit"
+msgstr ""
+
+#: views/form.php:475
+msgid "Enable Music On Hold when the conference has a single caller"
+msgstr "カンファレンスの参加者が一人の場合は保留音を有効にします"
+
+#: views/form.php:223
+msgid ""
+"Enter a PIN number for the admin user.<br><br>This setting is optional "
+"unless the 'leader wait' option is in use, then this PIN will identify the "
+"leader.<br>This pin should be different than the user pin."
+msgstr ""
+
+#: Conferences.class.php:460
+msgid "Extension"
+msgstr ""
+
+#: conferences.i18n.php:12
+msgid "Force Allow Conference Recording"
+msgstr ""
+
+#: views/form.php:175
+msgid "Give this conference a brief name to help you identify it."
+msgstr "認識しやすいように、このカンファレンスに簡潔な名前を付けます。"
+
+#: Conferences.class.php:111
+msgid "Import/Export Conferences"
+msgstr ""
+
+#: views/form.php:241
+msgid "Inherit"
+msgstr ""
+
+#: views/form.php:54
+msgid "Join Message"
+msgstr ""
+
+#: Conferences.class.php:98
+msgid "Join message id."
+msgstr ""
+
+#: Conferences.class.php:101 views/form.php:235
+msgid "Language"
+msgstr ""
+
+#: Conferences.class.php:101
+msgid "Language."
+msgstr ""
+
+#: views/form.php:298
+msgid "Leader Leave"
+msgstr ""
+
+#: views/form.php:271
+msgid "Leader Wait"
+msgstr ""
+
+#: views/rnav.php:19
+msgid "List Conferences"
+msgstr ""
+
+#: views/form.php:554
+msgid "Maximum Number of users allowed to join this conference."
+msgstr "このカンファレンスに参加が許可される最大ユーザー数。"
+
+#: views/form.php:542
+msgid "Maximum Participants"
+msgstr ""
+
+#: views/form.php:593
+msgid "Member Timeout"
+msgstr ""
+
+#: views/form.php:68
+msgid ""
+"Message to be played to the caller before joining the conference.<br><br>To "
+"add additional recordings please use the \"System Recordings\" MENU above"
+msgstr ""
+
+#: Conferences.class.php:99
+msgid "Music"
+msgstr ""
+
+#: views/form.php:111
+msgid ""
+"Music (or Commercial) played to the caller while they wait in line for the "
+"conference to start. Choose \"inherit\" if you want the MoH class to be what "
+"is currently selected, such as by the inbound route.<br><br>  This music is "
+"defined in the \"Music on Hold\" above."
+msgstr ""
+
+#: views/form.php:460
+msgid "Music on Hold"
+msgstr ""
+
+#: views/form.php:97
+msgid "Music on Hold Class"
+msgstr ""
+
+#: Conferences.class.php:99
+msgid "Music."
+msgstr ""
+
+#: views/form.php:581
+msgid ""
+"Mute everyone when they initially join the conference. Please note that if "
+"you do not have 'Leader Wait' set to yes you must have 'Allow Menu' set to "
+"Yes to unmute yourself"
+msgstr ""
+"初めてカンファレンスに参加された人をミュートにします。'リーダー待ち'を'は"
+"い'に設定しない場合、'メニュー許可' を必ず'はい'に設定し、ミュートを解除して"
+"ください"
+
+#: views/form.php:566
+msgid "Mute on Join"
+msgstr ""
+
+#: views/form.php:278 views/form.php:305 views/form.php:332 views/form.php:359
+#: views/form.php:386 views/form.php:413 views/form.php:440 views/form.php:467
+#: views/form.php:495 views/form.php:522 views/form.php:573
+msgid "No"
+msgstr "いいえ"
+
+#: views/form.php:546
+msgid "No Limit"
+msgstr "無制限"
+
+#: views/form.php:40
+msgid "None"
+msgstr "なし"
+
+#: Conferences.class.php:124
+msgid "Option of the Conference is missing."
+msgstr ""
+
+#: Conferences.class.php:94
+msgid "Option of the Conference."
+msgstr ""
+
+#: Conferences.class.php:94
+msgid "Options"
+msgstr ""
+
+#: Conferences.class.php:96
+msgid "PIN code for admin."
+msgstr ""
+
+#: Conferences.class.php:95
+msgid "PIN code for user."
+msgstr ""
+
+#: assets/js/conferences.js:20
+msgid "Please enter a valid Conference Name"
+msgstr "正しいカンファレンス名を入力してください"
+
+#: assets/js/conferences.js:19
+msgid "Please enter a valid Conference Number"
+msgstr "正しいカンファレンス番号を入力してください"
+
+#: views/form.php:554
+msgid ""
+"Please note depending on hardware and settings a higher limit may cause call "
+"quality issues."
+msgstr ""
+
+#: views/form.php:503
+msgid "Present Menu (user or admin) when '*' is received ('send' to menu)"
+msgstr ""
+"'*'が押された際に(ユーザーor管理者)メニューを流します。(メニューに'送る')"
+
+#: views/form.php:379
+msgid "Quiet Mode"
+msgstr ""
+
+#: views/form.php:394
+msgid "Quiet mode (do not play enter/leave sounds)"
+msgstr "サイレントモード(入室/退出音を再生しない)"
+
+#: views/form.php:515
+msgid "Record Conference"
+msgstr ""
+
+#: views/form.php:530
+msgid "Record the conference call"
+msgstr "カンファレンス通話を録音します"
+
+#: views/form.php:530
+#, php-format
+msgid ""
+"Record the conference call. Note: This is broken when using %s or lower, and "
+"is therefore disabled. Enable \"Force allow conference recording\" under "
+"Advanced settings to override this. The Recording will not be available in "
+"either the CDR nor in Call Recordings and has to be downloaded by logging "
+"into the backend."
+msgstr ""
+
+#: Conferences.class.php:436
+msgid "Reset"
+msgstr ""
+
+#: views/form.php:367
+msgid ""
+"Sets talker detection. Asterisk will send events on the manager interface "
+"identifying the channel that is talking. The talker will also be identified "
+"on the output of the conference list CLI command. Note: If Conferences Pro "
+"is installed and licensed this will always be enabled"
+msgstr ""
+
+#: Conferences.class.php:431
+msgid "Submit"
+msgstr ""
+
+#: views/form.php:352
+msgid "Talker Detection"
+msgstr ""
+
+#: views/form.php:325
+msgid "Talker Optimization"
+msgstr ""
+
+#: views/form.php:258
+msgid ""
+"The language for the conference. If set to inherit or blank the language "
+"will be inherited from the first person who joins the conference esentially "
+"making the language of this conference dynamic. After the first person has "
+"joined the language can not be changed until all users have left the "
+"conference. If you set a value here the langauge will be forced irregardless "
+"of what language users have set"
+msgstr ""
+
+#: assets/js/conferences.js:23
+msgid "The user and admin can not have the same pin code."
+msgstr "ユーザーと管理者に同じPINコードを設定できません。"
+
+#: views/form.php:605
+msgid ""
+"This specifies the number of seconds that the participant may stay in the "
+"conference before being automatically ejected. 0 = disabled, default is "
+"21600 (6 hours)"
+msgstr ""
+
+#: Conferences.class.php:102
+msgid "Timeout"
+msgstr ""
+
+#: Conferences.class.php:102
+msgid "Timeout of the conference."
+msgstr ""
+
+#: views/form.php:340
+msgid ""
+"Turns on talker optimization. With talker optimization, Asterisk treats "
+"talkers who are not speaking as being muted, meaning that no encoding is "
+"done on transmission and that received audio that is not registered as "
+"talking is omitted, causing no buildup in background noise."
+msgstr ""
+
+#: conferences.i18n.php:16
+msgid ""
+"Until Asterisk 14+ a random timestamp would be added to the end of the "
+"conference call recording which could not be determined in post call "
+"handling. Thus enabling conference call recording is disabled if using "
+"Asterisk 13 or lower. Enable this option to allow Conference Call recording "
+"to be enabled in Astrisk 13 or lower"
+msgstr ""
+
+#: views/form.php:151
+msgid "Use this number to dial into the conference."
+msgstr "カンファレンスにダイヤルインするのにこの番号を使用します。"
+
+#: views/form.php:406
+msgid "User Count"
+msgstr ""
+
+#: Conferences.class.php:95 views/form.php:187
+msgid "User PIN"
+msgstr ""
+
+#: views/form.php:433
+msgid "User join/leave"
+msgstr ""
+
+#: Conferences.class.php:100
+msgid "Users"
+msgstr ""
+
+#: Conferences.class.php:100
+msgid "Users."
+msgstr ""
+
+#: views/form.php:286
+msgid ""
+"Wait until the conference leader (admin user) arrives before starting the "
+"conference"
+msgstr "リーダー(管理ユーザー)が参加する迄、カンファレンス開始を待ちます"
+
+#: Conferences.class.php:36
+msgid "Warning! Extension"
+msgstr "警告! 内線"
+
+#: views/form.php:313
+msgid ""
+"When the conference leader (admin user) leaves all users will be kicked from "
+"the conference"
+msgstr ""
+
+#: views/form.php:276 views/form.php:303 views/form.php:330 views/form.php:357
+#: views/form.php:384 views/form.php:411 views/form.php:438 views/form.php:465
+#: views/form.php:493 views/form.php:520 views/form.php:571
+msgid "Yes"
+msgstr "はい"
+
+#: views/form.php:199
+msgid ""
+"You can require callers to enter a password before they can enter this "
+"conference.<br><br>This setting is optional.<br><br>If either PIN is "
+"entered, the user will be prompted to enter a PIN.<br> This pin should be "
+"different than the Admin pin"
+msgstr ""
+
+#: assets/js/conferences.js:22
+msgid ""
+"You must set Allow Menu to Yes when not using a Leader or Admin in your "
+"conference, otherwise you will be unable to unmute yourself"
+msgstr ""
+"リーダーまたは管理者が使用していない時、メニューの許可は必ず'はい'に設定しな"
+"ければ、ミュートを解除することができません"
+
+#: assets/js/conferences.js:21
+msgid ""
+"You must set an admin PIN for the Conference Leader when selecting the "
+"leader wait option"
+msgstr ""
+"リーダー待ちをオプションに選択した場合は、カンファレンスリーダー用の管理者PIN"
+"の設定が必須です"
+
+#: views/form.php:85
+msgid "default"
+msgstr "デフォルト"
+
+#: Conferences.class.php:127
+msgid "description is blank."
+msgstr ""
+
+#: views/form.php:84
+msgid "inherit"
+msgstr "継承"
+
+#: Conferences.class.php:36
+msgid "is not allowed for your account."
+msgstr "は、あなたのアカウントには権限がありません。"
+
+#: Conferences.class.php:98
+msgid "join message id"
+msgstr ""
+
+#~ msgid "Announce user join/leave"
+#~ msgstr "ユーザーの参加/退出をアナウンスします"
+
+#~ msgid "Checking for users field.."
+#~ msgstr "users フィールドのチェック中.."
+
+#~ msgid "Add Conference"
+#~ msgstr "カンファレンスを追加"
+
+#~ msgid "Admin PIN:"
+#~ msgstr "管理者PIN："
+
+#~ msgid "Allow Menu:"
+#~ msgstr "メニューを許可："
+
+#~ msgid ""
+#~ "Allow creation of conference rooms (meet-me) where multiple people can "
+#~ "talk together."
+#~ msgstr ""
+#~ "複数の人々が一緒に会話ができるカンファレンスルーム(meet-me)の作成を許可す"
+#~ "る。"
+
+#~ msgid "Checking if music field present.."
+#~ msgstr "musicフィールドが存在しているかどうかチェック.."
+
+#~ msgid "Checking if recordings need migration.."
+#~ msgstr "録音の移行が必要かチェック中.."
+
+#~ msgid "Conference Name:"
+#~ msgstr "音声会議の名前："
+
+#~ msgid "Conference Number:"
+#~ msgstr "音声会議の番号："
+
+#~ msgid "Conference Options"
+#~ msgstr "音声会議のオプション"
+
+#~ msgid "Conference:"
+#~ msgstr "音声会議："
+
+#~ msgid "Delete Conference %s"
+#~ msgstr "カンファレンスの削除 %s"
+
+#~ msgid "Edit Conference"
+#~ msgstr "カンファレンスの編集"
+
+#~ msgid ""
+#~ "Enter a PIN number for the admin user.<br><br>This setting is optional "
+#~ "unless the 'leader wait' option is in use, then this PIN will identify "
+#~ "the leader."
+#~ msgstr ""
+#~ "管理者ユーザー用のPIN番号を入力します。<br><br>'リーダー待ち'オプションが"
+#~ "使用中でなければ、この設定はオプションです。その際、このPINによってリー"
+#~ "ダーかどうかを識別します。"
+
+#~ msgid "FATAL error"
+#~ msgstr "致命的なエラー"
+
+#~ msgid "Join Message:"
+#~ msgstr "参加メッセージ："
+
+#~ msgid "Leader Wait:"
+#~ msgstr "リーダー待ち："
+
+#~ msgid "Maximum Participants:"
+#~ msgstr "最大参加者数："
+
+#~ msgid ""
+#~ "Message to be played to the caller before joining the conference."
+#~ "<br><br>To add additional recordings please use the \"System Recordings\" "
+#~ "MENU to the left"
+#~ msgstr ""
+#~ "発信者がカンファレンスに参加する前に再生されるメッセージ。<br><br>録音を追"
+#~ "加するには、左側にある\"システム録音\"メニューを使用してください"
+
+#~ msgid ""
+#~ "Message to be played to the caller before joining the conference."
+#~ "<br><br>You must install and enable the \"Systems Recordings\" Module to "
+#~ "edit this option"
+#~ msgstr ""
+#~ "カンファレンスに参加する前に発信者に再生されるメッセージ。<br><br>このオプ"
+#~ "ションを編集するには\"システム録音\"モジュールをインストールし有効にしなけ"
+#~ "ればなりません"
+
+#~ msgid ""
+#~ "Music (or Commercial) played to the caller while they wait in line for "
+#~ "the conference to start. Choose \"inherit\" if you want the MoH class to "
+#~ "be what is currently selected, such as by the inbound route.<br><br>  "
+#~ "This music is defined in the \"Music on Hold\" to the left."
+#~ msgstr ""
+#~ "カンファレンスがスタートするまで待っている間に、発信者に再生される音楽(や"
+#~ "コマーシャル)です。着信ルート経由など、MoHクラスを現在選択されているものに"
+#~ "したい場合は\"継承\"を選択してください。<br><br>この音楽は左側の\"保留音"
+#~ "\"に定義されています。"
+
+#~ msgid "Music on Hold Class:"
+#~ msgstr "保留クラス音："
+
+#~ msgid "Music on Hold:"
+#~ msgstr "保留音："
+
+#~ msgid "Mute on Join:"
+#~ msgstr "参加時にミュートします："
+
+#~ msgid "Quiet Mode:"
+#~ msgstr "サイレントモード："
+
+#~ msgid "Record Conference:"
+#~ msgstr "カンファレンスを録音："
+
+#~ msgid ""
+#~ "Sets talker detection. Asterisk will sends events on the Manager "
+#~ "Interface identifying\n"
+#~ "the channel that is talking. The talker will also be identified on the "
+#~ "output of\n"
+#~ "the conference list CLI command. Note: If Conferences Pro is installed "
+#~ "and licensed this will always be enabled"
+#~ msgstr ""
+#~ "話者の検知を設定します。AMI経由で音声会議で話中のチャネルを特定するイベン"
+#~ "トを送信します。また、Asteriskのコマンドラインからも conference list を実"
+#~ "行すると話者を特定できます。注意: カンファレンスプロがインストールされてい"
+#~ "る場合はこの設定は常に有効になっています。"
+
+#~ msgid ""
+#~ "Sets talker detection. Asterisk will sends events on the Manager "
+#~ "Interface identifying\n"
+#~ "the channel that is talking. The talker will also be identified on the "
+#~ "output of\n"
+#~ "the meetme list CLI command."
+#~ msgstr ""
+#~ "話者検知をセットします。Asteriskは会話中のチャネルを識別してマネージャーイ"
+#~ "ンターフェイスにイベントを送信します。meetmeリストCLIコマンドの出力によっ"
+#~ "ても話者は識別されます。"
+
+#~ msgid "Submit Changes"
+#~ msgstr "変更を適用"
+
+#~ msgid "Talker Detection:"
+#~ msgstr "話者検知："
+
+#~ msgid "Talker Optimization:"
+#~ msgstr "話者最適化："
+
+#~ msgid "The Conference Name provided is too long."
+#~ msgstr "入力された会議室の名前が長すぎます。"
+
+#~ msgid ""
+#~ "Turns on talker optimization. With talker optimization, Asterisk treats "
+#~ "talkers who\n"
+#~ "are not speaking as being muted, meaning that no encoding is done on "
+#~ "transmission\n"
+#~ "and that received audio that is not registered as talking is omitted, "
+#~ "causing no\n"
+#~ "buildup in background noise."
+#~ msgstr ""
+#~ "話者最適化をオンにします。話者最適化をすることにより、Asteriskは話をしてい"
+#~ "ない話者をミュートと同じ扱いをします、つまり、送信の際にエンコード処理が発"
+#~ "生せず、話として登録されていない受信音声は省略され、バックグラウンドノイズ"
+#~ "が発生しません。"
+
+#~ msgid "User Count:"
+#~ msgstr "ユーザー数カウント："
+
+#~ msgid "User PIN:"
+#~ msgstr "ユーザーPIN："
+
+#~ msgid "User join/leave:"
+#~ msgstr "ユーザー参加/退出："
+
+#~ msgid ""
+#~ "You can require callers to enter a password before they can enter this "
+#~ "conference.<br><br>This setting is optional.<br><br>If either PIN is "
+#~ "entered, the user will be prompted to enter a PIN."
+#~ msgstr ""
+#~ "発信者に対して、このカンファレンスに入室する前にパスワードの入力を要求する"
+#~ "ことができます。<br><br>この設定はオプションです。<br><br>どちらかのPINが"
+#~ "入力された場合、ユーザーにはPINの入力プロンプトが表示されます。"
+
+#~ msgid "adding joinmsg_id field.."
+#~ msgstr "joinmsg_id フィールドの追加中.."
+
+#~ msgid "adding music field.."
+#~ msgstr "musicフィールドの追加中.."
+
+#~ msgid "adding.."
+#~ msgstr "追加中.."
+
+#~ msgid "already migrated"
+#~ msgstr "移行済み"
+
+#~ msgid "already present"
+#~ msgstr "すでに存在しています"
+
+#~ msgid "deleted"
+#~ msgstr "削除されました"
+
+#~ msgid "dropping joinmsg field.."
+#~ msgstr "joinmsg フィールドのドロップ中.."
+
+#~ msgid "fatal error"
+#~ msgstr "致命的なエラー"
+
+#~ msgid "migrate to recording ids.."
+#~ msgstr "録音IDに移行中.."
+
+#~ msgid "migrated %s entries"
+#~ msgstr "%sエントリーを移行する"
+
+#~ msgid "migrating"
+#~ msgstr "移行中"
+
+#~ msgid "no joinmsg field???"
+#~ msgstr "joinmsg フィールドが存在しません???"
+
+#~ msgid "ok"
+#~ msgstr "ok"

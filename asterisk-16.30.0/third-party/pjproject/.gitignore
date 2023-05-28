@@ -1,0 +1,6 @@
+source
+**.bz2
+build.mak
+pjproject.symbols
+.rebuild_needed
+.makedeps

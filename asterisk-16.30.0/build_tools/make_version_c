@@ -1,0 +1,61 @@
+#!/bin/sh
+
+GREP=${GREP:-grep}
+
+if test ! -f .flavor ; then
+    EXTRA=""
+elif test ! -f .version ; then
+	aadkflavor=`cat .flavor`
+    EXTRA=" (${aadkflavor})"
+else
+    aadkver=`cat .version`
+    aadkflavor=`cat .flavor`
+    EXTRA=" (${aadkflavor} ${aadkver})"
+fi
+
+if ${GREP} "AST_DEVMODE" makeopts | ${GREP} -q "yes"
+then
+	BUILDOPTS="AST_DEVMODE"
+fi
+
+TMP=`${GREP} -e "^MENUSELECT_CFLAGS" menuselect.makeopts | sed 's/MENUSELECT_CFLAGS\=//g' | sed 's/-D//g'`
+for x in ${TMP}; do
+	if test "x${BUILDOPTS}" != "x" ; then
+		BUILDOPTS="${BUILDOPTS}, ${x}"
+	else
+		BUILDOPTS="${x}"
+	fi
+done
+
+cat << END
+/*
+ * version.c
+ * Automatically generated
+ */
+
+#include "asterisk.h"
+
+#include "asterisk/ast_version.h"
+
+static const char asterisk_version[] = "${ASTERISKVERSION}${EXTRA}";
+
+static const char asterisk_version_num[] = "${ASTERISKVERSIONNUM}";
+
+static const char asterisk_build_opts[] = "${BUILDOPTS}";
+
+const char *ast_get_version(void)
+{
+	return asterisk_version;
+}
+
+const char *ast_get_version_num(void)
+{
+	return asterisk_version_num;
+}
+
+const char *ast_get_build_opts(void)
+{
+	return asterisk_build_opts;
+}
+
+END

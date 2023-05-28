@@ -1,0 +1,345 @@
+.brown{color:brown;}
+.cyan{color:cyan;}
+.black{color:black;}
+.red{color:red;}
+.orange{color:orange;}
+.green{color:lightgreen;}
+.yellow{color:yellow;}
+.blue{color:blue;}
+.magenta{color:magenta;}
+.white{color:white;}
+.pink{color:hotpink;}
+.lime{color:lime;}
+.silver{color:silver;}
+.seagreen{color:lightseagreen;}
+.beige{color:beige;}
+.bold{font-weight: bold;}
+.underline{text-decoration:underline;}
+
+.app{color:cyan;}
+.appargs{color:magenta;}
+.context{color:blue;}
+
+
+.log_area
+{
+	background-color: 	#0f192a;
+
+	/* -webkit-box-shadow:  5px 5px 10px 2px rgba(0, 0, 0, .5); */
+	/* box-shadow: 			5px 5px 10px 2px rgba(0, 0, 0, .5); */
+	/* margin-bottom: 		10px; */
+	
+	padding: 			10px 10px 0px 10px;
+	border-radius: 		5px;
+	position: 			relative;
+	min-height: 		200px;
+
+	/* scrollbar-color: rebeccapurple green; */
+	scrollbar-width:  	thin;
+	overflow: 			auto;
+}
+
+.fullscreenlog {
+	position: fixed !important;
+	top: 0px !important;
+	left: 0px !important;
+	bottom: 0px !important;
+	right: 0px !important;	
+	z-index: 99999999 !important;
+	max-height: 100% !important;
+	border-radius: 0px !important;
+}
+
+/*
+	Is defined overflow the padding-bottom not work.
+	We create this line to create the padding-bottom and to hide 
+	the border-bottom of the last line.
+*/
+.log_area .line_foot
+{
+	position: relative;
+	top: -1px;
+	height: 11px;
+	background-color: 	#0f192a;
+}
+
+.log_area .ico_loading
+{
+	margin: 		0;
+	position: 		absolute;
+	top: 			50%;
+	left: 			50%;
+	-ms-transform: 	translate(-50%, -50%);
+	transform: 		translate(-50%, -50%);
+	color:			white;
+}
+
+.log_area .lines_log
+{
+	font-family: "Courier New", Courier, monospace;
+	font-size:	 0.85em;
+	color:		 white;
+}
+
+
+.log_area .newline_leve_0 { background-color: rgba(39, 96, 194, 0.800); }
+.log_area .newline_leve_1 { background-color: rgba(39, 96, 194, 0.600); }
+.log_area .newline_leve_2 { background-color: rgba(39, 96, 194, 0.400); }
+.log_area .newline_leve_3 { background-color: rgba(39, 96, 194, 0.200); }
+
+
+.log_area .lines_log .line_spacing
+{
+	border-bottom: 	1px blanchedalmond dotted;
+}
+
+.log_area .line_log .line_log_num, 
+.log_area .line_log .line_log_data,
+.log_area .line_log .line_log_acctions
+{
+	display: table-cell;
+}
+
+.log_area .line_log .line_log_num 
+{
+	text-align:		right;
+	color: 			aqua;
+	padding-right:	5px;
+	min-width: 		40px;
+	width: 			1%;
+	border-right: 	1px blanchedalmond dotted;
+}
+
+.log_area .line_log .line_log_data
+{
+	width: auto;
+}
+
+.log_area .line_log .line_log_acctions
+{
+	width: 1%;
+	padding-left:  5px;
+	padding-right: 5px;
+}
+
+.log_area .line_log_data .highlight_log
+{
+	background-color:		beige;
+	font-weight: 			bold;
+	color: 					black;
+  
+	padding-left: 			5px;
+	padding-right: 			5px;
+  
+	border-radius: 			5px 5px 5px 5px;
+	-moz-border-radius: 	5px 5px 5px 5px;
+	-webkit-border-radius: 	5px 5px 5px 5px;
+	border: 				1px solid #000000;
+}
+
+
+
+
+
+
+.toolbar
+{
+    min-height: 50px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    
+	border-radius: 4px;
+
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+
+	padding: 15px 15px 15px 15px;	
+}
+
+.toolbar .label 
+{
+	padding-top: .3em;
+	position: relative;
+	top: -0.1em;
+}
+
+.toolbar span.caret
+{
+	position: absolute;
+	right: 8px;
+	top: 50%;
+}
+
+.toolbar .row > div
+{
+	margin-bottom: 10px;
+}
+
+.toolbar .row:last-child
+{
+	margin-bottom: -10px;
+}
+
+.toolbar .input-group-btn .radioset label
+{
+	border-bottom-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+}
+
+.toolbar .box-autoscroll .radioset label
+{
+	font-size: 22px !important;
+	font-weight: normal !important;
+
+	padding: 0px;
+	margin: 0px;
+
+	width: 50% !important;
+	min-height: 34px !important;
+	max-height: 34px !important; 
+}
+
+/* Fix: A space is generated with the button above */
+.toolbar .input-group-btn .btn:last-of-type
+{
+    margin-right: 0px !important;
+}
+
+/* Fix: The buttons and "a" drawn as buttons do not get the correct height, they are 2 pixels less */
+.toolbar .btn
+{
+	height: 34px !important;
+}
+
+.toolbar .dropdown-toggle
+{
+	width: 100%;
+}
+
+.toolbar .box-more-options .btn:first-child
+{
+	font-size: 20px !important;
+	font-weight: normal !important;
+	padding: 0px;
+	margin: 0px;
+}
+
+.toolbar .box-more-options .dropdown-menu li
+{
+	margin: 6px 8px;
+}
+
+.toolbar .box-more-options .dropdown-menu li > .input-group > .input-group-addon,
+.toolbar .box-more-options .dropdown-menu li > .input-group > input
+{
+	font-size: 0.8em;
+}
+
+.toolbar .box-more-options .dropdown-menu li > .input-group-radioset > .input-group-addon
+{
+	width: 100%;
+}
+
+.toolbar .box-more-options .dropdown-menu li > .input-group-radioset .radioset > label
+{
+	margin: 0px;
+}
+
+.toolbar .btn-onlyico i
+{
+	font-size: 1.3em;
+	position: relative; 
+	top: 2px;
+}
+
+
+
+
+
+
+
+/* Fix: Eliminate spaces between the buttons */
+#logfile_entries.table .btn-group-justified 
+{
+	border-spacing: 0px;
+}
+
+#logfile_entries.table .btn-group-justified .btn-sm 
+{
+	/* Use icon small but with a little more padding */
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#logfile_entries.table > tbody > tr > td 
+{
+    vertical-align: middle;
+}
+
+#logfile_entries.table .has-error .form-control-feedback 
+{
+	margin-top: 5px;
+}
+
+#logfiles_logfiles span.pagination-info 
+{
+    display: none !important;
+}
+
+
+
+
+
+/* 
+	Fix: New Skin FreePBX breaks the btn-group and input-group-btn
+*/
+
+/* Color Text and Icons */
+.input-group-btn .btn-success,
+.input-group-btn .btn-danger,
+#logfile_entries td:last-child .btn-group .btn,
+#logfile_entries td:last-child .btn-group i.fa {
+	color: #fff !important;
+}
+
+/* Button Colors */
+.input-group-btn .btn-success,
+#logfile_entries td:last-child .btn-group .btn-success {
+	background-color: #5cb85c !important;
+	/* border-color: #5cb85c !important; */
+}
+
+.input-group-btn .btn-success:hover,
+#logfile_entries td:last-child .btn-group .btn-success:hover {
+    background-color: #218838 !important;
+    /* border-color: #1e7e34 !important; */
+}
+
+.input-group-btn .btn-danger,
+#logfile_entries td:last-child .btn-group .btn-danger {
+	background-color: #d9534f !important;
+	/* border-color: #d9534f !important; */
+}
+
+.input-group-btn .btn-danger:hover,
+#logfile_entries td:last-child .btn-group .btn-danger:hover {
+	background-color: #c82333 !important;
+	/* border-color: #bd2130 !important; */
+}
+
+
+
+/* Fix: Remove border added on buttons and radioset. */
+.toolbar .btn {
+	border-color: #ccc !important;
+}
+
+.toolbar .radioset label
+{
+	border-color: #ccc !important;
+}
+
+.toolbar .radioset label:last-child
+{
+	border-left: 0px !important;
+}

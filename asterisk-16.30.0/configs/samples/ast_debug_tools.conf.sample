@@ -1,0 +1,72 @@
+#
+# This file is used by the Asterisk debug tools.
+# Unlike other Asterisk config files, this one is
+# "sourced" by bash and must adhere to bash semantics.
+#
+
+#
+# The following settings are used by ast_coredumper
+#
+
+# COREDUMPS is a a list of coredumps and/or coredump
+# search patterns.
+#
+# Bash extended globs are enabled and any resulting files
+# that aren't actually coredumps are silently ignored
+# so you can be liberal with the globs.
+#
+# If your patterns contain spaces be sure to only quote
+# the portion of the pattern that DOESN'T contain wildcard
+# expressions.  If you quote the whole pattern, it won't
+# be expanded and the glob characters will be treated as
+# literals.
+#
+# The exclusion of files ending ".txt" is just for
+# demonstration purposes as non-asterisk-coredumps will be
+# ignored anyway.
+COREDUMPS=( /tmp/core!(*.txt) )
+
+# OUTPUTDIR is the directory to contain output files and
+# work directories. 
+# For output from existing core files, the default is the
+# directory that the core file is found in.  For core files
+# produced from a running process, the default is /tmp.
+OUTPUTDIR=/tmp
+
+# DATEOPTS is passed to the 'date' utility and is
+# used to set the timestamp used to create the
+# name of the output files and to rename the coredump.
+#
+# Beware of colons in the output as you can't upload
+# files with colons in the name to Jira.
+# The preferred timestamp format is readable GMT.
+#
+# Readable GMT
+DATEOPTS='-u +%FT%H-%M-%SZ'
+#
+# Unix timestamp
+#DATEOPTS='+%s.%N'
+#
+# Readable Local time
+#DATEOPTS='+%FT%H-%M-%S%z'
+
+#
+# The following settings are used by ast_loggrabber
+#
+
+# A list of log files and/or log file search patterns using the
+# same syntax as COREDUMPS.
+#
+LOGFILES=(/var/log/asterisk/messages* /var/log/asterisk/queue* \
+	/var/log/asterisk/debug* /var/log/asterisk/security*)
+
+# ast_loggrabber converts POSIX timestamps to readable format
+# using this Python strftime format string.  If not specified
+# or an empty string, no format covnersion is done.
+LOG_DATEFORMAT="%m/%d-%H:%M:%S.%f"
+
+# The timezone to use when converting POSIX timestamps to
+# readable format.  It can be specified in "<continent>/<city>"
+# format or in abbreviation format such as "CST6CDT".  If not
+# specified, the "local" timezone is used.
+# LOG_TIMEZONE=

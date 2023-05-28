@@ -1,0 +1,337 @@
+# CREDITS for JAPANESE TRANSLATION
+# ================================
+# Current translation & maintenance: QLOOG, Inc. (Kobe, Japan)
+# Inquiries: info@qloog.com / www.qloog.com
+#
+# This translation is a culmination of the hard work of
+# several outstanding individuals, which started in 2009 with the 
+# first-ever Japanese localization of FreePBX by Kenichi Fukaumi 
+# and Kazuhiro Tokuyama (FreePBX Japanized Project).
+#
+# Beginning in 2013, with the approval of the original authors, 
+# QLOOG undertook a large scale overhaul of the translation to 
+# expand it for compatibility with FreePBX 2.11. Our work is, 
+# of course, released under the same GPLv2 license as FreePBX. 
+# We only ask that you kindly retain these credits in honor of 
+# the time and effort that all of us have contributed. Enjoy!
+#
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+# FreePBX language template for customappsreg
+# Copyright (C) 2008, 2009, 2010 Bandwith.com
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreePBX 2.10.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-09 02:01+0000\n"
+"PO-Revision-Date: 2014-02-20 20:48+0200\n"
+"Last-Translator: Kenichi Fukaumi <k.fukaumi@qloog.com>\n"
+"Language-Team: Japanese <http://example.com/projects/freepbx/customappsreg/"
+"ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 1.8\n"
+
+#: views/customdests/form.php:99
+msgid "(pick destination)"
+msgstr "宛先をピックアップ"
+
+#: views/customdests/grid.php:11 views/customextens/grid.php:9
+msgid "Actions"
+msgstr ""
+
+#: views/customdests/form.php:32
+msgid "Add Custom Destination"
+msgstr "カスタム宛先を追加"
+
+#: views/customextens/form.php:14
+msgid "Add Custom Extension"
+msgstr "カスタム内線を追加"
+
+#: views/customdests/grid.php:5 views/customdests/rnav.php:3
+msgid "Add Destination"
+msgstr ""
+
+#: views/customextens/grid.php:2 views/customextens/rnav.php:3
+msgid "Add Extension"
+msgstr ""
+
+#: views/customextens/form.php:71
+msgid ""
+"Brief description that will be published in the Extension Registry about "
+"this extension"
+msgstr "内線レジストリ内で公開される内線についての簡単な説明。"
+
+#: views/customdests/form.php:109
+msgid ""
+"Choose un-identified destinations on your system to add to the Custom "
+"Destination Registry. This will insert the chosen entry into the Custom "
+"Destination box above."
+msgstr ""
+"システムに認識されていない宛先をカスタム宛先レジストリに追加するために選択し"
+"てください。選択したエントリーを上記カスタム宛先ボックスへ挿入します。"
+
+#: views/customextens/form.php:18
+msgid "Conflicting Extensions"
+msgstr "内線の競合"
+
+#: functions.inc.php:53 functions.inc.php:60
+#, php-format
+msgid "Custom Destination: %s"
+msgstr "カスタム宛先： %s"
+
+#: functions.inc.php:18 functions.inc.php:20 page.customdests.php:18
+msgid "Custom Destinations"
+msgstr "カスタム宛先"
+
+#: page.customdests.php:4
+msgid ""
+"Custom Destinations allows you to register your custom destinations that "
+"point to custom dialplans and will also 'publish' these destinations as "
+"available destinations to other modules. This is an advanced feature and "
+"should only be used by knowledgeable users. If you are getting warnings or "
+"errors in the notification panel about CUSTOM destinations that are correct, "
+"you should include them here. The 'Unknown Destinations' chooser will allow "
+"you to choose and insert any such destinations that the registry is not "
+"aware of into the Custom Destination field."
+msgstr ""
+"カスタム宛先を使用することにより、あなたが独自に作成した、カスタムダイヤルプ"
+"ランを指した宛先を登録することができ、他のモジュールによって利用可能なこれら"
+"の宛先を'発行'することもできます。"
+
+#: views/customextens/form.php:35
+msgid "Custom Extension"
+msgstr "カスタム内線"
+
+#: functions.inc.php:87
+msgid "Custom Extension: "
+msgstr "カスタム内線："
+
+#: page.customextens.php:18
+msgid "Custom Extensions"
+msgstr "カスタム内線"
+
+#: page.customextens.php:4
+msgid ""
+"Custom Extensions provides you with a facility to register any custom "
+"extensions or feature codes that you have created in a custom file and "
+"FreePBX doesn't otherwise know about them. This allows the Extension "
+"Registry to be aware of your own extensions so that it can detect conflicts "
+"or report back information about your custom extensions to other modules "
+"that may make use of the information. You should not put extensions that you "
+"create in the Misc Apps Module as those are not custom."
+msgstr ""
+"カスタム内線は、カスタムファイルで作成した独自の内線やキーコードを登録する機"
+"能を提供し、FreePBXから利用可能にします。これによって、内線レジストリはあなた"
+"が作成した独自の内線を検知し、カスタム内線に関する競合を検知して他のモジュー"
+"ルに情報をレポートします。その他モジュールで作成した内線はカスタムではないの"
+"で、ここでは使用しないでください。"
+
+#: functions.inc.php:133
+msgid "DUPLICATE Extension: This extension already in use"
+msgstr "内線の重複： この内線は既に使用されております。"
+
+#: Customappsreg.class.php:293
+msgid "Delete"
+msgstr "削除"
+
+#: views/customdests/form.php:124 views/customextens/form.php:59
+#: views/customextens/grid.php:8 views/customextens/rnav.php:9
+msgid "Description"
+msgstr "説明"
+
+#: views/customdests/form.php:199
+msgid "Destination"
+msgstr ""
+
+#: views/customdests/form.php:94
+msgid "Destination Quick Pick"
+msgstr "宛先クイックピックアップ"
+
+#: views/customdests/grid.php:10 views/customdests/rnav.php:8
+msgid "Destinations"
+msgstr ""
+
+#: views/customdests/form.php:187
+msgid ""
+"Does this destination end with 'Return'? If so, you can then select a "
+"subsequent destination after this call flow is complete."
+msgstr ""
+
+#: views/customdests/form.php:30 views/customextens/form.php:11
+msgid "Edit: "
+msgstr "編集："
+
+#: views/customextens/grid.php:7 views/customextens/rnav.php:8
+msgid "Extension"
+msgstr ""
+
+#: views/customdests/form.php:243
+msgid ""
+"Invalid Destination, must not be blank, must be formatted as: context,exten,"
+"pri"
+msgstr ""
+"無効な宛先です、空白にすることはできません。フォーマット：コンテキスト,exten,"
+"優先度"
+
+#: functions.inc.php:118 views/customextens/form.php:106
+msgid "Invalid Extension, must not be blank"
+msgstr "無効な内線番号です、空白にすることはできません。"
+
+#: functions.inc.php:122 views/customdests/form.php:244
+#: views/customextens/form.php:107
+msgid "Invalid description specified, must not be blank"
+msgstr "無効な説明が指定されました。空白にすることはできません。"
+
+#: views/customextens/rnav.php:2
+msgid "List Custom Extensions"
+msgstr ""
+
+#: views/customdests/rnav.php:2
+msgid "List Destinations"
+msgstr ""
+
+#: views/customdests/form.php:160
+msgid ""
+"More detailed notes about this destination to help document it. This field "
+"is not used elsewhere."
+msgstr ""
+"この宛先についてのより詳細な説明。このフィールドは他の場所で使用されていませ"
+"ん。"
+
+#: views/customextens/form.php:95
+msgid ""
+"More detailed notes about this extension to help document it. This field is "
+"not used elsewhere."
+msgstr ""
+"この内線についてのより詳細な説明。このフィールドは他の場所で使用されていませ"
+"ん。"
+
+#: views/customdests/form.php:179
+msgid "No"
+msgstr ""
+
+#: views/customdests/form.php:148 views/customextens/form.php:83
+msgid "Notes"
+msgstr "ノート"
+
+#: Customappsreg.class.php:298
+msgid "Reset"
+msgstr ""
+
+#: views/customdests/form.php:172
+msgid "Return"
+msgstr ""
+
+#: views/customdests/form.php:211
+msgid "Set the Destination after return"
+msgstr ""
+
+#: Customappsreg.class.php:303
+msgid "Submit"
+msgstr ""
+
+#: views/customdests/form.php:66
+msgid "Target"
+msgstr ""
+
+#: views/customextens/form.php:122
+msgid "The entered extension conflicts with another extension on the system"
+msgstr ""
+
+#: views/customdests/form.php:78
+msgid ""
+"This is the Custom Destination to be published. It should be formatted "
+"exactly as you would put it in a goto statement, with context, exten, "
+"priority all included. An example might look like:<br />mycustom-app,s,1"
+msgstr ""
+"公開されるカスタム宛先です。gotoステートメントに設定するのと同じように、コン"
+"テキスト,exten,優先度全て含むフォーマットで正確に記述する必要があります。例："
+"<br/>mycustom-app,s,1"
+
+#: views/customextens/form.php:47
+msgid ""
+"This is the Extension or Feature Code you are using in your dialplan that "
+"you want the FreePBX Extension Registry to be aware of."
+msgstr ""
+"あなたのダイヤルプラン内でFreePBX内線レジストリに認識させたい内線番号又はキー"
+"コードです。"
+
+#: views/customdests/form.php:11
+msgid ""
+"WARNING: This destination is being used by other module objects. Changing "
+"this destination may cause unexpected issue."
+msgstr ""
+
+#: views/customdests/form.php:177
+msgid "Yes"
+msgstr ""
+
+#~ msgid "Admin"
+#~ msgstr "アドミン"
+
+#~ msgid "Custom Applications"
+#~ msgstr "カスタムアプリケーション"
+
+#~ msgid ""
+#~ "Registry to add custom extensions and destinations that may be created "
+#~ "and used so that the Extensions and Destinations Registry can include "
+#~ "these."
+#~ msgstr ""
+#~ "カスタム内線とカスタム宛先を追加するレジストリで、内線レジストリと宛先レジ"
+#~ "ストリがこれらを含むことができるように作成され、使用されます。"
+
+#~ msgid ""
+#~ "READONLY WARNING: Because this destination is being used by other module "
+#~ "objects it can not be edited. You must remove those dependencies in order "
+#~ "to edit this destination, or create a new destination to use"
+#~ msgstr ""
+#~ "読み込み専用警告： 他のモジュールに使用されているためこの宛先を編集するこ"
+#~ "とができません。この宛先を編集する場合はこれらの依存関係を解消する、新しく"
+#~ "宛先を作成する必要があります。"
+
+#~ msgid ""
+#~ "Brief Description that will be published to modules when showing "
+#~ "destinations. Example: My Weather App"
+#~ msgstr ""
+#~ "宛先を表示する際にモジュールに公開される簡単な説明。例：マイ天気アプリケー"
+#~ "ション"
+
+#~ msgid "Custom Destination"
+#~ msgstr "カスタム宛先"
+
+#~ msgid "Submit Changes"
+#~ msgstr "変更を適用"
+
+#~ msgid "DUPLICATE Destination: This destination is already in use"
+#~ msgstr "宛先の重複： この宛先は既に使用されております。"
+
+#~ msgid ""
+#~ "DUPLICATE Destination: This destination is in use or potentially used by "
+#~ "another module"
+#~ msgstr ""
+#~ "宛先の重複： この宛先は既に使用されているか、他のモジュールによって潜在的"
+#~ "に使用されています。"
+
+#~ msgid "Edit Custom Destination"
+#~ msgstr "カスタム宛先を編集"
+
+#~ msgid "Edit Custom Extension"
+#~ msgstr "カスタム内線を編集"

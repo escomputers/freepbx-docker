@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#	License for all code of this FreePBX module can be found in the license file inside the module directory
+#	Copyright 2018 Sangoma Technologies, Inc
+#
+echo -e "\e[31m!******! 'freepbx_setting' IS DEPRECIATED. PLEASE USE 'fwconsole setting' !******!\033[0m"
+echo -e "\e[31mFORWARDING ALL COMMANDS TO 'fwconsole', OUTPUT WILL BE MODIFIED\033[0m"
+echo -e "\e[1;31mCONTINUING TO RELY ON FREEPBX_SETTING WILL HAVE UNDESIRED CONSEQUENCES\033[0m"
+
+fwconsole setting $1 $2
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+	echo -e "\e[31;5;148m!******! 'freepbx_setting' IS DEPRECIATED. PLEASE USE 'fwconsole setting --help' !******!\033[39m"
+else
+	echo -e "\e[31;5;148m!******! 'freepbx_setting' IS DEPRECIATED. PLEASE USE 'fwconsole setting $@'!!!!\033[39m"
+fi
+echo -e "\e[1;31mCONTINUING TO RELY ON FREEPBX_SETTING WILL HAVE UNDESIRED CONSEQUENCES\033[0m"

@@ -1,0 +1,38 @@
+.radioset {
+	direction: ltr;
+}
+
+.radioset label {
+	direction: rtl;
+}
+
+.text-right {
+	text-align: left;
+}
+
+.text-left {
+	text-align: right;
+}
+
+#action-buttons {
+	direction: ltr;
+}
+
+#action-buttons input {
+	direction: rtl;
+}
+
+.pull-left {
+	float: right!important;
+}
+
+.pull-right {
+	float: left!important;
+}
+
+@media (min-width: 768px) {
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+		margin-right: 0px;
+		margin-left: -9px;
+	}
+}

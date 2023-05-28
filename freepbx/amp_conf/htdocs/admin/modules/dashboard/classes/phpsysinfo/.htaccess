@@ -1,0 +1,11 @@
+<files phpsysinfo.ini>
+  <IfModule !authz_core_module>
+    #apache 2.2
+    Order deny,allow
+    Deny from all
+  </IfModule>
+  <IfModule authz_core_module>
+    #apache 2.4
+	  Require all denied
+  </IfModule>
+</files>

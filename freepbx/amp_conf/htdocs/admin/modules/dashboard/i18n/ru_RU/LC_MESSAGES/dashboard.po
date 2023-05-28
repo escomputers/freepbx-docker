@@ -1,0 +1,734 @@
+# This file is part of FreePBX.
+#
+#    FreePBX is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FreePBX is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FreePBX.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    Copyright 2008 FreePBX
+#
+# Russian freePBX ver. translation
+# Copyright (c) 2006-2008 PostMet Corporation
+# Alexander Kozyrev <ceo@postmet.com>, Sergey Nikolayev <sergey@postmet.com>, 2006-2008.
+#
+# Использовать iconv amp.new -f UTF-8 -t ISO-8859-5 -o amp.po
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-17 05:08+0000\n"
+"PO-Revision-Date: 2008-01-16 16:38+0100\n"
+"Last-Translator: Alexander Kozyrev <ceo@postmet.com>\n"
+"Language-Team: Russian <faq@postmet.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: sections/Blogs.class.php:26 sections/Blogs.class.php:34
+#, php-format
+msgid "%s Feed"
+msgstr ""
+
+#: sections/Statistics.class.php:17
+#, php-format
+msgid "%s Statistics"
+msgstr ""
+
+#: views/sections/overview.php:66 views/sections/uptime.php:6
+#, php-format
+msgid "%s ago"
+msgstr "%s назад"
+
+#: sections/Overview.class.php:241
+#, php-format
+msgid "%s messages are queued on this machine, and have not been delivered"
+msgstr ""
+
+#: classes/TimeUtils.class.php:23
+msgid "0 seconds"
+msgstr "0 секунд"
+
+#: views/sections/uptime.php:16
+msgid "1 Minute"
+msgstr "1 Минута"
+
+#: sections/Overview.class.php:239
+msgid "1 message is queued on this machine, and has not been delivered"
+msgstr ""
+
+#: views/sections/uptime.php:22
+msgid "15 Minutes"
+msgstr "15 Минут"
+
+#: views/sections/uptime.php:19
+msgid "5 Minutes"
+msgstr "5 Минут"
+
+#: sections/Overview.class.php:33
+#, php-format
+msgid "<strong>'%s'</strong>"
+msgstr ""
+
+#: sections/Overview.class.php:35
+#, php-format
+msgid ""
+"<strong>'%s'</strong><br><i>(You can change this name in Advanced Settings)</"
+"i>"
+msgstr ""
+"<strong>'%s'</strong><br><i>(Вы можете изменить это имя в Дополнительных "
+"Настройках)</i>"
+
+#: views/sections/notepad.php:43
+msgid "Add a note"
+msgstr ""
+
+#: Dashboard.class.php:407 Dashboard.class.php:412
+msgid "An error occured"
+msgstr ""
+
+#: sections/Overview.class.php:135
+msgid "Asterisk"
+msgstr "Asterisk"
+
+#: Api/Gql/dashboard.php:79
+msgid "Available space details"
+msgstr ""
+
+#: sections/Blogs.class.php:27 sections/Blogs.class.php:35
+msgid "Blogs"
+msgstr "Блоги"
+
+#: sections/Overview.class.php:124
+msgid "Critical Errors found"
+msgstr "Обнаружены критические ошибки"
+
+#: dashboard.i18n.php:6 dashboard.i18n.php:10
+msgid "Dashboard"
+msgstr ""
+
+#: dashboard.i18n.php:14
+msgid "Dashboard Module"
+msgstr ""
+
+#: views/sections/statistics.php:10 views/sections/statistics.php:21
+#: views/sections/statistics.php:32 views/sections/statistics.php:43
+#: views/sections/statistics.php:54 views/sections/statistics.php:65
+msgid "Day"
+msgstr "День"
+
+#: views/sections/notepad.php:21 views/sections/overview.php:54
+msgid "Delete This"
+msgstr "Удалить это"
+
+#: Dashboard.class.php:412
+msgid "Deleted note"
+msgstr ""
+
+#: dashboard.i18n.php:12
+msgid "Disable collection of system statistics"
+msgstr ""
+
+#: views/sections/statistics.php:50
+msgid "Disk"
+msgstr "Диск"
+
+#: dashboard.i18n.php:18
+msgid "Display firewall status"
+msgstr ""
+
+#: dashboard.i18n.php:22
+msgid "Expiry time for system statistics"
+msgstr ""
+
+#: views/main.php:6
+msgid "Frobulating"
+msgstr "Бурление"
+
+#: views/sections/statistics.php:9 views/sections/statistics.php:20
+#: views/sections/statistics.php:31 views/sections/statistics.php:42
+#: views/sections/statistics.php:53 views/sections/statistics.php:64
+msgid "Hour"
+msgstr "Час"
+
+#: views/sections/overview.php:53
+msgid "Ignore This"
+msgstr "Игнорировать"
+
+#: classes/Statistics.class.php:13
+msgid "Invalid Selection"
+msgstr "Неверный выбор"
+
+#: classes/Statistics.class.php:25
+msgid "Invalid period"
+msgstr "Неверный период"
+
+#: sections/Statistics.class.php:24
+msgid "Live Network Usage"
+msgstr ""
+
+#: views/sections/uptime.php:13
+msgid "Load Averages"
+msgstr "Ср. нагрузка"
+
+#: views/sections/netmon.php:48
+#, php-format
+msgid "Loading Interface %s..."
+msgstr ""
+
+#: sections/Overview.class.php:138
+msgid "Mail Queue"
+msgstr ""
+
+#: views/sections/statistics.php:39
+msgid "Memory"
+msgstr "Память"
+
+#: Api/Gql/dashboard.php:107 Api/Gql/dashboard.php:139
+msgid "Message for the request"
+msgstr ""
+
+#: Dashboard.class.php:194
+msgid "Missing Class Object!"
+msgstr ""
+
+#: views/sections/statistics.php:12 views/sections/statistics.php:23
+#: views/sections/statistics.php:34 views/sections/statistics.php:45
+#: views/sections/statistics.php:56 views/sections/statistics.php:67
+msgid "Month"
+msgstr "Месяц"
+
+#: sections/Overview.class.php:136
+msgid "MySQL"
+msgstr "MySQL"
+
+#: views/sections/statistics.php:61
+msgid "Network"
+msgstr "Сеть"
+
+#: sections/Overview.class.php:96
+msgid "No critical issues found"
+msgstr "Критических проблем не найдено"
+
+#: views/sections/notepad.php:8
+msgid "No notes found"
+msgstr ""
+
+#: sections/Notepad.class.php:11
+msgid "Notepad"
+msgstr ""
+
+#: sections/Notepad.class.php:12
+msgid "Notes"
+msgstr ""
+
+#: sections/Overview.class.php:16
+msgid "Overview"
+msgstr "Обзор"
+
+#: sections/Overview.class.php:123 sections/Overview.class.php:127
+msgid "Please check for errors in the notification section"
+msgstr "Пожалуйста, проверьте наличие ошибок в разделе уведомлений"
+
+#: dashboard.i18n.php:8
+msgid ""
+"Provides a system information dashboard, showing information about Calls, "
+"CPU, Memory, Disks, Network, and processes."
+msgstr ""
+"Отображает панель системной информации, отображающую информацию о вызовах, "
+"загрузке CPU, использовании памяти, занятости дисков, загруженности сети и "
+"процессов."
+
+#: Api/Gql/dashboard.php:50
+msgid "Read the System licence information"
+msgstr ""
+
+#: views/sections/overview.php:64
+msgid "Resolve"
+msgstr "Разрешить"
+
+#: Api/Gql/dashboard.php:65
+msgid "Returns storage id"
+msgstr ""
+
+#: views/sections/notepad.php:35
+msgid "Save"
+msgstr ""
+
+#: Dashboard.class.php:407
+msgid "Saved note"
+msgstr ""
+
+#: sections/Overview.class.php:105
+msgid "Security Issue"
+msgstr "Проблема безопасности"
+
+#: dashboard.i18n.php:24
+msgid ""
+"Set the maximum age in seconds before system statistics are refreshed. The "
+"minimum value is 50 seconds."
+msgstr ""
+
+#: dashboard.i18n.php:16
+msgid ""
+"Set this to true to prevent persistent collection of system statistics such "
+"as CPU, memory, and channel usage."
+msgstr ""
+
+#: views/sections/overview.php:75
+msgid "Show All"
+msgstr "Показать все"
+
+#: views/sections/overview.php:77
+msgid "Show New"
+msgstr "Показать новые"
+
+#: classes/Statistics.class.php:79
+msgid "Since Reload"
+msgstr "После перезагрузки"
+
+#: Api/Gql/dashboard.php:36
+msgid "Sorry, unable to find any diskspace"
+msgstr ""
+
+#: sections/Statistics.class.php:18 sections/Statistics.class.php:25
+#: sections/Uptime.class.php:16
+msgid "Statistics"
+msgstr "Статистика"
+
+#: Api/Gql/dashboard.php:111 Api/Gql/dashboard.php:143
+msgid "Status for the request"
+msgstr ""
+
+#: Api/Gql/dashboard.php:34
+msgid "Successfully found disks space details"
+msgstr ""
+
+#: views/sections/overview.php:23
+msgid "Summary"
+msgstr "Краткая сводка"
+
+#: views/sections/overview.php:36
+#, php-format
+msgid "SysInfo updated %s seconds ago"
+msgstr "Информация о системе обновлена %s секунд назад"
+
+#: classes/Statistics.class.php:61
+msgid "System"
+msgstr "Система"
+
+#: sections/Overview.class.php:94
+msgid "System Alerts"
+msgstr "Системные уведомления"
+
+#: dashboard.i18n.php:4
+msgid "System Dashboard"
+msgstr "Системная панель"
+
+#: views/sections/uptime.php:5
+msgid "System Last Rebooted"
+msgstr "Последняя перезагрузка системы"
+
+#: sections/Overview.class.php:15
+msgid "System Overview"
+msgstr "Обзор системы"
+
+#: dashboard.i18n.php:20
+msgid ""
+"The Dashboard will display a warning when the PBX Firewall is disabled. When "
+"this is set to 'no', the Dashboard warning will be permanently suppressed."
+msgstr ""
+
+#: sections/Overview.class.php:106
+msgid "This is a critical issue and should be resolved urgently"
+msgstr "Этот важный вопрос нужно срочно решить"
+
+#: sections/Uptime.class.php:15 views/sections/statistics.php:17
+msgid "Uptime"
+msgstr "Система жива"
+
+#: Api/Gql/dashboard.php:19
+msgid "Use to get all the diskspace"
+msgstr ""
+
+#: sections/Overview.class.php:128
+msgid "Warnings Found"
+msgstr "Найдены предупреждения"
+
+#: sections/Overview.class.php:137
+msgid "Web Server"
+msgstr "Вэб сервер"
+
+#: views/sections/statistics.php:11 views/sections/statistics.php:22
+#: views/sections/statistics.php:33 views/sections/statistics.php:44
+#: views/sections/statistics.php:55 views/sections/statistics.php:66
+msgid "Week"
+msgstr "Неделя"
+
+#: views/main.php:3 views/sections/overview.php:6
+#, php-format
+msgid "Welcome to %s"
+msgstr "Добро пожаловать в %s"
+
+#: classes/TimeUtils.class.php:15
+msgid "day"
+msgstr "день"
+
+#: classes/TimeUtils.class.php:16
+msgid "days"
+msgstr "дней"
+
+#: Api/Gql/dashboard.php:93
+msgid "disk total size details"
+msgstr ""
+
+#: Api/Gql/dashboard.php:100
+msgid "disk used percentage"
+msgstr ""
+
+#: classes/TimeUtils.class.php:17
+msgid "hour"
+msgstr "час"
+
+#: classes/TimeUtils.class.php:18
+msgid "hours"
+msgstr "часов"
+
+#: classes/TimeUtils.class.php:19
+msgid "minute"
+msgstr "минута"
+
+#: classes/TimeUtils.class.php:20
+msgid "minutes"
+msgstr "минут"
+
+#: classes/TimeUtils.class.php:11
+msgid "month"
+msgstr "Месяц"
+
+#: classes/TimeUtils.class.php:12
+msgid "months"
+msgstr "Месяцев"
+
+#: classes/TimeUtils.class.php:21
+msgid "second"
+msgstr "секунда"
+
+#: classes/TimeUtils.class.php:22
+msgid "seconds"
+msgstr "секунды"
+
+#: Api/Gql/dashboard.php:72
+msgid "storage path details"
+msgstr ""
+
+#: Api/Gql/dashboard.php:86
+msgid "used space details"
+msgstr ""
+
+#: classes/TimeUtils.class.php:13
+msgid "week"
+msgstr "неделя"
+
+#: classes/TimeUtils.class.php:14
+msgid "weeks"
+msgstr "недель"
+
+#: classes/TimeUtils.class.php:9
+msgid "year"
+msgstr "год"
+
+#: classes/TimeUtils.class.php:10
+msgid "years"
+msgstr "лет"
+
+#~ msgid "%s Min Avg"
+#~ msgstr "%s Мин Сред"
+
+#~ msgid "Active Calls"
+#~ msgstr "Звонки"
+
+#~ msgid "Active Chans"
+#~ msgstr "Активных Каналов"
+
+#~ msgid "Asterisk Uptime"
+#~ msgstr "Asterisk жив"
+
+#~ msgid "Buffers"
+#~ msgstr "Буферы"
+
+#~ msgid "CPU"
+#~ msgstr "ЦПУ"
+
+#~ msgid "CPU Temp"
+#~ msgstr "Температура ЦПУ"
+
+#~ msgid "Cached"
+#~ msgstr "Кешировано"
+
+#~ msgid "Free Mem"
+#~ msgstr "Свободно памяти"
+
+#~ msgid "Load"
+#~ msgstr "Нагрузка"
+
+#~ msgid "Reload"
+#~ msgstr "Перезагрузка"
+
+#~ msgid "Swap Used"
+#~ msgstr "Использование свопа"
+
+#~ msgid "System Uptime"
+#~ msgstr "Система жива"
+
+#~ msgid "Temp"
+#~ msgstr "Температура"
+
+#~ msgid "Trunks Offline"
+#~ msgstr "Транки отключено"
+
+#~ msgid "Trunks Reged"
+#~ msgstr "Транки, зарегистрировано"
+
+#~ msgid "Used"
+#~ msgstr "Используется"
+
+#~ msgid "Users Offline"
+#~ msgstr "Пользователи офф-лайн"
+
+#~ msgid "Users Online"
+#~ msgstr "Пользователи он-лайн"
+
+#~ msgid "Feed"
+#~ msgstr "Лента"
+
+#~ msgid "Trnks Offline"
+#~ msgstr "Транки отключено"
+
+#~ msgid "Reports"
+#~ msgstr "Отчеты"
+
+#~ msgid "System Status"
+#~ msgstr "Статус системы"
+
+#~ msgid "%s changed from %s to %s"
+#~ msgstr "%s изменено с %s на %s"
+
+#~ msgid "Added %s ago"
+#~ msgstr "Добавлено %s назад"
+
+#~ msgid "App Memory"
+#~ msgstr "Занято приложениями"
+
+#~ msgid ""
+#~ "Asterisk Manager Proxy is not running, FreePBX will fall back to using "
+#~ "Asterisk directly, which may result in poor performance"
+#~ msgstr ""
+#~ "Asterisk Manager Proxy не работает, FreePBX будет использовать Asterisk "
+#~ "напрямую, что может привести к ухудшению производительности"
+
+#~ msgid "Asterisk Manager Proxy is running"
+#~ msgstr "Asterisk Manager Proxy работает"
+
+#~ msgid "Asterisk is not running, this is a critical service!"
+#~ msgstr "Asterisk не работает, это критично!"
+
+#~ msgid "Asterisk is running: %s"
+#~ msgstr "Asterisk работает: %s"
+
+#~ msgid "Critical Error"
+#~ msgstr "Критическая ошибка"
+
+#~ msgid "Dashboard Info Update Frequency"
+#~ msgstr "Частота обновления информации системной панели"
+
+#~ msgid "Dashboard Max Calls Initial Scale"
+#~ msgstr ""
+#~ "Начальный масштаб максимального количества вызовов в системной панели"
+
+#~ msgid "Dashboard Non-Std SSH Port"
+#~ msgstr "Нестандартный SSH порт системной панели"
+
+#~ msgid "Dashboard Stats Update Frequency"
+#~ msgstr "Частота обновления статистики в системной панели"
+
+#~ msgid "Delete this"
+#~ msgstr "Удалите это"
+
+#~ msgid "Disabled"
+#~ msgstr "Запрещено"
+
+#~ msgid "Disks"
+#~ msgstr "Дисковая подсистема"
+
+#~ msgid "ERROR"
+#~ msgstr "Ошибка"
+
+#~ msgid "Error"
+#~ msgstr "Ошибка"
+
+#~ msgid "External calls"
+#~ msgstr "Внешних звонков"
+
+#~ msgid "FreePBX Connections"
+#~ msgstr "Соединений FreePBX"
+
+#~ msgid "FreePBX Notices"
+#~ msgstr "FreePBX сообщения"
+
+#~ msgid "FreePBX Statistics"
+#~ msgstr "FreePBX Статистика"
+
+#~ msgid "FreePBX System Status"
+#~ msgstr "Статус системы FreePBX"
+
+#~ msgid "GUI Behavior"
+#~ msgstr "поведение интерфейса"
+
+#~ msgid "IP Phones Online"
+#~ msgstr "ИП Телефонов в онлайне"
+
+#~ msgid "IP Trunk Registrations"
+#~ msgstr "Регистраций ИП транков"
+
+#~ msgid "IP Trunks Online"
+#~ msgstr "IP транков в онлайне"
+
+#~ msgid "Ignore this"
+#~ msgstr "Вы можете не обращать внимание на это"
+
+#~ msgid "Internal calls"
+#~ msgstr "Внутренних звонков"
+
+#~ msgid "Last Reload"
+#~ msgstr "Перезагружался"
+
+#~ msgid "Load Average"
+#~ msgstr "Средняя загрузка"
+
+#~ msgid "Manager Proxy"
+#~ msgstr "Прокси менеджер"
+
+#~ msgid "MySQL Server is running"
+#~ msgstr "MySQL сервер работает"
+
+#~ msgid "Networks"
+#~ msgstr "Сеть"
+
+#~ msgid "No new notifications"
+#~ msgstr "Нет новых уведомлений"
+
+#~ msgid "No notifications"
+#~ msgstr "Уведомлений нет"
+
+#~ msgid "Notice"
+#~ msgstr "Уведомление"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Op Panel"
+#~ msgstr "Панель Оператора"
+
+#~ msgid "Processor"
+#~ msgstr "Процессор"
+
+#~ msgid "SSH Server"
+#~ msgstr "Сервер SSH"
+
+#~ msgid ""
+#~ "SSH Server is not running, you will not be able to connect to the system "
+#~ "console remotely"
+#~ msgstr ""
+#~ "SSH Server не работает, Вы не сможете подключаться к системной консоли "
+#~ "удаленно"
+
+#~ msgid "SSH Server is running"
+#~ msgstr "SSH Server работает"
+
+#~ msgid ""
+#~ "SSH port number configured on your system if not using the default port "
+#~ "22, this allows the dashboard monitoring to watch the poper port."
+#~ msgstr ""
+#~ "Номер SSH порта, если не используется стандартный порт 22. Данная "
+#~ "настройка позволяет монитору панели обращаться на правильный порт."
+
+#~ msgid "Security Update"
+#~ msgstr "Обновление безопасности"
+
+#~ msgid "Server Status"
+#~ msgstr "Состояние сервера"
+
+#~ msgid "Swap"
+#~ msgstr "Файл подкачки"
+
+#~ msgid "System Information Table"
+#~ msgstr "Талица системной информации"
+
+#~ msgid "System Setup"
+#~ msgstr "Системные настройки"
+
+#~ msgid "System Statistics"
+#~ msgstr "Статистика Системы"
+
+#~ msgid "Total active calls"
+#~ msgstr "Активных звонков - всего"
+
+#~ msgid "Total active channels"
+#~ msgstr "Активных каналов - всего"
+
+#~ msgid "Update"
+#~ msgstr "Обновление"
+
+#~ msgid ""
+#~ "Update rate in seconds of all sections of the System Status panel except "
+#~ "the Info box."
+#~ msgstr ""
+#~ "Частота обновления в секундах всех секций в панели Статуса Системы кроме "
+#~ "окна Информации."
+
+#~ msgid ""
+#~ "Update rate in seconds of the Info section of the System Status panel."
+#~ msgstr ""
+#~ "Интервал обновления в секундах в секции Инфо панели 'Статус Системы'."
+
+#~ msgid ""
+#~ "Use this to pre-set the scale for maximum calls on the Dashboard display. "
+#~ "If not set, the the scale is dynamically sized based on the active calls "
+#~ "on the system."
+#~ msgstr ""
+#~ "Используйте этот параметр для установки масштаба отображения количества "
+#~ "звонков на панели. Если не установлено, масштаб будет установлен "
+#~ "автоматически в зависимости от количества звонков в системе."
+
+#~ msgid "Warn"
+#~ msgstr "Ого!"
+
+#~ msgid "Warning"
+#~ msgstr "Предупреждение"
+
+#~ msgid "Web Server is running"
+#~ msgstr "Web Server работает"
+
+#~ msgid "loading..."
+#~ msgstr "грузимся..."
+
+#~ msgid "receive"
+#~ msgstr "получено"
+
+#~ msgid "show all"
+#~ msgstr "показать все"
+
+#~ msgid "show new"
+#~ msgstr "показать новых"
+
+#~ msgid "transmit"
+#~ msgstr "передано"

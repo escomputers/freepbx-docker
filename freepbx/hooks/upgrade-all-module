@@ -1,0 +1,114 @@
+#!/usr/bin/php
+<?php
+error_reporting(E_ALL);
+require '/usr/lib/sysadmin/includes.php';
+
+$txnId  = "";
+$runReloadCommand = true;
+$runChownCommand = true;
+if (isset($argv[1])) {
+	// Underp the base64
+	$b = str_replace('_', '/', $argv[1]);
+	$settings = @json_decode(gzuncompress(@base64_decode($b)), true);
+	if (is_array($settings)) {
+		$runReloadCommand = $settings[0];
+		$runChownCommand = $settings[1];
+		$txnId = $settings[2];
+	}
+}
+
+$firstCommandOutput = [];
+$firstCommandReturn = 1;
+$cmd = "/usr/sbin/fwconsole ma upgradeall";
+
+//Running upgrade all module command
+exec($cmd, $firstCommandOutput, $firstCommandReturn);
+
+if($firstCommandReturn == 0){
+   
+   // Running Chown Command
+   $chownCommandOutput = [];
+   $chownCommandReturn = 1;
+   $chownCommand = "/usr/sbin/fwconsole chown 2>&1";
+   if($runChownCommand){
+      exec($chownCommand, $chownCommandOutput, $chownCommandReturn);
+   }
+   
+   //Running Reload Command
+   $reloadCommandOutput = [];
+   $reloadCommandReturn = 1;
+   $reloadCommand = "/usr/sbin/fwconsole reload 2>&1";
+   if($runReloadCommand){
+      exec($reloadCommand , $reloadCommandOutput, $reloadCommandReturn);
+   }
+
+   $result = [];
+   $neededUpgradationModules = "";
+   $installedModules = [];
+   $failedModules = [];
+   foreach($firstCommandOutput as $output){
+      //Regex to get modules which needs upgradation
+      if(preg_match('/(^\bModule\(s\)\s)(\w+)/',$output)){
+         $neededUpgradationModules = $result[] = $output;
+      }
+
+      //Regex to get modules which successfully upgraded
+      else if(preg_match('/(^\bModule\s)(\w+)/',$output)){
+         preg_match_all('/(^\bModule\s)(\w+)/', $output, $matches);
+         if(count($matches) == 3){
+               $installedModules[] = str_replace(' ', '', $matches[2][0]);
+         }
+      }
+      
+
+   }
+   sort($installedModules);
+   if($neededUpgradationModules != ""){
+      $neededUpgradationModules = explode(':',$neededUpgradationModules);
+      $neededUpgradationModules = explode(",",$neededUpgradationModules[1]);
+      array_walk($neededUpgradationModules, function(&$v){
+         $v = str_replace(' ', ', ', trim($v));
+      });
+      sort($neededUpgradationModules);
+      $failedModules = array_diff($neededUpgradationModules,$installedModules);
+      if(count($failedModules) > 0){
+         $result[] = "Installation failed modules ".implode(",",$failedModules);
+      }else{
+         $result[] = "All Modules Installed Successfully";
+      }
+   }
+
+   if(count($result) == 0){
+      $result = $firstCommandOutput;
+   }
+   
+   // If Chown command fails
+   if($runChownCommand && $chownCommandReturn != 0){
+      $output = json_encode($chownCommandOutput);
+      $result[] = "Failed to execute command [ " . $chownCommand . " ] , command output = $output";
+   }
+
+   // If Reload command fails
+   if($runReloadCommand && $reloadCommandReturn != 0){
+      $output = json_encode($reloadCommandOutput);
+      $result[] = "Failed to execute command [ " . $reloadCommand . " ] , command output = $output";
+   }
+
+   $message = json_encode($result);
+   $status = "Executed";
+
+}else {
+   $output = json_encode($firstCommandOutput);
+   $message =  "Failed to execute command [ " . $cmd . " ] , command output = $output";
+   $status = 'Failed';
+}
+
+$db = \Sysadmin\FreePBX::Database();
+$sql = ("UPDATE IGNORE api_asynchronous_transaction_history SET event_status = :event_status , failure_reason =:failure_reason, process_end_time =:end_time WHERE `txn_id` = :txn_id");
+$sth = $db->prepare($sql);
+$sth->execute([
+	":event_status" => $status,
+	":failure_reason" => $message,
+	":end_time" => time(),
+	":txn_id" => $txnId
+]);

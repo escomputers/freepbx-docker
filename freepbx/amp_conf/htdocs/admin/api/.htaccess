@@ -1,0 +1,28 @@
+<IfModule !mod_authz_core.c>
+	# Disallow all . files, such as .htaccess or .git
+	<FilesMatch "\..*$">
+		Deny from all
+	</FilesMatch>
+	# Allow index, config, and ajax.php, as well as all our image types.
+	<FilesMatch "(^$|api\.php$)">
+		Allow from all
+	</FilesMatch>
+</IfModule>
+
+# Apache 2.4
+<IfModule mod_authz_core.c>
+	# Disallow all . files, such as .htaccess or .git
+	<FilesMatch "\..*$">
+		Require all denied
+	</FilesMatch>
+	# Allow index, config, and ajax.php, as well as all our image types.
+  <FilesMatch "(^$|api\.php$)">
+		Require all granted
+	</FilesMatch>
+</IfModule>
+
+
+RewriteEngine on
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteRule ^([^/]*)/([^/]*)/?(.*)?$ /admin/api/api.php?module=$1&command=$2&route=$3 [L,QSA]

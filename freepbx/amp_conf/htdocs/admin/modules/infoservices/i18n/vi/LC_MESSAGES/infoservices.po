@@ -1,0 +1,92 @@
+# This file is part of FreePBX.
+#
+# For licensing information, please see the file named LICENSE located in the module directory
+#
+# FreePBX language template for infoservices
+# Copyright (C) 2008-2017 Sangoma Technologies, Inc.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-02 23:20-0400\n"
+"PO-Revision-Date: 2017-07-07 20:01+0200\n"
+"Last-Translator: PETER <ftek@ymail.com>\n"
+"Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
+"infoservices/vi/>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.4\n"
+
+#: infoservices.i18n.php:6
+msgid "Applications"
+msgstr "Các ứng dụng"
+
+#: functions.inc.php:71 infoservices.i18n.php:16 install.php:7
+msgid "Call Trace"
+msgstr "Theo dõi cuộc gọi"
+
+#: infoservices.i18n.php:12
+msgid "Dialplan and Operational"
+msgstr "Kế hoạch quay số và tác vụ"
+
+#: install.php:6
+msgid "Directory"
+msgstr "Danh mục"
+
+#: functions.inc.php:105 infoservices.i18n.php:18 install.php:8
+msgid "Echo Test"
+msgstr "Kiểm tra echo"
+
+#: infoservices.i18n.php:4 install.php:5
+msgid "Info Services"
+msgstr "Các dịch vụ thông tin"
+
+#: infoservices.i18n.php:8
+msgid ""
+"Provides a number of applications accessible by feature codes: company "
+"directory, call trace (last call information), echo test, speaking clock, "
+"and speak current extension number."
+msgstr ""
+"Cung cấp một số ứng dụng có thể truy cập bằng mã tính năng: danh mục công ty,"
+"theo dõi cuộc gọi (thông tin cuộc gọi gần nhất, kiểm tra echo, đồng hồ nói "
+"và số máy nhánh hiện tại."
+
+#: functions.inc.php:286
+msgid "Speak Extension"
+msgstr "Nói máy nhánh"
+
+#: infoservices.i18n.php:20 install.php:10
+msgid "Speak Your Exten Number"
+msgstr "Nói số máy nhánh của bạn"
+
+#: functions.inc.php:197 infoservices.i18n.php:22 install.php:9
+msgid "Speaking Clock"
+msgstr "Nói đồng hồ"
+
+#: infoservices.i18n.php:10
+msgid "Speaking Clock Time Format"
+msgstr "Nói định dạng thời gian của đồng hồ"
+
+#: infoservices.i18n.php:14
+msgid "Time format to use with the Speaking Clock."
+msgstr "Định dạng thời gian dùng cho Speaking Clock."
+
+#: install.php:61
+msgid "could not delete"
+msgstr "Không thể xóa"
+
+#: install.php:56
+msgid "deleting TIMEFORMAT from globals.."
+msgstr "Đang xóa định dạng thời gian (TIMEFORMAT) khỏi globals.."
+
+#: install.php:59
+msgid "done"
+msgstr "Đã xong"
+
+#: install.php:55
+msgid "migrated TIMEFORMAT to Advanced Settings"
+msgstr "Đã dịch chuyển định dạng thời gian ( TIMEFORMAT) đến Cài đặt nâng cao"
