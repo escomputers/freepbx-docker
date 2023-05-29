@@ -351,7 +351,7 @@ class FreePBXInstallCommand extends Command {
 			include_once $freepbx_conf_path;
 			unset($bootstrap_settings['returnimmediately']);
 			$newinstall = false;
-			require_once('amp_conf/htdocs/admin/functions.inc.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/functions.inc.php');
 		} elseif(file_exists($answers['webroot']."/admin/bootstrap.php") && is_link($answers['webroot']."/admin/bootstrap.php") && !$answers['dev-links']) {
 			//Previous install, was in dev mode. Now we need to do cleanup
 			$output->writeln("No (Un dev-linking this machine)");
@@ -359,7 +359,7 @@ class FreePBXInstallCommand extends Command {
 			include_once $freepbx_conf_path;
 			unset($bootstrap_settings['returnimmediately']);
 			$newinstall = false;
-			require_once('amp_conf/htdocs/admin/functions.inc.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/functions.inc.php');
 		} elseif(file_exists($freepbx_conf_path) && !file_exists($answers['webroot']."/admin/bootstrap.php")) {
 			if(!file_exists($answers['webroot']."/admin")) {
 				mkdir($answers['webroot']."/admin");
@@ -372,11 +372,11 @@ class FreePBXInstallCommand extends Command {
 			unset($bootstrap_settings['returnimmediately']);
 			$newinstall = true;
 			$answers['skip-install'] = true;
-			require_once('amp_conf/htdocs/admin/functions.inc.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/functions.inc.php');
 		} elseif (!file_exists($freepbx_conf_path) || $force) {
 			$output->writeln("Yes (No ".$freepbx_conf_path." file detected)");
 			$newinstall = true;
-			require_once('amp_conf/htdocs/admin/functions.inc.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/functions.inc.php');
 		} else {
 			$output->writeln("No (".$freepbx_conf_path." file detected)");
 			$bootstrap_settings['freepbx_auth'] = false;
@@ -509,8 +509,8 @@ class FreePBXInstallCommand extends Command {
 		if ($newinstall) {
 			global $db;
 
-			require_once('amp_conf/htdocs/admin/libraries/BMO/FreePBX.class.php');
-			require_once('amp_conf/htdocs/admin/libraries/DB.class.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/libraries/BMO/FreePBX.class.php');
+			require_once('/usr/src/freepbx/amp_conf/htdocs/admin/libraries/DB.class.php');
 
 			if($dbroot) {
 				$amp_conf['AMPDBUSER'] = 'freepbxuser';

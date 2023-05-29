@@ -1,8 +1,4 @@
-#FROM debian:bullseye-slim
 FROM httpd:2.4-bullseye
-
-# Set default Shell
-SHELL ["/bin/bash", "-c"]
 
 WORKDIR /usr/src
 
@@ -24,15 +20,30 @@ build-essential linux-headers-$(uname -r) \
   autoconf git uuid uuid-dev libasound2-dev libogg-dev \
   libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp2-dev \
   libspandsp-dev sudo subversion libtool-bin python-dev \
-  dirmngr sendmail-bin sendmail
+  dirmngr sendmail-bin sendmail \
+  unixodbc-dev unixodbc openssl
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
+# Install and configure Maria ODBC
+RUN wget https://wiki.freepbx.org/download/attachments/202375584/libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
+#RUN wget https://wiki.freepbx.org/download/attachments/122487323/mariadb-connector-odbc_3.0.7-1_amd64.deb
+#RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.25-1_all.deb
+#RUN dpkg -i mysql-apt-config_0.8.25-1_all.deb
+RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client_8.0.27-1debian11_amd64.deb
+RUN dpkg -i mysql-community-client_8.0.27-1debian11_amd64.deb
+RUN wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+#RUN dpkg -i libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
+#RUN dpkg -i mariadb-connector-odbc_3.0.7-1_amd64.deb
+RUN dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+COPY freepbx/installlib/files/odbc.ini /etc/odbc.ini
+COPY freepbx/installlib/files/odbcinst.ini /etc/odbcinst.ini
+
 # Download Asterisk source files
 COPY asterisk-16.30.0 asterisk/
 # Build Asterisk
-RUN bash asterisk/contrib/scripts/install_prereq install
+RUN asterisk/contrib/scripts/install_prereq install
 RUN cd asterisk/ && ./configure \
   --with-pjproject-bundled --with-jansson-bundled
 RUN cd asterisk/ && make menuselect.makeopts && menuselect/menuselect \
@@ -46,14 +57,16 @@ RUN update-rc.d -f asterisk remove
 RUN useradd -m asterisk
 RUN chown asterisk. /var/run/asterisk
 RUN chown -R asterisk. /etc/asterisk
-RUN chown -R asterisk. /var/{lib,log,spool}/asterisk
+RUN chown -R asterisk. /var/lib/asterisk
+RUN chown -R asterisk. /var/log/asterisk
+RUN chown -R asterisk. /var/spool/asterisk
 RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 
 # Download and install FreePBX
 COPY freepbx freepbx/
-RUN touch /etc/asterisk/{modules,cdr}.conf
+RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
+
 #RUN sed -i 's/\$amp_conf\["AMPDBPASS"\] = md5(uniqid());/\$amp_conf\["AMPDBPASS"\] = "freepbxuser";/' freepbx/installlib/installcommand.class.php
-RUN cd freepbx/ && ./start_asterisk start 
 # && ./install --webroot=/usr/local/apache2/htdocs/ -n --dbhost=172.18.0.2
 #RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/000-default.conf
 #RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/default-ssl.conf

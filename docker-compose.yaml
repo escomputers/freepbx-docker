@@ -4,12 +4,14 @@ services:
   db:
     restart: always
     image: mysql:5.7
+    #image: bitnami/mariadb:10.5-debian-11
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
-      #MYSQL_DATABASE: asterisk
+      #ALLOW_EMPTY_PASSWORD: yes
     volumes:
       - mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf 
+      #- ./my.cnf:/etc/mysql/mariadb.cnf 
     ports:
     - target: 3306
       published: 3306
@@ -17,7 +19,6 @@ services:
 
   freepbx:
     build: .
-    #command: /usr/src/freepbx/start_asterisk start && /usr/src/freepbx/install -n --dbhost=db
     volumes:
       - .:/usr/src
     ports:
