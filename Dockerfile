@@ -13,30 +13,39 @@ RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packa
 # Install Required Dependencies
 RUN apt-get update && apt-get -y install \
 build-essential linux-headers-$(uname -r) \
-  mariadb-client bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
+  bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
   php7.4-mysql php7.4-gd php7.4-mbstring php7.4-intl php7.4-xml php-pear \
   sox libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev \
   pkg-config automake libtool \
   autoconf git uuid uuid-dev libasound2-dev libogg-dev \
   libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp2-dev \
   libspandsp-dev sudo subversion libtool-bin python-dev \
-  dirmngr sendmail-bin sendmail \
-  unixodbc-dev unixodbc openssl
+  dirmngr sendmail-bin sendmail
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
 # Install and configure Maria ODBC
-RUN wget https://wiki.freepbx.org/download/attachments/202375584/libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
+#RUN wget https://wiki.freepbx.org/download/attachments/202375584/libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
 #RUN wget https://wiki.freepbx.org/download/attachments/122487323/mariadb-connector-odbc_3.0.7-1_amd64.deb
-#RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.25-1_all.deb
-#RUN dpkg -i mysql-apt-config_0.8.25-1_all.deb
+#RUN dpkg -i libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
+#RUN dpkg -i mariadb-connector-odbc_3.0.7-1_amd64.deb
+#RUN dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+
+# Install MySQL Connector ODBC
+RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
+RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-common_8.0.27-1debian11_amd64.deb
+RUN dpkg -i mysql-common_8.0.27-1debian11_amd64.deb
+RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
+RUN dpkg -i mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
+RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client-core_8.0.27-1debian11_amd64.deb
+RUN dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
 RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client_8.0.27-1debian11_amd64.deb
 RUN dpkg -i mysql-community-client_8.0.27-1debian11_amd64.deb
 RUN wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb
-#RUN dpkg -i libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
-#RUN dpkg -i mariadb-connector-odbc_3.0.7-1_amd64.deb
 RUN dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+
+# Copy FreePBX files
 COPY freepbx/installlib/files/odbc.ini /etc/odbc.ini
 COPY freepbx/installlib/files/odbcinst.ini /etc/odbcinst.ini
 
