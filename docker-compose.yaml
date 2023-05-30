@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  db:
+    restart: always
+    image: mysql:5.7
+    #image: bitnami/mariadb:10.5-debian-11
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      #ALLOW_EMPTY_PASSWORD: yes
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf 
+      #- ./my.cnf:/etc/mysql/mariadb.cnf 
+    ports:
+    - target: 3306
+      published: 3306
+      protocol: tcp
+
+  freepbx:
+    build: .
+    volumes:
+      - .:/usr/src
+    ports:
+    - target: 80
+      published: 8080
+      protocol: tcp
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
