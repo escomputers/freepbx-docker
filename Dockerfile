@@ -75,9 +75,3 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
-# && ./install --webroot=/usr/local/apache2/htdocs/ -n --dbhost=172.18.0.2
-#RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/000-default.conf
-#RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/default-ssl.conf
-#RUN a2enmod rewrite
-#RUN service apache2 restart
-
