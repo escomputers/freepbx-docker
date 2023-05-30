@@ -1,3 +1,0 @@
-# @ default
-#~ msgid "Arrastra imagenes aquí para subirlas."
-#~ msgstr "Arrossega les teves imatges aquí per pujarles."
