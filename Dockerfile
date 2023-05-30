@@ -74,4 +74,3 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 # Download and install FreePBX
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
-
