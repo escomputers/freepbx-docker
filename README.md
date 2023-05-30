@@ -1,7 +1,7 @@
 # freepbx-docker
 
 ```
-tar xvfz asterisk-16-current.tar.gz
+unzip asterisk-16.zip freepbx.zip
 
 docker compose up -d --build
 
