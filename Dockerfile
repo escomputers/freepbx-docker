@@ -2,8 +2,8 @@ FROM httpd:2.4-bullseye
 
 WORKDIR /usr/src
 
-# Install tools for building
-RUN apt-get update && apt-get install curl make lsb-release ca-certificates gnupg2 git wget -y
+# Install required tools
+RUN apt-get update && apt-get install cron curl make lsb-release ca-certificates gnupg2 git wget -y
 
 # Install the SURY Repository Signing Key
 RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
@@ -75,16 +75,9 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
-#RUN sed -i 's/\$amp_conf\["AMPDBPASS"\] = md5(uniqid());/\$amp_conf\["AMPDBPASS"\] = "freepbxuser";/' freepbx/installlib/installcommand.class.php
 # && ./install --webroot=/usr/local/apache2/htdocs/ -n --dbhost=172.18.0.2
 #RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/000-default.conf
 #RUN sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/default-ssl.conf
 #RUN a2enmod rewrite
 #RUN service apache2 restart
 
-# # Install all Freepbx modules
-# RUN fwconsole ma disablerepo commercial
-# RUN fwconsole ma installall
-# RUN fwconsole ma delete firewall
-# RUN fwconsole reload
-# RUN fwconsole restart
