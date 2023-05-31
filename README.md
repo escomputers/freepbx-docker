@@ -42,8 +42,6 @@ docker compose exec freepbx sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/ht
 docker compose exec freepbx sed -i 's/\/var\/www\/html/\/usr\/local\/apache2\/htdocs/g' /etc/apache2/sites-available/default-ssl.conf
 
 docker compose exec freepbx a2enmod rewrite
-docker container stop freepbx-docker-freepbx-1
-docker container start freepbx-docker-freepbx-1
 
 # Install all Freepbx modules
 docker compose exec freepbx fwconsole ma disablerepo commercial

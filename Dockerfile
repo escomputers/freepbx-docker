@@ -1,4 +1,5 @@
-FROM httpd:2.4-bullseye
+#FROM httpd:2.4-bullseye
+FROM debian:bullseye-slim
 
 WORKDIR /usr/src
 
@@ -13,7 +14,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packa
 # Install Required Dependencies
 RUN apt-get update && apt-get -y install \
 build-essential linux-headers-$(uname -r) \
-  bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
+  apache2 bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
   php7.4-mysql php7.4-gd php7.4-mbstring php7.4-intl php7.4-xml php-pear \
   sox libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev \
   pkg-config automake libtool \
@@ -25,12 +26,15 @@ build-essential linux-headers-$(uname -r) \
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
-# Install and configure Maria ODBC
-#RUN wget https://wiki.freepbx.org/download/attachments/202375584/libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
-#RUN wget https://wiki.freepbx.org/download/attachments/122487323/mariadb-connector-odbc_3.0.7-1_amd64.deb
-#RUN dpkg -i libssl1.0.2_1.0.2u-1_deb9u4_amd64.deb
-#RUN dpkg -i mariadb-connector-odbc_3.0.7-1_amd64.deb
-#RUN dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+# Modifications for Apache
+#RUN sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
+RUN sudo sed -i 's/upload_max_filesize = 20M/upload_max_filesize = 120M/' /etc/php/7.4/apache2/php.ini
+#RUN cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
+#RUN sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+#RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
+#RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+#RUN a2enmod rewrite
+#RUN apache2ctl restart
 
 # Install MySQL Connector ODBC
 RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
@@ -73,4 +77,7 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 
 # Download and install FreePBX
 COPY freepbx freepbx/
+#COPY freepbx/amp_conf/htdocs /usr/local/apache2/htdocs
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]
