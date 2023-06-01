@@ -27,14 +27,8 @@ build-essential linux-headers-$(uname -r) \
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
 # Modifications for Apache
-#RUN sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
 RUN sudo sed -i 's/upload_max_filesize = 20M/upload_max_filesize = 120M/' /etc/php/7.4/apache2/php.ini
-#RUN cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
-#RUN sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
-#RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
-#RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-#RUN a2enmod rewrite
-#RUN apache2ctl restart
+RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
 
 # Install MySQL Connector ODBC
 RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
@@ -77,7 +71,6 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 
 # Download and install FreePBX
 COPY freepbx freepbx/
-#COPY freepbx/amp_conf/htdocs /usr/local/apache2/htdocs
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
