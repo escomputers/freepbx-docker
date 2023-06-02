@@ -6,11 +6,15 @@ Upon starting this multi-container application, it will give you a turn-key PBX 
 
 * FreePBX 16
 * Asterisk 16
-* MySQL/MariaDB database support
+* MySQL database support
 * Supports data persistence
 * Base image Debian [bullseye-slim](https://hub.docker.com/_/debian/)
 * Apache2
 * NodeJS 14.x
+
+Dockerfile 
+
+<img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
 | Directory        |Description                                                                       |
@@ -39,7 +43,6 @@ The following ports are exposed.
 
 ## In progress
 * TLS termination (in progress)
-* MySQL/MariaDB hardening
 
 ---
 
@@ -56,30 +59,17 @@ The following ports are exposed.
 Clone repository, then:
 
 ```bash
+# Extract source files
 unzip asterisk-16.zip 
 
 unzip freepbx.zip
 
-# Set database password for freepbx user
-sed -i "s/\$amp_conf\['AMPDBPASS'\] = 'md5(uniqid())';/\$amp_conf['AMPDBPASS'] = 'yourpassword';/" freepbx/installlib/installcommand.class.php
+# Create passwords for both MySQL root user and freepbxuser
+printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
+printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 
 # Build and run
 docker compose up -d --build
-```
-
-### Database setup
-```bash
-docker exec -it freepbx-docker-db-1 /bin/bash
-
-mysql -h localhost -u root
-
-CREATE USER 'freepbxuser'@'%' IDENTIFIED BY 'yourpassword';
-
-GRANT ALL PRIVILEGES ON `asterisk`.* TO 'freepbxuser'@'%';
-
-GRANT ALL PRIVILEGES ON `asteriskcdrdb`.* TO 'freepbxuser'@'%';
-
-FLUSH PRIVILEGES;
 ```
 
 ### Freepbx setup
@@ -88,7 +78,7 @@ FLUSH PRIVILEGES;
 docker compose exec freepbx /usr/src/freepbx/start_asterisk start
 
 # Install FreePBX
-docker compose exec freepbx /usr/src/freepbx/install -n --dbhost=db
+docker compose exec freepbx /usr/src/freepbx/install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!

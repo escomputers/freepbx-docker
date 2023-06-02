@@ -4,29 +4,42 @@ services:
   db:
     restart: always
     image: mysql:5.7
-    #image: bitnami/mariadb:10.5-debian-11
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
-      #ALLOW_EMPTY_PASSWORD: yes
+      #MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      #MYSQL_DATABASE: asterisk
+      MYSQL_USER: freepbxuser
+      MYSQL_PASSWORD_FILE: /run/secrets/freepbxuser_password
+    secrets:
+       - mysql_root_password
+       - freepbxuser_password
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./my.cnf:/etc/mysql/my.cnf 
-      #- ./my.cnf:/etc/mysql/mariadb.cnf 
-    ports:
-    - target: 3306
-      published: 3306
-      protocol: tcp
+      - ./my.cnf:/etc/mysql/my.cnf
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   freepbx:
     build: .
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_PASSWORD: /run/secrets/freepbxuser_password
+    secrets:
+       - mysql_root_password
+       - freepbxuser_password
     volumes:
       - .:/usr/src
     ports:
     - target: 80
-      published: 8080
+      published: 80
       protocol: tcp
     depends_on:
       - db
+
+secrets:
+   mysql_root_password:
+     file: mysql_root_password.txt
+   freepbxuser_password:
+     file: freepbxuser_password.txt
 
 volumes:
   mysql_data:

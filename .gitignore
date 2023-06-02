@@ -1,4 +1,4 @@
-# Notes file
-notes.txt
+# Password files
+*.txt
 
 .DS_Store*
