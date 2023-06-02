@@ -32,16 +32,12 @@ RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
 
 # Install MySQL Connector ODBC
 RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
-RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-common_8.0.27-1debian11_amd64.deb
-RUN dpkg -i mysql-common_8.0.27-1debian11_amd64.deb
-RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
-RUN dpkg -i mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
-RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client-core_8.0.27-1debian11_amd64.deb
-RUN dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
-RUN wget http://mysql.mirror.garr.it/Downloads/MySQL-8.0/mysql-community-client_8.0.27-1debian11_amd64.deb
-RUN dpkg -i mysql-community-client_8.0.27-1debian11_amd64.deb
-RUN wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb
-RUN dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
+COPY odbc /usr/src/odbc
+RUN cd odbc/ && dpkg -i mysql-common_8.0.27-1debian11_amd64.deb
+RUN cd odbc/ && dpkg -i mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
+RUN cd odbc/ && dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
+RUN cd odbc/ && dpkg -i mysql-community-client_8.0.27-1debian11_amd64.deb
+RUN cd odbc/ && dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
 
 # Copy FreePBX files
 COPY freepbx/installlib/files/odbc.ini /etc/odbc.ini

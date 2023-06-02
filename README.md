@@ -17,10 +17,10 @@ Dockerfile
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
-| Directory        |Description                                                                       |
+|Directory        |Description                                                                        |
 | ---------------- | ----------------------------------------------------------------------------------------------------- |
 | `/usr/src`         | FreePBX files                                                                  |
-| `/var/lib/mysql`   | Database files                                                                  |
+| `/var/lib/mysql`   | Database files                                                                 |
 
 ### Ports
 The following ports are exposed.
