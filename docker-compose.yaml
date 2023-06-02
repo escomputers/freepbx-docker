@@ -5,9 +5,7 @@ services:
     restart: always
     image: mysql:5.7
     environment:
-      #MYSQL_ALLOW_EMPTY_PASSWORD: 1
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
-      #MYSQL_DATABASE: asterisk
       MYSQL_USER: freepbxuser
       MYSQL_PASSWORD_FILE: /run/secrets/freepbxuser_password
     secrets:
@@ -29,9 +27,18 @@ services:
     volumes:
       - .:/usr/src
     ports:
-    - target: 80
-      published: 80
-      protocol: tcp
+      # If you aren't using a reverse proxy
+      - "80:80/tcp"
+      # If you want SSL Support and not using a reverse proxy
+      #- "443:443/tcp"
+      - "5038:5038/tcp"
+      - "8001:8001/tcp"
+      - "8003:8003/tcp"
+      - "4569:4569/udp"
+      - "5060:5060/udp"
+      - "5160:5160/udp"
+      - "5161:5161/udp"
+      - "18000-18200:18000-18200/udp"
     depends_on:
       - db
 

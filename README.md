@@ -29,25 +29,25 @@ The following ports are exposed.
 | ----------------- | ----------- |
 | `80`              | HTTP        |
 | `443`             | HTTPS       |
-| `4445`            | FOP         |
-| `4569`            | IAX         |
-| `5060`            | PJSIP       |
-| `5160`            | SIP         |
+| `5038`            | AMI         |
 | `8001`            | UCP         |
 | `8003`            | UCP SSL     |
-| `8008`            | UCP         |
-| `8009`            | UCP SSL     |
-| `18000-20000/udp` | RTP ports   |
+| `4569/udp`        | IAX         |
+| `5060/udp`        | PJSIP       |
+| `5160/udp`        | SIP         |
+| `5161/udp`        | SIP         |
+| `18000-18200/udp` | RTP ports   |
+
 
 ---
 
 ## In progress
-* TLS termination (in progress)
+* TLS termination
 
 ---
 
 ## Requirements
-- Docker
+- Docker >= 18.06.0+
 - Git
 - VoIP SIP trunk/trunks (DID/DIDs)
 
@@ -55,7 +55,7 @@ The following ports are exposed.
 
 ## Installation
 
-### Build application
+### Build and run application
 Clone repository, then:
 
 ```bash
