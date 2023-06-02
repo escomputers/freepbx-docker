@@ -53,7 +53,7 @@ The following ports are exposed.
 
 ---
 
-## Installation (this procedure will change soon)
+## Installation
 
 ### Build application
 Clone repository, then:
