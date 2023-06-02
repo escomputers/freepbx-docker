@@ -17,10 +17,12 @@ Dockerfile
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
-|Directory        |Description                                                                        |
-| ---------------- | ----------------------------------------------------------------------------------------------------- |
-| `/usr/src`         | FreePBX files                                                                  |
-| `/var/lib/mysql`   | Database files                                                                 |
+| Directory           | Description                     |
+| ----------------   | --------------------             |
+| `/var`             | App & Database files             |
+| `/etc`             | App configuration files          |
+| `/usr`             | Source and app files             |
+| `/home/asterisk`   | Asterisk user home directory     |
 
 ### Ports
 The following ports are exposed.
@@ -74,11 +76,10 @@ docker compose up -d --build
 
 ### Freepbx setup
 ```bash
-# Start Asterisk
-docker compose exec freepbx /usr/src/freepbx/start_asterisk start
+# Install FreePBX first time you run it
+docker exec -it freepbx-docker-freepbx-1 /bin/bash
 
-# Install FreePBX
-docker compose exec freepbx /usr/src/freepbx/install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
+cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!

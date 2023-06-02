@@ -26,6 +26,10 @@ services:
        - freepbxuser_password
     volumes:
       - .:/usr/src
+      - var_data:/var
+      - etc_data:/etc
+      - usr_data:/usr
+      - asterisk_home:/home/asterisk
     ports:
       # If you aren't using a reverse proxy
       - "80:80/tcp"
@@ -50,3 +54,7 @@ secrets:
 
 volumes:
   mysql_data:
+  var_data:
+  etc_data:
+  usr_data:
+  asterisk_home:

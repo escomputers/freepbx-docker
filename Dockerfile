@@ -69,4 +69,6 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+COPY entrypoint.sh /usr/src/entrypoint.sh
+RUN chmod +x /usr/src/entrypoint.sh
+CMD ["sh", "/usr/src/entrypoint.sh"]
