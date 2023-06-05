@@ -1,5 +1,16 @@
 version: '3.7'
 
+networks:
+  defaultnet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: freepbxint
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
+
 services:
   db:
     restart: always
@@ -15,6 +26,8 @@ services:
       - mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - defaultnet
 
   freepbx:
     build: .
@@ -30,6 +43,8 @@ services:
       - etc_data:/etc
       - usr_data:/usr
       - asterisk_home:/home/asterisk
+    networks:
+      - defaultnet
     ports:
       # If you aren't using a reverse proxy
       - "80:80/tcp"
