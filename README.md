@@ -85,6 +85,8 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt
 bash build.sh
 ```
 
+If you uninstall application, do not forget to remove rules for RTP ports from iptables.
+
 ### Freepbx setup
 ```bash
 # Install FreePBX
