@@ -42,7 +42,7 @@ The following ports are exposed via Docker.
 RTP ports `16384-32767/udp` require a particular configuration in order to be
 properly exposed. There's a known issue about Docker and its way to expose a large range of ports, since each port exposed loads another process into memory and you may be experiencing a low memory condition.
 As a trade-off, those ports are going to be exposed via Docker host `iptables` manually.
-So, `install.sh` will take care of iptables configuration, before building and running the image.
+So, `build.sh` will take care of iptables configuration, before building and running the image.
 
 
 
@@ -80,7 +80,7 @@ printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
 printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 
 # Build and run
-bash install.sh
+bash build.sh
 ```
 
 ### Freepbx setup
