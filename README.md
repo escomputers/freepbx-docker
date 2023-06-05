@@ -78,6 +78,9 @@ unzip freepbx.zip
 printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
 printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 
+# Set proper file permissions
+chmod 600 mysql_root_password.txt freepbxuser_password.txt
+
 # Build and run
 bash build.sh
 ```
