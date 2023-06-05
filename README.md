@@ -25,7 +25,7 @@ Dockerfile
 | `/home/asterisk`   | Asterisk user home directory     |
 
 ### Ports
-The following ports are exposed.
+The following ports are exposed via Docker.
 
 | Port              | Description |
 | ----------------- | ----------- |
@@ -38,8 +38,16 @@ The following ports are exposed.
 | `5060/udp`        | PJSIP       |
 | `5160/udp`        | SIP         |
 | `5161/udp`        | SIP         |
-| `18000-18200/udp` | RTP ports   |
 
+RTP ports `16384-32767/udp` require a particular configuration in order to be
+properly exposed. There's a known issue about Docker and its way to expose a large range of ports, since each port exposed loads another process into memory and you may be experiencing a low memory condition.
+As a trade-off, those ports are going to be exposed via Docker host `iptables` manually.
+So, `install.sh` will take care of iptables configuration, before building and running the image.
+
+
+
+## Known issues
+Dashboard loads very slowly, displayed correctly after 90 seconds.
 
 ---
 
@@ -50,6 +58,7 @@ The following ports are exposed.
 
 ## Requirements
 - Docker >= 18.06.0+
+- Docker host Linux with iptables installed
 - Git
 - VoIP SIP trunk/trunks (DID/DIDs)
 
@@ -71,12 +80,12 @@ printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
 printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 
 # Build and run
-docker compose up -d --build
+bash install.sh
 ```
 
 ### Freepbx setup
 ```bash
-# Install FreePBX first time you run it
+# Install FreePBX
 docker exec -it freepbx-docker-freepbx-1 /bin/bash
 
 cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db

@@ -34,15 +34,15 @@ services:
       # If you aren't using a reverse proxy
       - "80:80/tcp"
       # If you want SSL Support and not using a reverse proxy
-      #- "443:443/tcp"
+      # - "443:443/tcp"
       - "5038:5038/tcp"
       - "8001:8001/tcp"
       - "8003:8003/tcp"
       - "4569:4569/udp"
       - "5060:5060/udp"
+      - "5061:5061/udp"
       - "5160:5160/udp"
       - "5161:5161/udp"
-      - "18000-18200:18000-18200/udp"
     depends_on:
       - db
 
