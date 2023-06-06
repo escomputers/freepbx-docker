@@ -14,7 +14,7 @@ docker compose up -d --build
 build_exit_code=$?
 if [ $build_exit_code -eq 0 ]; then
 
-    network_name="defaultnet"
+    network_name="freepbx-docker_defaultnet"
     container_name="freepbx-docker-freepbx-1"
     network_interface="freepbxint"
 
