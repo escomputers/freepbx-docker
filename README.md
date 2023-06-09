@@ -2,7 +2,7 @@
 
 This is MVP [Docker Compose](https://docs.docker.com/compose/) application for having [FreePBX](https://www.freepbx.org) - A Voice over IP manager for [Asterisk](https://www.asterisk.org), running in containers.
 
-Upon starting this multi-container application, it will give you a turn-key PBX system for SIP calling.
+Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling.
 
 * FreePBX 16
 * Asterisk 16
@@ -85,7 +85,9 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt
 bash build.sh
 ```
 
-If you uninstall application, do not forget to remove rules for RTP ports from iptables.
+Note that docker iptables rules will bypass any ufw rule on the system.
+
+Always use ```build.sh``` for starting application.
 
 ### Freepbx setup
 ```bash
@@ -96,3 +98,12 @@ cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --d
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!
+
+### Optional but recommended steps
+```bash
+docker compose exec freepbx fwconsole ma disablerepo commercial
+docker compose exec freepbx fwconsole ma installall
+docker compose exec freepbx fwconsole ma delete firewall
+docker compose exec freepbx fwconsole reload
+docker compose exec freepbx fwconsole restart
+```
