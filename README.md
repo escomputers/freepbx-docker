@@ -7,6 +7,7 @@ Upon starting this multi-container application, it will give you a turnkey PBX s
 * FreePBX 16
 * Asterisk 16
 * MySQL database support
+* Fail2ban pre-configured with restrictive enforcement rules
 * Supports data persistence
 * Base image Debian [bullseye-slim](https://hub.docker.com/_/debian/)
 * Apache2
@@ -44,6 +45,10 @@ properly exposed. There's a known issue about Docker and its way to expose a lar
 As a trade-off, those ports are going to be exposed via Docker host `iptables` manually.
 So, `build.sh` will take care of iptables configuration, besides building and running the image.
 
+### Notes
+- Docker iptables rules will bypass any ufw rule on the system.
+- If host restarts, iptables rules will be deleted.
+- Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
 
 ## Known issues
 Dashboard loads very slowly, displayed correctly after 90 seconds.
@@ -84,8 +89,6 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt
 # Build and run
 bash build.sh
 ```
-
-Note that docker iptables rules will bypass any ufw rule on the system.
 
 Always use ```build.sh``` for starting application.
 

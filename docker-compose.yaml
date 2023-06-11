@@ -1,5 +1,19 @@
 version: '3.7'
 
+volumes:
+  mysql_data:
+  var_log:
+  var_mail:
+  var_opt:
+  var_spool:
+  var_www:
+  var_local:
+  var_lib:
+  var_backups:
+  etc_data:
+  usr_data:
+  asterisk_home:
+
 networks:
   defaultnet:
     driver: bridge
@@ -10,6 +24,12 @@ networks:
       config:
         - subnet: 172.18.0.0/16
           gateway: 172.18.0.1
+
+secrets:
+   mysql_root_password:
+     file: mysql_root_password.txt
+   freepbxuser_password:
+     file: freepbxuser_password.txt
 
 services:
   db:
@@ -34,12 +54,21 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
       MYSQL_PASSWORD: /run/secrets/freepbxuser_password
+    cap_add:
+      - NET_ADMIN
     secrets:
        - mysql_root_password
        - freepbxuser_password
     volumes:
       - .:/usr/src
-      - var_data:/var
+      - var_log:/var/log
+      - var_mail:/var/mail
+      - var_opt:/var/opt
+      - var_spool:/var/spool
+      - var_www:/var/www
+      - var_local:/var/local
+      - var_lib:/var/lib
+      - var_backups:/var/backups
       - etc_data:/etc
       - usr_data:/usr
       - asterisk_home:/home/asterisk
@@ -60,16 +89,3 @@ services:
       - "5161:5161/udp"
     depends_on:
       - db
-
-secrets:
-   mysql_root_password:
-     file: mysql_root_password.txt
-   freepbxuser_password:
-     file: freepbxuser_password.txt
-
-volumes:
-  mysql_data:
-  var_data:
-  etc_data:
-  usr_data:
-  asterisk_home:

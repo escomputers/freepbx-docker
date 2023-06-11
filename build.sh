@@ -50,4 +50,3 @@ else
     echo "Build failed with exit code: $build_exit_code. Exiting the script."
     exit 1
 fi
-
