@@ -18,12 +18,19 @@ Dockerfile
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
-| Directory           | Description                     |
-| ----------------   | --------------------             |
-| `/var`             | App & Database files             |
-| `/etc`             | App configuration files          |
-| `/usr`             | Source and app files             |
-| `/home/asterisk`   | Asterisk user home directory     |
+| Directory          |               
+| ----------------   |            
+| `/etc`             |          
+| `/usr`             |          
+| `/home/asterisk`   |     
+| `/var/log`         |
+| `/var/mail`        |
+| `/var/opt`         |
+| `/var/spool`       |
+| `/var/www`         |
+| `/var/local`       |
+| `/var/lib`         |
+| `/var/backups`     |
 
 ### Ports
 The following ports are exposed via Docker.
