@@ -13,6 +13,7 @@ volumes:
   etc_data:
   usr_data:
   asterisk_home:
+  vault:
 
 networks:
   defaultnet:
@@ -89,3 +90,18 @@ services:
       - "5161:5161/udp"
     depends_on:
       - db
+
+  vault:
+    restart: always
+    image: hashicorp/vault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_ENABLE_FILE_PERMISSIONS_CHECK: true
+    volumes:
+      - vault:/etc/config.d
+    ports:
+      - "8200:8200/tcp"
+    depends_on:
+      - db
+      - freepbx

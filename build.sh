@@ -53,10 +53,20 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "mac os detected"
 elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
-    echo "windows os detected"
-    # open ports on Windows Firewall
-    netsh advfirewall firewall add rule name="Allow UDP Port Range" dir=in action=allow protocol=UDP localport=16384-32767 remoteport=16384-32767
-    echo "RTP ports allowed on windows"
+    # build
+    docker compose up -d --build
+
+    # Check the exit code of the build command
+    build_exit_code=$?
+    if [ $build_exit_code -eq 0 ]; then
+        # open ports on Windows Firewall
+        echo "windows os detected"
+        netsh advfirewall firewall add rule name="Allow UDP Port Range" dir=in action=allow protocol=UDP localport=16384-32767 remoteport=16384-32767
+        echo "RTP ports allowed on windows"
+    else
+        echo "Build failed with exit code: $build_exit_code. Exiting the script."
+        exit 1
+    fi
 else
     # Unknown.
     echo "cannot detect os type"
