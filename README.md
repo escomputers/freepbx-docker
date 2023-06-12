@@ -18,7 +18,7 @@ Dockerfile
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
-| Directory          |               
+| Directories        |               
 | ----------------   |            
 | `/etc`             |          
 | `/usr`             |          
@@ -55,6 +55,12 @@ So, `build.sh` will take care of iptables configuration, besides building and ru
 ### Notes
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
+- For Windows hosts, all commands must be run as Administrator. Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
+```
+[wsl2]
+memory=8GB
+```
+
 - Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
 
 ## Known issues
@@ -69,7 +75,6 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 
 ## Requirements
 - Docker >= 18.06.0+
-- Docker host Linux with iptables installed
 - Git
 - VoIP SIP trunk/trunks (DID/DIDs)
 
@@ -101,8 +106,11 @@ Always use ```build.sh``` for starting application.
 
 ### Freepbx setup
 ```bash
-# Install FreePBX
+# Install FreePBX from linux hosts
 docker exec -it freepbx-docker-freepbx-1 /bin/bash
+
+# Or install FreePBX from windows WSL hosts
+docker exec -it freepbx-docker-freepbx-1 bash
 
 cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
 ```

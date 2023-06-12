@@ -13,8 +13,8 @@ RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packa
 
 # Install Required Dependencies
 RUN apt-get update && apt-get -y install \
-  build-essential linux-headers-$(uname -r) \
-  apache2 rsync fail2ban bison flex php7.4 php7.4-curl php7.4-cli php7.4-common \
+  build-essential apache2 rsync fail2ban bison flex \
+  php7.4 php7.4-curl php7.4-cli php7.4-common \
   php7.4-mysql php7.4-gd php7.4-mbstring php7.4-intl php7.4-xml php-pear \
   sox libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev \
   pkg-config automake libtool \

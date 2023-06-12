@@ -1,4 +1,8 @@
 # Password files
 *.txt
 
+# Source files
+freepbx/
+asterisk-*
+
 .DS_Store*
