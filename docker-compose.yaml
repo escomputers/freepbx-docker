@@ -13,7 +13,9 @@ volumes:
   etc_data:
   usr_data:
   asterisk_home:
-  vault:
+  vault_logs:
+  vault_backend:
+  vault_config:
 
 networks:
   defaultnet:
@@ -93,15 +95,21 @@ services:
 
   vault:
     restart: always
-    image: hashicorp/vault
+    build: vault/
+    #image: hashicorp/vault
     cap_add:
       - IPC_LOCK
     environment:
       VAULT_ENABLE_FILE_PERMISSIONS_CHECK: true
     volumes:
-      - vault:/etc/config.d
+      - vault_logs:/vault/log
+      - vault_backend:/vault/file
+      - vault_config:/etc/vault:ro
+    networks:
+      - defaultnet
     ports:
       - "8200:8200/tcp"
+      - "8201:8201/tcp"
     depends_on:
       - db
       - freepbx
