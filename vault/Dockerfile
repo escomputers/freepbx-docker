@@ -60,15 +60,14 @@ RUN mkdir -p /vault/logs && \
 
 # Expose the logs directory as a volume since there's potentially long-running
 # state in there
-VOLUME /vault/logs
+#VOLUME /vault/logs
 
 # Expose the file directory as a volume since there's potentially long-running
 # state in there
-VOLUME /vault/file
+#VOLUME /vault/file
 
 # 8200/tcp is the primary interface that applications use to interact with
-# Vault.
-EXPOSE 8200
+# EXPOSE 8200
 
 # The entry point script uses dumb-init as the top-level process to reap any
 # zombie processes created by Vault sub-processes.
@@ -78,7 +77,5 @@ EXPOSE 8200
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-# By default you'll get a single-node development server that stores everything
-# in RAM and bootstraps itself. Don't use this configuration for production.
-#CMD ["server", "-dev"]
+COPY local.json /vault/config/local.json
 CMD ["server"]
