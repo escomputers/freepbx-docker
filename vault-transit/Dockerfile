@@ -10,7 +10,7 @@ RUN addgroup vault && \
 
 # Set up certificates, our base tools, and Vault.
 RUN set -eux; \
-    apk add --no-cache ca-certificates gnupg jq openssl libcap su-exec dumb-init tzdata && \
+    apk add --no-cache ca-certificates gnupg openssl libcap su-exec dumb-init tzdata && \
     apkArch="$(apk --print-arch)"; \
     case "$apkArch" in \
         armhf) ARCH='arm' ;; \
@@ -64,10 +64,10 @@ RUN mkdir -p /vault/logs && \
 
 # Expose the file directory as a volume since there's potentially long-running
 # state in there
-VOLUME /vault
+#VOLUME /vault/file
 
 # 8200/tcp is the primary interface that applications use to interact with
-EXPOSE 8100
+# EXPOSE 8200
 
 # The entry point script uses dumb-init as the top-level process to reap any
 # zombie processes created by Vault sub-processes.
@@ -78,5 +78,9 @@ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 COPY local.json /vault/config/local.json
+RUN mkdir -p /build
+WORKDIR /build
+COPY autounseal.hcl /build
+COPY configure.sh /build/configure.sh
 
 CMD ["server"]

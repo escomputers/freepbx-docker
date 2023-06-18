@@ -3,12 +3,25 @@
     "file": {"path": "/vault/file"}
   }, 
   "listener": [
-    {"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}
+    {
+      "tcp": {"address": "0.0.0.0:8100", "tls_disable": true}
+    }
   ],
-  "api_addr":"http://0.0.0.0:8200",
+  "api_addr":"http://0.0.0.0:8100",
   "default_lease_ttl": "168h", 
   "max_lease_ttl": "720h", 
   "ui": true,
   "disable_mlock": true,
-  "tls_disable": true
+  "tls_disable": true,
+  "seal":
+    {
+      "transit":
+        {
+          "address": "http://172.18.0.4:8200",
+          "disable_renewal": "false",
+          "key_name": "autounseal",
+          "mount_path": "transit/",
+          "tls_skip_verify": "true"
+        }
+    }
 }

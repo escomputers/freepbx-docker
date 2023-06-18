@@ -85,6 +85,13 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 ### Build and run application
 Clone repository, then:
 
+### Vault setup
+```bash
+docker compose exec vault-transit sh /build/configure.sh
+docker build -t vault:custom vault/
+docker run --network=freepbx-docker_defaultnet -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e 'VAULT_TOKEN=yourtoken' vault:custom
+```
+
 ```bash
 # Extract source files
 unzip asterisk-16.zip

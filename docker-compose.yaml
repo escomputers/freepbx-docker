@@ -13,6 +13,7 @@ volumes:
   etc_data:
   usr_data:
   asterisk_home:
+  vault-transit:
   vault:
 
 networks:
@@ -91,14 +92,15 @@ services:
     depends_on:
       - db
 
-  vault:
+  vault-transit:
     restart: always
-    build: vault/
-    #image: hashicorp/vault
+    build: vault-transit/
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200 
     cap_add:
       - IPC_LOCK
     volumes:
-      - vault:/vault
+      - vault-transit:/vault
     networks:
       - defaultnet
     ports:
@@ -106,3 +108,19 @@ services:
     depends_on:
       - db
       - freepbx
+
+  # vault:
+  #   restart: always
+  #   build: vault/
+  #   environment:
+  #     VAULT_ADDR: http://127.0.0.1:8100
+  #   cap_add:
+  #     - IPC_LOCK
+  #   volumes:
+  #     - vault:/vault
+  #   networks:
+  #     - defaultnet
+  #   ports:
+  #     - "8100:8100/tcp"
+  #   depends_on:
+  #     - vault-transit
