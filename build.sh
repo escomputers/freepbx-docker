@@ -1,3 +1,24 @@
+function buildApp {
+    # unzip source files
+    zip_files=("freepbx.zip" "asterisk-16.30.0.zip")
+    target_dirs=("freepbx" "asterisk-16.30.0")
+
+    for ((i=0; i<${#zip_files[@]}; i++)); do
+        zip_file="${zip_files[i]}"
+        target_dir="${target_dirs[i]}"
+
+        if [ -d "$target_dir" ]; then
+            echo "Directory $target_dir already exists. Skipping unzip for $zip_file."
+        else
+            unzip "$zip_file" -d "$target_dir"
+        fi
+    done
+
+    # build
+    docker compose up -d --build
+}
+
+# LINUX HOST CASE
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     echo "linux detected"
     # Check if jq is installed
@@ -7,13 +28,16 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo apt install -y jq
     fi
 
-    # build
-    docker compose up -d --build
+    # BUILD
+    buildApp
 
     # Check the exit code of the build command
     build_exit_code=$?
     if [ $build_exit_code -eq 0 ]; then
+        # CONFIGURE VAULT
+        docker build -t vault:custom vault/
 
+        # OPEN RTP PORTS ON IPTABLES
         network_name="freepbx-docker_defaultnet"
         container_name="freepbx-docker-freepbx-1"
         network_interface="freepbxint"
@@ -50,24 +74,34 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "Build failed with exit code: $build_exit_code. Exiting the script."
         exit 1
     fi
+
+# MACOS HOST CASE
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "mac os detected"
+
+# WINDOWS HOST CASE
 elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
-    # build
-    docker compose up -d --build
+    # BUILD
+    buildApp
 
     # Check the exit code of the build command
     build_exit_code=$?
     if [ $build_exit_code -eq 0 ]; then
-        # open ports on Windows Firewall
+        # CONFIGURE VAULT
+        docker build -t vault:custom vault/
+
+        # OPEN RTP PORTS ON WINDOWS FIREWALL
         echo "windows os detected"
         netsh advfirewall firewall add rule name="Allow UDP Port Range" dir=in action=allow protocol=UDP localport=16384-32767 remoteport=16384-32767
-        echo "RTP ports allowed on windows"
+        netsh_exit_code=$?
+        if [ $netsh_exit_code -eq 0 ]; then
+            echo "RTP ports allowed on windows"
+        fi
     else
         echo "Build failed with exit code: $build_exit_code. Exiting the script."
         exit 1
     fi
 else
-    # Unknown.
+    # Unknown error
     echo "cannot detect os type"
 fi

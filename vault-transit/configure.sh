@@ -30,4 +30,6 @@ wrapping_token=$(grep -o "wrapping_token: .*" /build/token.txt | awk '{print $2}
 
 VAULT_TOKEN=$wrapping_token vault unwrap > /build/root_token_out.txt
 token=$(grep -o "token .*" /build/root_token_out.txt | awk '{print $2}')
+echo "Please copy the following token, needed by Vault:"
+echo ""
 echo "$token" && rm /build/*.txt

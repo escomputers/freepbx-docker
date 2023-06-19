@@ -81,23 +81,8 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 ---
 
 ## Installation
-
-### Build and run application
-Clone repository, then:
-
-### Vault setup
+Windows users must run these commands on a bash shell
 ```bash
-docker compose exec vault-transit sh /build/configure.sh
-docker build -t vault:custom vault/
-docker run --network=freepbx-docker_defaultnet -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e 'VAULT_TOKEN=yourtoken' vault:custom
-```
-
-```bash
-# Extract source files
-unzip asterisk-16.zip
-
-unzip freepbx.zip
-
 # Create passwords for both MySQL root user and freepbxuser
 printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
 printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
@@ -106,17 +91,22 @@ printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 chmod 600 mysql_root_password.txt freepbxuser_password.txt
 
 # Build and run
-bash build.sh
-```
+sh build.sh
 
-Always use ```build.sh``` for starting application.
+# Now only Windows users must open a command prompt or powershell
 
-### Freepbx setup
-```bash
-# Install FreePBX from linux hosts
+# Run Vault for secrets management
+docker compose exec vault-transit sh /build/configure.sh
+
+docker run --name vault --network=freepbx-docker_defaultnet -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh vault:custom
+
+
+# Now Windows users must come back to bash shell
+
+# linux users
 docker exec -it freepbx-docker-freepbx-1 /bin/bash
 
-# Or install FreePBX from windows WSL hosts
+# windows users
 docker exec -it freepbx-docker-freepbx-1 bash
 
 cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db

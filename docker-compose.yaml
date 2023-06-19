@@ -14,7 +14,6 @@ volumes:
   usr_data:
   asterisk_home:
   vault-transit:
-  vault:
 
 networks:
   defaultnet:
@@ -108,19 +107,3 @@ services:
     depends_on:
       - db
       - freepbx
-
-  # vault:
-  #   restart: always
-  #   build: vault/
-  #   environment:
-  #     VAULT_ADDR: http://127.0.0.1:8100
-  #   cap_add:
-  #     - IPC_LOCK
-  #   volumes:
-  #     - vault:/vault
-  #   networks:
-  #     - defaultnet
-  #   ports:
-  #     - "8100:8100/tcp"
-  #   depends_on:
-  #     - vault-transit
