@@ -61,7 +61,6 @@ services:
        - mysql_root_password
        - freepbxuser_password
     volumes:
-      - .:/usr/src
       - var_log:/var/log
       - var_mail:/var/mail
       - var_opt:/var/opt
