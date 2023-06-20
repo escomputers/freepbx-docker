@@ -1,23 +1,3 @@
-function buildApp {
-    # unzip source files
-    zip_files=("freepbx.zip" "asterisk-16.30.0.zip")
-    target_dirs=("freepbx" "asterisk-16.30.0")
-
-    for ((i=0; i<${#zip_files[@]}; i++)); do
-        zip_file="${zip_files[i]}"
-        target_dir="${target_dirs[i]}"
-
-        if [ -d "$target_dir" ]; then
-            echo "Directory $target_dir already exists. Skipping unzip for $zip_file."
-        else
-            unzip "$zip_file" -d "$target_dir"
-        fi
-    done
-
-    # build
-    docker compose up -d --build
-}
-
 # LINUX HOST CASE
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     echo "linux detected"
@@ -29,7 +9,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
 
     # BUILD
-    buildApp
+    docker compose up -d --build
 
     # Check the exit code of the build command
     build_exit_code=$?
@@ -82,7 +62,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 # WINDOWS HOST CASE
 elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
     # BUILD
-    buildApp
+    docker compose up -d --build
 
     # Check the exit code of the build command
     build_exit_code=$?

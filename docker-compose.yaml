@@ -51,7 +51,7 @@ services:
       - defaultnet
 
   freepbx:
-    build: .
+    image: escomputers/freepbx:latest
     environment:
       MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
       MYSQL_PASSWORD: /run/secrets/freepbxuser_password
