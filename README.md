@@ -86,11 +86,6 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 Clone repository, then:
 
 ```bash
-# Extract source files
-unzip asterisk-16.zip
-
-unzip freepbx.zip
-
 # Create passwords for both MySQL root user and freepbxuser
 printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
 printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
@@ -99,7 +94,7 @@ printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 chmod 600 mysql_root_password.txt freepbxuser_password.txt
 
 # Build and run
-bash build.sh
+sh build.sh
 ```
 
 Always use ```build.sh``` for starting application.
