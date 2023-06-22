@@ -29,8 +29,10 @@ networks:
 secrets:
    mysql_root_password:
      file: mysql_root_password.txt
-   freepbxuser_password:
-     file: freepbxuser_password.txt
+   vault_password:
+     file: vault_password.txt
+   #freepbxuser_password:
+   #  file: freepbxuser_password.txt
 
 services:
   db:
@@ -38,11 +40,13 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
-      MYSQL_USER: freepbxuser
-      MYSQL_PASSWORD_FILE: /run/secrets/freepbxuser_password
+      #MYSQL_USER: freepbxuser
+      MYSQL_USER: vault
+      MYSQL_PASSWORD_FILE: /run/secrets/vault_password
     secrets:
        - mysql_root_password
-       - freepbxuser_password
+       #- freepbxuser_password
+       - vault_password
     volumes:
       - mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
@@ -59,7 +63,7 @@ services:
       - NET_ADMIN
     secrets:
        - mysql_root_password
-       - freepbxuser_password
+       #- freepbxuser_password
     volumes:
       - var_log:/var/log
       - var_mail:/var/mail

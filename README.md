@@ -55,7 +55,7 @@ So, `build.sh` will take care of iptables configuration, besides building and ru
 ### Notes
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
-- For Windows hosts, all commands must be run as Administrator. Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
+- For Windows hosts, all commands must be run as Administrator (do not use Visual Studio terminals). Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
 ```
 [wsl2]
 memory=8GB
@@ -85,7 +85,8 @@ Windows users must run these commands on a bash shell
 ```bash
 # Create passwords for both MySQL root user and freepbxuser
 printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
-printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
+#printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
+printf "yourstrongvaultpassword" > vault_password.txt
 
 # Set proper file permissions
 chmod 600 mysql_root_password.txt freepbxuser_password.txt
