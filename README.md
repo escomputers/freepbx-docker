@@ -55,7 +55,7 @@ So, `build.sh` will take care of iptables configuration, besides building and ru
 ### Notes
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
-- For Windows hosts, all commands must be run as Administrator (do not use Visual Studio terminals). Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
+- For Windows hosts, all commands must be run as Administrator (do not use Visual Studio terminals, Docker must be run as administrator too). Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
 ```
 [wsl2]
 memory=8GB
