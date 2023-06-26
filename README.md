@@ -23,14 +23,8 @@ Dockerfile
 | `/etc`             |          
 | `/usr`             |          
 | `/home/asterisk`   |     
-| `/var/log`         |
-| `/var/mail`        |
-| `/var/opt`         |
-| `/var/spool`       |
-| `/var/www`         |
-| `/var/local`       |
-| `/var/lib`         |
-| `/var/backups`     |
+| `/var              |
+
 
 ### Ports
 The following ports are exposed via Docker.
@@ -81,7 +75,6 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 ---
 
 ## Installation
-Windows users must run these commands on a bash shell
 ```bash
 # Create passwords for both MySQL root user and freepbxuser
 printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
@@ -94,8 +87,6 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt
 # Build and run
 sh build.sh
 
-# Now only Windows users must open a command prompt or powershell
-
 # Run Vault for secrets management
 docker compose exec vault-transit sh /build/configure.sh
 
@@ -103,12 +94,6 @@ docker run --name vault --network=freepbx-docker_defaultnet -d -p 8100:8100 -v v
 
 docker exec -it vault vault operator init
 
-# Now Windows users must come back to bash shell
-
-# linux users
-docker exec -it freepbx-docker-freepbx-1 /bin/bash
-
-# windows users
 docker exec -it freepbx-docker-freepbx-1 bash
 
 cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
