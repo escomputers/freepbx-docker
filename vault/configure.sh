@@ -1,16 +1,44 @@
 # copy administrator-policy with Dockerfile
-vault token create -policy=administrator-policy
-# set VAULT_TOKEN with new administrator token
 
+# create temp directory for configuring Vault
+mkdir -p /build
+
+# initialize Vault with its transit engine
+vault operator init /build/output.txt
+
+# grab root token
+root_token=$(grep -o "Initial Root Token: .*" /build/output.txt | awk '{print $4}')
+
+vault login $root_token
+
+# create administrator policy to dismiss the root token
+vault policy write administrator-policy administrator-policy.hcl
+
+# create associated token
+echo "Please copy the following token to keep using Vault"
+vault token create -policy=administrator-policy -orphan /build/admin-token.txt
+
+# grab admin token
+admin_token=$(grep -o "token .*" test.txt | awk '{print $2}')
+
+vault login $admin_token
+
+# revoke root token
+vault token revoke $root_token
+
+# enable database secret engine
 vault secrets enable database
 
+# configure connection from Vault to MySql container
 vault write database/config/mysql-database \
     plugin_name=mysql-database-plugin \
     connection_url="{{username}}:{{password}}@tcp(172.18.0.2:3306)/" \
     allowed_roles="*" \
-    username="vault" \
+    username="root" \
     password="vault_password"
 
+: '
+# Configure static roles
 vault write database/static-roles/asterisk \
     db_name=mysql-database \
     rotation_statements="ALTER USER '{{name}}' WITH PASSWORD '{{password}}';" \
@@ -23,13 +51,12 @@ vault write database/static-roles/freepbx \
     username="freepbxuser" \
     rotation_period=86400
 
-: '
+# dynamic roles
 vault write database/roles/asterisk-role \
     db_name=mysql-database \
     creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL PRIVILEGES ON asterisk.* TO '{{name}}'@'%';" \
     default_ttl="1h" \
     max_ttl="24h"
-
 vault write database/roles/asteriskcdrdb-role \
     db_name=mysql-database \
     creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO '{{name}}'@'%';" \
@@ -37,6 +64,15 @@ vault write database/roles/asteriskcdrdb-role \
     max_ttl="24h"
 '
 
+# enable app role authentication method
 vault auth enable approle
+
+# create a policy which allows app to read database credentials
 vault policy write freepbx freepbx-policy.hcl
+
+# create associated token for the app
+echo "Please copy the following token, needed by application"
 vault token create -policy="freepbx" -format json | jq -r '.auth | .client_token'
+
+# remove build directory
+rm -rf /build

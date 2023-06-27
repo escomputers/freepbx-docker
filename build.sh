@@ -9,7 +9,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
 
     # BUILD
-    docker compose up -d --build
+    cd vault-transit && docker build -t vault-transit:custom .
+    cd .. && docker compose up -d --build
 
     # Check the exit code of the build command
     build_exit_code=$?
