@@ -68,7 +68,6 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 ---
 
 ## Requirements
-- Linux x86-64 host
 - Docker >= 18.06.0+
 - Git
 - VoIP SIP trunk/trunks (DID/DIDs)
@@ -91,7 +90,7 @@ docker compose exec vault-transit sh /build/configure.sh
 
 docker run --name vault --network=freepbx-docker_defaultnet -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh vault:custom
 
-docker compose exec vault sh /build/configure.sh
+docker exec -it vault sh /build/configure.sh
 
 docker exec -it freepbx-docker-freepbx-1 bash
 
