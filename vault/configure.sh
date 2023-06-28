@@ -1,30 +1,31 @@
-# copy administrator-policy with Dockerfile
-
 # create temp directory for configuring Vault
 mkdir -p /build
 
 # initialize Vault with its transit engine
-vault operator init /build/output.txt
+vault operator init > /build/output.txt
 
 # grab root token
 root_token=$(grep -o "Initial Root Token: .*" /build/output.txt | awk '{print $4}')
 
+unset VAULT_TOKEN
 vault login $root_token
 
 # create administrator policy to dismiss the root token
-vault policy write administrator-policy administrator-policy.hcl
+vault policy write administrator-policy /usr/local/bin/administrator-policy.hcl
 
 # create associated token
-echo "Please copy the following token to keep using Vault"
-vault token create -policy=administrator-policy -orphan /build/admin-token.txt
+vault token create -policy=administrator-policy > /build/admin-token.txt
 
 # grab admin token
-admin_token=$(grep -o "token .*" test.txt | awk '{print $2}')
+admin_token=$(grep -o "token .*" /build/admin-token.txt | awk '{print $2}')
+echo "Please copy the following token to keep using Vault:"
+echo "$admin_token"
+echo ""
 
 vault login $admin_token
 
 # revoke root token
-vault token revoke $root_token
+#vault token revoke $root_token
 
 # enable database secret engine
 vault secrets enable database
@@ -35,7 +36,7 @@ vault write database/config/mysql-database \
     connection_url="{{username}}:{{password}}@tcp(172.18.0.2:3306)/" \
     allowed_roles="*" \
     username="root" \
-    password="vault_password"
+    password="mysql_root_password"
 
 : '
 # Configure static roles
@@ -68,10 +69,11 @@ vault write database/roles/asteriskcdrdb-role \
 vault auth enable approle
 
 # create a policy which allows app to read database credentials
-vault policy write freepbx freepbx-policy.hcl
+vault policy write freepbx /usr/local/bin/freepbx-policy.hcl
 
 # create associated token for the app
-echo "Please copy the following token, needed by application"
+echo ""
+echo "Please copy the following token, needed by application:"
 vault token create -policy="freepbx" -format json | jq -r '.auth | .client_token'
 
 # remove build directory

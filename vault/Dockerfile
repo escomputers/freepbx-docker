@@ -75,6 +75,10 @@ EXPOSE 8100
 # For production derivatives of this container, you shoud add the IPC_LOCK
 # capability so that Vault can mlock memory.
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY configure.sh /usr/local/bin/configure.sh
+COPY administrator-policy.hcl /usr/local/bin/
+COPY freepbx-policy.hcl /usr/local/bin/
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 COPY local.json /vault/config/local.json
