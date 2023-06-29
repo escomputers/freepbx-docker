@@ -1,3 +1,6 @@
+# grab mysql root password from environment
+password="$MYSQL_ROOT_PASSWORD"
+
 # create temp directory for configuring Vault
 mkdir -p /build
 
@@ -36,7 +39,7 @@ vault write database/config/mysql-database \
     connection_url="{{username}}:{{password}}@tcp(172.18.0.2:3306)/" \
     allowed_roles="*" \
     username="root" \
-    password="mysql_root_password"
+    password=$password
 
 : '
 # Configure static roles
