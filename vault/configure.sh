@@ -17,7 +17,7 @@ vault login $root_token
 vault policy write administrator-policy /usr/local/bin/administrator-policy.hcl
 
 # create associated token
-vault token create -policy=administrator-policy > /build/admin-token.txt
+vault token create -orphan -policy=administrator-policy > /build/admin-token.txt
 
 # grab admin token
 admin_token=$(grep -o "token .*" /build/admin-token.txt | awk '{print $2}')
@@ -25,10 +25,10 @@ echo "Please copy the following token to keep using Vault:"
 echo "$admin_token"
 echo ""
 
-vault login $admin_token
-
 # revoke root token
-#vault token revoke $root_token
+vault token revoke $root_token
+
+vault login $admin_token
 
 # enable database secret engine
 vault secrets enable database
