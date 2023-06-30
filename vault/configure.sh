@@ -41,20 +41,14 @@ vault write database/config/mysql-database \
     username="root" \
     password=$password
 
+# set root credentials rotation static role
+vault write database/static-roles/root-rotation \
+    db_name=mysql-database \
+    rotation_statements="ALTER USER '{{name}}'@'localhost' IDENTIFIED BY '{{password}}';" \
+    username="root" \
+    rotation_period=86400
+
 : '
-# Configure static roles
-vault write database/static-roles/asterisk \
-    db_name=mysql-database \
-    rotation_statements="ALTER USER '{{name}}' WITH PASSWORD '{{password}}';" \
-    username="asterisk" \
-    rotation_period=86400
-
-vault write database/static-roles/freepbx \
-    db_name=mysql-database \
-    rotation_statements=@rotation.sql \
-    username="freepbxuser" \
-    rotation_period=86400
-
 # dynamic roles
 vault write database/roles/asterisk-role \
     db_name=mysql-database \
