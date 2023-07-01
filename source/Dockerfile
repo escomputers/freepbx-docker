@@ -70,10 +70,12 @@ COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
 # Install and configure Fail2ban
-RUN apt-get install iptables sudo fail2ban -y && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf-original
+RUN apt-get install iptables jq vim sudo fail2ban -y && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf-original
 RUN adduser docker && adduser docker sudo
 RUN su - docker
 COPY fail2ban/ /etc/fail2ban/
+
+COPY install-freepbx.php /usr/src/
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 CMD ["sh", "/usr/src/entrypoint.sh"]

@@ -1,11 +1,5 @@
-# Read dynamic database secrets
-path "database/creds/asterisk-role"
+# Read database secrets
+path "database/static-roles/freepbx-role"
 {
   capabilities = ["read"]
 }
-
-path "database/creds/asteriskcdrdb-role"
-{
-  capabilities = ["read"]
-}
-

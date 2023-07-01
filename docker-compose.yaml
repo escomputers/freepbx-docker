@@ -36,12 +36,15 @@ services:
       - ./my.cnf:/etc/mysql/my.cnf
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - defaultnet
+      defaultnet:
+        ipv4_address: 172.18.0.2
 
   freepbx:
     image: escomputers/freepbx:latest
     cap_add:
       - NET_ADMIN
+    environment:
+      VAULT_ADDR: http://172.18.0.5:8100
     volumes:
       - var_data:/var
       - etc_data:/etc
@@ -78,6 +81,3 @@ services:
       - defaultnet
     ports:
       - "8200:8200/tcp"
-    depends_on:
-      - db
-      - freepbx

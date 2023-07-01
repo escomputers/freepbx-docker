@@ -88,13 +88,14 @@ bash build.sh
 # Run Vault for secrets management
 docker compose exec vault-transit sh /build/configure.sh
 
-docker run --name vault --network=freepbx-docker_defaultnet -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh -e MYSQL_ROOT_PASSWORD=$(cat mysql_root_password.txt) vault:custom
+docker run --name vault --network=freepbx-docker_defaultnet --ip=172.18.0.5 -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh -e MYSQL_ROOT_PASSWORD=$(cat mysql_root_password.txt) vault:custom
 
+# Configure Vault
 docker exec -it vault sh /usr/local/bin/configure.sh
 
-docker exec -it freepbx-docker-freepbx-1 bash
-
-cd freepbx/ && ./install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
+# Install Freepbx
+# export VAULT_TOKEN=
+docker compose exec freepbx php /usr/src/install-freepbx.php
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!

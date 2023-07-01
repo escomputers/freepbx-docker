@@ -48,19 +48,11 @@ vault write database/static-roles/root-rotation \
     username="root" \
     rotation_period=86400
 
-: '
-# dynamic roles
-vault write database/roles/asterisk-role \
+vault write database/static-roles/freepbx-role \
     db_name=mysql-database \
-    creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL PRIVILEGES ON asterisk.* TO '{{name}}'@'%';" \
-    default_ttl="1h" \
-    max_ttl="24h"
-vault write database/roles/asteriskcdrdb-role \
-    db_name=mysql-database \
-    creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO '{{name}}'@'%';" \
-    default_ttl="1h" \
-    max_ttl="24h"
-'
+    rotation_statements="GRANT ALL PRIVILEGES ON asterisk.* TO 'freepbxuser'@'%'; GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO 'freepbxuser'@'%';" \
+    username="freepbxuser" \
+    rotation_period=86400
 
 # enable app role authentication method
 vault auth enable approle
