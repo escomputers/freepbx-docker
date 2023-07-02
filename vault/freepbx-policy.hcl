@@ -1,5 +1,10 @@
 # Read database secrets
-path "database/static-roles/freepbx-role"
+path "database/static-creds/*"
+{
+  capabilities = ["read"]
+}
+
+path "database/roles/*"
 {
   capabilities = ["read"]
 }
