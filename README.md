@@ -14,7 +14,7 @@ Upon starting this multi-container application, it will give you a turnkey PBX s
 * NodeJS 14.x
 * Hashicorp Vault (state of art) for secret management
 
-Dockerfile 
+Dockerfile scanned by:
 
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
