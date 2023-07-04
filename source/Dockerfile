@@ -75,7 +75,7 @@ RUN adduser docker && adduser docker sudo
 RUN su - docker
 COPY fail2ban/ /etc/fail2ban/
 
-COPY install-freepbx.php /usr/src/
+COPY install-freepbx.sh /usr/src/
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 CMD ["sh", "/usr/src/entrypoint.sh"]

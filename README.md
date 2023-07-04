@@ -12,18 +12,22 @@ Upon starting this multi-container application, it will give you a turnkey PBX s
 * Base image Debian [bullseye-slim](https://hub.docker.com/_/debian/)
 * Apache2
 * NodeJS 14.x
+* Hashicorp Vault (state of art) for secret management
 
 Dockerfile 
 
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
 ### Volumes
-| Directories        |               
-| ----------------   |            
-| `/etc`             |          
-| `/usr`             |          
-| `/home/asterisk`   |     
-| `/var              |
+| Directories        | Service |              
+| ----------------   | ------- |          
+| `/etc`             | freepbx |         
+| `/usr`             | freepbx |            
+| `/home/asterisk`   | freepbx |     
+| `/var`             | freepbx |  
+| `/var/lib`         | mysql   |  
+| `/vault`           | vault-transit | 
+| `/vault`           | vault   | 
 
 
 ### Ports
@@ -76,26 +80,55 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 
 ## Installation
 ```bash
-# Create passwords for both MySQL root user and freepbxuser
-printf "yourstrongmysqlrootpassword" > mysql_root_password.txt
+# Create passwords for MySQL root user
+printf "your-mysql-root-password" > mysql_root_password.txt
+
+# Create passwords for Freepbx user
+sed -i "s/'password'/'your-freepbx-password'/g" init.sql
 
 # Set proper file permissions
 chmod 600 mysql_root_password.txt
 
+# Don't worry, passwords will be rotated automatically by Vault everyday,
+# rotation period can be customize by editing vault/configure.sh or via Vault UI
+
 # Build and run
 bash build.sh
 
-# Run Vault for secrets management
+# Configure first Vault instance for auto unsealing
 docker compose exec vault-transit sh /build/configure.sh
 
+# Run second Vault for secrets management (auto unsealed by first Vault instance)
 docker run --name vault --network=freepbx-docker_defaultnet --ip=172.18.0.5 -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh -e MYSQL_ROOT_PASSWORD=$(cat mysql_root_password.txt) vault:custom
 
 # Configure Vault
 docker exec -it vault sh /usr/local/bin/configure.sh
 
+# Run Freepbx
+docker run -d \
+  --name freepbx \
+  --cap-add=NET_ADMIN \
+  -e VAULT_ADDR=http://172.18.0.5:8100 \
+  -e VAULT_TOKEN=token-printed-by-usr_local_bin_configure.sh \
+  -v var_data:/var \
+  -v etc_data:/etc \
+  -v usr_data:/usr \
+  -v asterisk_home:/home/asterisk \
+  --network=freepbx-docker_defaultnet \
+  --ip=172.18.0.20 \
+  -p 80:80/tcp \
+  -p 5038:5038/tcp \
+  -p 8001:8001/tcp \
+  -p 8003:8003/tcp \
+  -p 4569:4569/udp \
+  -p 5060:5060/udp \
+  -p 5061:5061/udp \
+  -p 5160:5160/udp \
+  -p 5161:5161/udp \
+  escomputers/freepbx:latest
+
 # Install Freepbx
-# export VAULT_TOKEN=
-docker compose exec freepbx php /usr/src/install-freepbx.php
+docker exec -it freepbx bash /usr/src/install-freepbx.sh
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!

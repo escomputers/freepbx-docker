@@ -2,10 +2,6 @@ version: '3.7'
 
 volumes:
   mysql_data:
-  var_data:
-  etc_data:
-  usr_data:
-  asterisk_home:
   vault-transit:
 
 networks:
@@ -37,36 +33,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       defaultnet:
-        ipv4_address: 172.18.0.2
-
-  freepbx:
-    image: escomputers/freepbx:latest
-    cap_add:
-      - NET_ADMIN
-    environment:
-      VAULT_ADDR: http://172.18.0.5:8100
-    volumes:
-      - var_data:/var
-      - etc_data:/etc
-      - usr_data:/usr
-      - asterisk_home:/home/asterisk
-    networks:
-      - defaultnet
-    ports:
-      # If you aren't using a reverse proxy
-      - "80:80/tcp"
-      # If you want SSL Support and not using a reverse proxy
-      # - "443:443/tcp"
-      - "5038:5038/tcp"
-      - "8001:8001/tcp"
-      - "8003:8003/tcp"
-      - "4569:4569/udp"
-      - "5060:5060/udp"
-      - "5061:5061/udp"
-      - "5160:5160/udp"
-      - "5161:5161/udp"
-    depends_on:
-      - db
+        ipv4_address: 172.18.0.10
 
   vault-transit:
     restart: always

@@ -36,7 +36,7 @@ vault secrets enable database
 # configure connection from Vault to MySql container
 vault write database/config/mysql-database \
     plugin_name=mysql-database-plugin \
-    connection_url="{{username}}:{{password}}@tcp(172.18.0.2:3306)/" \
+    connection_url="{{username}}:{{password}}@tcp(172.18.0.10:3306)/" \
     allowed_roles="*" \
     username="root" \
     password=$password
@@ -48,9 +48,10 @@ vault write database/static-roles/root-rotation \
     username="root" \
     rotation_period=86400
 
+# set freepbx user credentials rotation
 vault write database/static-roles/freepbx-role \
     db_name=mysql-database \
-    rotation_statements="GRANT ALL PRIVILEGES ON asterisk.* TO 'freepbxuser'@'%'; GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO 'freepbxuser'@'%';" \
+    rotation_statements="ALTER USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';" \
     username="freepbxuser" \
     rotation_period=86400
 
@@ -62,7 +63,7 @@ vault policy write freepbx /usr/local/bin/freepbx-policy.hcl
 
 # create associated token for the app
 echo ""
-echo "Please copy the following token, needed by application:"
+echo "Please copy the following token, needed by application for connecting to database:"
 vault token create -policy="freepbx" -format json | jq -r '.auth | .client_token'
 
 # remove build directory
