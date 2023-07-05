@@ -131,13 +131,13 @@ docker run -d \
 docker exec -it freepbx bash /usr/src/install-freepbx.sh
 ```
 
-Login to the web server's admin URL, enter your admin username, admin password, and email address and start configuring the system!
+Login to the web server's admin URL, enter your admin username, admin password and email address and start configuring the system!
 
 ### Optional but recommended steps
 ```bash
-docker compose exec freepbx fwconsole ma disablerepo commercial
-docker compose exec freepbx fwconsole ma installall
-docker compose exec freepbx fwconsole ma delete firewall
-docker compose exec freepbx fwconsole reload
-docker compose exec freepbx fwconsole restart
+docker exec -it freepbx fwconsole ma disablerepo commercial
+docker exec -it freepbx fwconsole ma installall
+docker exec -it freepbx fwconsole ma delete firewall
+docker exec -it freepbx fwconsole reload
+docker exec -it freepbx fwconsole restart
 ```
