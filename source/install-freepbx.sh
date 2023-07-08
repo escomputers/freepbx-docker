@@ -20,7 +20,6 @@ function getMySQLCredentialsFromVault() {
     # Parse the JSON response from Vault
     password=$(echo "$response" | jq -r '.data.password')
 
-    echo "$password"
 }
 
 password=$(getMySQLCredentialsFromVault)
