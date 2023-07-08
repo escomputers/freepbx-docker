@@ -90,7 +90,7 @@ sed -i "s/'password'/'your-freepbx-password'/g" init.sql
 chmod 600 mysql_root_password.txt
 
 # Don't worry, passwords will be rotated automatically by Vault everyday,
-# rotation period can be customize by editing vault/configure.sh or via Vault UI
+# rotation period can be customized by editing vault/configure.sh or via Vault UI
 
 # Build and run
 bash build.sh
