@@ -24,7 +24,8 @@ Dockerfile scanned by:
 | `/etc`             | freepbx |         
 | `/usr`             | freepbx |            
 | `/home/asterisk`   | freepbx |     
-| `/var`             | freepbx |  
+| `/var`             | freepbx | 
+| `/var/run/encrypted-secret` | freepbx shared with vault sidecar |
 | `/var/lib`         | mysql   |  
 | `/vault`           | vault-transit | 
 | `/vault`           | vault   | 
