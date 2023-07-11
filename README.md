@@ -101,7 +101,16 @@ bash build.sh
 docker compose exec vault-transit sh /build/configure.sh
 
 # Run second Vault for secrets management (auto unsealed by first Vault instance)
-docker run --name vault --network=freepbx-docker_defaultnet --ip=172.18.0.5 -d -p 8100:8100 -v vault:/vault --cap-add=IPC_LOCK -e VAULT_ADDR=http://127.0.0.1:8100 -e VAULT_TOKEN=token-printed-by-configure.sh -e MYSQL_ROOT_PASSWORD=$(cat mysql_root_password.txt) vault:custom
+docker run -d --name vault \
+ --network=freepbx-docker_defaultnet \
+ --ip=172.18.0.5 \
+ -p 8100:8100 \
+ -v vault:/vault 
+ --cap-add=IPC_LOCK \
+ -e VAULT_ADDR=http://127.0.0.1:8100 \
+ -e VAULT_TOKEN=token-printed-by-configure.sh \
+ -e MYSQL_ROOT_PASSWORD=$(cat mysql_root_password.txt) \
+ vault:custom
 
 # Configure Vault
 docker exec -it vault sh /usr/local/bin/configure.sh
