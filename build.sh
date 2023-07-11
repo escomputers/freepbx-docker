@@ -4,12 +4,6 @@ network_interface="freepbxint"
 # LINUX HOST CASE
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     echo "linux detected"
-    # Check if jq is installed
-    if ! command -v jq &> /dev/null; then
-        echo "jq is not installed. Installing..."
-        sudo apt update
-        sudo apt install -y jq
-    fi
 
     # Check if Docker is installed
     if ! command -v docker &> /dev/null; then
@@ -29,18 +23,22 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     fi
 
-    # BUILD
+    # BUILD VAULT TRANSIT
     cd vault-transit && docker build -t vault-transit:custom .
+
+    # BUILD FREEPBX INFRASTRUCTURE
     cd .. && docker compose up -d --build
 
     # Check the exit code of the build command
     build_exit_code=$?
     if [ $build_exit_code -eq 0 ]; then
-        # CONFIGURE VAULT
+        # BUILD VAULT
         docker build -t vault:custom vault/
 
-        # OPEN RTP PORTS ON IPTABLES
+        # BUILD VAULT SIDECAR
+        docker build -t sidecar sidecar/
 
+        # OPEN RTP PORTS ON IPTABLES FOR FREEPBX
         # if DOCKER chain rule does not exist, add it
         if ! iptables -L DOCKER -n -v | grep "udp dpts:16384:32767"; then
             iptables -A DOCKER -d "$freepbxip" ! -i "$network_interface" -o "$network_interface" -p udp -m udp --dport 16384:32767 -j ACCEPT
@@ -78,14 +76,20 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
 # WINDOWS HOST CASE
 elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
-    # BUILD
-    docker compose up -d --build
+    # BUILD VAULT TRANSIT
+    cd vault-transit && docker build -t vault-transit:custom .
+
+    # BUILD FREEPBX INFRASTRUCTURE
+    cd .. && docker compose up -d --build
 
     # Check the exit code of the build command
     build_exit_code=$?
     if [ $build_exit_code -eq 0 ]; then
-        # CONFIGURE VAULT
+        # BUILD VAULT
         docker build -t vault:custom vault/
+
+        # BUILD VAULT SIDECAR
+        docker build -t sidecar sidecar/
 
         # OPEN RTP PORTS ON WINDOWS FIREWALL
         echo "windows os detected"

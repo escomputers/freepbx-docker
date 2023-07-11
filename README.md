@@ -90,7 +90,8 @@ sed -i "s/'password'/'your-freepbx-password'/g" init.sql
 chmod 600 mysql_root_password.txt
 
 # Don't worry, passwords will be rotated automatically by Vault everyday,
-# rotation period can be customized by editing vault/configure.sh or via Vault UI
+# rotation period can be customized by editing vault/configure.sh or via Vault UI.
+# Do not set role TTL duration less than 60 seconds otherwise application won't be able to read it.
 
 # Build and run
 bash build.sh
@@ -108,8 +109,7 @@ docker exec -it vault sh /usr/local/bin/configure.sh
 docker run -d \
   --name freepbx \
   --cap-add=NET_ADMIN \
-  -e VAULT_ADDR=http://172.18.0.5:8100 \
-  -e VAULT_TOKEN=token-printed-by-usr_local_bin_configure.sh \
+  -v var_run:/var/run/encrypted-secret \
   -v var_data:/var \
   -v etc_data:/etc \
   -v usr_data:/usr \
@@ -127,8 +127,18 @@ docker run -d \
   -p 5161:5161/udp \
   escomputers/freepbx:latest
 
+# Run Vault sidecar
+docker run -d \
+  --name sidecar-vault \
+  -e VAULT_ADDR=http://172.18.0.5:8100 \
+  -e VAULT_TOKEN=token-printed-by-usr_local_bin_configure.sh \
+  -e ENCRYPTION_KEY=your-strong-encryption-key \
+  -v var_run:/var/run/encrypted-secret \
+  --network=freepbx-docker_defaultnet \
+  sidecar:latest
+
 # Install Freepbx
-docker exec -it freepbx bash /usr/src/install-freepbx.sh
+docker exec -it freepbx bash /usr/local/bin/credentials.sh --install
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password and email address and start configuring the system!

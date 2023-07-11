@@ -32,7 +32,7 @@ RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
 
 # Install MySQL Connector ODBC
 RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
-COPY odbc /usr/src/odbc
+COPY odbc-source /usr/src/odbc
 RUN cd odbc/ && dpkg -i mysql-common_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
@@ -69,13 +69,23 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
+# Install OpenSSL
+RUN wget https://www.openssl.org/source/openssl-3.1.1.tar.gz
+RUN tar -xf openssl-3.1.1.tar.gz && rm openssl-3.1.1.tar.gz
+RUN cd openssl-3.1.1 && perl Configure 
+RUN cd openssl-3.1.1 && make 
+RUN cd openssl-3.1.1 && make install
+RUN ldconfig /usr/local/lib64/
+
 # Install and configure Fail2ban
 RUN apt-get install iptables jq vim sudo fail2ban -y && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf-original
 RUN adduser docker && adduser docker sudo
 RUN su - docker
 COPY fail2ban/ /etc/fail2ban/
 
-COPY install-freepbx.sh /usr/src/
+# Copy credentials management scripts
+COPY credentials.sh /usr/local/bin/credentials.sh
+COPY secret-gen.sh /usr/local/bin/secret-gen.sh
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 CMD ["sh", "/usr/src/entrypoint.sh"]
