@@ -1,14 +1,14 @@
 # Start Asterisk service
 /usr/src/freepbx/start_asterisk start &
 
-# Generate RSA keys
-bash /usr/local/bin/credentials.sh --gen-keys
-
 # Generate ENCRYPTION_KEY
-bash /usr/local/bin/secret-gen.sh
+bash /usr/local/bin/credentials.sh --gen-key
 
-# Start crontab
-service cron start
+# Generate RSA keys
+bash /usr/local/bin/credentials.sh --gen-rsa
+
+# Add cronjob
+bash /usr/local/bin/credentials.sh --add-cron
 
 # Start Fail2ban
 fail2ban-client start &

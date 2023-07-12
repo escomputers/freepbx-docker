@@ -1,14 +1,25 @@
 #!/bin/bash
 
-# Load profile variables
-source /etc/profile
 
-# Get encryption key
-encryption_key="$ENCRYPTION_KEY"
+# GENERATE ENCRYPTION_KEY
+if [[ "$*" == *"--gen-key"* ]]; then
+    # Generate a random password
+    password=$(/usr/local/bin/openssl/bin/openssl rand -base64 64)
 
-if [[ "$*" == *"--gen-keys"* ]]; then
-    # Generate RSA keys
+    # Append the export command to /etc/profile
+    echo "export ENCRYPTION_KEY='$password'" | tee -a /etc/profile
+fi
+
+
+# GENERATE RSA KEYS
+if [[ "$*" == *"--gen-rsa"* ]]; then
     echo "Generating RSA keys..."
+
+    # Load profile variables
+    source /etc/profile
+
+    # Get encryption key
+    encryption_key="$ENCRYPTION_KEY"
 
     # Create a temporary file to hold the password
     temp_file=$(mktemp)
@@ -26,8 +37,16 @@ if [[ "$*" == *"--gen-keys"* ]]; then
     rm "$temp_file"
 fi
 
+
+# UPDATE FREEPBX CONFIG WITH NEW PASSWORD
 if [[ "$*" == *"--update"* ]]; then
     echo "Reading secret..."
+    # Load profile variables
+    source /etc/profile
+
+    # Get encryption key
+    encryption_key="$ENCRYPTION_KEY"
+
     # Decrypt the content
     decrypted_content=$(/usr/local/bin/openssl/bin/openssl pkeyutl -decrypt -passin pass:$encryption_key -inkey /root/freepbx_private.pem -in /var/run/encrypted-secret/secret.enc)
     echo "Updating FreePBX configuration"
@@ -36,14 +55,31 @@ if [[ "$*" == *"--update"* ]]; then
 
     # Update
     sed -i "s/\(\$amp_conf\['AMPDBPASS'\] = \).*/\1'$escaped_content';/" /etc/freepbx.conf
-    
 fi
 
+
+# INSTALL
 if [[ "$*" == *"--install"* ]]; then
-    # Run install command when --install argument is present
     echo "Installing..."
+    # Load profile variables
+    source /etc/profile
+
+    # Get encryption key
+    encryption_key="$ENCRYPTION_KEY"
+
     # Decrypt the content
     decrypted_content=$(/usr/local/bin/openssl/bin/openssl pkeyutl -decrypt -passin pass:$encryption_key -inkey /root/freepbx_private.pem -in /var/run/encrypted-secret/secret.enc)
     command="php /usr/src/freepbx/install -n --dbuser=freepbxuser --dbpass=$(printf "%q" "$decrypted_content") --dbhost=db"
     eval "$command"
+fi
+
+
+# ADD CRONJOB
+if [[ "$*" == *"--add-cron"* ]]; then
+    # Add cronjob
+    echo "* * * * * bash /usr/local/bin/credentials.sh --update" >> update-credentials
+    # Install new cron file
+    crontab update-credentials
+    # Start service
+    service cron start
 fi
