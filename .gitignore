@@ -3,8 +3,8 @@
 
 # Source files
 freepbx/
-odbc-source/
-asterisk-*
+odbc/
+asterisk-16.*
 
 .DS_Store*
 
