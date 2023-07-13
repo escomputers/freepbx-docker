@@ -75,7 +75,6 @@ RUN tar -xf openssl-3.1.1.tar.gz && rm openssl-3.1.1.tar.gz
 RUN cd openssl-3.1.1 && perl Configure 
 RUN cd openssl-3.1.1 && make 
 RUN cd openssl-3.1.1 && make install
-RUN ldconfig /usr/local/lib64/
 
 # Install and configure Fail2ban
 RUN apt-get install iptables jq vim sudo fail2ban -y && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf-original
