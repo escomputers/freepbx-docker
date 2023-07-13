@@ -85,7 +85,6 @@ COPY fail2ban/ /etc/fail2ban/
 
 # Copy credentials management scripts
 COPY credentials.sh /usr/local/bin/credentials.sh
-COPY secret-gen.sh /usr/local/bin/secret-gen.sh
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 CMD ["sh", "/usr/src/entrypoint.sh"]
