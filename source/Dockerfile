@@ -32,7 +32,7 @@ RUN sed -i 's/www-data/asterisk/' /etc/apache2/envvars
 
 # Install MySQL Connector ODBC
 RUN apt install unixodbc-dev unixodbc dpkg-dev libodbc1 odbcinst1debian2 wget -y
-COPY odbc-source /usr/src/odbc
+COPY odbc /usr/src/odbc
 RUN cd odbc/ && dpkg -i mysql-common_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-community-client-plugins_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
