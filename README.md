@@ -105,7 +105,7 @@ docker run -d --name vault \
  --network=freepbx-docker_defaultnet \
  --ip=172.18.0.5 \
  -p 8100:8100 \
- -v vault:/vault 
+ -v vault:/vault \
  --cap-add=IPC_LOCK \
  -e VAULT_ADDR=http://127.0.0.1:8100 \
  -e VAULT_TOKEN=token-printed-by-configure.sh \
