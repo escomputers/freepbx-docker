@@ -4,9 +4,6 @@
 # Generate RSA keys
 bash /usr/local/bin/credentials.sh --gen-rsa
 
-# Add cronjob
-bash /usr/local/bin/credentials.sh --add-cron
-
 # Start Fail2ban
 fail2ban-client start &
 

@@ -85,7 +85,7 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 printf "your-mysql-root-password" > mysql_root_password.txt
 
 # Create passwords for Freepbx user
-sed -i "s/'password'/'your-freepbx-password'/g" init.sql
+sed -i "s/'password'/'your-password'/g" init.sql
 
 # Set proper file permissions
 chmod 600 mysql_root_password.txt

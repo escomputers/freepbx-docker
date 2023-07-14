@@ -44,14 +44,24 @@ if [[ "$*" == *"--update"* ]]; then
     # Get encryption key
     encryption_key="$ENCRYPTION_KEY"
 
+    # Create a temporary file to hold the password
+    temp_file=$(mktemp)
+
+    # Write the password to the temporary file
+    echo "$encryption_key" > "$temp_file"
+
     # Decrypt the content
-    decrypted_content=$(/usr/local/bin/openssl pkeyutl -decrypt -passin 'pass:$encryption_key' -inkey /root/freepbx_private.pem -in /var/run/encrypted-secret/secret.enc)
-    echo "Updating FreePBX configuration"
+    decrypted_content=$(/usr/local/bin/openssl pkeyutl -decrypt -passin file:"$temp_file" -inkey /root/freepbx_private.pem -in /var/run/encrypted-secret/secret.enc)
+
     # Escape any special characters in the decrypted content
     escaped_content=$(printf '%s\n' "$decrypted_content" | sed -e 's/[]\/$*.^[]/\\&/g')
 
     # Update
+    echo "Updating FreePBX configuration"
     sed -i "s/\(\$amp_conf\['AMPDBPASS'\] = \).*/\1'$escaped_content';/" /etc/freepbx.conf
+
+    # Remove the temporary file
+    rm "$temp_file"
 fi
 
 
@@ -82,11 +92,7 @@ if [[ "$*" == *"--install"* ]]; then
 
     # Remove the temporary file
     rm "$temp_file"
-fi
 
-
-# ADD CRONJOB
-if [[ "$*" == *"--add-cron"* ]]; then
     # Add cronjob
     echo "* * * * * bash /usr/local/bin/credentials.sh --update" >> update-credentials
     # Install new cron file

@@ -25,6 +25,7 @@ RUN apt-get update && apt-get -y install \
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
+RUN npm install -g pm2
 
 # Modifications for Apache
 RUN sudo sed -i 's/upload_max_filesize = 20M/upload_max_filesize = 120M/' /etc/php/7.4/apache2/php.ini
