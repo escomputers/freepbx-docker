@@ -1,9 +1,6 @@
 # Start Asterisk service
 /usr/src/freepbx/start_asterisk start &
 
-# Generate ENCRYPTION_KEY
-bash /usr/local/bin/credentials.sh --gen-key
-
 # Generate RSA keys
 bash /usr/local/bin/credentials.sh --gen-rsa
 

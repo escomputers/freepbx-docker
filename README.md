@@ -119,6 +119,7 @@ docker exec -it vault sh /usr/local/bin/configure.sh
 docker run -d \
   --name freepbx \
   --cap-add=NET_ADMIN \
+  -e ENCRYPTION_KEY=your-strong-encryption-key \
   -v var_run:/var/run/encrypted-secret \
   -v var_data:/var \
   -v etc_data:/etc \
@@ -137,7 +138,7 @@ docker run -d \
   -p 5161:5161/udp \
   escomputers/freepbx:latest
 
-# Run FreePbx sidecar
+# Run FreePbx sidecar (ENCRYPTION_KEY must be the same of FreePbx ENCRYPTION_KEY)
 docker run -d \
   --name sidecar-freepbx \
   -e VAULT_ADDR=http://172.18.0.5:8100 \
