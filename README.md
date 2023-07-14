@@ -2,7 +2,7 @@
 
 This is MVP [Docker Compose](https://docs.docker.com/compose/) application for having [FreePBX](https://www.freepbx.org) - A Voice over IP manager for [Asterisk](https://www.asterisk.org), running in containers.
 
-Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling.
+Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling and also enterprise grade security for managing secrets.
 
 * FreePBX 16
 * Asterisk 16
@@ -20,7 +20,7 @@ Dockerfile scanned by:
 
 
 ### High level scenario
-<img src="https://i.ibb.co/WG92pwK/Hashicorp-Vault-Database-integration.jpg" alt="logic-scenario" ></img>
+<img src="https://i.ibb.co/yNW8Xcv/Hashicorp-Vault-Database-integration.jpg" alt="logic-scenario" ></img>
 
 
 ### Volumes
