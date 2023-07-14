@@ -18,6 +18,11 @@ Dockerfile scanned by:
 
 <img src="https://dl.dropboxusercontent.com/s/is8aj5ld2ywfw6i/scanned-by-snyk.png" alt="scanned by snyk" width="151" height="86"></img>
 
+
+### High level scenario
+<img src="https://i.ibb.co/WG92pwK/Hashicorp-Vault-Database-integration.jpg" alt="logic-scenario" ></img>
+
+
 ### Volumes
 | Directories        | Service |              
 | ----------------   | ------- |          
