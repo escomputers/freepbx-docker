@@ -89,10 +89,10 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 
 ## Installation
 ```bash
-# Create passwords for MySQL root user
+# Create password for MySQL root user
 printf "your-mysql-root-password" > mysql_root_password.txt
 
-# Create passwords for Freepbx user
+# Create password for Freepbx user
 sed -i "s/'password'/'your-password'/g" init.sql
 
 # Set proper file permissions
