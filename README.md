@@ -23,6 +23,10 @@ Dockerfile scanned by:
 <img src="https://i.ibb.co/yNW8Xcv/Hashicorp-Vault-Database-integration.jpg" alt="logic-scenario" ></img>
 
 
+### Implementation
+<img src="https://i.ibb.co/6sn1Npg/Free-PBX-Hashicorp-Vault-implementation.jpg" alt="implementation" ></img>
+
+
 ### Volumes
 | Directories        | Service |              
 | ----------------   | ------- |          
@@ -30,7 +34,7 @@ Dockerfile scanned by:
 | `/usr`             | freepbx |            
 | `/home/asterisk`   | freepbx |     
 | `/var`             | freepbx | 
-| `/var/run/encrypted-secret` | freepbx shared with vault sidecar |
+| `/var/run/encrypted-secret` | freepbx shared with sidecar |
 | `/var/lib`         | mysql   |  
 | `/vault`           | vault-transit | 
 | `/vault`           | vault   | 
@@ -59,13 +63,12 @@ So, `build.sh` will take care of iptables configuration, besides building and ru
 ### Notes
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
+- Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
 - For Windows hosts, all commands must be run as Administrator (do not use Visual Studio terminals, Docker must be run as administrator too). Moreover you could face low memory condition which could stop the build process. To fix this, you must ensure WSL is having proper RAM allocation, so create a file named .wslconfig inside user home directory `%UserProfile%` with the following content (adjust memory value according to your Windows host):
 ```
 [wsl2]
 memory=8GB
 ```
-
-- Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
 
 ## Known issues
 Dashboard loads very slowly, displayed correctly after 90 seconds.
