@@ -146,7 +146,7 @@ docker run -d \
   -p 5161:5161/udp \
   escomputers/freepbx:latest
 
-# Run FreePbx sidecar (ENCRYPTION_KEY must be the same of FreePbx ENCRYPTION_KEY)
+# Run FreePbx sidecar
 docker run -d \
   --name sidecar-freepbx \
   -e VAULT_ADDR=http://172.18.0.5:8100 \
