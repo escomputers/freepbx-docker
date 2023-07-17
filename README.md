@@ -102,8 +102,14 @@ chmod 600 mysql_root_password.txt
 # rotation period can be customized by editing vault/configure.sh or via Vault UI.
 # Do not set role TTL duration less than 60 seconds otherwise application won't be able to read it.
 
-# Build and run
+# Optional, only if you need Docker installed
+bash build.sh --install-docker
+
+# Build images, run database + vault transit and configure RTP ports
 bash build.sh
+
+# Next steps are purposely manual due to security reasons related to
+# configuring Vault in an automated way
 
 # Configure first Vault instance for auto unsealing
 docker compose exec vault-transit sh /build/configure.sh
@@ -157,7 +163,10 @@ docker run -d \
   sidecar:latest
 
 # Install Freepbx
-docker exec -it freepbx bash /usr/local/bin/credentials.sh --install
+bash build.sh --install-freepbx
+
+# Optional, clean up containers, network and volumes
+bash build.sh --clean-all
 ```
 
 Login to the web server's admin URL, enter your admin username, admin password and email address and start configuring the system!

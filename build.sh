@@ -1,44 +1,64 @@
 freepbxip="172.18.0.20"
 network_interface="freepbxint"
 
-# LINUX HOST CASE
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo "linux detected"
+# DOCKER INSTALL
+if [[ "$*" == *"--install-docker"* ]]; then
+    sudo apt-get update
+    sudo apt-get install \
+        ca-certificates \
+        curl \
+        gnupg
+    sudo mkdir -m 0755 -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    echo \
+    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-    # Check if Docker is installed
-    if ! command -v docker &> /dev/null; then
-        echo "Docker is not installed. Installing..."
-        sudo apt-get update
-        sudo apt-get install \
-            ca-certificates \
-            curl \
-            gnupg
-        sudo mkdir -m 0755 -p /etc/apt/keyrings
-        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-        echo \
-        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        sudo apt-get update
-        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-    fi
+# INSTALL FREEPBX
+elif [[  "$*" == *"--install-freepbx"*  ]]; then
+    docker exec -it freepbx bash /usr/local/bin/credentials.sh --install
 
-    # BUILD VAULT TRANSIT
-    cd vault-transit && docker build -t vault-transit:custom .
+# CLEAN
+elif [[  "$*" == *"--clean-all"*  ]]; then
+  docker container stop freepbx-docker-db-1 && docker container rm freepbx-docker-db-1
+  docker container stop freepbx-docker-vault-transit-1 && docker container rm freepbx-docker-vault-transit-1 
+  docker container stop vault && docker container rm vault
+  docker container stop sidecar-freepbx && docker container rm sidecar-freepbx
+  docker container stop freepbx && docker container rm freepbx
+  docker volume rm vault
+  docker volume rm var_run
+  docker volume rm var_data
+  docker volume rm usr_data
+  docker volume rm etc_data
+  docker volume rm asterisk_home
+  docker volume rm freepbx-docker_mysql_data
+  docker volume rm freepbx-docker_vault-transit
+  docker network rm freepbx-docker_defaultnet
 
-    # BUILD FREEPBX INFRASTRUCTURE
-    cd .. && docker compose up -d --build
+# MACOS HOST CASE
+elif [[  "$OSTYPE" == "darwin"*   ]]; then
+    echo "mac os detected, currently not supported"
 
-    # Check the exit code of the build command
-    build_exit_code=$?
-    if [ $build_exit_code -eq 0 ]; then
-        # BUILD VAULT
-        docker build -t vault:custom vault/
+# BUILD AND RUN (no arguments passed)
+else
+    # Vault transit image
+    docker build -t vault-transit:custom vault-transit/
 
-        # BUILD VAULT SIDECAR
-        docker build -t sidecar sidecar/
+    # Vault
+    docker build -t vault:custom vault/
 
-        # OPEN RTP PORTS ON IPTABLES FOR FREEPBX
+    # Sidecar
+    docker build -t sidecar sidecar/
+
+    # Database and Vault transit + run
+    docker compose up -d --build
+
+    echo "Configuring firewall rules for RTP ports..."
+    # OPEN RTP PORTS ON IPTABLES FOR FREEPBX FOR LINUX HOSTS
+    if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
         # if DOCKER chain rule does not exist, add it
         if ! iptables -L DOCKER -n -v | grep "udp dpts:16384:32767"; then
             iptables -A DOCKER -d "$freepbxip" ! -i "$network_interface" -o "$network_interface" -p udp -m udp --dport 16384:32767 -j ACCEPT
@@ -65,44 +85,14 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             echo "rule for NAT chain already exists, skipping..."
             echo ""
         fi
-    else
-        echo "Build failed with exit code: $build_exit_code. Exiting the script."
-        exit 1
-    fi
 
-# MACOS HOST CASE
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "mac os detected, currently not supported"
-
-# WINDOWS HOST CASE
-elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
-    # BUILD VAULT TRANSIT
-    cd vault-transit && docker build -t vault-transit:custom .
-
-    # BUILD FREEPBX INFRASTRUCTURE
-    cd .. && docker compose up -d --build
-
-    # Check the exit code of the build command
-    build_exit_code=$?
-    if [ $build_exit_code -eq 0 ]; then
-        # BUILD VAULT
-        docker build -t vault:custom vault/
-
-        # BUILD VAULT SIDECAR
-        docker build -t sidecar sidecar/
-
-        # OPEN RTP PORTS ON WINDOWS FIREWALL
-        echo "windows os detected"
+    # OPEN RTP PORTS ON IPTABLES FOR FREEPBX FOR WINDOWS HOSTS
+    elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
         netsh advfirewall firewall add rule name="Allow UDP Port Range" dir=in action=allow protocol=UDP localport=16384-32767 remoteport=16384-32767 localip=127.0.0.1 remoteip="$freepbxip"
         netsh_exit_code=$?
-        if [ $netsh_exit_code -eq 0 ]; then
-            echo "RTP ports allowed on windows"
+        if [[  $netsh_exit_code -eq 0  ]]; then
+            echo "RTP ports allowed on Windows"
         fi
-    else
-        echo "Build failed with exit code: $build_exit_code. Exiting the script."
-        exit 1
     fi
-else
-    # Unknown error
-    echo "cannot detect os type"
+
 fi
