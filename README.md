@@ -4,6 +4,8 @@ This is MVP [Docker Compose](https://docs.docker.com/compose/) application for h
 
 Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling and also enterprise grade security for managing secrets.
 
+Check this other repo out for running this app in [Kubernetes](https://github.com/escomputers/k8s-freepbx)
+
 * FreePBX 16
 * Asterisk 16
 * MySQL database support
@@ -75,7 +77,7 @@ Dashboard loads very slowly, displayed correctly after 90 seconds.
 
 ---
 
-## In progress
+## TODO
 * TLS termination
 
 ---
