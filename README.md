@@ -4,6 +4,8 @@ This is MVP [Docker Compose](https://docs.docker.com/compose/) application for h
 
 Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling and also enterprise grade security for managing secrets.
 
+For a simplified version without Vault, check out the other branch named "simple".
+
 Check this other repo out for running this app in [Kubernetes](https://github.com/escomputers/k8s-freepbx)
 
 * FreePBX 16
@@ -63,6 +65,7 @@ As a trade-off, those ports are going to be exposed via Docker host `iptables` m
 So, `build.sh` will take care of iptables configuration, besides building and running the image.
 
 ### Notes
+- Arm hosts are not supported since Asterisk needs to be compiled differently.
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
 - Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
