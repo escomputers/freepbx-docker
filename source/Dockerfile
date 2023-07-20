@@ -7,9 +7,9 @@ WORKDIR /usr/src
 RUN apt-get update && apt-get install cron curl make iproute2 lsb-release ca-certificates gnupg2 git wget -y
 
 # Install the SURY Repository Signing Key
-RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+#RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
 # Install the SURY Repository for PHP
-RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+#RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
 # Install Required Dependencies
 RUN apt-get update && apt-get -y install \
@@ -70,21 +70,11 @@ RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
 COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
-# Install OpenSSL
-RUN wget https://www.openssl.org/source/openssl-3.1.1.tar.gz
-RUN tar -xf openssl-3.1.1.tar.gz && rm openssl-3.1.1.tar.gz
-RUN cd openssl-3.1.1 && perl Configure 
-RUN cd openssl-3.1.1 && make 
-RUN cd openssl-3.1.1 && make install
-
 # Install and configure Fail2ban
 RUN apt-get install iptables jq vim sudo fail2ban -y && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf-original
 RUN adduser docker && adduser docker sudo
 RUN su - docker
 COPY fail2ban/ /etc/fail2ban/
-
-# Copy credentials management scripts
-COPY credentials.sh /usr/local/bin/credentials.sh
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 CMD ["sh", "/usr/src/entrypoint.sh"]

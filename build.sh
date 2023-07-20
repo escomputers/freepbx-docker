@@ -19,40 +19,25 @@ if [[ "$*" == *"--install-docker"* ]]; then
 
 # INSTALL FREEPBX
 elif [[  "$*" == *"--install-freepbx"*  ]]; then
-    docker exec -it freepbx bash /usr/local/bin/credentials.sh --install
+    docker compose exec -it freepbx php /usr/src/install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
   docker container stop freepbx-docker-db-1 && docker container rm freepbx-docker-db-1
-  docker container stop freepbx-docker-vault-transit-1 && docker container rm freepbx-docker-vault-transit-1 
-  docker container stop vault && docker container rm vault
-  docker container stop sidecar-freepbx && docker container rm sidecar-freepbx
-  docker container stop freepbx && docker container rm freepbx
-  docker volume rm vault
-  docker volume rm var_run
+  docker container stop freepbx-docker-freepbx-1 && docker container rm freepbx-docker-freepbx-1
   docker volume rm var_data
   docker volume rm usr_data
   docker volume rm etc_data
   docker volume rm asterisk_home
   docker volume rm freepbx-docker_mysql_data
-  docker volume rm freepbx-docker_vault-transit
   docker network rm freepbx-docker_defaultnet
 
 # MACOS HOST CASE
 elif [[  "$OSTYPE" == "darwin"*   ]]; then
     echo "mac os detected, currently not supported"
 
-# BUILD AND RUN (no arguments passed)
+# BUILD AND RUN + ADD IPTABLES RULES (no arguments passed)
 else
-    # Vault transit image
-    docker build -t vault-transit:custom vault-transit/
-
-    # Vault
-    docker build -t vault:custom vault/
-
-    # Sidecar
-    docker build -t sidecar sidecar/
-
     # Database and Vault transit + run
     docker compose up -d --build
 

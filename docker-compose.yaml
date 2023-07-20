@@ -3,6 +3,10 @@ version: '3.7'
 volumes:
   mysql_data:
   vault-transit:
+  var_data:
+  usr_data:
+  etc_data:
+  asterisk_home:
 
 networks:
   defaultnet:
@@ -18,6 +22,8 @@ networks:
 secrets:
   mysql_root_password:
     file: mysql_root_password.txt
+  freepbxuser_password:
+    file: freepbxuser_password.txt
 
 services:
   db:
@@ -25,8 +31,11 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_USER: freepbxuser
+      MYSQL_PASSWORD_FILE: /run/secrets/freepbxuser_password
     secrets:
       - mysql_root_password
+      - freepbxuser_password
     volumes:
       - mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
@@ -35,16 +44,38 @@ services:
       defaultnet:
         ipv4_address: 172.18.0.10
 
-  vault-transit:
-    restart: always
-    image: vault-transit:custom
+  freepbx:
+    #image: escomputers/freepbx:latest
+    image: freepbx:custom
     environment:
-      VAULT_ADDR: http://127.0.0.1:8200 
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_PASSWORD: /run/secrets/freepbxuser_password
     cap_add:
-      - IPC_LOCK
+      - NET_ADMIN
+    secrets:
+       - mysql_root_password
+       - freepbxuser_password
     volumes:
-      - vault-transit:/vault
+      - .:/usr/src
+      - var_data:/var
+      - etc_data:/etc
+      - usr_data:/usr
+      - asterisk_home:/home/asterisk
     networks:
-      - defaultnet
+      defaultnet:
+        ipv4_address: 172.18.0.20
     ports:
-      - "8200:8200/tcp"
+      # If you aren't using a reverse proxy
+      - "80:80/tcp"
+      # If you want SSL Support and not using a reverse proxy
+      # - "443:443/tcp"
+      - "5038:5038/tcp"
+      - "8001:8001/tcp"
+      - "8003:8003/tcp"
+      - "4569:4569/udp"
+      - "5060:5060/udp"
+      - "5061:5061/udp"
+      - "5160:5160/udp"
+      - "5161:5161/udp"
+    depends_on:
+      - db
