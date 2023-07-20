@@ -104,9 +104,9 @@ Login to the web server's admin URL, enter your admin username, admin password a
 
 ### Optional but recommended steps
 ```bash
-docker exec -it freepbx fwconsole ma disablerepo commercial
-docker exec -it freepbx fwconsole ma installall
-docker exec -it freepbx fwconsole ma delete firewall
-docker exec -it freepbx fwconsole reload
-docker exec -it freepbx fwconsole restart
+docker compose exec -it freepbx fwconsole ma disablerepo commercial
+docker compose exec -it freepbx fwconsole ma installall
+docker compose exec -it freepbx fwconsole ma delete firewall
+docker compose exec -it freepbx fwconsole reload
+docker compose exec -it freepbx fwconsole restart
 ```
