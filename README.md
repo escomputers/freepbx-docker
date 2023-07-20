@@ -51,6 +51,7 @@ As a trade-off, those ports are going to be exposed via Docker host `iptables` m
 So, `build.sh` will take care of iptables configuration, besides building and running the image.
 
 ### Notes
+- Arm hosts are not supported since Asterisk needs to be compiled differently.
 - Docker iptables rules will bypass any ufw rule on the system.
 - If host restarts, iptables rules will be deleted.
 - Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
