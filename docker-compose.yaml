@@ -47,16 +47,9 @@ services:
   freepbx:
     #image: escomputers/freepbx:latest
     image: freepbx:custom
-    environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
-      MYSQL_PASSWORD: /run/secrets/freepbxuser_password
     cap_add:
       - NET_ADMIN
-    secrets:
-       - mysql_root_password
-       - freepbxuser_password
     volumes:
-      - .:/usr/src
       - var_data:/var
       - etc_data:/etc
       - usr_data:/usr

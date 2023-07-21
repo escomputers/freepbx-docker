@@ -19,16 +19,16 @@ if [[ "$*" == *"--install-docker"* ]]; then
 
 # INSTALL FREEPBX
 elif [[  "$*" == *"--install-freepbx"*  ]]; then
-    docker compose exec -it freepbx php /usr/src/install -n --dbpass=$(cat /run/secrets/mysql_root_password) --dbhost=db
+    docker compose exec -it freepbx php /usr/src/freepbx/install -n --dbuser=freepbxuser --dbpass=$(cat freepbxuser_password.txt) --dbhost=db
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
   docker container stop freepbx-docker-db-1 && docker container rm freepbx-docker-db-1
   docker container stop freepbx-docker-freepbx-1 && docker container rm freepbx-docker-freepbx-1
-  docker volume rm var_data
-  docker volume rm usr_data
-  docker volume rm etc_data
-  docker volume rm asterisk_home
+  docker volume rm freepbx-docker_var_data
+  docker volume rm freepbx-docker_usr_data
+  docker volume rm freepbx-docker_etc_data
+  docker volume rm freepbx-docker_asterisk_home
   docker volume rm freepbx-docker_mysql_data
   docker network rm freepbx-docker_defaultnet
 
