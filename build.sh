@@ -19,7 +19,7 @@ if [[ "$*" == *"--install-docker"* ]]; then
 
 # INSTALL FREEPBX
 elif [[  "$*" == *"--install-freepbx"*  ]]; then
-    docker compose exec -it freepbx php /usr/src/freepbx/install -n --dbuser=freepbxuser --dbpass=$(cat freepbxuser_password.txt) --dbhost=db
+    docker compose exec -it freepbx php /usr/src/freepbx/install -n --dbuser=freepbxuser --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
