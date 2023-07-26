@@ -121,6 +121,7 @@ docker compose exec vault-transit sh /build/configure.sh
 
 # Run second Vault for secrets management (auto unsealed by first Vault instance)
 docker run -d --name vault \
+ --restart=unless-stopped \
  --network=freepbx-docker_defaultnet \
  --ip=172.18.0.5 \
  -p 8100:8100 \
@@ -137,6 +138,7 @@ docker exec -it vault sh /usr/local/bin/configure.sh
 # Run Freepbx
 docker run -d \
   --name freepbx \
+  --restart=unless-stopped \
   --cap-add=NET_ADMIN \
   -e ENCRYPTION_KEY=your-strong-encryption-key \
   -v var_run:/var/run/encrypted-secret \
@@ -160,6 +162,7 @@ docker run -d \
 # Run FreePbx sidecar
 docker run -d \
   --name sidecar-freepbx \
+  --restart=unless-stopped \
   -e VAULT_ADDR=http://172.18.0.5:8100 \
   -e VAULT_TOKEN=token-printed-by-usr_local_bin_configure.sh \
   -e ENCRYPTION_KEY=your-strong-encryption-key \
