@@ -159,7 +159,7 @@ docker run -d \
   -p 5161:5161/udp \
   escomputers/freepbx:latest
 
-# Run FreePbx sidecar
+# Run FreePBX sidecar
 docker run -d \
   --name sidecar-freepbx \
   --restart=unless-stopped \

@@ -33,3 +33,6 @@ token=$(grep -o "token .*" /build/root_token_out.txt | awk '{print $2}')
 echo "Please copy the following token, needed by Vault:"
 echo ""
 echo "$token" && rm /build/*.txt
+echo ""
+echo "Please copy the following unseal key:"
+echo "$unseal_key"
