@@ -88,9 +88,6 @@ printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
 chmod 600 mysql_root_password.txt
 chmod 600 freepbxuser_password.txt
 
-# Optional, only if you need Docker installed
-bash build.sh --install-docker
-
 # Build and run
 bash build.sh
 
