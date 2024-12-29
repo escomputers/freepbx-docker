@@ -107,9 +107,6 @@ chmod 600 mysql_root_password.txt
 # rotation period can be customized by editing vault/configure.sh or via Vault UI.
 # Do not set role TTL duration less than 60 seconds otherwise application won't be able to read it.
 
-# Optional, only if you need Docker installed
-bash build.sh --install-docker
-
 # Build images, run database + vault transit and configure RTP ports
 bash build.sh
 
