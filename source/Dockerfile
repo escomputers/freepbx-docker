@@ -4,9 +4,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/src
 
-# Versions and checksums (override with --build-arg for reproducible builds)
+# Pinned sources versions (override with --build-arg for reproducible builds)
 ARG ASTERISK_VERSION=21.10.2
-ARG ASTERISK_SHA256=
+ARG ASTERISK_VERSION_TAG=21.10.2
 
 ARG FREEPBX_VERSION=17.0.21
 ARG FREEPBX_VERSION_TAG=17.0.2
@@ -35,9 +35,8 @@ RUN apt-get update && apt-get -y install \
 
 # Download and build Asterisk directly in this stage
 RUN set -eux \
-  && AST_URL="https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-${ASTERISK_VERSION}.tar.gz" \
+  && AST_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${ASTERISK_VERSION_TAG}/asterisk-${ASTERISK_VERSION}.tar.gz" \
   && curl -fsSL "$AST_URL" -o asterisk.tar.gz \
-  && [ -z "$ASTERISK_SHA256" ] || echo "$ASTERISK_SHA256  asterisk.tar.gz" | sha256sum -c - \
   && tar -xzf asterisk.tar.gz \
   && cd "asterisk-${ASTERISK_VERSION}" \
   && contrib/scripts/get_mp3_source.sh \
