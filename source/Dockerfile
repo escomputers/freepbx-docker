@@ -51,7 +51,7 @@ RUN set -eux \
   # Create asterisk user and give permissions
   && groupadd asterisk \
   && useradd -r -d /var/lib/asterisk -g asterisk asterisk \
-  && usermod -aG audio,dialout,crontab asterisk \
+  && usermod -aG audio,dialout,crontab,postdrop asterisk \
   && chown -R asterisk:asterisk /etc/asterisk \
   && chown -R asterisk:asterisk /var/lib/asterisk /var/log/asterisk /var/spool/asterisk \
   && chown -R asterisk:asterisk /usr/lib64/asterisk \
