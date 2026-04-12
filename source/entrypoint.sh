@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
+ensure_freepbx_cli_links() {
+  local cli_name target_path
+
+  for cli_name in fwconsole amportal; do
+    target_path="/var/lib/asterisk/bin/${cli_name}"
+    if [[ -e "$target_path" ]]; then
+      ln -sfn "$target_path" "/usr/sbin/${cli_name}"
+    fi
+  done
+}
+
+ensure_freepbx_cli_links
+
 # Start cron
 /usr/sbin/cron &
 
