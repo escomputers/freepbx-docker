@@ -29,7 +29,7 @@ RUN apt-get update && apt-get -y install \
   libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev \
   odbc-mariadb unixodbc \
   libical-dev libneon27-dev libsrtp2-dev libspandsp-dev libtool-bin \
-  nodejs npm ipset iptables fail2ban php-soap \
+  nodejs npm ipset iptables php-soap \
   postfix libsasl2-modules mailutils \
   certbot python3-certbot-apache logrotate
 
@@ -82,8 +82,6 @@ RUN set -eux \
 
 COPY odbc/odbcinst.ini /etc/odbcinst.ini
 COPY odbc/odbc.ini /etc/odbc.ini
-COPY fail2ban/jail.local /etc/fail2ban/jail.local
-COPY fail2ban/filter.d/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf
 COPY postfix/main.cf /etc/postfix/main.cf
 COPY logrotate/asterisk /etc/logrotate.d/asterisk
 COPY entrypoint.sh entrypoint.sh

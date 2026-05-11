@@ -1,15 +1,18 @@
-[asterisk]
-ignoreip    = 127.0.0.1/8 ::1
-              10.0.0.0/8
-              172.16.0.0/12
-              192.168.0.0/16
-enabled = true
-backend = auto
-filter = asterisk
-logpath = /var/log/asterisk/full
-maxretry = 2
+[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1
+           10.0.0.0/8
+           172.16.0.0/12
+           192.168.0.0/16
+
+bantime  = 1w
 findtime = 30
-bantime = 1w
-action = iptables-allports[protocol=all]
-[sshd]
-enabled = false
+maxretry = 2
+
+[asterisk]
+enabled  = true
+backend  = auto
+filter   = asterisk
+logpath  = /remotelogs/freepbx/log/asterisk/full
+
+chain    = DOCKER-USER
+action   = iptables-allports[chain=DOCKER-USER, protocol=all]

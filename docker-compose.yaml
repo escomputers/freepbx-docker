@@ -43,9 +43,7 @@ services:
 
   freepbx:
     restart: always
-    image: escomputers/freepbx:17
-    cap_add:
-      - NET_ADMIN
+    image: escomputers/freepbx:17-nofail2ban
     volumes:
       - var_data:/var
       - etc_data:/etc
@@ -60,3 +58,22 @@ services:
       - postfix_sasl_passwd
     depends_on:
       - db
+
+  fail2ban:
+    restart: unless-stopped
+    image: lscr.io/linuxserver/fail2ban:latest
+    container_name: fail2ban
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      PUID: 1000
+      PGID: 2000
+      TZ: UTC
+    volumes:
+      - var_data:/remotelogs/freepbx:ro
+      - ./source/fail2ban/jail.local:/config/fail2ban/jail.local
+      - ./source/fail2ban/filter.d/asterisk.conf:/config/fail2ban/filter.d/asterisk.conf
+    depends_on:
+      - freepbx
