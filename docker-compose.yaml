@@ -42,6 +42,9 @@ services:
         ipv4_address: 172.18.0.10
 
   freepbx:
+    build: 
+      context: ./source
+      dockerfile: Dockerfile
     restart: always
     image: escomputers/freepbx:17-nofail2ban
     volumes:
