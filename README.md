@@ -5,7 +5,7 @@ This is MVP [Docker Compose](https://docs.docker.com/compose/) application for h
 Upon starting this multi-container application, it will give you a turnkey PBX system for SIP calling.
 
 * FreePBX 17.0.21
-* PHP 8.2.29
+* PHP 8.2.31
 * Asterisk 21.10.2
 * MariaDB 10.11.14
 * Fail2ban pre-configured with restrictive enforcement rules
