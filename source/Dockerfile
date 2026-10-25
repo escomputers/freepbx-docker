@@ -91,4 +91,8 @@ RUN sed -i "s|^smtp_sasl_password_maps.*|smtp_sasl_password_maps = texthash:/run
   && touch /var/log/asterisk/full \
   && chown -R asterisk:asterisk /var/log/asterisk
 
+# Keep the dpkg database outside the persistent /var volume
+RUN mv /var/lib/dpkg /opt/image-dpkg \
+    && ln -s /opt/image-dpkg /var/lib/dpkg
+
 CMD ["/usr/bin/env", "bash", "/usr/local/src/entrypoint.sh"]

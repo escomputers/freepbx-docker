@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+if [[ "$(readlink /var/lib/dpkg 2>/dev/null)" != "/opt/image-dpkg" ]]; then
+  test -s /opt/image-dpkg/status
+  rm -rf -- /var/lib/dpkg
+  ln -s /opt/image-dpkg /var/lib/dpkg
+fi
+
 ensure_freepbx_cli_links() {
   local cli_name target_path
 
