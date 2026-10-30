@@ -23,4 +23,5 @@ service postfix start
 # Start Asterisk service
 /usr/local/src/freepbx/start_asterisk start &
 
-exec apache2ctl -D FOREGROUND
+. /etc/apache2/envvars
+exec /usr/sbin/apache2 -D FOREGROUND

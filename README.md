@@ -103,10 +103,17 @@ sudo docker compose exec -it freepbx certbot --apache -d your.domain.com --email
 
 Login to the web server's admin URL and start configuring the system!
 
+## Maintenance
 
-**If you find this project useful or inspiring**
+The maintained image is `17-nofail2ban`. The legacy `17` image with integrated Fail2ban is no longer maintained and does not receive security updates.
 
-<a href="https://www.buymeacoffee.com/emilianospada">
-  <img src="https://i.postimg.cc/W1qS7R25/bmc-button-counter.jpg" alt="Buy me a coffee" width="320">
-</a>
+Numbered tags such as 17-nofail2ban-r1 always keep the same image. To update from a numbered tag, replace it with a newer one in your Compose file.
 
+To update an existing `17-nofail2ban` installation, run the following commands from the project directory:
+```bash
+git pull
+sudo docker compose pull freepbx
+sudo docker compose up -d --no-deps --wait --wait-timeout 600 freepbx
+```
+
+The existing volumes are reused. During startup, the container installs the required security package updates before starting the services. This may take a few minutes, during which the PBX is unavailable.
