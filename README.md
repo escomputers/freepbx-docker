@@ -109,7 +109,7 @@ The maintained image is `17-nofail2ban`. The legacy `17` image with integrated F
 
 Numbered tags such as 17-nofail2ban-r1 always keep the same image. To update from a numbered tag, replace it with a newer one in your Compose file.
 
-To update an existing `17-nofail2ban` installation, run the following commands from the project directory:
+To update an existing `17-nofail2ban` installation to the latest security patches, run the following commands from the project directory:
 ```bash
 git pull
 sudo docker compose pull freepbx
