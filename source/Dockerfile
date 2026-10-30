@@ -36,7 +36,7 @@ RUN apt-get update && apt-get -y install \
 # Download and build Asterisk directly in this stage
 RUN set -eux \
   && AST_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${ASTERISK_VERSION_TAG}/asterisk-${ASTERISK_VERSION}.tar.gz" \
-  && curl -fsSL "$AST_URL" -o asterisk.tar.gz \
+  && curl --proto '=https' -fsSL "$AST_URL" -o asterisk.tar.gz \
   && tar -xzf asterisk.tar.gz \
   && cd "asterisk-${ASTERISK_VERSION}" \
   && contrib/scripts/get_mp3_source.sh \
@@ -76,7 +76,7 @@ WORKDIR /usr/local/src
 # FreePBX source
 RUN set -eux \
   && FREEPBX_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${FREEPBX_VERSION_TAG}/freepbx-${FREEPBX_VERSION}.tgz" \
-  && curl -fsSL "$FREEPBX_URL" -o freepbx.tgz \
+  && curl --proto '=https' -fsSL "$FREEPBX_URL" -o freepbx.tgz \
   && tar -xzf freepbx.tgz \
   && rm freepbx.tgz
 
