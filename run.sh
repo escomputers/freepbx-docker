@@ -102,12 +102,8 @@ else
             echo "Rule for Destination NAT RTP already in place."
         fi
 
-        # Build and start the Compose services
-        sudo docker compose up -d && {
-          printf "Waiting for database readiness"
-          for _ in $(seq 1 10); do printf "."; sleep 1; done
-          echo " done"
-        }
+        # Start services and wait for their healthchecks to pass
+        sudo docker compose up -d --wait --wait-timeout 600 || exit $?
     fi
 
 fi

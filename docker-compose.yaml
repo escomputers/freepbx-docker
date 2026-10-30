@@ -24,6 +24,12 @@ secrets:
 
 services:
   db:
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 3
     restart: always
     image: mariadb:10.11
     environment:
@@ -41,9 +47,46 @@ services:
       defaultnet:
         ipv4_address: 172.18.0.10
 
-  freepbx:
+  freepbx:    
+    # (Optional) Override safe_asterisk's automatic open-file limit.
+    # The value must not exceed the container's hard nofile limit.
+    # Set it to your needs.
+    # environment:
+    #   MAXFILES: "32768"
     restart: always
     image: escomputers/freepbx:17-nofail2ban
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - |
+          timeout 5s asterisk -rx 'core waitfullybooted' |
+            grep -Fq 'Asterisk has fully booted.' || exit 1
+
+          if [ -f /etc/freepbx.conf ]; then
+            path=/admin/config.php
+          elif [ ! -f /var/www/html/admin/config.php ]; then
+            path=/
+          else
+            exit 1
+          fi
+
+          for scheme in http https; do
+            status=$$(curl --silent --insecure --max-time 5 \
+              --noproxy '*' \
+              --output /dev/null --write-out '%{http_code}' \
+              "$$scheme://127.0.0.1$$path") || continue
+
+            case "$$status" in
+              200|301|302|303|307|308) exit 0 ;;
+            esac
+          done
+
+          echo 'Neither HTTP nor HTTPS returned an accepted status.' >&2
+          exit 1
+      start_period: 10m
+      interval: 10s
+      timeout: 20s
+      retries: 3
     volumes:
       - var_data:/var
       - etc_data:/etc
@@ -57,7 +100,8 @@ services:
     secrets:
       - postfix_sasl_passwd
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   fail2ban:
     restart: unless-stopped
