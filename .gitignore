@@ -20,3 +20,7 @@ source/*.tgz
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Downloaded security package payloads; the version manifest is tracked.
+maintenance/packages/debs/
+maintenance/*.tar.gz

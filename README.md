@@ -72,11 +72,11 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt sasl_passwd.txt
 
 2. To complete postfix configuration, set the `relayhost` in [postfix/main.cf](source/postfix/main.cf) to match your SMTP server defined in `sasl_passwd.txt`. 
 
-3. OPTION A: build the image from scratch:
-```bash
-cd source && sudo docker build -t your-image-name:your-tag .
-```
-Then edit the value of `services.freepbx.image` in the [docker-compose.yaml](docker-compose.yaml) by setting the proper image version and tag.
+3. OPTION A: build the maintained image locally by following [Rebuild the current revision](maintenance/runbook.md#ricostruire-la-revisione-corrente). This uses the pinned base image, the approved security packages, and the runtime scripts tracked in this repository.
+
+Then edit `services.freepbx.image` in [docker-compose.yaml](docker-compose.yaml) to use your image name and tag.
+
+The separate [source/Dockerfile](source/Dockerfile) compiles Asterisk and prepares the FreePBX sources to build a base image. It does not include the maintained image's security package bundle or its startup update procedure.
 
 3. OPTION B: if you want to use the pre-built image on Docker Hub, jump to the next step directly
 
@@ -117,3 +117,5 @@ sudo docker compose up -d --no-deps --wait --wait-timeout 600 freepbx
 ```
 
 The existing volumes are reused. During startup, the container installs the required security package updates before starting the services. This may take a few minutes, during which the PBX is unavailable.
+
+The release build files, startup scripts, package manifest, and maintainer update procedure are tracked in [maintenance/](maintenance/runbook.md). The `.deb` payloads are kept outside Git and are included in the published image. Startup uses those bundled packages; it does not download updates from APT repositories.
