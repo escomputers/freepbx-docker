@@ -74,10 +74,15 @@ RUN set -eux \
 WORKDIR /usr/local/src
 
 # FreePBX source
+# Work around https://github.com/FreePBX/issue-tracker/issues/202
 RUN set -eux \
   && FREEPBX_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${FREEPBX_VERSION_TAG}/freepbx-${FREEPBX_VERSION}.tgz" \
   && curl --proto '=https' -fsSL "$FREEPBX_URL" -o freepbx.tgz \
   && tar -xzf freepbx.tgz \
+  && freepbx_installer="freepbx/installlib/installcommand.class.php" \
+  && sed -i '/You have successfully installed FreePBX/{n;s/return 1;/return 0;/;}' "$freepbx_installer" \
+  && test "$(sed -n '/You have successfully installed FreePBX/{n;p;}' "$freepbx_installer" | tr -d '[:space:]')" = 'return0;' \
+  && php -l "$freepbx_installer" \
   && rm freepbx.tgz
 
 COPY odbc/odbcinst.ini /etc/odbcinst.ini
