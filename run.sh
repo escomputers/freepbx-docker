@@ -54,11 +54,14 @@ if [[ -n "$requested_rtp" ]]; then
   fi
 fi
 
-# INSTALL FREEPBX
+# Install FreePBX, then restart it to start module services.
 if [[  "$*" == *"--install-freepbx"*  ]]; then
-    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=freepbxuser --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db
+  sudo docker compose exec -it -w /usr/local/src/freepbx freepbx \
+    php install -n --dbuser=freepbxuser \
+    --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db \
+    && sudo docker compose exec -it freepbx fwconsole restart
 
-# CLEAN
+# Clean up all FreePBX Docker containers, volumes, and networks.
 elif [[  "$*" == *"--clean-all"*  ]]; then
   read -r -p "Are you sure you want to clean up everything? Data will be lost. (yes/no)? " confirmation
   if [[ "$confirmation" != "yes" ]]; then

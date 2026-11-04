@@ -20,8 +20,13 @@ ensure_freepbx_cli_links
 # Start postfix email service
 service postfix start
 
-# Start Asterisk service
-/usr/local/src/freepbx/start_asterisk start &
+# Start FreePBX and its module services if already installed.
+if [[ -f /etc/freepbx.conf ]]; then
+  fwconsole start
+else
+  # FreePBX requires Asterisk to be running for the install process
+  /usr/local/src/freepbx/start_asterisk start &
+fi
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -D FOREGROUND
