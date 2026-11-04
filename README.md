@@ -74,7 +74,7 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt sasl_passwd.txt
 
 3. OPTION A: build the image from scratch:
 ```bash
-cd source && sudo docker build -t your-image-name:your-tag .
+sudo docker build -t your-image-name:your-tag ./source
 ```
 Then edit the value of `services.freepbx.image` in the [docker-compose.yaml](docker-compose.yaml) by setting the proper image version and tag.
 
