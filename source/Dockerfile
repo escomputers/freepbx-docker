@@ -4,12 +4,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/src
 
-# Pinned sources versions (override with --build-arg for reproducible builds)
+# Pinned source versions and archive checksums (see SOURCES.md).
+# When overriding a source version, also provide its verified SHA-256.
 ARG ASTERISK_VERSION=21.10.2
 ARG ASTERISK_VERSION_TAG=21.10.2
+ARG ASTERISK_SHA256=9624e807a1138cabed14431a326c9870e53fc132738dbbd61314abc027785d94
 
 ARG FREEPBX_VERSION=17.0.21
 ARG FREEPBX_VERSION_TAG=17.0.2
+ARG FREEPBX_SHA256=4d37f8547038db2621a54dfc016b8116a485be7d1685d35ce9624d223cbe8d2f
 
 # Install requirements
 RUN apt-get update && apt-get -y install \
@@ -37,6 +40,7 @@ RUN apt-get update && apt-get -y install \
 RUN set -eux \
   && AST_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${ASTERISK_VERSION_TAG}/asterisk-${ASTERISK_VERSION}.tar.gz" \
   && curl --proto '=https' -fsSL "$AST_URL" -o asterisk.tar.gz \
+  && printf '%s  %s\n' "$ASTERISK_SHA256" asterisk.tar.gz | sha256sum --check --strict - \
   && tar -xzf asterisk.tar.gz \
   && cd "asterisk-${ASTERISK_VERSION}" \
   && contrib/scripts/get_mp3_source.sh \
@@ -78,6 +82,7 @@ WORKDIR /usr/local/src
 RUN set -eux \
   && FREEPBX_URL="https://github.com/escomputers/freepbx-docker/releases/download/v${FREEPBX_VERSION_TAG}/freepbx-${FREEPBX_VERSION}.tgz" \
   && curl --proto '=https' -fsSL "$FREEPBX_URL" -o freepbx.tgz \
+  && printf '%s  %s\n' "$FREEPBX_SHA256" freepbx.tgz | sha256sum --check --strict - \
   && tar -xzf freepbx.tgz \
   && freepbx_installer="freepbx/installlib/installcommand.class.php" \
   && sed -i '/You have successfully installed FreePBX/{n;s/return 1;/return 0;/;}' "$freepbx_installer" \
