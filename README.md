@@ -76,6 +76,8 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt sasl_passwd.txt
 ```bash
 sudo docker build -t your-image-name:your-tag ./source
 ```
+When building from source, the [Dockerfile](source/Dockerfile) uses a Debian base image pinned by digest and Debian Snapshot repositories fixed to a specific date. It downloads the exact security update packages specified in [packages.tsv](source/packages/packages.tsv), verifies their SHA-256 checksums, and installs them in the image. A checksum mismatch stops the build.
+
 Then edit the value of `services.freepbx.image` in the [docker-compose.yaml](docker-compose.yaml) by setting the proper image version and tag.
 
 3. OPTION B: if you want to use the pre-built image on Docker Hub, jump to the next step directly

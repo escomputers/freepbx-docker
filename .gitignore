@@ -4,6 +4,7 @@
 # Source files
 source/*.tar.gz
 source/*.tgz
+source/packages/debs/
 
 .DS_Store*
 

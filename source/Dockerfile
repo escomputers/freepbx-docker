@@ -1,6 +1,19 @@
-FROM debian:bookworm-slim
+FROM debian:bookworm-slim@sha256:67b30a61dc87758f0caf819646104f29ecbda97d920aaf5edc834128ac8493d3
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Rebuild the package environment using repositories from the original build date.
+# Accept expired dates only for these historical repositories; signature checks remain enabled.
+# Install CA certificates over HTTP, then use HTTPS for the same snapshot.
+RUN rm -f /etc/apt/sources.list /etc/apt/sources.list.d/debian.sources \
+  && printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260510T230000Z/ bookworm main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260510T230000Z/ bookworm-updates main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260510T230000Z/ bookworm-security main' \
+    > /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y ca-certificates \
+  && sed -i 's|http://snapshot.debian.org/|https://snapshot.debian.org/|g' /etc/apt/sources.list
 
 WORKDIR /usr/src
 
@@ -90,6 +103,12 @@ RUN set -eux \
   && php -l "$freepbx_installer" \
   && rm freepbx.tgz
 
+# Download and verify the security update packages before copying runtime configuration.
+# Keep the packages outside /etc and /var for updating existing volumes.
+COPY packages/packages.tsv /opt/freepbx-security/packages.tsv
+COPY download-packages.sh /usr/local/sbin/download-packages.sh
+RUN bash /usr/local/sbin/download-packages.sh /opt/freepbx-security
+
 COPY odbc/odbcinst.ini /etc/odbcinst.ini
 COPY odbc/odbc.ini /etc/odbc.ini
 COPY postfix/main.cf /etc/postfix/main.cf
@@ -100,5 +119,11 @@ RUN sed -i "s|^smtp_sasl_password_maps.*|smtp_sasl_password_maps = texthash:/run
   && mkdir -p /var/log/asterisk \
   && touch /var/log/asterisk/full \
   && chown -R asterisk:asterisk /var/log/asterisk
+
+# Install the approved security packages and keep them for updating existing volumes.
+COPY apply-security-updates.sh /usr/local/sbin/apply-security-updates.sh
+
+RUN dpkg --force-confold --install /opt/freepbx-security/debs/*.deb \
+  && bash /usr/local/sbin/apply-security-updates.sh
 
 CMD ["/usr/bin/env", "bash", "/usr/local/src/entrypoint.sh"]
