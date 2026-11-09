@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+
+bash /usr/local/sbin/apply-security-updates.sh
+
+ensure_freepbx_cli_links() {
+  local cli_name target_path
+
+  for cli_name in fwconsole amportal; do
+    target_path="/var/lib/asterisk/bin/${cli_name}"
+    if [[ -e "$target_path" ]]; then
+      ln -sfn "$target_path" "/usr/sbin/${cli_name}"
+    fi
+  done
+}
+
+ensure_freepbx_cli_links
+
+# Start cron
+/usr/sbin/cron &
+
+# Start postfix email service
+service postfix start
+
+# Start Asterisk service
+/usr/local/src/freepbx/start_asterisk start &
+
+. /etc/apache2/envvars
+exec /usr/sbin/apache2 -D FOREGROUND
