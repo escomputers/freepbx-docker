@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-r"""The script is intended to run inside a Debian 12 amd64 container created from the
-exact FreePBXimage analyzed by Trivy. 
+r"""Prepare a verified Debian security update proposal for the FreePBX image.
+
+The script is intended to run inside a Debian 12 amd64 container created from the
+exact FreePBX image analyzed by Trivy.
 It reads the Trivy JSON report and the committed source/packages/packages.tsv file.
 Then for each HIGH/CRITICAL Debian package finding with a known fixed version, it:
 
@@ -17,7 +19,7 @@ using specific constraints to avoid breaking compatibility for FreePBX, in parti
 - simulates the installation of the selected updates, including any required dependencies
 and stops if the plan would install new packages, remove packages or downgrade versions
 
-- get the exact `.deb` files from Debian Snapshot, checking that the name, version and
+- gets the exact `.deb` files from Debian Snapshot, checking that the name, version and
 architecture are correct and that the checksum matches the one published in the verified APT indexes
 
 - creates a new package manifest proposal: `packages-proposed.tsv` ready to be compared
@@ -57,9 +59,9 @@ def run(*args: str) -> str:
         str: Standard output captured from the successful command.
 
     Raises:
-        - RuntimeError: If the command exits with a nonzero status. The error
+        RuntimeError: If the command exits with a nonzero status. The error
             includes its captured output and diagnostics.
-        - OSError: If the operating system cannot start the command.
+        OSError: If the operating system cannot start the command.
     """
     result = subprocess.run(args, text=True, capture_output=True, check=False)
     if result.returncode:
@@ -77,23 +79,23 @@ def compare(left: str, operator: str, right: str) -> bool:
     Their ordering must follow dpkg rather than a lexical or SemVer comparison.
 
     Args:
-        - left (str): Version on the left side of the comparison.
-        - operator (str): A dpkg comparison operator, such as "gt" or "ge".
-        - right (str): Version on the right side of the comparison.
+        left (str): Version on the left side of the comparison.
+        operator (str): A dpkg comparison operator, such as "gt" or "ge".
+        right (str): Version on the right side of the comparison.
 
     Returns:
         bool: Whether the comparison condition is satisfied.
 
     Raises:
-        - RuntimeError: If dpkg cannot evaluate the comparison.
-        - OSError: If dpkg cannot be started.
+        RuntimeError: If dpkg cannot evaluate the comparison.
+        OSError: If dpkg cannot be started.
     """
     result = subprocess.run(
         ["dpkg", "--compare-versions", left, operator, right], check=False
     )
-    # dpkg returns 0 if the comparison is true, 1 if false, and >1 on error.
-    # A false comparison is a valid result; stop only on an error.
-    if result.returncode > 1:
+    # dpkg returns 0 if the comparison is true and 1 if false.
+    # Any other status, including a negative value after a signal, is an error.
+    if result.returncode not in (0, 1):
         raise RuntimeError(f"Cannot compare versions: {left!r}, {right!r}")
     return result.returncode == 0
 
@@ -134,18 +136,18 @@ def package_record(options: list[str], name: str, version: str) -> dict[str, str
     only if their SHA-256 checksums match.
 
     Args:
-        - options (list[str]): APT options selecting the sources and index directory.
-        - name (str): Debian binary package name.
-        - version (str): Exact Debian package version to retrieve.
+        options (list[str]): APT options selecting the sources and index directory.
+        name (str): Debian binary package name.
+        version (str): Exact Debian package version to retrieve.
 
     Returns:
         dict[str, str]: Matching APT fields, including package identity, filename,
             and the validated SHA-256 checksum.
 
     Raises:
-        - RuntimeError: If apt-cache fails, no matching record exists, or the
+        RuntimeError: If apt-cache fails, no matching record exists, or the
             records have missing, malformed, or conflicting checksums.
-        - OSError: If apt-cache cannot be started.
+        OSError: If apt-cache cannot be started.
     """
     # Get the package metadata for the exact version
     records = parse_package_metadata(
@@ -180,9 +182,9 @@ def check_freepbx_compatibility(
     runtime and default-package updates within the supported PHP 8.2 branch.
 
     Args:
-        - name (str): Debian binary package name.
-        - version (str): Proposed Debian package version.
-        - record (dict[str, str]): APT metadata, optionally including Source.
+        name (str): Debian binary package name.
+        version (str): Proposed Debian package version.
+        record (dict[str, str]): APT metadata, optionally including Source.
 
     Returns:
         str | None: The reason the update is blocked, or None when these
@@ -257,8 +259,7 @@ def fetch(url: str, destination: Path | None = None) -> str:
 def download_and_verify_snapshot_package(
     record: dict[str, str], temporary_dir: Path
 ) -> list[str]:
-    """Find and verify a .deb file downloaded from Debian Snapshot against
-    its trusted APT metadata.
+    """Download and verify a .deb from Debian Snapshot against APT metadata.
 
     Candidate .deb files must belong to the Debian or Debian Security archive
     and match the following APT metadata:
@@ -269,9 +270,9 @@ def download_and_verify_snapshot_package(
     - SHA-256 checksum
 
     Args:
-        - record (dict[str, str]): APT metadata containing Package, Version,
+        record (dict[str, str]): APT metadata containing Package, Version,
             Architecture, Filename, and SHA256.
-        - temporary_dir (Path): Existing download directory. The working file
+        temporary_dir (Path): Existing download directory. The working file
             snapshot-package.deb is overwritten; the caller owns its cleanup.
 
     Returns:
@@ -279,11 +280,11 @@ def download_and_verify_snapshot_package(
             immutable Snapshot URL, and SHA-256 checksum.
 
     Raises:
-        - RuntimeError: If a command fails, metadata is invalid, or no archived
+        RuntimeError: If a command fails, metadata is invalid, or no archived
             file matches the APT checksum and package identity.
-        - ValueError: If the Snapshot response is not valid JSON.
-        - KeyError: If required APT or Snapshot fields are missing.
-        - OSError: If a command cannot start or a local file cannot be read.
+        ValueError: If the Snapshot response is not valid JSON.
+        KeyError: If required APT or Snapshot fields are missing.
+        OSError: If a command cannot start or a local file cannot be read.
     """
     name, version = record["Package"], record["Version"]
     architecture, checksum = record["Architecture"], record["SHA256"]
@@ -326,7 +327,7 @@ def download_and_verify_snapshot_package(
 
         digest = hashlib.sha256()
 
-        # Compute SHA-256 in 1 MiB chunks without loading the entire .deb into memory.
+        # Compute SHA-256 in 1 MiB chunks without loading the entire .deb into memory.
         with downloaded.open("rb") as file:
             while chunk := file.read(1024 * 1024):
                 digest.update(chunk)
@@ -363,8 +364,7 @@ def load_findings(report_path: Path) -> dict[str, list[dict[str, Any]]]:
 
     Validate the reported Debian release and retain only OS package findings with
     a known fixed version.
-    If a package has multiple vulnerabilities, require a version that fixes all
-    of those with a known fixed version.
+    Group multiple vulnerabilities for the same package together.
 
     Args:
         report_path (Path): UTF-8 Trivy JSON report for the scanned image.
@@ -373,11 +373,11 @@ def load_findings(report_path: Path) -> dict[str, list[dict[str, Any]]]:
         dict[str, list[dict]]: Findings grouped by Debian binary package name.
 
     Raises:
-        - RuntimeError: If the report is not for Debian 12, has no Debian package
+        RuntimeError: If the report is not for Debian 12, has no Debian package
             result, or contains an invalid binary package name.
-        - ValueError: If the report is not valid JSON.
-        - KeyError: If a selected finding lacks its package name.
-        - OSError: If the report cannot be read.
+        ValueError: If the report is not valid JSON.
+        KeyError: If a selected finding lacks its package name.
+        OSError: If the report cannot be read.
     """
     report = json.loads(report_path.read_text(encoding="utf-8"))
     report_os = report.get("Metadata", {}).get("OS", {})
@@ -419,22 +419,22 @@ def select_updates(
 
     Check the container against the scanned versions, enforce the FreePBX
     compatibility policy and preserve fixes already present in the approved
-    manifest. Packages versions that do not fix any reported vulnerabilities
-    are reported and skipped.
+    manifest. Packages without an available newer APT version that satisfies all
+    reported fixes are reported and skipped.
 
     Args:
-        - options (list[str]): APT options selecting verified Bookworm indexes.
-        - findings (dict[str, list[dict]]): Trivy findings grouped by binary package.
-        - approved (dict[str, list[str]]): Approved manifest rows keyed by package.
+        options (list[str]): APT options selecting verified Bookworm indexes.
+        findings (dict[str, list[dict]]): Trivy findings grouped by binary package.
+        approved (dict[str, list[str]]): Approved manifest rows keyed by package.
 
     Returns:
         dict[str, str]: Selected binary package names and exact target versions.
 
     Raises:
-        - RuntimeError: If a command fails, the report differs from the container,
+        RuntimeError: If a command fails, the report differs from the container,
             a version comparison fails, or an approved checksum conflicts with APT.
-        - KeyError: If required finding or APT metadata fields are missing.
-        - OSError: If an external command cannot be started.
+        KeyError: If required finding or APT metadata fields are missing.
+        OSError: If an external command cannot be started.
     """
     selected = {}
     for name, items in sorted(findings.items()):
@@ -508,15 +508,15 @@ def simulate_upgrades(options: list[str], selected: dict[str, str]) -> dict[str,
     include every explicitly selected version.
 
     Args:
-        - options (list[str]): APT options selecting verified Bookworm indexes.
-        - selected (dict[str, str]): Nonempty mapping of packages to target versions.
+        options (list[str]): APT options selecting verified Bookworm indexes.
+        selected (dict[str, str]): Nonempty mapping of packages to target versions.
 
     Returns:
         dict[str, str]: Every package upgrade planned by APT and its exact version.
 
     Raises:
-        - RuntimeError: If simulation fails or the plan violates these requirements.
-        - OSError: If an external command cannot be started.
+        RuntimeError: If simulation fails or the plan violates these requirements.
+        OSError: If an external command cannot be started.
     """
     # Simulate exact versions; include any additional upgrades required by APT.
     plan = run(
@@ -579,7 +579,7 @@ def verify_upgrades(
     selected: dict[str, str],
     temporary_dir: Path,
 ) -> dict[str, list[str]]:
-    """Verify planned upgrades and prepare the packages-proposed.tsv file.
+    """Verify planned upgrades and prepare rows for packages-proposed.tsv.
 
     Check dependency upgrades added by APT against the FreePBX compatibility
     policy. Reject conflicts with the approved manifest for all planned upgrades.
@@ -590,24 +590,24 @@ def verify_upgrades(
     these checks.
 
     Args:
-        - options (list[str]): APT options selecting verified Bookworm indexes.
-        - upgrades (dict[str, str]): Exact versions from the validated APT plan.
-        - approved (dict[str, list[str]]): Approved manifest rows keyed by package.
-        - selected (dict[str, str]): Packages selected directly from Trivy findings,
-        whose compatibility was already checked. Also used to distinguish
-        their log messages from required dependencies.
-        - temporary_dir (Path): Download directory owned and cleaned by the caller.
+        options (list[str]): APT options selecting verified Bookworm indexes.
+        upgrades (dict[str, str]): Exact versions from the validated APT plan.
+        approved (dict[str, list[str]]): Approved manifest rows keyed by package.
+        selected (dict[str, str]): Packages selected directly from Trivy findings,
+            whose compatibility was already checked. Also used to distinguish
+            their log messages from required dependencies.
+        temporary_dir (Path): Download directory owned and cleaned by the caller.
 
     Returns:
         dict[str, list[str]]: Verified replacement or additional manifest rows
             keyed by binary package name.
 
     Raises:
-        - RuntimeError: If an update violates policy, conflicts with the approved
-        manifest, fails a command, or cannot be verified against Snapshot.
-        - ValueError: If a Snapshot response is not valid JSON.
-        - KeyError: If required APT or Snapshot metadata fields are missing.
-        - OSError: If an external command or a downloaded file cannot be accessed.
+        RuntimeError: If an update violates policy, conflicts with the approved
+            manifest, fails a command, or cannot be verified against Snapshot.
+        ValueError: If a Snapshot response is not valid JSON.
+        KeyError: If required APT or Snapshot metadata fields are missing.
+        OSError: If an external command or a downloaded file cannot be accessed.
     """
     proposals = {}
     for name, version in sorted(upgrades.items()):
@@ -660,9 +660,9 @@ def write_proposal(
     sorted by name. Print the replacement, addition and unchanged-package counts.
 
     Args:
-        - rows (list[list[str]]): Approved five-column manifest rows in their order.
-        - proposals (dict[str, list[str]]): Verified new or replacement rows by name.
-        - output_path (Path): UTF-8 proposal path with an existing parent directory.
+        rows (list[list[str]]): Approved five-column manifest rows in their order.
+        proposals (dict[str, list[str]]): Verified new or replacement rows by name.
+        output_path (Path): UTF-8 proposal path with an existing parent directory.
 
     Raises:
         OSError: If the proposal cannot be written.
@@ -703,21 +703,21 @@ def prepare(report_path: Path, manifest_path: Path, output_path: Path) -> None:
     or downgrade versions.
 
     An existing proposal is removed before validation. Existing approved rows in
-    package.tsv keep their order; new rows are appended by package name.
+    packages.tsv keep their order; new rows are appended by package name.
     Temporary indexes and package downloads are also removed even when preparation fails.
 
     Args:
-        - report_path (Path): UTF-8 Trivy JSON report for the container image.
-        - manifest_path (Path): Committed five-column packages.tsv file in UTF-8.
-        - output_path (Path): UTF-8 proposal path with an existing parent
-        directory.
+        report_path (Path): UTF-8 Trivy JSON report for the container image.
+        manifest_path (Path): Committed five-column packages.tsv file in UTF-8.
+        output_path (Path): UTF-8 proposal path with an existing parent
+            directory.
 
     Raises:
-        - RuntimeError: If validation or an external command fails, an APT plan
-        requires an unsupported change, or Snapshot verification fails.
-        - ValueError: If an input JSON document is invalid.
-        - KeyError: If required report or package metadata fields are missing.
-        - OSError: If an input, temporary file, or proposal cannot be accessed.
+        RuntimeError: If validation or an external command fails, an APT plan
+            requires an unsupported change, or Snapshot verification fails.
+        ValueError: If an input JSON document is invalid.
+        KeyError: If required report or package metadata fields are missing.
+        OSError: If an input, temporary file, or proposal cannot be accessed.
     """
     if output_path.resolve() == manifest_path.resolve():
         raise RuntimeError("The output must not overwrite the approved manifest")

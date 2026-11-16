@@ -60,7 +60,7 @@ jobs:
           [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
           image="${PUBLISHED_IMAGE%:*}@$digest"
 
-          # Save the exact reference in the report and pass it to subsequent steps.
+          # Pass the exact image reference to subsequent steps.
           printf 'SCAN_IMAGE=%s\n' "$image" >> "$GITHUB_ENV"
 
       - name: Download and verify Trivy
@@ -104,7 +104,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Count Debian vulnerability findings, sinceone package can have several CVEs
+          # Count Debian vulnerability findings, since one package can have several CVEs
           findings=$(jq '[.Results[]? | select(.Class == "os-pkgs" and .Type == "debian") |
             .Vulnerabilities[]?] | length' \
             "$REPORT_DIR/trivy.json")

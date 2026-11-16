@@ -43,7 +43,7 @@ sudo systemctl enable netfilter-persistent
 sudo systemctl restart netfilter-persistent
 sudo systemctl status netfilter-persistent
 
-# Everytime you make a change to iptables, remember to save to disk
+# Every time you make a change to iptables, remember to save to disk
 sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
 ```
 - Customize Fail2ban preferences by editing the file `fail2ban/jail.local`. Currently it bans 2 consecutive failed SIP registration attempts within 30 seconds for 1 week.
