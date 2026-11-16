@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-
 bash /usr/local/sbin/apply-security-updates.sh
 
 ensure_freepbx_cli_links() {

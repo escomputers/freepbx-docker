@@ -21,3 +21,100 @@ source/packages/debs/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# =============================================================================
+# Python
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+develop-eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+wheels/
+share/python-wheels/
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PEP 582
+__pypackages__/
+
+# =============================================================================
+# Type checkers & linters
+# =============================================================================
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pyright
+.pyrightcache/
+pyrightconfig.json.bak
+
+# ruff
+.ruff_cache/
+
+# bandit
+.bandit/
+
+# =============================================================================
+# Testing & coverage
+# =============================================================================
+.pytest_cache/
+.tox/
+.nox/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+cover/
+nosetests.xml
+
+# =============================================================================
+# Runtime
+# =============================================================================
+*.log
+logs/
+*.pid
+
+# =============================================================================
+# IDEs & editors
+# =============================================================================
+.vscode/
+.idea/
+
+# =============================================================================
+# OS
+# =============================================================================
+.DS_Store
+Thumbs.db
+
+# =============================================================================
+# GitHub / CI
+# =============================================================================
+.github/instructions/
+.pypirc
+.ww-runtime/
