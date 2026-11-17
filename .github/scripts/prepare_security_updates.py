@@ -308,6 +308,27 @@ def calculate_file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def read_deb_identity(path: Path) -> dict[str, str]:
+    """Read the package name, version and architecture stored inside a .deb.
+
+    Args:
+        path (Path): Package archive to inspect without installing it.
+
+    Returns:
+        dict[str, str]: Package, Version, and Architecture fields from dpkg-deb.
+
+    Raises:
+        RuntimeError: If dpkg-deb fails or does not return one metadata record.
+        OSError: If dpkg-deb cannot be started.
+    """
+    records = parse_package_metadata(
+        run("dpkg-deb", "--field", str(path), "Package", "Version", "Architecture")
+    )
+    if len(records) != 1:
+        raise RuntimeError(f"Cannot read package identity from {path}")
+    return records[0]
+
+
 def download_and_verify_snapshot_package(
     record: dict[str, str], temporary_dir: Path
 ) -> list[str]:
@@ -382,16 +403,7 @@ def download_and_verify_snapshot_package(
             continue
 
         # Verify the package's own identity after its bytes match the signed index.
-        fields = parse_package_metadata(
-            run(
-                "dpkg-deb",
-                "--field",
-                str(downloaded),
-                "Package",
-                "Version",
-                "Architecture",
-            )
-        )[0]
+        fields = read_deb_identity(downloaded)
         if any(
             fields.get(field) != record[field]
             for field in ("Package", "Version", "Architecture")
@@ -784,11 +796,13 @@ def merge_proposal_rows(
 
 
 def get_manifest_package_file(row: list[str], temporary_dir: Path) -> Path:
-    """Get the exact .deb for a manifest row and verify its SHA-256 checksum.
+    """Get a manifest .deb and verify its checksum and package identity.
 
     Reuse a package already downloaded in this run or present in the published
     image. Download from the row's archived URL only if neither file exists.
     A checksum mismatch stops the procedure instead of selecting another file.
+    Require the archive's Package and Version fields to match the manifest row,
+    and Architecture to be amd64 or all; the manifest has no architecture column.
 
     Args:
         row (list[str]): Package name, version, filename, URL, and SHA-256.
@@ -798,9 +812,10 @@ def get_manifest_package_file(row: list[str], temporary_dir: Path) -> Path:
         Path: Verified .deb path for APT's final simulation.
 
     Raises:
-        RuntimeError: If the filename is invalid, the download fails, or the
-            file's checksum differs from the manifest.
-        OSError: If the file cannot be read or curl cannot be started.
+        RuntimeError: If the filename is invalid, the download fails, the file's
+            checksum or identity differs from the manifest, or its architecture
+            is unsupported.
+        OSError: If the file cannot be read or an external command cannot start.
     """
     name, version, filename, url, checksum = row
 
@@ -819,6 +834,20 @@ def get_manifest_package_file(row: list[str], temporary_dir: Path) -> Path:
 
     if calculate_file_sha256(downloaded) != checksum:
         raise RuntimeError(f"Manifest package checksum differs: {name}={version}")
+
+    # A matching checksum does not prove that the row names the right package.
+    # Read the .deb's own fields before passing the file to the APT simulation.
+    fields = read_deb_identity(downloaded)
+    if fields.get("Package") != name or fields.get("Version") != version:
+        raise RuntimeError(
+            f"Manifest package identity differs: expected {name}={version}, "
+            f"found {fields.get('Package')}={fields.get('Version')}"
+        )
+    if fields.get("Architecture") not in ("amd64", "all"):
+        raise RuntimeError(
+            f"Unsupported manifest package architecture: {name}={version} "
+            f"({fields.get('Architecture')})"
+        )
 
     return downloaded
 
