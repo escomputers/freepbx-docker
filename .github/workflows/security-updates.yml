@@ -40,8 +40,6 @@ jobs:
         shell: bash
     steps:
       - name: Check out the approved manifest and preparation script
-        # act already supplies the local workspace, including uncommitted test files.
-        if: ${{ !env.ACT }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Later Docker commands only need files, not repository credentials.
@@ -139,8 +137,7 @@ jobs:
           # Remove the container when this shell exits, including after a failed step.
           trap 'docker rm --force "$container" > /dev/null || true' EXIT
 
-          # Copy inputs instead of bind-mounting runner paths: under act, those paths
-          # may differ from the filesystem seen by the host's Docker daemon.
+          # Copy the script, approved manifest and scan report into the analysis container.
           docker cp .github/scripts/prepare_security_updates.py \
             "$container:/tmp/prepare_security_updates.py"
           docker cp source/packages/packages.tsv "$container:/tmp/packages.tsv"
@@ -161,9 +158,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the scan report
-        # Preserve any generated reports even if an earlier step fails. Skip GitHub's
-        # artifact service under act; --bind retains reports in the local workspace.
-        if: ${{ always() && !env.ACT }}
+        # Preserve any generated reports even if an earlier step fails.
+        if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: security-report-${{ github.run_id }}-${{ github.run_attempt }}
