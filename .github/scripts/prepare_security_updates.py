@@ -9,7 +9,7 @@ Then for each HIGH/CRITICAL Debian package finding with a known fixed version, i
 
 - searches for available updates in APT, using Bookworm and Bookworm Security;
 
-- verifies that the available version reaches the correct one suggested by Trivy,
+- verifies that the candidate's source version reaches the fix reported by Trivy,
 using specific constraints to avoid breaking compatibility for FreePBX, in particular:
     - PHP: applies updates only within the 8.2 branch;
     - Node: blocks updates for the nodejs package and any package whose name starts with node-.
@@ -21,6 +21,9 @@ and stops if the plan would install new packages, remove packages or downgrade v
 
 - gets the exact `.deb` files from Debian Snapshot, checking that the name, version and
 architecture are correct and that the checksum matches the one published in the verified APT indexes
+
+- checks that APT accepts the complete final manifest using its exact archived
+`.deb` files, including approved package versions kept from previous proposals
 
 - creates a new package manifest proposal: `packages-proposed.tsv` ready to be compared
 with the committed `packages.tsv` file.
@@ -173,6 +176,36 @@ def package_record(options: list[str], name: str, version: str) -> dict[str, str
     return records[0]
 
 
+def get_source_version(record: dict[str, str]) -> str:
+    """Read the source version from an APT binary package record.
+
+    Source may contain a name and a version, such as "e2fsprogs (1.47.0-2)".
+    If Source omits the version, or the entire field is absent, Debian defines
+    the source version as equal to the binary package's Version field.
+
+    Args:
+        record (dict[str, str]): APT package metadata, including Package and
+            Version, and optionally Source.
+
+    Returns:
+        str: Source version to compare with Trivy's required fixed version.
+
+    Raises:
+        RuntimeError: If Source is present but has an invalid format.
+        KeyError: If a required APT metadata field is missing.
+    """
+    source = record.get("Source")
+    if source is None:
+        return record["Version"]
+
+    match = re.fullmatch(r"[a-z0-9][a-z0-9+.-]+(?:\s+\(([^()\s]+)\))?", source.strip())
+    if not match:
+        raise RuntimeError(
+            f"Malformed APT Source field for {record['Package']}: {source!r}"
+        )
+    return match.group(1) or record["Version"]
+
+
 def check_freepbx_compatibility(
     name: str, version: str, record: dict[str, str]
 ) -> str | None:
@@ -256,6 +289,25 @@ def fetch(url: str, destination: Path | None = None) -> str:
     return run(*args, url)
 
 
+def calculate_file_sha256(path: Path) -> str:
+    """Calculate SHA-256 without loading the entire file into memory.
+
+    Args:
+        path (Path): File to read in 1 MiB chunks.
+
+    Returns:
+        str: Hexadecimal SHA-256 checksum of the file contents.
+
+    Raises:
+        OSError: If the file cannot be opened or read.
+    """
+    digest = hashlib.sha256()
+    with path.open("rb") as file:
+        while chunk := file.read(1024 * 1024):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def download_and_verify_snapshot_package(
     record: dict[str, str], temporary_dir: Path
 ) -> list[str]:
@@ -272,8 +324,9 @@ def download_and_verify_snapshot_package(
     Args:
         record (dict[str, str]): APT metadata containing Package, Version,
             Architecture, Filename, and SHA256.
-        temporary_dir (Path): Existing download directory. The working file
-            snapshot-package.deb is overwritten; the caller owns its cleanup.
+        temporary_dir (Path): Existing download directory. Verified .deb files
+            keep their APT filenames for reuse by the final manifest check.
+            The caller owns their cleanup.
 
     Returns:
         list[str]: Manifest columns in order: package name, version, filename,
@@ -322,17 +375,10 @@ def download_and_verify_snapshot_package(
     # A name/version can identify more than one file; the signed APT checksum decides.
     for file_hash in sorted(hashes):
         url = f"https://snapshot.debian.org/file/{file_hash}"
-        downloaded = temporary_dir / "snapshot-package.deb"
+        downloaded = temporary_dir / filename
         fetch(url, downloaded)
 
-        digest = hashlib.sha256()
-
-        # Compute SHA-256 in 1 MiB chunks without loading the entire .deb into memory.
-        with downloaded.open("rb") as file:
-            while chunk := file.read(1024 * 1024):
-                digest.update(chunk)
-
-        if digest.hexdigest() != checksum:
+        if calculate_file_sha256(downloaded) != checksum:
             continue
 
         # Verify the package's own identity after its bytes match the signed index.
@@ -419,8 +465,9 @@ def select_updates(
 
     Check the container against the scanned versions, enforce the FreePBX
     compatibility policy and preserve fixes already present in the approved
-    manifest. Packages without an available newer APT version that satisfies all
-    reported fixes are reported and skipped.
+    manifest. Compare candidate source versions with Trivy's required fixed
+    versions. Packages without a newer binary candidate whose source version
+    satisfies all reported fixes are reported and skipped.
 
     Args:
         options (list[str]): APT options selecting verified Bookworm indexes.
@@ -432,7 +479,8 @@ def select_updates(
 
     Raises:
         RuntimeError: If a command fails, the report differs from the container,
-            a version comparison fails, or an approved checksum conflicts with APT.
+            a version comparison fails, an APT Source field is malformed, or an
+            approved checksum conflicts with APT.
         KeyError: If required finding or APT metadata fields are missing.
         OSError: If an external command cannot be started.
     """
@@ -448,31 +496,42 @@ def select_updates(
                 f"The report and container package versions differ: {name}"
             )
 
-        # Several CVEs can affect one package; meet the highest fixed-version
-        # threshold among its HIGH/CRITICAL findings that have a known fix.
-        required = items[0]["FixedVersion"]
+        # Debian findings use source versions for their fixed-version thresholds.
+        # Require the highest source fix among this package's HIGH/CRITICAL CVEs.
+        required_source_version = items[0]["FixedVersion"]
         for item in items[1:]:
-            if compare(item["FixedVersion"], "gt", required):
-                required = item["FixedVersion"]
+            if compare(item["FixedVersion"], "gt", required_source_version):
+                required_source_version = item["FixedVersion"]
 
         # Run apt-cache policy to find the candidate version available in Bookworm
         policy = run("apt-cache", *options, "policy", name)
         match = re.search(r"^\s*Candidate:\s*(\S+)", policy, re.MULTILINE)
         candidate = match.group(1) if match else "(none)"
 
-        # Skip packages that do not have a candidate version that reaches the required fix.
-        if (
-            candidate == "(none)"
-            or not compare(candidate, "ge", required)
-            or not compare(candidate, "gt", items[0]["InstalledVersion"])
+        # The binary candidate must be newer than the installed binary version.
+        if candidate == "(none)" or not compare(
+            candidate, "gt", items[0]["InstalledVersion"]
         ):
             print(
-                f"SKIP {name}: APT candidate {candidate} does not reach required fix {required}"
+                f"SKIP {name}: APT binary candidate {candidate} is not newer than "
+                f"installed version {items[0]['InstalledVersion']}"
             )
             continue
 
         # Get the package record for the candidate version
         record = package_record(options, name, candidate)
+
+        # The security fix must be present in the source used to build the .deb.
+        # Binary and source versions can differ, so compare the source to Trivy.
+        candidate_source_version = get_source_version(record)
+
+        if not compare(candidate_source_version, "ge", required_source_version):
+            print(
+                f"SKIP {name}: binary candidate {candidate} has source version "
+                f"{candidate_source_version}; required source fix "
+                f"{required_source_version}"
+            )
+            continue
 
         # Check the candidate version against the FreePBX compatibility policy
         compatibility_problem = check_freepbx_compatibility(name, candidate, record)
@@ -495,9 +554,44 @@ def select_updates(
 
         selected[name] = candidate
         print(
-            f"SELECT {name}: {items[0]['InstalledVersion']} -> {candidate}; required {required}"
+            f"SELECT {name}: {items[0]['InstalledVersion']} -> {candidate}; "
+            f"source {candidate_source_version}; "
+            f"required source fix {required_source_version}"
         )
     return selected
+
+
+def run_apt_simulation(options: list[str], packages: list[str]) -> str:
+    """Run an APT installation simulation, print its output, and return it.
+
+    Both simulations use the same command options but receive different package
+    lists. This command does not install packages; callers validate its plan.
+
+    Args:
+        options (list[str]): APT options selecting sources and temporary indexes.
+        packages (list[str]): Exact name=version specifications or absolute
+            paths to .deb files.
+
+    Returns:
+        str: Standard output containing APT's simulated plan.
+
+    Raises:
+        RuntimeError: If apt-get fails.
+        OSError: If apt-get cannot be started.
+    """
+    plan = run(
+        "apt-get",
+        *options,
+        "--simulate",
+        "--verbose-versions",
+        "--only-upgrade",
+        "--no-install-recommends",
+        "--no-remove",
+        "install",
+        *packages,
+    )
+    print(plan, end="")
+    return plan
 
 
 def simulate_upgrades(options: list[str], selected: dict[str, str]) -> dict[str, str]:
@@ -519,19 +613,38 @@ def simulate_upgrades(options: list[str], selected: dict[str, str]) -> dict[str,
         OSError: If an external command cannot be started.
     """
     # Simulate exact versions; include any additional upgrades required by APT.
-    plan = run(
-        "apt-get",
-        *options,
-        "--simulate",
-        "--verbose-versions",
-        "--only-upgrade",
-        "--no-install-recommends",
-        "--no-remove",
-        "install",
-        *(f"{name}={version}" for name, version in selected.items()),
+    plan = run_apt_simulation(
+        options, [f"{name}={version}" for name, version in selected.items()]
     )
-    print(plan, end="")
 
+    upgrades = parse_apt_upgrade_plan(plan)
+
+    # Stop if APT's plan omits any requested package or selects a version
+    # different from the exact version we requested for that package.
+    if any(upgrades.get(name) != version for name, version in selected.items()):
+        raise RuntimeError("The APT plan does not install every selected version")
+
+    return upgrades
+
+
+def parse_apt_upgrade_plan(plan: str) -> dict[str, str]:
+    """Read APT simulation output and reject changes other than package upgrades.
+
+    Shared by the selected-update simulation and the final manifest check so
+    both reject removals, new installations, unsupported architectures, and
+    versions that are not newer than the installed versions.
+
+    Args:
+        plan (str): Standard output from apt-get --simulate --verbose-versions.
+
+    Returns:
+        dict[str, str]: Planned binary package upgrades and their exact versions.
+
+    Raises:
+        RuntimeError: If the plan contains an unsupported change or a version
+            comparison fails.
+        OSError: If dpkg cannot be started for a version comparison.
+    """
     upgrades = {}
     for line in plan.splitlines():
         if line.startswith("Remv "):
@@ -563,11 +676,6 @@ def simulate_upgrades(options: list[str], selected: dict[str, str]) -> dict[str,
             )
 
         upgrades[name] = version
-
-    # Stop if APT's plan omits any requested package or selects a version
-    # different from the exact version we requested for that package.
-    if any(upgrades.get(name) != version for name, version in selected.items()):
-        raise RuntimeError("The APT plan does not install every selected version")
 
     return upgrades
 
@@ -651,6 +759,126 @@ def verify_upgrades(
     return proposals
 
 
+def merge_proposal_rows(
+    rows: list[list[str]], proposals: dict[str, list[str]]
+) -> list[list[str]]:
+    """Combine approved rows and verified updates without writing a file.
+
+    Args:
+        rows (list[list[str]]): Approved five-column manifest rows in their order.
+        proposals (dict[str, list[str]]): Verified new or replacement rows by name.
+
+    Returns:
+        list[list[str]]: Final rows, preserving existing order and appending
+            packages not yet listed in alphabetical order.
+    """
+    approved = {row[0] for row in rows}
+    # Start from the approved packages.tsv rows. If a verified update exists
+    # for a package, replace its row; otherwise keep the approved row unchanged.
+    # Append verified rows for packages not yet listed, sorted by package name.
+    proposed_rows = [proposals.get(row[0], row) for row in rows]
+    proposed_rows.extend(
+        proposals[name] for name in sorted(proposals) if name not in approved
+    )
+    return proposed_rows
+
+
+def get_manifest_package_file(row: list[str], temporary_dir: Path) -> Path:
+    """Get the exact .deb for a manifest row and verify its SHA-256 checksum.
+
+    Reuse a package already downloaded in this run or present in the published
+    image. Download from the row's archived URL only if neither file exists.
+    A checksum mismatch stops the procedure instead of selecting another file.
+
+    Args:
+        row (list[str]): Package name, version, filename, URL, and SHA-256.
+        temporary_dir (Path): Download directory owned and cleaned by the caller.
+
+    Returns:
+        Path: Verified .deb path for APT's final simulation.
+
+    Raises:
+        RuntimeError: If the filename is invalid, the download fails, or the
+            file's checksum differs from the manifest.
+        OSError: If the file cannot be read or curl cannot be started.
+    """
+    name, version, filename, url, checksum = row
+
+    if not re.fullmatch(r"[A-Za-z0-9_.+%:~\-]+\.deb", filename):
+        raise RuntimeError(f"Unexpected manifest filename: {filename!r}")
+
+    downloaded = temporary_dir / filename
+    image_file = Path("/opt/freepbx-security/debs") / filename
+
+    # If the file is not already downloaded, check if it exists in the published image.
+    if not downloaded.is_file():
+        if image_file.is_file():
+            downloaded = image_file
+        else:
+            fetch(url, downloaded)
+
+    if calculate_file_sha256(downloaded) != checksum:
+        raise RuntimeError(f"Manifest package checksum differs: {name}={version}")
+
+    return downloaded
+
+
+def verify_final_manifest(
+    rows: list[list[str]], options: list[str], temporary_dir: Path
+) -> None:
+    """Require APT to accept all final manifest versions together.
+
+    The simulated plan must match the exact versions listed in the final manifest.
+    It must not upgrade packages outside that manifest, install packages not
+    already present, remove packages, downgrade versions or use unsupported
+    architectures.
+
+    Args:
+        rows (list[list[str]]): Complete final five-column manifest rows.
+        options (list[str]): APT options selecting sources and temporary indexes.
+        temporary_dir (Path): Package download directory owned by the caller.
+
+    Raises:
+        RuntimeError: If a file fails verification, APT rejects the combination,
+            or its plan does not produce exactly the manifest versions without
+            upgrading packages outside the manifest.
+        OSError: If a package file or external command cannot be accessed.
+    """
+    versions = {row[0]: row[1] for row in rows}
+
+    files = [get_manifest_package_file(row, temporary_dir) for row in rows]
+    print("Checking dependencies of the complete final manifest with APT.", flush=True)
+
+    plan = run_apt_simulation(options, [str(file) for file in files])
+
+    # Get the planned upgrades from APT's simulation output and check that they
+    # match all the package criterias.
+    upgrades = parse_apt_upgrade_plan(plan)
+
+    for name, version in upgrades.items():
+        if versions.get(name) != version:
+            raise RuntimeError(
+                f"APT's final plan would change a package outside the requested "
+                f"manifest versions: {name}={version}"
+            )
+
+    # A manifest version may already be installed and therefore absent from
+    # APT's upgrade list. Every row must match either the plan or that installed
+    # version; otherwise APT did not accept all requested files as intended.
+    for name, version in versions.items():
+        if name in upgrades:
+            continue
+        installed = run(
+            "dpkg-query", "-W", "-f=${Version}\t${db:Status-Status}", name
+        ).strip()
+        if installed != f"{version}\tinstalled":
+            raise RuntimeError(
+                f"APT's final plan does not install manifest version {name}={version}"
+            )
+
+    print("Final manifest dependency check passed.")
+
+
 def write_proposal(
     rows: list[list[str]], proposals: dict[str, list[str]], output_path: Path
 ) -> None:
@@ -670,14 +898,7 @@ def write_proposal(
     approved = {row[0] for row in rows}
     replaced = sum(name in approved for name in proposals)
     added = len(proposals) - replaced
-
-    # Start from the approved packages.tsv rows. If a verified update exists
-    # for a package, replace its row; otherwise keep the approved row unchanged.
-    # Append verified rows for packages not yet listed, sorted by package name.
-    proposed_rows = [proposals.get(row[0], row) for row in rows]
-    proposed_rows.extend(
-        proposals[name] for name in sorted(proposals) if name not in approved
-    )
+    proposed_rows = merge_proposal_rows(rows, proposals)
     output_path.write_text(
         "".join("\t".join(row) + "\n" for row in proposed_rows), encoding="utf-8"
     )
@@ -701,6 +922,10 @@ def prepare(report_path: Path, manifest_path: Path, output_path: Path) -> None:
 
     Stop if APT proposes to install packages not already present, remove packages,
     or downgrade versions.
+
+    Check the dependencies of the complete final manifest with APT before
+    writing it, including approved rows unchanged by this run. Extra upgrades
+    and substitutions of manifest versions are rejected.
 
     An existing proposal is removed before validation. Existing approved rows in
     packages.tsv keep their order; new rows are appended by package name.
@@ -801,6 +1026,14 @@ def prepare(report_path: Path, manifest_path: Path, output_path: Path) -> None:
             proposals = verify_upgrades(
                 options, upgrades, approved, selected, temporary_dir
             )
+
+        # Merge the verified proposals with the approved manifest rows, preserving the
+        # order of existing rows and appending new rows sorted by package name.
+        final_rows = merge_proposal_rows(rows, proposals)
+
+        # Ask APT to check the dependencies of all final manifest versions together.
+        # Stop before writing the proposal if they cannot be installed as specified.
+        verify_final_manifest(final_rows, options, temporary_dir)
 
     # Write the verified proposal to disk, merging it with the approved manifest.
     write_proposal(rows, proposals, output_path)
