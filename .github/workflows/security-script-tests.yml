@@ -1,0 +1,41 @@
+# Test the security update script
+name: Security script tests
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/scripts/prepare_security_updates.py
+      - tests/**/*.py
+      - .github/workflows/security-script-tests.yml
+  push:
+    branches: [main]
+    paths:
+      - .github/scripts/prepare_security_updates.py
+      - tests/**/*.py
+      - .github/workflows/security-script-tests.yml
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Unit and integration tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out the code to test
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Python and Docker are already available on the Ubuntu runner.
+      - name: Run unit tests
+        run: python3 tests/test_security_updates_unit.py
+
+      # The runner creates and removes its own Debian test container.
+      - name: Run integration tests
+        run: python3 tests/run_integration_tests.py
