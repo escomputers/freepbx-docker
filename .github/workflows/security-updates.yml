@@ -1,7 +1,5 @@
 # Scan the published FreePBX image and prepare a list of verified Debian security updates.
-# The outputs are:
-# - a vulnerability report
-# - a packages-proposed.tsv file
+# Save the scan report and open a pull request for new verified updates from main.
 name: Security update check
 
 on:
@@ -14,7 +12,7 @@ on:
   # For manual runs
   workflow_dispatch:
 
-# Repository access is read-only
+# Only the pull request job needs write access.
 permissions:
   contents: read
 
@@ -28,6 +26,8 @@ jobs:
     name: Scan and prepare security updates
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    outputs:
+      report-id: ${{ steps.report.outputs.artifact-id }}
     env:
       # Image to scan and prepare updates for
       PUBLISHED_IMAGE: docker.io/escomputers/freepbx:17-nofail2ban
@@ -158,6 +158,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the scan report
+        id: report
         # Preserve any generated reports even if an earlier step fails.
         if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -166,3 +167,114 @@ jobs:
           path: ${{ env.REPORT_DIR }}/
           if-no-files-found: warn
           retention-days: 30
+
+  propose:
+    name: Open the security update pull request
+    needs: scan
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out the commit used by the scan
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Open a pull request when new updates are available
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT_ID: ${{ needs.scan.outputs.report-id }}
+          LC_ALL: C
+        run: |
+          set -euo pipefail
+          manifest=source/packages/packages.tsv
+          branch_prefix=automation/security-updates-
+          proposal="$RUNNER_TEMP/packages-proposed.tsv"
+
+          # Use the scan job's artifact ID so rerunning this job alone works too.
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$REPORT_ID/zip" > "$RUNNER_TEMP/security-report.zip"
+          unzip -p "$RUNNER_TEMP/security-report.zip" packages-proposed.tsv > "$proposal"
+
+          # Compare only package versions added or changed relative to main.
+          updates=$(awk -F '\t' '
+            NR == FNR { approved[$1] = $2 ""; next }
+            !($1 in approved) || approved[$1] != ($2 "") { print $1 "\t" $2 }
+          ' "$manifest" "$proposal" | sort -u)
+          if [[ -z "$updates" ]]; then
+            echo 'No new package versions to propose.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Identify this workflow's PRs by their branch names in this repository.
+          pulls=$(gh api --paginate --method GET "repos/$GITHUB_REPOSITORY/pulls" \
+            -f base=main -f state=all -f sort=created -f direction=desc -F per_page=100 \
+            --jq '.[] | select(.head.repo.full_name == .base.repo.full_name) |
+              {number, state, merged_at, branch: .head.ref}')
+          previous=$(jq -cs --arg prefix "$branch_prefix" '
+            map(select(.branch | startswith($prefix))) |
+            (map(select(.state == "open"))[0] //
+              map(select(.state == "closed" and .merged_at == null))[0] // {})
+          ' <<< "$pulls")
+          number=$(jq -r '.number // empty' <<< "$previous")
+          state=$(jq -r '.state // empty' <<< "$previous")
+          if [[ "$state" == open ]]; then
+            printf 'PR #%s is already open. New scan results are available in the report.\n' "$number" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          new_updates="$updates"
+          if [[ "$state" == closed ]]; then
+            # Compare with the packages and versions proposed in the closed PR.
+            patch=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$number/files" \
+              --jq '.[] | select(.filename == "source/packages/packages.tsv") | .patch // empty')
+            if [[ -z "$patch" ]]; then
+              echo "Could not read the package changes from PR #$number." >&2
+              exit 1
+            fi
+            previous_updates=$(awk -F '\t' '
+              /^-[^-]/ { before[substr($1, 2)] = $2 "" }
+              /^\+[^+]/ { after[substr($1, 2)] = $2 "" }
+              END {
+                for (name in after)
+                  if (!(name in before) || before[name] != after[name]) print name "\t" after[name]
+              }
+            ' <<< "$patch" | sort -u)
+            new_updates=$(comm -23 <(printf '%s\n' "$updates") <(printf '%s\n' "$previous_updates"))
+            if [[ -z "$new_updates" ]]; then
+              printf 'No new package versions since PR #%s was closed without merging.\n' "$number" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          fi
+
+          # The scan verified its proposal against the manifest at this commit.
+          git fetch --no-tags --depth=1 origin refs/heads/main
+          if [[ "$(git rev-parse FETCH_HEAD)" != "$GITHUB_SHA" ]]; then
+            echo 'Main changed during the scan. Run a new scan to open a PR.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Give each new PR its own branch so closed PRs keep their original commits.
+          branch="$branch_prefix$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          cp "$proposal" "$manifest"
+          git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'Update Debian security packages' -- "$manifest"
+          git push origin "HEAD:refs/heads/$branch"
+
+          body="$RUNNER_TEMP/security-pr.md"
+          {
+            printf 'This PR updates the Debian security package manifest with the complete set verified in the [scan report](%s/%s/actions/runs/%s).\n' \
+              "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+            if [[ "$new_updates" != "$updates" ]]; then
+              printf '\nNew package versions since PR #%s was closed:\n\n' "$number"
+              awk -F '\t' '{ printf "- `%s` `%s`\n", $1, $2 }' <<< "$new_updates"
+            fi
+          } > "$body"
+          pr_url=$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
+            --title 'Update Debian security packages' --body-file "$body")
+          printf '[Security update pull request](%s)\n' "$pr_url" >> "$GITHUB_STEP_SUMMARY"
