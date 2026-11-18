@@ -1,0 +1,168 @@
+# Scan the published FreePBX image and prepare a list of verified Debian security updates.
+# The outputs are:
+# - a vulnerability report
+# - a packages-proposed.tsv file
+name: Security update check
+
+on:
+  push:
+    branches: [feature/add-workflows]  # temporary development branch
+    paths:
+      - .github/workflows/security-updates.yml
+      - .github/scripts/prepare_security_updates.py
+      - source/packages/packages.tsv
+  # For manual runs
+  workflow_dispatch:
+
+# Repository access is read-only
+permissions:
+  contents: read
+
+# Let an active check finish and prevent concurrent runs of this workflow
+concurrency:
+  group: security-update-check
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    name: Scan and prepare security updates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      # Image to scan and prepare updates for
+      PUBLISHED_IMAGE: docker.io/escomputers/freepbx:17-nofail2ban
+      # Update the scanner version and its release-archive checksum together
+      TRIVY_VERSION: 0.76.2
+      TRIVY_SHA256: bc0fc726e017b8927a62b2d3531d7a84ee01769daf5c99ed866dced54089fdbf
+      REPORT_DIR: security-report
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out the approved manifest and preparation script
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Later Docker commands only need files, not repository credentials.
+          persist-credentials: false
+
+      - name: Resolve the published image digest
+        run: |
+          set -euo pipefail
+          mkdir -p "$REPORT_DIR"
+
+          # Resolve the moving tag to a digest
+          digest=$(docker buildx imagetools inspect "$PUBLISHED_IMAGE" \
+            --format '{{.Manifest.Digest}}')
+
+          # Validate the digest format
+          [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          image="${PUBLISHED_IMAGE%:*}@$digest"
+
+          # Pass the exact image reference to subsequent steps.
+          printf 'SCAN_IMAGE=%s\n' "$image" >> "$GITHUB_ENV"
+
+      - name: Download and verify Trivy
+        run: |
+          set -euo pipefail
+          tool_dir="$RUNNER_TEMP/trivy-bin"
+          mkdir -p "$tool_dir"
+          archive="$tool_dir/trivy.tar.gz"
+
+          curl --proto '=https' --proto-redir '=https' \
+            --fail --silent --show-error --location \
+            "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" \
+            --output "$archive"
+          # Verify the downloaded archive's SHA-256 checksum
+          printf '%s  %s\n' "$TRIVY_SHA256" "$archive" | sha256sum --check --strict -
+
+          tar -xzf "$archive" -C "$tool_dir" trivy
+
+          # GITHUB_PATH makes the verified executable available to later steps.
+          printf '%s\n' "$tool_dir" >> "$GITHUB_PATH"
+
+      - name: Scan Debian HIGH and CRITICAL vulnerabilities
+        run: |
+          set -euo pipefail
+          # Continue when vulnerabilities are found
+          # Stop the job if Trivy cannot complete the scan
+          # Scan only OS packages managed by Debian's package manager.
+          trivy image --image-src remote --platform linux/amd64 \
+            --scanners vuln --pkg-types os --severity HIGH,CRITICAL \
+            --format json --output "$REPORT_DIR/trivy.json" \
+            --timeout 15m "$SCAN_IMAGE"
+
+          # Quick check that the image is a Debian 12 variant with a package database.
+          jq --exit-status '
+            .Metadata.OS.Family == "debian" and
+            (.Metadata.OS.Name | startswith("12")) and
+            any(.Results[]?; .Class == "os-pkgs" and .Type == "debian")
+          ' "$REPORT_DIR/trivy.json" > /dev/null
+
+      - name: Summarize the scan
+        run: |
+          set -euo pipefail
+
+          # Count Debian vulnerability findings, since one package can have several CVEs
+          findings=$(jq '[.Results[]? | select(.Class == "os-pkgs" and .Type == "debian") |
+            .Vulnerabilities[]?] | length' \
+            "$REPORT_DIR/trivy.json")
+          debian_fixed=$(jq '[.Results[]? | select(.Class == "os-pkgs" and .Type == "debian") |
+            .Vulnerabilities[]? | select((.FixedVersion // "") != "")] | length' "$REPORT_DIR/trivy.json")
+
+          # These scan counts describe reported vulnerabilities, before APT checks
+          # whether the corresponding fixes are available and installable together.
+          {
+            printf '## Published image security check\n\n'
+            printf -- '- Image: `%s`\n' "$SCAN_IMAGE"
+            printf -- '- Platform: `linux/amd64`\n'
+            printf -- '- Debian HIGH/CRITICAL findings: %s\n' "$findings"
+            printf -- '- Debian findings with a reported fixed version: %s\n\n' "$debian_fixed"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Prepare and verify the package manifest proposal
+        run: |
+          set -euo pipefail
+
+          # A previous failed attempt must not leave an old update proposal
+          rm -f "$REPORT_DIR/packages-proposed.tsv"
+
+          # Use the scanned image's own package database in a container.
+          container=$(docker create --platform linux/amd64 --entrypoint python3 \
+            "$SCAN_IMAGE" \
+            -u /tmp/prepare_security_updates.py \
+            --report /tmp/trivy.json \
+            --manifest /tmp/packages.tsv \
+            --output /tmp/packages-proposed.tsv)
+
+          # Remove the container when this shell exits, including after a failed step.
+          trap 'docker rm --force "$container" > /dev/null || true' EXIT
+
+          # Copy the script, approved manifest and scan report into the analysis container.
+          docker cp .github/scripts/prepare_security_updates.py \
+            "$container:/tmp/prepare_security_updates.py"
+          docker cp source/packages/packages.tsv "$container:/tmp/packages.tsv"
+          docker cp "$REPORT_DIR/trivy.json" "$container:/tmp/trivy.json"
+
+          # Show progress on screen and save it to the log.
+          # With pipefail, an error in docker start or tee causes the step to fail.
+          docker start --attach "$container" \
+            | tee "$REPORT_DIR/package-proposal.txt"
+          # Also require Python to finish successfully inside the container (exit code 0).
+          [[ "$(docker inspect --format '{{.State.ExitCode}}' "$container")" == 0 ]]
+
+          docker cp "$container:/tmp/packages-proposed.tsv" "$REPORT_DIR/packages-proposed.tsv"
+
+          {
+            printf '\n## Package manifest proposal\n\n'
+            tail -n 1 "$REPORT_DIR/package-proposal.txt"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the scan report
+        # Preserve any generated reports even if an earlier step fails.
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: security-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.REPORT_DIR }}/
+          if-no-files-found: warn
+          retention-days: 30
