@@ -3,13 +3,10 @@
 name: Security update check
 
 on:
-  push:
-    branches: [feature/add-workflows]  # temporary development branch
-    paths:
-      - .github/workflows/security-updates.yml
-      - .github/scripts/prepare_security_updates.py
-      - source/packages/packages.tsv
-  # For manual runs
+  schedule:
+    # Run on the 1st and 15th of each month at 10:17 local time.
+    - cron: '17 10 1,15 * *'
+      timezone: Europe/Rome
   workflow_dispatch:
 
 # Only the pull request job needs write access.
