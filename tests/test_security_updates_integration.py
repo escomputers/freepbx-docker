@@ -363,11 +363,12 @@ class SecurityUpdatesIntegrationTests(unittest.TestCase):  # pylint: disable=too
         app1 = self.build_package("audit-app", "1", depends="audit-lib (>= 1)")
         app2 = self.build_package("audit-app", "2", depends="audit-lib (= 1)")
         self.install_baseline(lib1, app1)
-        with self.assertRaises(RuntimeError):
-            self.prepare(
-                [app2.manifest_row(), lib1.manifest_row()],
-                [self.finding("audit-lib", "1", "2")],
-            )
+        approved = [app2.manifest_row(), lib1.manifest_row()]
+        findings = [self.finding("audit-lib", "1", "2")]
+        with self.assertRaisesRegex(
+            RuntimeError, r"audit-app\s*:\s*Depends:\s+audit-lib \(= 1\)"
+        ):
+            self.prepare(approved, findings)
         self.assertFalse(self.proposal.exists())
 
     def test_compatible_merge_uses_exact_archives_missing_from_current_index(
