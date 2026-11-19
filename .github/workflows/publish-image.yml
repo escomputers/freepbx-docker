@@ -1,0 +1,37 @@
+name: Build FreePBX image
+
+on:
+  # Test the workflow on the development branch before enabling release tags.
+  push:
+    branches:
+      - feature/add-publish-wf
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build the FreePBX image
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the selected commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build the linux/amd64 image
+        id: image
+        run: docker build --platform linux/amd64 --tag "freepbx:${GITHUB_SHA}" ./source
+
+      - name: Summarize the build
+        if: always()
+        env:
+          BUILD_RESULT: ${{ steps.image.outcome }}
+        run: |
+          {
+            printf '## FreePBX image build\n\n'
+            printf -- '- Commit: `%s`\n' "$GITHUB_SHA"
+            printf -- '- Platform: `linux/amd64`\n'
+            printf -- '- Build result: %s\n' "$BUILD_RESULT"
+          } >> "$GITHUB_STEP_SUMMARY"
