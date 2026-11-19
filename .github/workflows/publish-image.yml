@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - feature/add-publish-wf
+    tags:
+      - test-r1
   workflow_dispatch:
 
 permissions:
@@ -89,6 +91,21 @@ jobs:
           docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
           check_after_start
 
+      - name: Export the tested image for publication
+        if: github.event_name == 'push' && github.ref == 'refs/tags/test-r1' && !github.event.deleted
+        run: |
+          skopeo copy "docker-daemon:freepbx:${GITHUB_SHA}" "oci-archive:$RUNNER_TEMP/freepbx.tar"
+
+      - name: Pass the image to the publish job
+        if: github.event_name == 'push' && github.ref == 'refs/tags/test-r1' && !github.event.deleted
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tested-freepbx-image
+          path: ${{ runner.temp }}/freepbx.tar
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
       - name: Summarize the build
         if: always()
         env:
@@ -100,3 +117,42 @@ jobs:
             printf -- '- Platform: `linux/amd64`\n'
             printf -- '- Build result: %s\n' "$BUILD_RESULT"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  publish-test:
+    name: Publish test-r1 to the test registries
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/tags/test-r1' && !github.event.deleted
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    steps:
+      - name: Download the tested image
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: tested-freepbx-image
+          path: ${{ runner.temp }}
+
+      - name: Log in to the test registries
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$DOCKERHUB_TOKEN" | skopeo login --username "$DOCKERHUB_USERNAME" --password-stdin docker.io
+          printf '%s' "$GHCR_TOKEN" | skopeo login --username "$GITHUB_ACTOR" --password-stdin ghcr.io
+
+      - name: Publish and verify the image in each registry
+        shell: bash
+        run: |
+          archive="oci-archive:$RUNNER_TEMP/freepbx.tar"
+          expected=$(skopeo inspect --format '{{.Digest}}' "$archive")
+          echo "Tested image digest: $expected"
+
+          for registry in docker.io ghcr.io; do
+            image="$registry/escomputers/freepbx-test:test-r1"
+            echo "Publishing $image"
+            skopeo copy --preserve-digests "$archive" "docker://$image"
+            published=$(skopeo inspect --format '{{.Digest}}' "docker://$image")
+            echo "$image: $published"
+            test "$published" = "$expected"
+          done
