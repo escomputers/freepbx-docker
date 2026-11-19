@@ -34,6 +34,7 @@ jobs:
           # Give the local build the image name used by the project's Compose file.
           compose_image=$(docker compose config --format json | jq -er '.services.freepbx.image')
           docker image tag "freepbx:${GITHUB_SHA}" "$compose_image"
+          echo "COMPOSE_IMAGE=$compose_image" >> "$GITHUB_ENV"
 
       - name: Start the project and install FreePBX
         run: |
@@ -41,16 +42,52 @@ jobs:
           sudo bash run.sh --install-freepbx
 
       - name: Verify the installed PBX
+        run: |
+          bash .github/scripts/check-installed-pbx.sh
+          container=$(docker compose ps -q freepbx)
+          image_id=$(docker inspect --format '{{.Image}}' "$container")
+          echo "TESTED_IMAGE_ID=$image_id" >> "$GITHUB_ENV"
+
+      - name: Install the published image for the upgrade test
+        run: |
+          # Release the ports and bridge. Use a separate project's volumes for this installation.
+          docker compose down
+          echo 'COMPOSE_PROJECT_NAME=freepbx-upgrade-test' >> .env
+          docker pull "$COMPOSE_IMAGE"
+          sudo bash run.sh
+          sudo bash run.sh --install-freepbx
+
+          system_id="upgrade-test-${GITHUB_RUN_ID}"
+          docker compose exec -T freepbx fwconsole setting FREEPBX_SYSTEM_IDENT "$system_id"
+          bash .github/scripts/check-installed-pbx.sh "$system_id"
+          echo "TEST_SYSTEM_ID=$system_id" >> "$GITHUB_ENV"
+
+      - name: Upgrade FreePBX with the existing volumes
+        run: |
+          docker image tag "freepbx:${GITHUB_SHA}" "$COMPOSE_IMAGE"
+          docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
+          container=$(docker compose ps -q freepbx)
+          test "$(docker inspect --format '{{.Image}}' "$container")" = "$TESTED_IMAGE_ID"
+          bash .github/scripts/check-installed-pbx.sh "$TEST_SYSTEM_ID"
+
+      - name: Verify the upgraded PBX after restart and recreation
         shell: bash
         run: |
-          docker compose exec -T freepbx timeout 60s asterisk -rx 'core waitfullybooted' |
-            grep -F 'Asterisk has fully booted.'
-          status=$(docker compose exec -T freepbx curl --silent --show-error \
-            --max-time 15 --output /dev/null --write-out '%{http_code}' \
-            http://127.0.0.1/admin/config.php)
-          echo "Admin page HTTP status: $status"
-          test "$status" = 200
-          docker compose exec -T freepbx fwconsole reload
+          check_after_start() {
+            bash .github/scripts/check-installed-pbx.sh "$TEST_SYSTEM_ID"
+            # Only inspect logs from this start: the first upgrade may have installed packages.
+            container=$(docker compose ps -q freepbx)
+            started=$(docker inspect --format '{{.State.StartedAt}}' "$container")
+            docker logs --since "$started" "$container" 2>&1 |
+              grep -F '[security] Packages are already up to date; skipping installation.'
+          }
+
+          docker compose restart freepbx
+          docker compose up -d --no-deps --pull never --wait --wait-timeout 600 freepbx
+          check_after_start
+
+          docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
+          check_after_start
 
       - name: Summarize the build
         if: always()
