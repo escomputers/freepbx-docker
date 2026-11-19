@@ -24,6 +24,34 @@ jobs:
         id: image
         run: docker build --platform linux/amd64 --tag "freepbx:${GITHUB_SHA}" ./source
 
+      - name: Prepare the fresh installation
+        run: |
+          umask 077
+          openssl rand -hex 24 > mysql_root_password.txt
+          openssl rand -hex 24 > freepbxuser_password.txt
+          printf '%s\n' '[smtp.example.invalid]:587 test:unused' > sasl_passwd.txt
+
+          # Give the local build the image name used by the project's Compose file.
+          compose_image=$(docker compose config --format json | jq -er '.services.freepbx.image')
+          docker image tag "freepbx:${GITHUB_SHA}" "$compose_image"
+
+      - name: Start the project and install FreePBX
+        run: |
+          sudo bash run.sh
+          sudo bash run.sh --install-freepbx
+
+      - name: Verify the installed PBX
+        shell: bash
+        run: |
+          docker compose exec -T freepbx timeout 60s asterisk -rx 'core waitfullybooted' |
+            grep -F 'Asterisk has fully booted.'
+          status=$(docker compose exec -T freepbx curl --silent --show-error \
+            --max-time 15 --output /dev/null --write-out '%{http_code}' \
+            http://127.0.0.1/admin/config.php)
+          echo "Admin page HTTP status: $status"
+          test "$status" = 200
+          docker compose exec -T freepbx fwconsole reload
+
       - name: Summarize the build
         if: always()
         env:
