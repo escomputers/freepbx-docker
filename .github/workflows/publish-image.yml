@@ -1,12 +1,10 @@
 name: Build FreePBX image
 
 on:
-  # Test the workflow on the development branch before enabling release tags.
   push:
-    branches:
-      - feature/add-publish-wf
     tags:
       - test-r1
+      - test-promote-r1
   workflow_dispatch:
 
 permissions:
@@ -15,6 +13,7 @@ permissions:
 jobs:
   build:
     name: Build the FreePBX image
+    if: github.event_name == 'workflow_dispatch' || (github.ref == 'refs/tags/test-r1' && !github.event.deleted)
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the selected commit
@@ -132,7 +131,8 @@ jobs:
           name: tested-freepbx-image
           path: ${{ runner.temp }}
 
-      - name: Log in to the test registries
+      - &login-test-registries
+        name: Log in to the test registries
         env:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -155,4 +155,31 @@ jobs:
             published=$(skopeo inspect --format '{{.Digest}}' "docker://$image")
             echo "$image: $published"
             test "$published" = "$expected"
+          done
+
+  promote-test:
+    name: Assign test-current to the published test-r1 image
+    if: github.event_name == 'push' && github.ref == 'refs/tags/test-promote-r1' && !github.event.deleted
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    steps:
+      - *login-test-registries
+      - name: Verify test-r1 in both registries before assigning test-current
+        shell: bash
+        run: |
+          # Digest verified by the successful test-r1 publication.
+          expected=sha256:1baf439473ae8d45175466434750a61c62381febcb595d9e23e950bb30225080
+          repos=(docker.io/escomputers/freepbx-test ghcr.io/escomputers/freepbx-test)
+          for repo in "${repos[@]}"; do
+            digest=$(skopeo inspect --format '{{.Digest}}' "docker://$repo:test-r1")
+            echo "$repo:test-r1: $digest (expected $expected)"
+            test "$digest" = "$expected"
+          done
+
+          for repo in "${repos[@]}"; do
+            skopeo copy --preserve-digests "docker://$repo@$expected" "docker://$repo:test-current"
+            digest=$(skopeo inspect --format '{{.Digest}}' "docker://$repo:test-current")
+            echo "$repo:test-current: $digest"
+            test "$digest" = "$expected"
           done
