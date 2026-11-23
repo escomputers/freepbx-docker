@@ -5,6 +5,7 @@ on:
     tags:
       - test-r1
       - test-r2
+      - test-r3
   workflow_dispatch:
 
 permissions:
@@ -13,7 +14,7 @@ permissions:
 jobs:
   build:
     name: Build the FreePBX image
-    if: github.event_name == 'workflow_dispatch' || ((github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2') && !github.event.deleted)
+    if: github.event_name == 'workflow_dispatch' || ((github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2' || github.ref == 'refs/tags/test-r3') && !github.event.deleted)
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the selected commit
@@ -94,7 +95,7 @@ jobs:
           check_after_start
 
       - name: Export the tested image for publication
-        if: &publish-numbered-test github.event_name == 'push' && (github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2') && !github.event.deleted
+        if: &publish-numbered-test github.event_name == 'push' && (github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2' || github.ref == 'refs/tags/test-r3') && !github.event.deleted
         run: |
           skopeo copy "docker-daemon:freepbx:${GITHUB_SHA}" "oci-archive:$RUNNER_TEMP/freepbx.tar"
 
@@ -127,6 +128,9 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       packages: write
+      id-token: write
+      attestations: write
+      contents: read
     outputs:
       digest: ${{ steps.publish.outputs.digest }}
     steps:
@@ -143,8 +147,8 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           GHCR_TOKEN: ${{ github.token }}
         run: |
-          printf '%s' "$DOCKERHUB_TOKEN" | skopeo login --username "$DOCKERHUB_USERNAME" --password-stdin docker.io
-          printf '%s' "$GHCR_TOKEN" | skopeo login --username "$GITHUB_ACTOR" --password-stdin ghcr.io
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin docker.io
+          printf '%s' "$GHCR_TOKEN" | docker login --username "$GITHUB_ACTOR" --password-stdin ghcr.io
 
       - name: Publish and verify the image in each registry
         id: publish
@@ -163,6 +167,34 @@ jobs:
             test "$published" = "$expected"
           done
           echo "digest=$expected" >> "$GITHUB_OUTPUT"
+
+      - name: List both registry names for the verified image digest
+        if: &attest-test-r3 github.ref == 'refs/tags/test-r3'
+        env:
+          DIGEST: ${{ steps.publish.outputs.digest }}
+        run: |
+          for registry in docker.io ghcr.io; do
+            printf '%s  %s/escomputers/freepbx-test\n' "${DIGEST#sha256:}" "$registry"
+          done > "$RUNNER_TEMP/image-subjects.sha256"
+
+      - name: Attest the tested image on GitHub
+        if: *attest-test-r3
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-checksums: ${{ runner.temp }}/image-subjects.sha256
+
+      - name: Verify provenance for each published image reference
+        if: *attest-test-r3
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIGEST: ${{ steps.publish.outputs.digest }}
+        run: |
+          for registry in docker.io ghcr.io; do
+            gh attestation verify "oci://$registry/escomputers/freepbx-test@$DIGEST" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/publish-image.yml" \
+              --source-digest "$GITHUB_SHA"
+          done
 
   promote-test:
     name: Test recovery while moving test-current to test-r2
