@@ -9,6 +9,7 @@ on:
       - test-r3
       - test-promote-r3
       - test-promote-r2
+      - test-partial-r3
   workflow_dispatch:
 
 permissions:
@@ -17,7 +18,7 @@ permissions:
 jobs:
   build:
     name: Build the FreePBX image
-    if: github.event_name == 'workflow_dispatch' || (github.event.created && !startsWith(github.ref_name, 'test-promote-'))
+    if: github.event_name == 'workflow_dispatch' || (github.event.created && !startsWith(github.ref_name, 'test-promote-') && github.ref_name != 'test-partial-r3')
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the selected commit
@@ -141,7 +142,10 @@ jobs:
   publish:
     name: Publish ${{ github.ref_name }}
     needs: build
-    if: *publish-numbered-tag
+    if: >-
+      ${{ !cancelled() && github.event_name == 'push' && github.event.created &&
+      (needs.build.result == 'success' ||
+      (github.ref_name == 'test-partial-r3' && needs.build.result == 'skipped')) }}
     runs-on: ubuntu-24.04
     concurrency: &registry-writes
       group: publish-image-${{ startsWith(github.ref, 'refs/tags/17-nofail2ban-r') && '17-nofail2ban' || 'freepbx-test' }}
@@ -157,6 +161,7 @@ jobs:
       digest: ${{ steps.publish.outputs.digest }}
     steps:
       - name: Download the tested image
+        if: github.ref_name != 'test-partial-r3'
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: tested-freepbx-image
@@ -176,8 +181,12 @@ jobs:
         id: publish
         shell: bash
         run: |
-          archive="oci-archive:$RUNNER_TEMP/freepbx.tar"
-          expected=$(skopeo inspect --format '{{.Digest}}' "$archive")
+          source="oci-archive:$RUNNER_TEMP/freepbx.tar"
+          if [[ "$GITHUB_REF_NAME" == test-partial-r3 ]]; then
+            # Reuse the verified test-r3 image without rebuilding it.
+            source="docker://docker.io/escomputers/freepbx-test@sha256:09ee128c7670a1879c4ffdd7303f30dd715d7efcb36ea04dbbd9650b8ee760d3"
+          fi
+          expected=$(skopeo inspect --format '{{.Digest}}' "$source")
           echo "Tested image digest: $expected"
 
           # Check both registries before writing to either one.
@@ -203,13 +212,23 @@ jobs:
             echo "$image already points to the tested image."
           done
 
+          if [[ "$GITHUB_REF_NAME" == test-partial-r3 && "$GITHUB_RUN_ATTEMPT" == 1 && ${#missing[@]} != 2 ]]; then
+            echo "::error::The partial publication test requires test-partial-r3 to be absent from both registries."
+            exit 1
+          fi
           for image in "${missing[@]}"; do
             echo "Publishing $image"
-            skopeo copy --preserve-digests "$archive" "docker://$image"
+            skopeo copy --preserve-digests "$source" "docker://$image"
             published=$(skopeo inspect --format '{{.Digest}}' "docker://$image")
             echo "$image: $published"
             if [[ "$published" != "$expected" ]]; then
               echo "::error::$image failed verification. Expected $expected, found $published."
+              exit 1
+            fi
+            if [[ "$GITHUB_REF_NAME" == test-partial-r3 && "$image" == docker.io/* ]]; then
+              tags=$(skopeo list-tags "docker://ghcr.io/$IMAGE_REPO")
+              jq -e --arg tag "$GITHUB_REF_NAME" '.Tags | type == "array" and index($tag) == null' <<< "$tags" >/dev/null
+              echo "::error::Test interruption: $image verified at $published; ghcr.io/$IMAGE_REPO:$GITHUB_REF_NAME is absent."
               exit 1
             fi
           done
