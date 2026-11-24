@@ -3,9 +3,12 @@ name: Build FreePBX image
 on:
   push:
     tags:
+      - '17-nofail2ban-r*'
       - test-r1
       - test-r2
       - test-r3
+      - test-promote-r3
+      - test-promote-r2
   workflow_dispatch:
 
 permissions:
@@ -14,13 +17,27 @@ permissions:
 jobs:
   build:
     name: Build the FreePBX image
-    if: github.event_name == 'workflow_dispatch' || ((github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2' || github.ref == 'refs/tags/test-r3') && !github.event.deleted)
+    if: github.event_name == 'workflow_dispatch' || (github.event.created && !startsWith(github.ref_name, 'test-promote-'))
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the selected commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0 # Check release tags against the full history of main.
+
+      - name: Verify the release tag and its commit
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/17-nofail2ban-r')
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^17-nofail2ban-r[1-9][0-9]*$ ]]; then
+            echo "::error::Expected a numbered release tag such as 17-nofail2ban-r3."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/main; then
+            echo "::error::The tagged commit must belong to the history of main."
+            exit 1
+          fi
 
       - name: Build the linux/amd64 image
         id: image
@@ -95,12 +112,12 @@ jobs:
           check_after_start
 
       - name: Export the tested image for publication
-        if: &publish-numbered-test github.event_name == 'push' && (github.ref == 'refs/tags/test-r1' || github.ref == 'refs/tags/test-r2' || github.ref == 'refs/tags/test-r3') && !github.event.deleted
+        if: &publish-numbered-tag github.event_name == 'push' && github.event.created
         run: |
           skopeo copy "docker-daemon:freepbx:${GITHUB_SHA}" "oci-archive:$RUNNER_TEMP/freepbx.tar"
 
       - name: Pass the image to the publish job
-        if: *publish-numbered-test
+        if: *publish-numbered-tag
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: tested-freepbx-image
@@ -121,11 +138,16 @@ jobs:
             printf -- '- Build result: %s\n' "$BUILD_RESULT"
           } >> "$GITHUB_STEP_SUMMARY"
 
-  publish-test:
-    name: Publish ${{ github.ref_name }} to the test registries
+  publish:
+    name: Publish ${{ github.ref_name }}
     needs: build
-    if: *publish-numbered-test
+    if: *publish-numbered-tag
     runs-on: ubuntu-24.04
+    concurrency: &registry-writes
+      group: publish-image-${{ startsWith(github.ref, 'refs/tags/17-nofail2ban-r') && '17-nofail2ban' || 'freepbx-test' }}
+      queue: max
+    env:
+      IMAGE_REPO: ${{ startsWith(github.ref, 'refs/tags/17-nofail2ban-r') && 'escomputers/freepbx' || 'escomputers/freepbx-test' }}
     permissions:
       packages: write
       id-token: write
@@ -140,8 +162,8 @@ jobs:
           name: tested-freepbx-image
           path: ${{ runner.temp }}
 
-      - &login-test-registries
-        name: Log in to the test registries
+      - &login-registries
+        name: Log in to Docker Hub and GHCR
         env:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -158,58 +180,166 @@ jobs:
           expected=$(skopeo inspect --format '{{.Digest}}' "$archive")
           echo "Tested image digest: $expected"
 
+          # Check both registries before writing to either one.
+          missing=()
           for registry in docker.io ghcr.io; do
-            image="$registry/escomputers/freepbx-test:$GITHUB_REF_NAME"
+            repo="$registry/$IMAGE_REPO"
+            image="$repo:$GITHUB_REF_NAME"
+            tags=$(skopeo list-tags "docker://$repo") || { echo "::error::Cannot read tags from $repo"; exit 1; }
+            # Only a valid tag list can establish that a tag is missing.
+            present=$(jq -er --arg tag "$GITHUB_REF_NAME" '
+              .Tags | if type != "array" then error("Expected a tag list")
+              elif index($tag) == null then "missing" else "present" end
+            ' <<< "$tags")
+            if [[ "$present" == "missing" ]]; then
+              missing+=("$image")
+              continue
+            fi
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$image")
+            if [[ "$actual" != "$expected" ]]; then
+              echo "::error::$image already points to a different image. Expected $expected, found $actual."
+              exit 1
+            fi
+            echo "$image already points to the tested image."
+          done
+
+          for image in "${missing[@]}"; do
             echo "Publishing $image"
             skopeo copy --preserve-digests "$archive" "docker://$image"
             published=$(skopeo inspect --format '{{.Digest}}' "docker://$image")
             echo "$image: $published"
-            test "$published" = "$expected"
+            if [[ "$published" != "$expected" ]]; then
+              echo "::error::$image failed verification. Expected $expected, found $published."
+              exit 1
+            fi
           done
           echo "digest=$expected" >> "$GITHUB_OUTPUT"
 
       - name: List both registry names for the verified image digest
-        if: &attest-test-r3 github.ref == 'refs/tags/test-r3'
+        if: &attest-image github.ref == 'refs/tags/test-r3' || startsWith(github.ref, 'refs/tags/17-nofail2ban-r')
         env:
           DIGEST: ${{ steps.publish.outputs.digest }}
         run: |
           for registry in docker.io ghcr.io; do
-            printf '%s  %s/escomputers/freepbx-test\n' "${DIGEST#sha256:}" "$registry"
+            printf '%s  %s/%s\n' "${DIGEST#sha256:}" "$registry" "$IMAGE_REPO"
           done > "$RUNNER_TEMP/image-subjects.sha256"
 
       - name: Attest the tested image on GitHub
-        if: *attest-test-r3
+        if: *attest-image
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
           subject-checksums: ${{ runner.temp }}/image-subjects.sha256
 
       - name: Verify provenance for each published image reference
-        if: *attest-test-r3
+        if: *attest-image
         env:
           GH_TOKEN: ${{ github.token }}
           DIGEST: ${{ steps.publish.outputs.digest }}
         run: |
           for registry in docker.io ghcr.io; do
-            gh attestation verify "oci://$registry/escomputers/freepbx-test@$DIGEST" \
+            gh attestation verify "oci://$registry/$IMAGE_REPO@$DIGEST" \
               --repo "$GITHUB_REPOSITORY" \
               --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/publish-image.yml" \
               --source-digest "$GITHUB_SHA"
           done
 
+  promote:
+    name: Promote the numbered image
+    needs: publish
+    if: >-
+      ${{ !cancelled() && github.event_name == 'push' && github.event.created &&
+      ((startsWith(github.ref_name, '17-nofail2ban-r') && needs.publish.result == 'success') ||
+      (startsWith(github.ref_name, 'test-promote-') && needs.publish.result == 'skipped')) }}
+    runs-on: ubuntu-24.04
+    concurrency: *registry-writes
+    permissions:
+      packages: write
+    steps:
+      - *login-registries
+      - name: Promote the newest published release
+        shell: bash
+        env:
+          DIGEST: ${{ needs.publish.outputs.digest }}
+        run: |
+          repos=(docker.io/escomputers/freepbx ghcr.io/escomputers/freepbx)
+          mobile=17-nofail2ban
+          release=$GITHUB_REF_NAME
+          if [[ "$release" == test-promote-* ]]; then
+            repos=(docker.io/escomputers/freepbx-test ghcr.io/escomputers/freepbx-test)
+            mobile=test-current
+            release=test-${GITHUB_REF_NAME#test-promote-}
+            # Digests recorded by the original successful test publications.
+            case "$release" in
+              test-r3) DIGEST=sha256:09ee128c7670a1879c4ffdd7303f30dd715d7efcb36ea04dbbd9650b8ee760d3 ;;
+              test-r2) DIGEST=sha256:0c9146fd4c16c8be74825480a369092b75caf6b8de137e8d1750b4b349a4051a ;;
+              *) exit 1 ;;
+            esac
+          fi
+          pending=()
+          for repo in "${repos[@]}"; do
+            tags=$(skopeo list-tags "docker://$repo")
+            # Compare revision numbers by digit count first, so r10 sorts after r9.
+            latest=$(jq -er --arg prefix "${release%-r*}-r" '[.Tags[] |
+              select(startswith($prefix) and (ltrimstr($prefix) | test("^[1-9][0-9]*$")))]
+              | max_by([length, .]) // empty' <<< "$tags")
+            if [[ "$latest" != "$release" ]]; then
+              if ! jq -e --arg tag "$release" '.Tags | index($tag) != null' <<< "$tags" >/dev/null; then
+                echo "::error::$repo:$release is missing."
+                exit 1
+              fi
+              echo "Skipping $release: $repo already has $latest."
+              exit 0
+            fi
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$release")
+            if [[ "$actual" != "$DIGEST" ]]; then
+              echo "::error::$repo:$release expected $DIGEST, found $actual."
+              exit 1
+            fi
+            if jq -e --arg tag "$mobile" '.Tags | index($tag) != null' <<< "$tags" >/dev/null; then
+              current=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$mobile")
+              if [[ "$current" == "$DIGEST" ]]; then
+                echo "$repo:$mobile already points to $release."
+                continue
+              fi
+            fi
+            pending+=("$repo")
+          done
+
+          for repo in "${pending[@]}"; do
+            skopeo copy --preserve-digests "docker://$repo@$DIGEST" "docker://$repo:$mobile"
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$mobile")
+            if [[ "$actual" != "$DIGEST" ]]; then
+              echo "::error::$repo:$mobile expected $DIGEST, found $actual."
+              exit 1
+            fi
+            echo "$repo:$mobile now points to $release ($DIGEST)."
+          done
+
+      - name: Verify test-current points to test-r3 in both registries
+        if: startsWith(github.ref_name, 'test-promote-')
+        shell: bash
+        run: |
+          for registry in docker.io ghcr.io; do
+            image="$registry/escomputers/freepbx-test:test-current"
+            digest=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$image")
+            echo "$image -> $digest"
+            test "$digest" = "sha256:09ee128c7670a1879c4ffdd7303f30dd715d7efcb36ea04dbbd9650b8ee760d3"
+          done
+
   promote-test:
     name: Test recovery while moving test-current to test-r2
-    needs: publish-test
+    needs: publish
     if: github.ref == 'refs/tags/test-r2'
     runs-on: ubuntu-24.04
     permissions:
       packages: write
     steps:
-      - *login-test-registries
+      - *login-registries
       - name: Move test-current and resume after the simulated interruption
         shell: bash
         env:
           R1: sha256:1baf439473ae8d45175466434750a61c62381febcb595d9e23e950bb30225080
-          R2: ${{ needs.publish-test.outputs.digest }}
+          R2: ${{ needs.publish.outputs.digest }}
         run: |
           hub=docker.io/escomputers/freepbx-test
           ghcr=ghcr.io/escomputers/freepbx-test
