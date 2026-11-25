@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 0 # Check the test tag against the feature branch history.
+          fetch-depth: 0 # Check release tags against the full history of main.
 
       - name: Read the FreePBX image from Compose
         run: |
@@ -49,8 +49,8 @@ jobs:
           fi
           echo "Tag $GITHUB_REF_NAME matches Compose series $series."
           echo "series=$series" >> "$GITHUB_OUTPUT"
-          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/feature/add-publish-wf; then
-            echo "::error::The tagged commit must belong to the history of feature/add-publish-wf."
+          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/main; then
+            echo "::error::The tagged commit must belong to the history of main."
             exit 1
           fi
 
@@ -166,7 +166,7 @@ jobs:
       group: publish-image-${{ needs.build.outputs.series }}
       queue: max
     env:
-      IMAGE_REPO: escomputers/freepbx-test
+      IMAGE_REPO: escomputers/freepbx
     permissions:
       packages: write
       id-token: write
@@ -274,7 +274,7 @@ jobs:
           mobile: ${{ needs.build.outputs.series }}
           DIGEST: ${{ needs.publish.outputs.digest }}
         run: |
-          repos=(docker.io/escomputers/freepbx-test ghcr.io/escomputers/freepbx-test)
+          repos=(docker.io/escomputers/freepbx ghcr.io/escomputers/freepbx)
           release=$GITHUB_REF_NAME
           pending=()
           for repo in "${repos[@]}"; do

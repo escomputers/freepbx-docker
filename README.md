@@ -119,3 +119,32 @@ sudo docker compose up -d --no-deps --wait --wait-timeout 600 freepbx
 ```
 
 The existing volumes are reused. During startup, the container installs the required security package updates before starting the services. This may take a few minutes, during which the PBX is unavailable.
+
+## Verify image provenance
+
+Images published by the `publish-image.yml` workflow have a signed GitHub attestation.\
+Releases r1 and r2 were published without one.
+
+Run `gh auth status`. If it reports that you are logged in to github.com, continue.\
+Otherwise, run `gh auth login --hostname github.com` and complete the sign-in.
+
+Choose Docker Hub or GHCR, then pull the image:
+```bash
+IMAGE='docker.io/escomputers/freepbx'
+# or
+# IMAGE='ghcr.io/escomputers/freepbx'
+
+docker pull "${IMAGE}:17-nofail2ban"
+```
+
+Set `DIGEST` to the full sha256:... value from the Digest: line printed by docker pull command.
+```bash
+# Example
+DIGEST='sha256:...'
+
+gh attestation verify "oci://${IMAGE}@${DIGEST}" \
+  --repo escomputers/freepbx-docker \
+  --signer-workflow escomputers/freepbx-docker/.github/workflows/publish-image.yml
+```
+
+Successful verification confirms that this repository's publishing workflow signed the attestation for the exact image digest stored locally.
