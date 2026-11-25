@@ -5,6 +5,11 @@ on:
     tags:
       - '*-r[0-9]+'
   workflow_dispatch:
+    inputs:
+      first_release:
+        description: First release of a new series
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -21,7 +26,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 0 # Check release tags against the full history of main.
+          fetch-depth: 0 # Check the test tag against the feature branch history.
 
       - name: Read the FreePBX image from Compose
         run: |
@@ -44,8 +49,8 @@ jobs:
           fi
           echo "Tag $GITHUB_REF_NAME matches Compose series $series."
           echo "series=$series" >> "$GITHUB_OUTPUT"
-          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/main; then
-            echo "::error::The tagged commit must belong to the history of main."
+          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/feature/add-publish-wf; then
+            echo "::error::The tagged commit must belong to the history of feature/add-publish-wf."
             exit 1
           fi
 
@@ -79,6 +84,10 @@ jobs:
           echo "TESTED_IMAGE_ID=$image_id" >> "$GITHUB_ENV"
 
       - name: Install the published image for the upgrade test
+        # The first release has no published image in the same series to upgrade from.
+        if: &test-upgrade >-
+          (github.event_name == 'push' && !endsWith(github.ref_name, '-r1')) ||
+          (github.event_name == 'workflow_dispatch' && !inputs.first_release)
         run: |
           # Release the ports and bridge. Use a separate project's volumes for this installation.
           docker compose down
@@ -93,6 +102,7 @@ jobs:
           echo "TEST_SYSTEM_ID=$system_id" >> "$GITHUB_ENV"
 
       - name: Upgrade FreePBX with the existing volumes
+        if: *test-upgrade
         run: |
           docker image tag "freepbx:${GITHUB_SHA}" "$COMPOSE_IMAGE"
           docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
@@ -101,6 +111,7 @@ jobs:
           bash .github/scripts/check-installed-pbx.sh "$TEST_SYSTEM_ID"
 
       - name: Verify the upgraded PBX after restart and recreation
+        if: *test-upgrade
         shell: bash
         run: |
           check_after_start() {
@@ -155,7 +166,7 @@ jobs:
       group: publish-image-${{ needs.build.outputs.series }}
       queue: max
     env:
-      IMAGE_REPO: escomputers/freepbx
+      IMAGE_REPO: escomputers/freepbx-test
     permissions:
       packages: write
       id-token: write
@@ -263,7 +274,7 @@ jobs:
           mobile: ${{ needs.build.outputs.series }}
           DIGEST: ${{ needs.publish.outputs.digest }}
         run: |
-          repos=(docker.io/escomputers/freepbx ghcr.io/escomputers/freepbx)
+          repos=(docker.io/escomputers/freepbx-test ghcr.io/escomputers/freepbx-test)
           release=$GITHUB_REF_NAME
           pending=()
           for repo in "${repos[@]}"; do

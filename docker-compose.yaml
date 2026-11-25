@@ -54,7 +54,7 @@ services:
     # environment:
     #   MAXFILES: "32768"
     restart: always
-    image: escomputers/freepbx:17-nofail2ban
+    image: escomputers/freepbx-test:test
     healthcheck:
       test:
         - CMD-SHELL
