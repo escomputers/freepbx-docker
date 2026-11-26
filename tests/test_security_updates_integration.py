@@ -391,7 +391,7 @@ class SecurityUpdatesIntegrationTests(unittest.TestCase):  # pylint: disable=too
     def test_valid_unchanged_native_and_architecture_all_packages_are_accepted(
         self,
     ) -> None:
-        """A no-findings run must preserve valid native and architecture-all rows."""
+        """If Trivy reports no vulnerabilities, the proposed package list must match the approved list exactly."""
         native = self.build_package("audit-native", "1")
         portable = self.build_package("audit-portable", "1", architecture="all")
         self.install_baseline(native, portable)

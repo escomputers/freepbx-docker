@@ -56,10 +56,16 @@ fi
 
 # Install FreePBX, then restart it to start module services.
 if [[  "$*" == *"--install-freepbx"*  ]]; then
-  sudo docker compose exec -it -w /usr/local/src/freepbx freepbx \
+  # Use an interactive terminal when available. CI runs without one.
+  tty_option=-T
+  if [[ -t 0 && -t 1 ]]; then
+    tty_option=-it
+  fi
+
+  sudo docker compose exec "$tty_option" -w /usr/local/src/freepbx freepbx \
     php install -n --dbuser=freepbxuser \
     --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db \
-    && sudo docker compose exec -it freepbx fwconsole restart
+    && sudo docker compose exec "$tty_option" freepbx fwconsole restart
 
 # Clean up all FreePBX Docker containers, volumes, and networks.
 elif [[  "$*" == *"--clean-all"*  ]]; then

@@ -1,0 +1,322 @@
+name: Build FreePBX image
+
+on:
+  push:
+    tags:
+      - '*-r[0-9]+'
+  workflow_dispatch:
+    inputs:
+      first_release:
+        description: First release of a new series
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build the FreePBX image
+    if: github.event_name == 'workflow_dispatch' || github.event.created
+    runs-on: ubuntu-24.04
+    outputs:
+      series: ${{ steps.release.outputs.series }}
+    steps:
+      - name: Check out the selected commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # Check release tags against the full history of main.
+
+      - name: Read the FreePBX image from Compose
+        run: |
+          image=$(docker compose config --format json | jq -er '.services.freepbx.image')
+          echo "COMPOSE_IMAGE=$image" >> "$GITHUB_ENV"
+
+      - name: Verify the release tag and its commit
+        id: release
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          if [[ "$COMPOSE_IMAGE" == *@* || "${COMPOSE_IMAGE##*/}" != *:* ]]; then
+            echo "::error::Expected a tagged FreePBX image in Compose, found $COMPOSE_IMAGE."
+            exit 1
+          fi
+          series=${COMPOSE_IMAGE##*:}
+          if [[ "${GITHUB_REF_NAME%-r*}" != "$series" || ! "${GITHUB_REF_NAME##*-r}" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match Compose image $COMPOSE_IMAGE. Expected ${series}-r followed by a positive revision number."
+            exit 1
+          fi
+          echo "Tag $GITHUB_REF_NAME matches Compose series $series."
+          echo "series=$series" >> "$GITHUB_OUTPUT"
+          if ! git merge-base --is-ancestor HEAD refs/remotes/origin/main; then
+            echo "::error::The tagged commit must belong to the history of main."
+            exit 1
+          fi
+
+      - name: Build the linux/amd64 image
+        id: image
+        run: |
+          docker build --platform linux/amd64 \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --tag "freepbx:${GITHUB_SHA}" ./source
+
+      - name: Prepare the fresh installation
+        run: |
+          umask 077
+          openssl rand -hex 24 > mysql_root_password.txt
+          openssl rand -hex 24 > freepbxuser_password.txt
+          printf '%s\n' '[smtp.example.invalid]:587 test:unused' > sasl_passwd.txt
+
+          # Give the local build the image name used by the project's Compose file.
+          docker image tag "freepbx:${GITHUB_SHA}" "$COMPOSE_IMAGE"
+
+      - name: Start the project and install FreePBX
+        run: |
+          sudo bash run.sh
+          sudo bash run.sh --install-freepbx
+
+      - name: Verify the installed PBX
+        run: |
+          bash .github/scripts/check-installed-pbx.sh
+          container=$(docker compose ps -q freepbx)
+          image_id=$(docker inspect --format '{{.Image}}' "$container")
+          echo "TESTED_IMAGE_ID=$image_id" >> "$GITHUB_ENV"
+
+      - name: Install the published image for the upgrade test
+        # The first release has no published image in the same series to upgrade from.
+        if: &test-upgrade >-
+          (github.event_name == 'push' && !endsWith(github.ref_name, '-r1')) ||
+          (github.event_name == 'workflow_dispatch' && !inputs.first_release)
+        run: |
+          # Release the ports and bridge. Use a separate project's volumes for this installation.
+          docker compose down
+          echo 'COMPOSE_PROJECT_NAME=freepbx-upgrade-test' >> .env
+          docker pull "$COMPOSE_IMAGE"
+          sudo bash run.sh
+          sudo bash run.sh --install-freepbx
+
+          system_id="upgrade-test-${GITHUB_RUN_ID}"
+          docker compose exec -T freepbx fwconsole setting FREEPBX_SYSTEM_IDENT "$system_id"
+          # Write once on the old installation so later starts can verify both volumes.
+          docker compose exec -T freepbx sh -ec '
+            printf "%s\n" "$1" > /etc/.freepbx-ci-etc
+            printf "%s\n" "$1" > /var/.freepbx-ci-var
+          ' sh "$system_id"
+          bash .github/scripts/check-installed-pbx.sh "$system_id"
+          echo "TEST_SYSTEM_ID=$system_id" >> "$GITHUB_ENV"
+
+      - name: Upgrade FreePBX with the existing volumes
+        if: *test-upgrade
+        run: |
+          docker image tag "freepbx:${GITHUB_SHA}" "$COMPOSE_IMAGE"
+          docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
+          container=$(docker compose ps -q freepbx)
+          test "$(docker inspect --format '{{.Image}}' "$container")" = "$TESTED_IMAGE_ID"
+          bash .github/scripts/check-installed-pbx.sh "$TEST_SYSTEM_ID"
+
+      - name: Verify the upgraded PBX after restart and recreation
+        if: *test-upgrade
+        shell: bash
+        run: |
+          check_after_start() {
+            bash .github/scripts/check-installed-pbx.sh "$TEST_SYSTEM_ID"
+            # Only inspect logs from this start: the first upgrade may have installed packages.
+            container=$(docker compose ps -q freepbx)
+            started=$(docker inspect --format '{{.State.StartedAt}}' "$container")
+            docker logs --since "$started" "$container" 2>&1 |
+              grep -F '[security] Packages are already up to date; skipping installation.'
+          }
+
+          docker compose restart freepbx
+          docker compose up -d --no-deps --pull never --wait --wait-timeout 600 freepbx
+          check_after_start
+
+          docker compose up -d --no-deps --pull never --force-recreate --wait --wait-timeout 600 freepbx
+          check_after_start
+
+      - name: Export the tested image for publication
+        if: &publish-numbered-tag github.event_name == 'push' && github.event.created
+        run: |
+          skopeo copy "docker-daemon:freepbx:${GITHUB_SHA}" "oci-archive:$RUNNER_TEMP/freepbx.tar"
+
+      - name: Pass the image to the publish job
+        if: *publish-numbered-tag
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tested-freepbx-image
+          path: ${{ runner.temp }}/freepbx.tar
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
+      - name: Summarize the build
+        if: always()
+        env:
+          BUILD_RESULT: ${{ steps.image.outcome }}
+        run: |
+          {
+            printf '## FreePBX image build\n\n'
+            printf -- '- Commit: `%s`\n' "$GITHUB_SHA"
+            printf -- '- Platform: `linux/amd64`\n'
+            printf -- '- Build result: %s\n' "$BUILD_RESULT"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  publish:
+    name: Publish ${{ github.ref_name }}
+    needs: build
+    if: *publish-numbered-tag
+    runs-on: ubuntu-24.04
+    concurrency: &registry-writes
+      group: publish-image-${{ needs.build.outputs.series }}
+      queue: max
+    env:
+      IMAGE_REPO: escomputers/freepbx
+    permissions:
+      packages: write
+      id-token: write
+      attestations: write
+      contents: read
+    outputs:
+      digest: ${{ steps.publish.outputs.digest }}
+    steps:
+      - name: Download the tested image
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: tested-freepbx-image
+          path: ${{ runner.temp }}
+
+      - &login-registries
+        name: Log in to Docker Hub and GHCR
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin docker.io
+          printf '%s' "$GHCR_TOKEN" | docker login --username "$GITHUB_ACTOR" --password-stdin ghcr.io
+
+      - name: Publish and verify the image in each registry
+        id: publish
+        shell: bash
+        run: |
+          source="oci-archive:$RUNNER_TEMP/freepbx.tar"
+          expected=$(skopeo inspect --format '{{.Digest}}' "$source")
+          echo "Tested image digest: $expected"
+
+          # Check both registries before writing to either one.
+          missing=()
+          for registry in docker.io ghcr.io; do
+            repo="$registry/$IMAGE_REPO"
+            image="$repo:$GITHUB_REF_NAME"
+            tags=$(skopeo list-tags "docker://$repo") || { echo "::error::Cannot read tags from $repo"; exit 1; }
+            # Only a valid tag list can establish that a tag is missing.
+            present=$(jq -er --arg tag "$GITHUB_REF_NAME" '
+              .Tags | if type != "array" then error("Expected a tag list")
+              elif index($tag) == null then "missing" else "present" end
+            ' <<< "$tags")
+            if [[ "$present" == "missing" ]]; then
+              missing+=("$image")
+              continue
+            fi
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$image")
+            if [[ "$actual" != "$expected" ]]; then
+              echo "::error::$image already points to a different image. Expected $expected, found $actual."
+              exit 1
+            fi
+            echo "$image already points to the tested image."
+          done
+
+          for image in "${missing[@]}"; do
+            echo "Publishing $image"
+            skopeo copy --preserve-digests "$source" "docker://$image"
+            published=$(skopeo inspect --format '{{.Digest}}' "docker://$image")
+            echo "$image: $published"
+            if [[ "$published" != "$expected" ]]; then
+              echo "::error::$image failed verification. Expected $expected, found $published."
+              exit 1
+            fi
+          done
+          echo "digest=$expected" >> "$GITHUB_OUTPUT"
+
+      - name: List both registry names for the verified image digest
+        env:
+          DIGEST: ${{ steps.publish.outputs.digest }}
+        run: |
+          for registry in docker.io ghcr.io; do
+            printf '%s  %s/%s\n' "${DIGEST#sha256:}" "$registry" "$IMAGE_REPO"
+          done > "$RUNNER_TEMP/image-subjects.sha256"
+
+      - name: Attest the tested image on GitHub
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-checksums: ${{ runner.temp }}/image-subjects.sha256
+
+      - name: Verify provenance for each published image reference
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIGEST: ${{ steps.publish.outputs.digest }}
+        run: |
+          for registry in docker.io ghcr.io; do
+            gh attestation verify "oci://$registry/$IMAGE_REPO@$DIGEST" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/publish-image.yml" \
+              --source-digest "$GITHUB_SHA"
+          done
+
+  promote:
+    name: Promote the numbered image
+    needs: [build, publish]
+    runs-on: ubuntu-24.04
+    concurrency: *registry-writes
+    permissions:
+      packages: write
+    steps:
+      - *login-registries
+      - name: Promote the newest published release
+        shell: bash
+        env:
+          mobile: ${{ needs.build.outputs.series }}
+          DIGEST: ${{ needs.publish.outputs.digest }}
+        run: |
+          repos=(docker.io/escomputers/freepbx ghcr.io/escomputers/freepbx)
+          release=$GITHUB_REF_NAME
+          pending=()
+          for repo in "${repos[@]}"; do
+            tags=$(skopeo list-tags "docker://$repo")
+            # Compare revision numbers by digit count first, so r10 sorts after r9.
+            latest=$(jq -er --arg prefix "${mobile}-r" '[.Tags[] |
+              select(startswith($prefix) and (ltrimstr($prefix) | test("^[1-9][0-9]*$")))]
+              | max_by([length, .]) // empty' <<< "$tags")
+            if [[ "$latest" != "$release" ]]; then
+              if ! jq -e --arg tag "$release" '.Tags | index($tag) != null' <<< "$tags" >/dev/null; then
+                echo "::error::$repo:$release is missing."
+                exit 1
+              fi
+              echo "Skipping $release: $repo already has $latest."
+              exit 0
+            fi
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$release")
+            if [[ "$actual" != "$DIGEST" ]]; then
+              echo "::error::$repo:$release expected $DIGEST, found $actual."
+              exit 1
+            fi
+            if jq -e --arg tag "$mobile" '.Tags | index($tag) != null' <<< "$tags" >/dev/null; then
+              current=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$mobile")
+              if [[ "$current" == "$DIGEST" ]]; then
+                echo "$repo:$mobile already points to $release."
+                continue
+              fi
+            fi
+            pending+=("$repo")
+          done
+
+          for repo in "${pending[@]}"; do
+            skopeo copy --preserve-digests "docker://$repo@$DIGEST" "docker://$repo:$mobile"
+            actual=$(skopeo inspect --no-tags --format '{{.Digest}}' "docker://$repo:$mobile")
+            if [[ "$actual" != "$DIGEST" ]]; then
+              echo "::error::$repo:$mobile expected $DIGEST, found $actual."
+              exit 1
+            fi
+            echo "$repo:$mobile now points to $release ($DIGEST)."
+          done
