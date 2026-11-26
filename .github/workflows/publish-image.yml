@@ -98,6 +98,11 @@ jobs:
 
           system_id="upgrade-test-${GITHUB_RUN_ID}"
           docker compose exec -T freepbx fwconsole setting FREEPBX_SYSTEM_IDENT "$system_id"
+          # Write once on the old installation so later starts can verify both volumes.
+          docker compose exec -T freepbx sh -ec '
+            printf "%s\n" "$1" > /etc/.freepbx-ci-etc
+            printf "%s\n" "$1" > /var/.freepbx-ci-var
+          ' sh "$system_id"
           bash .github/scripts/check-installed-pbx.sh "$system_id"
           echo "TEST_SYSTEM_ID=$system_id" >> "$GITHUB_ENV"
 
