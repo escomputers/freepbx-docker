@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+# Resolve the project in the same Docker context used for cleanup.
+if [[ $# -eq 1 && "$1" == "--clean-all" ]]; then
+  set -o pipefail
+  project=$(docker compose config --environment | sed -n 's/^COMPOSE_PROJECT_NAME=//p') || exit 1
+  if [[ ! "$project" =~ ^[a-z0-9][a-z0-9_-]*$ ]]; then
+    echo "ERROR: Could not determine the Compose project." >&2
+    exit 1
+  fi
+  echo "This will delete Compose project '$project' and its data volumes."
+  read -r -p "Continue? (yes/no) " confirmation
+  if [[ "$confirmation" == "yes" ]]; then
+    exec docker compose -p "$project" down --volumes
+  fi
+  echo "Cleanup aborted."
+  exit 0
+fi
+
+for arg in "$@"; do
+  if [[ "$arg" == *--clean-all* ]]; then
+    echo "Usage: sudo bash run.sh --clean-all" >&2
+    exit 1
+  fi
+done
+
 # Detect the primary egress interface (IPv4) by asking the kernel
 # how it would reach the Internet
 get_default_iface() {
@@ -66,22 +90,6 @@ if [[  "$*" == *"--install-freepbx"*  ]]; then
     php install -n --dbuser=freepbxuser \
     --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db \
     && sudo docker compose exec "$tty_option" freepbx fwconsole restart
-
-# Clean up all FreePBX Docker containers, volumes, and networks.
-elif [[  "$*" == *"--clean-all"*  ]]; then
-  read -r -p "Are you sure you want to clean up everything? Data will be lost. (yes/no)? " confirmation
-  if [[ "$confirmation" != "yes" ]]; then
-    echo "Cleanup aborted."
-    exit 0
-  fi
-  sudo docker container stop freepbx-docker-db-1 && sudo docker container rm freepbx-docker-db-1
-  sudo docker container stop freepbx-docker-freepbx-1 && sudo docker container rm freepbx-docker-freepbx-1
-  sudo docker container stop fail2ban && sudo docker container rm fail2ban
-  sudo docker volume rm freepbx-docker_var_data
-  sudo docker volume rm freepbx-docker_etc_data
-  sudo docker volume rm freepbx-docker_mysql_data
-  sudo docker network rm freepbx-docker_defaultnet
-
 
 # UNSUPPORTED HOST CASE
 elif [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "MINGW" ]]; then
