@@ -72,6 +72,8 @@ chmod 600 mysql_root_password.txt freepbxuser_password.txt sasl_passwd.txt
 
 2. To complete postfix configuration, set the `relayhost` in [postfix/main.cf](source/postfix/main.cf) to match your SMTP server defined in `sasl_passwd.txt`. 
 
+   To require TLS for outgoing mail, set `smtp_tls_security_level = encrypt` in `/etc/postfix/main.cf` and reload Postfix with `sudo docker compose exec freepbx postfix reload`.
+
 3. OPTION A: build the image from scratch:
 ```bash
 sudo docker build -t your-image-name:your-tag ./source
