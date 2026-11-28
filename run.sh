@@ -42,7 +42,7 @@ fi
 
 # Parse optional --rtp RANGE argument without affecting other flags
 # Supports only "--rtp 10000-20000"
-requested_rtp=""
+unset requested_rtp
 prev=""
 for arg in "$@"; do
   if [[ "$prev" == "--rtp" ]]; then
@@ -62,20 +62,18 @@ if [[ -n "$prev" ]]; then
   exit 1
 fi
 
-if [[ -n "$requested_rtp" ]]; then
-  if [[ "$requested_rtp" =~ ^[0-9]+-[0-9]+$ ]]; then
-    start_port="${requested_rtp%%-*}"
-    end_port="${requested_rtp##*-}"
-    if (( end_port > start_port )); then
-      rtp_port_range="$requested_rtp"
-    else
-      echo "ERROR: Invalid --rtp value '$requested_rtp'. The right number must be greater than the left (e.g., 10000-20000)." >&2
-      exit 1
-    fi
-  else
-    echo "ERROR: Invalid --rtp value '$requested_rtp'. Use two integers separated by '-' (e.g., 10000-20000)." >&2
+if [[ ${requested_rtp+x} ]]; then
+  if [[ ! "$requested_rtp" =~ ^([0-9]{1,5})-([0-9]{1,5})$ ]]; then
+    echo "ERROR: Expected --rtp START-END with ports between 1 and 65535." >&2
     exit 1
   fi
+  start_port=$((10#${BASH_REMATCH[1]}))
+  end_port=$((10#${BASH_REMATCH[2]}))
+  if (( start_port < 1 || end_port > 65535 || start_port >= end_port )); then
+    echo "ERROR: Invalid RTP range '$requested_rtp': expected 1 <= START < END <= 65535." >&2
+    exit 1
+  fi
+  rtp_port_range="$start_port-$end_port"
 fi
 
 # Install FreePBX, then restart it to start module services.
@@ -103,8 +101,11 @@ else
         # Allow incoming UDP traffic to container on the RTP port range on the DOCKER-USER chain 
         # to ensure media packets are accepted before other rules are applied.
         if ! sudo iptables -C DOCKER-USER -p udp -d "$freepbxip" --dport "${rtp_port_range/-/:}" -j ACCEPT 2>/dev/null; then
-            sudo iptables -I DOCKER-USER -p udp -d "$freepbxip" --dport "${rtp_port_range/-/:}" -j ACCEPT \
-            && echo "Rule for incoming RTP traffic added!"
+            if ! sudo iptables -I DOCKER-USER -p udp -d "$freepbxip" --dport "${rtp_port_range/-/:}" -j ACCEPT; then
+              echo "ERROR: Could not add the incoming RTP rule in DOCKER-USER." >&2
+              exit 1
+            fi
+            echo "Rule for incoming RTP traffic added!"
         else
             echo "Rule for incoming RTP traffic already in place."
         fi
@@ -113,8 +114,12 @@ else
         # and matching the RTP port range to the FreePBX host.
         if ! sudo iptables -t nat -C PREROUTING -i "$DEFAULT_IFACE" -p udp --dport "${rtp_port_range/-/:}" \
             -j DNAT --to-destination "$freepbxip:${rtp_port_range/:/-}" 2>/dev/null; then
-            sudo iptables -t nat -A PREROUTING -i "$DEFAULT_IFACE" -p udp --dport "${rtp_port_range/-/:}" \
-            -j DNAT --to-destination "$freepbxip:${rtp_port_range/:/-}" && echo "Rule for Destination NAT RTP added!"
+            if ! sudo iptables -t nat -A PREROUTING -i "$DEFAULT_IFACE" -p udp --dport "${rtp_port_range/-/:}" \
+            -j DNAT --to-destination "$freepbxip:${rtp_port_range/:/-}"; then
+              echo "ERROR: Could not add the RTP destination NAT rule in PREROUTING." >&2
+              exit 1
+            fi
+            echo "Rule for Destination NAT RTP added!"
         else
             echo "Rule for Destination NAT RTP already in place."
         fi
