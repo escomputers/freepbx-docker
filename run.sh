@@ -40,9 +40,7 @@ if [[ -z "$DEFAULT_IFACE" ]]; then
   exit 1
 fi
 
-# Parse optional --rtp RANGE argument without affecting other flags
-# Supports only "--rtp 10000-20000"
-unset requested_rtp
+# Read the optional RTP port range
 prev=""
 for arg in "$@"; do
   if [[ "$prev" == "--rtp" ]]; then
